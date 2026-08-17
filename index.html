@@ -28,7 +28,7 @@
         }
 
         body {
-            background: #dcecf7 url("images/watermark.png") center center / 700px no-repeat fixed;
+            background: url("images/watermark.png") center center / cover no-repeat fixed;
             color: var(--deep-blue);
             padding: 40px 15px;
             min-height: 100vh;
@@ -42,10 +42,10 @@
             max-width: 1150px;
             width: 100%;
             background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
-            border: 2px solid #d4af37;
+            border: 2px solid #DAA520;
             border-radius: 12px;
             padding: 60px 25px 25px;
-            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.2);
+            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.4);
             position: relative;
             overflow: hidden;
             margin-bottom: 25px;
@@ -54,7 +54,7 @@
         /* Top Accent Line */
         .top-orange {
             height: 6px;
-            background: linear-gradient(90deg, #c99819, #f4d477, #c99819);
+            background: linear-gradient(90deg, #FF8C00, #FFD700, #DAA520, #4682B4, #FF8C00);
             position: absolute;
             top: 0;
             left: 0;
@@ -67,11 +67,11 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #F0F7FC;
+            background: #0B192C;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #f4d477, #c99819);
+            background: linear-gradient(180deg, #FFD700, #DAA520, #FF8C00);
             border-radius: 10px;
         }
 
@@ -85,13 +85,13 @@
         }
 
         .logo {
-            max-width: 450px;
-            width: 90%;
+            max-width: 750px;
+            width: 95%;
             height: auto;
             object-fit: contain;
             display: block;
             margin: 0 auto;
-            border: 3px solid #d4af37;
+            border: 3px solid #DAA520;
             border-radius: 12px;
             background: #fff;
         }
@@ -99,7 +99,7 @@
         hr {
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            background: linear-gradient(90deg, transparent, #DAA520, transparent);
             margin: 30px 0;
         }
 
@@ -113,7 +113,7 @@
             background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
             padding: 24px;
             border-radius: 12px;
-            border: 2px solid #d4af37;
+            border: 2px solid #DAA520;
             box-shadow: 0 8px 20px rgba(11, 25, 44, 0.2);
             margin-top: 25px;
         }
@@ -133,7 +133,7 @@
         .qr {
             width: 170px;
             height: 170px;
-            border: 3px solid #d4af37;
+            border: 3px solid #DAA520;
             border-radius: 10px;
             background: #fff;
             padding: 0;
@@ -144,31 +144,32 @@
         .payment-details h3 {
             margin-bottom: 12px;
             font-size: 20px;
-            color: #9a7415;
+            color: #DAA520;
             font-weight: 700;
         }
 
         .payment-details p {
             margin-bottom: 8px;
             font-size: 15px;
-            color: #403a2d;
+            color: #0B192C;
             font-weight: 600;
             word-break: break-all;
         }
 
         .payment-details p b {
-            color: #403a2d;
+            color: #FF8C00;
         }
 
         /* Form Controls & Layout */
         .form-section-title {
-            color: #9a7415;
-            border-bottom: 1px solid #d4af37;
+            color: #DAA520;
+            border-bottom: 1px solid #DAA520;
             padding-bottom: 6px;
             margin: 35px 0 20px 0;
             font-size: 27px;
             font-weight: 700;
             text-align: center;
+            text-shadow: 0 1px 2px rgba(11, 25, 44, 0.1);
         }
 
         .field {
@@ -180,12 +181,12 @@
         label {
             margin-bottom: 8px;
             font-weight: 700;
-            color: #403a2d;
+            color: #0B192C;
             font-size: 15px;
         }
 
         label span {
-            color: #c99819;
+            color: #FF8C00;
         }
 
         input[type="text"],
@@ -196,9 +197,9 @@
             width: 100%;
             padding: 13px 16px;
             background-color: #ffffff;
-            border: 1px solid #dfc36b;
+            border: 1px solid #DAA520;
             border-radius: 8px;
-            color: #403a2d;
+            color: #0B192C;
             font-size: 15px;
             font-weight: 500;
             outline: none;
@@ -208,14 +209,14 @@
 
         input::placeholder,
         textarea::placeholder {
-            color: #403a2d;
-            opacity: 0.5;
+            color: #4682B4;
+            opacity: 0.6;
         }
 
         input:focus,
         textarea:focus {
-            border-color: #9a7415;
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 4px rgba(255, 140, 0, 0.2);
             background-color: #fffdf5;
         }
 
@@ -232,18 +233,18 @@
             margin-top: 15px;
             padding: 15px;
             background: #fffdf5;
-            border: 1px solid #dfc36b;
+            border: 1px solid #DAA520;
             border-radius: 10px;
         }
 
         .numerology-item {
             font-size: 14px;
             font-weight: 600;
-            color: #403a2d;
+            color: #0B192C;
         }
 
         .numerology-item span {
-            color: #9a7415;
+            color: #FF8C00;
             font-weight: 700;
         }
 
@@ -251,39 +252,72 @@
         .dynamic-quiz-container {
             margin-top: 20px;
             padding: 20px;
-            background: #fffdf5;
-            border: 1px solid #dfc36b;
+            background: linear-gradient(135deg, #fffdf7 0%, #ffffff 100%);
+            border: 1px solid #DAA520;
             border-radius: 10px;
         }
 
         .dynamic-quiz-card {
             background: #ffffff;
-            border: 1px solid #d4af37;
+            border: 1px solid #DAA520;
             border-radius: 8px;
             padding: 18px;
             margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(11, 25, 44, 0.05);
         }
 
         .dynamic-quiz-card h4 {
-            color: #9a7415;
+            color: #0B192C;
             font-size: 16px;
             margin-bottom: 12px;
+            border-bottom: 1px dashed #DAA520;
+            padding-bottom: 6px;
         }
 
         .symptom-item {
             display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 14px;
+            padding: 10px;
+            background: #f8fafc;
+            border-left: 3px solid #DAA520;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .symptom-item:hover {
+            background: #fff8e6;
+        }
+
+        .symptom-header {
+            display: flex;
             align-items: flex-start;
             gap: 10px;
-            margin-bottom: 8px;
             font-size: 14px;
-            color: #403a2d;
-            cursor: pointer;
+            font-weight: 600;
+            color: #0B192C;
         }
 
         .symptom-item input[type="checkbox"] {
             margin-top: 3px;
-            accent-color: #9a7415;
-            transform: scale(1.1);
+            accent-color: #FF8C00;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .symptom-hindi {
+            font-size: 13px;
+            color: #4682B4;
+            margin-left: 24px;
+            font-style: italic;
+        }
+
+        .symptom-hinglish {
+            font-size: 12px;
+            color: #64748b;
+            margin-left: 24px;
         }
 
         /* Phone Field List */
@@ -295,8 +329,8 @@
 
         .add-btn {
             background-color: transparent;
-            border: 1.5px dashed #d4af37;
-            color: #80600f;
+            border: 1.5px dashed #DAA520;
+            color: #0B192C;
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
@@ -307,14 +341,14 @@
         }
 
         .add-btn:hover {
-            background-color: #d4af37;
+            background-color: #DAA520;
             color: #ffffff;
         }
 
         /* Submit Action */
         .submit-btn {
-            background: linear-gradient(135deg, #c99819, #f4d477, #c99819);
-            color: #3b321f;
+            background: linear-gradient(135deg, #FF8C00, #DAA520, #FFD700);
+            color: #0B192C;
             border: none;
             padding: 16px 45px;
             font-size: 17px;
@@ -323,7 +357,7 @@
             cursor: pointer;
             display: block;
             margin: 35px auto 10px auto;
-            box-shadow: 0 4px 12px rgba(180, 140, 30, 0.25);
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
             transition: transform 0.2s, box-shadow 0.2s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -331,7 +365,7 @@
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(180, 140, 30, 0.4);
+            box-shadow: 0 6px 18px rgba(255, 140, 0, 0.5);
         }
 
         .submit-btn:disabled {
@@ -361,8 +395,8 @@
             background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
             border-radius: 12px;
             padding: 30px;
-            border: 2px solid #d4af37;
-            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.2);
+            border: 2px solid #DAA520;
+            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.4);
         }
 
         .footer-grid {
@@ -376,19 +410,19 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            background-color: rgba(255, 255, 255, 0.08);
+            background-color: rgba(11, 25, 44, 0.03);
             padding: 12px;
             border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(218, 165, 32, 0.3);
         }
 
         .footer-icon {
             font-size: 18px;
-            color: #b58918;
+            color: #DAA520;
         }
 
         .footer-item h4 {
-            color: #8f6b12;
+            color: #0B192C;
             font-size: 13px;
             font-weight: 700;
             margin-bottom: 3px;
@@ -396,7 +430,7 @@
 
         .footer-item p,
         .footer-item a {
-            color: #4b4333;
+            color: #4682B4;
             font-size: 12px;
             font-weight: 500;
             text-decoration: none;
@@ -405,14 +439,14 @@
         }
 
         .footer-item a:hover {
-            color: #9a7415;
+            color: #FF8C00;
         }
 
         .footer-bottom {
             text-align: center;
-            border-top: 1px solid #e2cf8a;
+            border-top: 1px solid #DAA520;
             padding-top: 20px;
-            color: #6b5a32;
+            color: #0B192C;
             font-size: 14px;
         }
 
@@ -422,13 +456,8 @@
             text-align: center;
         }
 
-        .footer-bottom span {
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
         p {
-            color: #403a2d;
+            color: #0B192C;
             text-align: left;
             font-size: 15px;
         }
@@ -465,16 +494,7 @@
     </style>
 </head>
 
-<body style="
-    margin: 0;
-    min-height: 100vh;
-    background-color: #dcecf7;
-    background-image: url('images/watermark.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    background-attachment: fixed;
-">
+<body>
 
     <div class="container">
 
@@ -492,7 +512,7 @@
         <div
             style="background-color: rgba(255, 255, 255, 0.65); padding: 20px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4);">
             <div class="field" style="margin-bottom: 0;">
-                <label style="color: #403a2d; font-size: 18px;"><b>Date of Form Filling</b> <span>*</span></label>
+                <label style="color: #0B192C; font-size: 18px;"><b>Date of Form Filling</b> <span>*</span></label>
                 <input type="date" id="submissionDate" name="submissionDate" required>
             </div>
         </div>
@@ -627,10 +647,10 @@
             <div style="max-width: 1150px; margin: 0 auto 55px; text-align: center;">
 
                 <div
-                    style="width: 80px; height: 3px; background: linear-gradient(90deg, #c99819, #f4d477, #c99819); margin: 0 auto 20px;">
+                    style="width: 80px; height: 3px; background: linear-gradient(90deg, #FF8C00, #DAA520, #FFD700); margin: 0 auto 20px;">
                 </div>
 
-                <h2 style="color: #9a7415; font-size: 30px; margin: 0 0 25px; letter-spacing: 0.5px;">
+                <h2 style="color: #0B192C; font-size: 30px; margin: 0 0 25px; letter-spacing: 0.5px;">
                     While Building New, Renovating, or Resolving Issues
                     in Your House, Factory or Office
                 </h2>
@@ -639,103 +659,103 @@
                 <div
                     style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin: 25px auto 30px; font-family: Arial, sans-serif;">
                     <span
-                        style="background: #ffffff; border: 1px solid #d4af37; color: #80600f; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(180,140,30,0.12);">
-                        Structure Layout[cite: 1]
+                        style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
+                        Structure Layout
                     </span>
-                    <span style="color: #c99819; font-size: 25px; font-weight: bold;">→</span>
+                    <span style="color: #FF8C00; font-size: 25px; font-weight: bold;">→</span>
                     <span
-                        style="background: #ffffff; border: 1px solid #d4af37; color: #80600f; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(180,140,30,0.12);">
-                        Furniture Layout[cite: 1]
+                        style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
+                        Furniture Layout
                     </span>
-                    <span style="color: #c99819; font-size: 25px; font-weight: bold;">→</span>
+                    <span style="color: #FF8C00; font-size: 25px; font-weight: bold;">→</span>
                     <span
-                        style="background: #ffffff; border: 1px solid #d4af37; color: #80600f; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(180,140,30,0.12);">
-                        Interior Layout[cite: 1]
+                        style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
+                        Interior Layout
                     </span>
                 </div>
 
                 <p
-                    style="max-width: 950px; margin: 0 auto 45px; font-size: 17px; line-height: 1.8; color: #514936; text-align: center;">
+                    style="max-width: 950px; margin: 0 auto 45px; font-size: 17px; line-height: 1.8; color: #0B192C; text-align: center;">
                     Once the interior layout is in place, you can build or renovate
-                    your <strong>home, office, or factory</strong> accordingly.[cite: 1]
+                    your <strong>home, office, or factory</strong> accordingly.
                 </p>
 
                 <!-- HOW BLUEBERRY WORKS -->
                 <div
-                    style="max-width: 1050px; margin: 0 auto; padding: 35px 35px; background: rgba(255,255,255,0.85); border: 1px solid #dfc36b; border-radius: 18px; box-shadow: 0 8px 30px rgba(157,119,20,0.10); text-align: left;">
-                    <h3 style="text-align: center; color: #9a7415; font-size: 27px; margin: 0 0 25px;">
+                    style="max-width: 1050px; margin: 0 auto; padding: 35px 35px; background: rgba(255,255,255,0.9); border: 1px solid #DAA520; border-radius: 18px; box-shadow: 0 8px 30px rgba(11,25,44,0.10); text-align: left;">
+                    <h3 style="text-align: center; color: #DAA520; font-size: 27px; margin: 0 0 25px;">
                         How Blueberry Works
                     </h3>
-                    <p style="font-size: 17px; line-height: 1.9; margin: 0; color: #403a2d;">
-                        <strong style="color:#8b6815;">
+                    <p style="font-size: 17px; line-height: 1.9; margin: 0; color: #0B192C;">
+                        <strong style="color:#FF8C00;">
                             Blueberry synchronizes the Architectural Drawings,
                             integrates the Vastu principles and advice provided by
                             your Vastu Consultant, and aligns the Luxury Interior
                             Design created by your Interior Designer with AstroVastu,
-                            Numerology, Palmistry and Energy[cite: 1]
+                            Numerology, Palmistry and Energy
                         </strong>
                         — creating a personalized environment for the individual
-                        to enhance their[cite: 1]
-                        <strong style="color:#9a7415;">
-                            Aura (Personality), Profession, and Manifestation.[cite: 1]
+                        to enhance their
+                        <strong style="color:#DAA520;">
+                            Aura (Personality), Profession, and Manifestation.
                         </strong>
                     </p>
-                    <p style="font-size: 17px; line-height: 1.9; margin: 25px 0 0; color: #403a2d;">
-                        Blueberry brings these elements together to create a[cite: 1]
-                        <strong style="color:#9a7415;">
+                    <p style="font-size: 17px; line-height: 1.9; margin: 25px 0 0; color: #0B192C;">
+                        Blueberry brings these elements together to create a
+                        <strong style="color:#DAA520;">
                             synchronized environment where your space works in
-                            harmony with your personality[cite: 1]
+                            harmony with your personality
                         </strong>,
                         helping you unlock your potential, strengthen your presence,
-                        and create greater visibility and impact in the market.[cite: 1]
+                        and create greater visibility and impact in the market.
                     </p>
                 </div>
 
                 <!-- MAGICAL SYSTEM -->
                 <div
-                    style="max-width: 1000px; margin: 35px auto; padding: 25px 30px; background: linear-gradient(135deg, #fffdf5, #ffffff, #fff8df); border-top: 1px solid #d4af37; border-bottom: 1px solid #d4af37; text-align: center;">
+                    style="max-width: 1000px; margin: 35px auto; padding: 25px 30px; background: linear-gradient(135deg, #fffdf5, #ffffff, #fff8df); border-top: 1px solid #DAA520; border-bottom: 1px solid #DAA520; text-align: center;">
                     <p
-                        style="margin: 0; font-size: 20px; line-height: 1.7; color: #8a6713; font-weight: bold; font-style: italic; text-align: center;">
+                        style="margin: 0; font-size: 20px; line-height: 1.7; color: #DAA520; font-weight: bold; font-style: italic; text-align: center;">
                         “A Step-by-Step, Balanced & Magical System to Fulfill Your
                         Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
-                        Home, Office, or Factory.”[cite: 1]
+                        Home, Office, or Factory.”
                     </p>
                 </div>
 
                 <!-- STRATEGIC ADVICE -->
                 <div style="max-width: 1050px; margin: 0 auto; text-align: left;">
-                    <p style="font-size: 17px; line-height: 1.9; color: #403a2d; margin-bottom: 25px;">
-                        This[cite: 1]
-                        <strong style="color:#9a7415;">
-                            strategic advice[cite: 1]
+                    <p style="font-size: 17px; line-height: 1.9; color: #0B192C; margin-bottom: 25px;">
+                        This
+                        <strong style="color:#DAA520;">
+                            strategic advice
                         </strong>
-                        is designed to[cite: 1]
+                        is designed to
                         <strong>
-                            structure and support your Subconscious mind[cite: 1]
+                            structure and support your Subconscious mind
                         </strong>,
                         which is essential for building a strong brand, creating
                         substantial wealth, overcoming weaknesses and losses,
                         and transforming challenges and losses into opportunities
-                        and investments.[cite: 1]
+                        and investments.
                     </p>
-                    <p style="font-size: 18px; line-height: 1.9; color: #403a2d; text-align: center; margin: 0;">
-                        Ultimately, this strategic approach is designed to help you[cite: 1]
-                        become an[cite: 1]
-                        <strong style="color:#9a7415;">
-                            Influencer[cite: 1]
+                    <p style="font-size: 18px; line-height: 1.9; color: #0B192C; text-align: center; margin: 0;">
+                        Ultimately, this strategic approach is designed to help you
+                        become an
+                        <strong style="color:#DAA520;">
+                            Influencer
                         </strong>,
-                        harness[cite: 1]
-                        <strong style="color:#9a7415;">
-                            Media Power[cite: 1]
+                        harness
+                        <strong style="color:#DAA520;">
+                            Media Power
                         </strong>,
-                        and create a[cite: 1]
-                        <strong style="color:#9a7415;">
-                            Viral Presence[cite: 1]
+                        and create a
+                        <strong style="color:#DAA520;">
+                            Viral Presence
                         </strong>,
-                        enabling you to[cite: 1]
-                        <strong style="color:#80600f;">
+                        enabling you to
+                        <strong style="color:#FF8C00;">
                             excel, achieve sustained growth, increase your visibility,
-                            and move towards a top position in the market.[cite: 1]
+                            and move towards a top position in the market.
                         </strong>
                     </p>
                 </div>
@@ -744,52 +764,52 @@
 
             <!-- GOLD DIVIDER -->
             <div
-                style="max-width: 1150px; height: 1px; background: linear-gradient(90deg, transparent, #d4af37, transparent); margin: 0 auto 40px;">
+                style="max-width: 1150px; height: 1px; background: linear-gradient(90deg, transparent, #DAA520, transparent); margin: 0 auto 40px;">
             </div>
 
             <!-- EXISTING CONTACT FOOTER -->
             <div class="footer-grid"
                 style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
                 <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                    <div class="footer-icon" style="color: #b58918; font-size: 25px;">✉</div>
+                    <div class="footer-icon" style="color: #DAA520; font-size: 25px;">✉</div>
                     <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">Email</h4>
+                        <h4 style="color:#0B192C; margin:0 0 8px;">Email</h4>
                         <p style="margin:0;"><a href="mailto:infoblueberryvaastu@gmail.com"
-                                style="color:#4b4333; text-decoration:none;">Infoblueberryvaastu@gmail.com</a></p>
+                                style="color:#4682B4; text-decoration:none;">Infoblueberryvaastu@gmail.com</a></p>
                     </div>
                 </div>
 
                 <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                    <div class="footer-icon" style="color: #b58918; font-size: 25px; font-weight:bold;">in</div>
+                    <div class="footer-icon" style="color: #DAA520; font-size: 25px; font-weight:bold;">in</div>
                     <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">LinkedIn</h4>
-                        <p style="margin:0; color:#4b4333;">Blueberry Luxury Interior Design inbuilt with Astrovastu</p>
+                        <h4 style="color:#0B192C; margin:0 0 8px;">LinkedIn</h4>
+                        <p style="margin:0; color:#4682B4;">Blueberry Luxury Interior Design inbuilt with Astrovastu</p>
                     </div>
                 </div>
 
                 <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                    <div class="footer-icon" style="color: #b58918; font-size: 25px;">📷</div>
+                    <div class="footer-icon" style="color: #DAA520; font-size: 25px;">📷</div>
                     <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">Instagram</h4>
-                        <p style="margin:0; color:#4b4333;">blueberry_230326</p>
+                        <h4 style="color:#0B192C; margin:0 0 8px;">Instagram</h4>
+                        <p style="margin:0; color:#4682B4;">blueberry_230326</p>
                     </div>
                 </div>
 
                 <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                    <div class="footer-icon" style="color: #b58918; font-size: 25px;">🌐</div>
+                    <div class="footer-icon" style="color: #DAA520; font-size: 25px;">🌐</div>
                     <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">Website</h4>
-                        <p style="margin:0; color:#4b4333;">blueberries.in</p>
+                        <h4 style="color:#0B192C; margin:0 0 8px;">Website</h4>
+                        <p style="margin:0; color:#4682B4;">blueberries.in</p>
                     </div>
                 </div>
             </div>
 
             <!-- FOOTER BOTTOM -->
             <div class="footer-bottom"
-                style="max-width: 1150px; margin: 40px auto 0; padding-top: 22px; border-top: 1px solid #e2cf8a; text-align: center; color: #6b5a32; font-size: 14px;">
-                <p style="margin:0; color:#9a7415; text-align: center;">
-                    Thank you for choosing[cite: 1]
-                    <b style="color:#9a7415;">BLUEBERRY[cite: 1]</b>
+                style="max-width: 1150px; margin: 40px auto 0; padding-top: 22px; border-top: 1px solid #DAA520; text-align: center; color: #0B192C; font-size: 14px;">
+                <p style="margin:0; color:#DAA520; text-align: center;">
+                    Thank you for choosing
+                    <b style="color:#FF8C00;">BLUEBERRY</b>
                 </p>
             </div>
 
@@ -797,23 +817,43 @@
 
     </div>
 
-    <!-- JavaScript Engine: LocalStorage Handler & Google Sheets Submission -->
+    <!-- JavaScript Engine: Bilingual Diagnostic Database, Chaldean Numerology & Form Submissions -->
     <script>
         // Set Default Date of Filling to Today
         document.getElementById('submissionDate').valueAsDate = new Date();
 
-        // Planet Diagnostic Symptoms Database based on Worksheet (Codes 1 to 9)
+        // Planet Diagnostic Symptoms Database with English, Hindi, and Hinglish Support
         const planetSymptoms = {
             1: {
                 name: "SUN / सूर्य (Surya)",
                 navdurga: "Goddess Shailputri (Navdurga - East)",
                 mahavidya: "Goddess Tripura Sundari & Bhairavi (Mahavidya - East)",
                 symptoms: [
-                    "Chronic Indecisiveness: Constantly asking multiple people for advice on small matters and being unable to stick to a single choice.",
-                    "Identity Crisis & Self-Doubt: Seeking validation from others for self-worth and feeling completely helpless when left alone.",
-                    "Weak Physical Posture & Low Stamina: Walking with slouched shoulders, feeling fatigued easily, and lacking physical or mental core strength.",
-                    "Severe Aesthetic Neglect: Keeping your room cluttered, wearing unwashed or dull clothes, and completely ignoring personal grooming.",
-                    "Fear-Induced Procrastination: Delaying critical projects simply because you fear the outcome won't be perfect or successful."
+                    {
+                        eng: "Chronic Indecisiveness: Constantly asking multiple people for advice on small matters and being unable to stick to a single choice.",
+                        hin: "छोटी-छोटी बातों पर लोगों से राय मांगना और किसी एक फैसले पर टिक न पाना।",
+                        hgl: "Chhoti-chhoti baton par logon se raya mangana aur kisi ek faisale par tik na pana."
+                    },
+                    {
+                        eng: "Identity Crisis & Self-Doubt: Seeking validation from others for self-worth and feeling completely helpless when left alone.",
+                        hin: "दूसरों से अपनी तारीफ सुनने की चाह रखना और अकेले होने पर असहाय महसूस करना।",
+                        hgl: "Dusaron se apani tarif sunane ki chaha rakhana aur akele hone par asahaya mahasusa karana."
+                    },
+                    {
+                        eng: "Weak Physical Posture & Low Stamina: Walking with slouched shoulders, feeling fatigued easily, and lacking physical or mental core strength.",
+                        hin: "कंधे झुकाकर चलना, बहुत जल्दी थक जाना और शारीरिक व मानसिक मजबूती की कमी होना।",
+                        hgl: "Kandhe jhukakar chalana, bahut jaldi thak jana aur sharirik va manasik majabuti ki kami hona."
+                    },
+                    {
+                        eng: "Severe Aesthetic Neglect: Keeping your room cluttered, wearing unwashed or dull clothes, and completely ignoring personal grooming.",
+                        hin: "कमरे को बिखरा रखना, गंदे या बिना इस्त्री किए कपड़े पहनना और खुद के सौंदर्य पर ध्यान न देना।",
+                        hgl: "Kamare ko bikhar rakhana, gnde ya bina istri kie kapade pahanana aur khud ke saundarya par dhyana na dena."
+                    },
+                    {
+                        eng: "Fear-Induced Procrastination: Delaying critical projects simply because you fear the outcome won't be perfect or successful.",
+                        hin: "काम को केवल इसलिए टालते रहना क्योंकि आपको डर है कि परिणाम सही नहीं आएगा।",
+                        hgl: "Kam ko keval isliye talate rahana kyunki apako dar hai ki parinam sahi nahi aega."
+                    }
                 ]
             },
             2: {
@@ -821,10 +861,26 @@
                 navdurga: "Goddess Chandraghanta (Navdurga - Northwest)",
                 mahavidya: "Goddess Bhuvaneshwari (Mahavidya - Northwest)",
                 symptoms: [
-                    "Nervous Habits & Restlessness: Constantly biting nails, tapping feet, shaking hands, or walking around the room in circles due to high anxiety.",
-                    "Extreme Mood Swings: Being happy one moment and bursting into tears or anger the next over trivial household issues.",
-                    "Claustrophobic & Negative Mindset: Believing that every new idea is bound to fail and refusing to try any modern or innovative methods.",
-                    "Withdrawing into a Shell: Avoiding social connections, locking oneself in a dark room, and limiting interactions with the outside world."
+                    {
+                        eng: "Nervous Habits & Restlessness: Constantly biting nails, tapping feet, shaking hands, or walking around the room in circles due to high anxiety.",
+                        hin: "चिंता के कारण नाखून चबाना, पैर हिलाना या कमरे में बिना वजह चक्कर काटना।",
+                        hgl: "Chinta ke karana nakhuna chabana, pair hilana ya kamare men bina vajaha chakkar katana."
+                    },
+                    {
+                        eng: "Extreme Mood Swings: Being happy one moment and bursting into tears or anger the next over trivial household issues.",
+                        hin: "एक पल में खुश होना और अगले ही पल घर की छोटी सी बात पर रोने या गुस्सा करने लगना।",
+                        hgl: "Ek pal men khusha hona aur agale hi pal ghar ki chhoti si bata par rone ya gussa karane lagana."
+                    },
+                    {
+                        eng: "Claustrophobic & Negative Mindset: Believing that every new idea is bound to fail and refusing to try any modern or innovative methods.",
+                        hin: "यह मानना कि हर नया विचार असफल ही होगा और नए तौर-तरीकों को अपनाने से पूरी तरह मना करना।",
+                        hgl: "Yaha manana ki har naya vichar asafal hi hoga aur naye taura-tarikon ko apanane se puri taraha mana karana."
+                    },
+                    {
+                        eng: "Withdrawing into a Shell: Avoiding social connections, locking oneself in a dark room, and limiting interactions with the outside world.",
+                        hin: "लोगों से मिलना-जुलना बंद कर देना, खुद को बंद कमरे में रखना और बाहरी दुनिया से कट जाना।",
+                        hgl: "Logon se milana-julana bnda kar dena, khud ko bnda kamare men rakhana aur bahari duniya se kata jana."
+                    }
                 ]
             },
             3: {
@@ -832,10 +888,26 @@
                 navdurga: "Goddess Skandmata (Navdurga - Northeast)",
                 mahavidya: "Goddess Tara (Mahavidya - Northeast)",
                 symptoms: [
-                    "Deep Emotional Alienation: Living with a constant inner feeling of being an outsider in your own family or office team.",
-                    "Over-defensive & Suspicious Behavior: Treating every helpful gesture from others with suspicion, thinking they have a selfish motive.",
-                    "Stuck in 'Theory Only' Mode: Giving long, philosophical speeches to others while your own career, finances, and relationships are in a complete mess.",
-                    "Severe Analysis-Paralysis: Over-thinking every minor business contract or email draft until the client gets frustrated and cancels the deal."
+                    {
+                        eng: "Deep Emotional Alienation: Living with a constant inner feeling of being an outsider in your own family or office team.",
+                        hin: "अपने ही परिवार या ऑफिस की टीम में खुद को एक बाहरी व्यक्ति या अजनबी महसूस करना।",
+                        hgl: "Apane hi parivar ya office ki tim men khud ko ek bahari vyakti ya ajanabi mahasusa karana."
+                    },
+                    {
+                        eng: "Over-defensive & Suspicious Behavior: Treating every helpful gesture from others with suspicion, thinking they have a selfish motive.",
+                        hin: "दूसरों की मदद की पेशकश को भी शक की निगाह से देखना कि उनका कोई स्वार्थ होगा।",
+                        hgl: "Dusaron ki madada ki peshakasha ko bhi shak ki nigaha se dekhana ki unaka koi svartha hoga."
+                    },
+                    {
+                        eng: "Stuck in 'Theory Only' Mode: Giving long, philosophical speeches to others while your own career, finances, and relationships are in a complete mess.",
+                        hin: "दूसरों को बड़े-बड़े उपदेश देना जबकि खुद का करियर, पैसा और रिश्ते पूरी तरह बिखरे हुए हों।",
+                        hgl: "Dusaron ko bade-bade upadesha dena jabaki khud ka career, paisa aur rishte puri taraha bikhare hue hon."
+                    },
+                    {
+                        eng: "Severe Analysis-Paralysis: Over-thinking every minor business contract or email draft until the client gets frustrated and cancels the deal.",
+                        hin: "एक छोटे से बिजनेस कॉन्ट्रैक्ट या ईमेल को इतना अधिक सोचना कि क्लाइंट परेशान होकर डील ही कैंसिल कर दे।",
+                        hgl: "Ek chhote se business contract ya email ko itana adhik sochana ki client pareshana hokar deal hi cancel kar de."
+                    }
                 ]
             },
             4: {
@@ -843,10 +915,26 @@
                 navdurga: "Goddess Mahagauri (Navdurga - Southwest)",
                 mahavidya: "Goddess Chhinnamasta (Mahavidya - Southwest)",
                 symptoms: [
-                    "Hoarding Old Relics & Clutter: Keeping broken, unused items, old letters of ex-partners, or damaged clothes in the house for years.",
-                    "Repeatedly Talking about the Past: Bringing up old family disputes or business losses in every casual conversation.",
-                    "Extreme Emotional Outbursts: Screaming, shouting, throwing items, or completely breaking down in tears over small, daily inconveniences.",
-                    "'Control Freak' Obsession: Demanding to know every single second's update from partners, children, or staff, allowing them absolutely zero trust or freedom."
+                    {
+                        eng: "Hoarding Old Relics & Clutter: Keeping broken, unused items, old letters of ex-partners, or damaged clothes in the house for years.",
+                        hin: "घर में पुरानी टूटी-फूटी चीजें, पुराने प्रेम पत्र या फटे-पुराने कपड़े सालों तक सहेज कर रखना।",
+                        hgl: "Ghar men purani tuti-futi chijen, purane prem patr ya fate-purane kapade salon tak sahej kar rakhana."
+                    },
+                    {
+                        eng: "Repeatedly Talking about the Past: Bringing up old family disputes or business losses in every casual conversation.",
+                        hin: "हर आम बातचीत में बार-बार पुराने पारिवारिक झगड़ों या व्यापारिक नुकसान का रोना रोना।",
+                        hgl: "Har aam batachita men bara-bar purane parivarik jhagadon ya vyaparik nukasana ka rona rona."
+                    },
+                    {
+                        eng: "Extreme Emotional Outbursts: Screaming, shouting, throwing items, or completely breaking down in tears over small, daily inconveniences.",
+                        hin: "रोजमर्रा की छोटी-छोटी परेशानियों पर चिल्लाना, चीजें फेंकना या फूट-फूट कर रोने लगना।",
+                        hgl: "Rojamarr ki chhoti-chhoti pareshaniyon par chillana, chijen fenkana ya futa-futa kar rone lagana."
+                    },
+                    {
+                        eng: "'Control Freak' Obsession: Demanding to know every single second's update from partners, children, or staff, allowing them absolutely zero trust or freedom.",
+                        hin: "पार्टनर, बच्चों या स्टाफ की पल-पल की खबर रखने की सनक, उन पर बिल्कुल भी भरोसा न करना।",
+                        hgl: "Partner, bachchon ya staff ki pala-pal ki khabar rakhane ki sanaka, una par bilkul bhi bharosa na karana."
+                    }
                 ]
             },
             5: {
@@ -854,10 +942,26 @@
                 navdurga: "Goddess Kushmanda (Navdurga - North)",
                 mahavidya: "Goddess Matangi (Mahavidya - North)",
                 symptoms: [
-                    "Stagnant Work Approach: Repeating the same outdated business methods for years, completely refusing to upgrade technology or skills.",
-                    "Decline in Intellectual Focus: Inability to sit and read or plan for more than 10 minutes without getting distracted by social media.",
-                    "Mumbling & Unclear Pronunciation: Speaking too fast, swallowing words, or talking in an extremely low whisper that others cannot hear.",
-                    "Severe Stage Fright: Actively avoiding presentations, speeches, or front-facing hosting duties, even if it harms your career growth."
+                    {
+                        eng: "Stagnant Work Approach: Repeating the same outdated business methods for years, completely refusing to upgrade technology or skills.",
+                        hin: "सालों तक एक ही पुरानी घिसी-पिटी तकनीक और तरीके का इस्तेमाल करना और खुद को अपडेट करने से मना करना।",
+                        hgl: "Salon tak ek hi purani ghisi-piti takanik aur tarike ka istemal karana aur khud ko update karane se mana karana."
+                    },
+                    {
+                        eng: "Decline in Intellectual Focus: Inability to sit and read or plan for more than 10 minutes without getting distracted by social media.",
+                        hin: "सोशल मीडिया पर भटके बिना 10 मिनट भी बैठकर किसी काम की योजना न बना पाना या पढ़ाई न कर पाना।",
+                        hgl: "Social media par bhatake bina 10 minute bhi baithakar kisi kam ki yojana na bana pana ya padhai na kar pana."
+                    },
+                    {
+                        eng: "Mumbling & Unclear Pronunciation: Speaking too fast, swallowing words, or talking in an extremely low whisper that others cannot hear.",
+                        hin: "बहुत जल्दी-जल्दी बोलना, शब्दों को खा जाना या इतनी धीमी आवाज में बात करना कि दूसरों को सुनाई न दे।",
+                        hgl: "Bahut jaldi-jaldi bolana, shabdon ko kha jana ya itani dhimi avaj men bata karana ki dusaron ko sunai na de."
+                    },
+                    {
+                        eng: "Severe Stage Fright: Actively avoiding presentations, speeches, or front-facing hosting duties, even if it harms your career growth.",
+                        hin: "प्रेजेंटेशन देने, मंच पर बोलने या किसी प्रोग्राम की मेजबानी करने से बचना चाहे इससे करियर को कितना भी नुकसान हो।",
+                        hgl: "Presentation dene, mancha par bolane ya kisi program ki mejabani karane se bachana chahe isase career ko kitana bhi nukasana ho."
+                    }
                 ]
             },
             6: {
@@ -865,10 +969,26 @@
                 navdurga: "Goddess Katyayani (Navdurga - Southeast)",
                 mahavidya: "Goddess Kamala (Mahavidya - Southeast)",
                 symptoms: [
-                    "Constant Marital Disputes over Trifles: Arguing heavily over daily, meaningless chores like wet towels, cooking, or small expenses.",
-                    "Complete Loss of Personal Aura: Looking tired, dull, and carrying a heavy, negative energy that repels people from sitting near you.",
-                    "Chronic Ungratefulness & Victim Mindset: Focusing entirely on what you don't have, complaining about prices, and never thanking God for what you have.",
-                    "Severe Cash Flow Blockages: Facing delay in client payments, sudden business expenses that drain savings, and chronic debts."
+                    {
+                        eng: "Constant Marital Disputes over Trifles: Arguing heavily over daily, meaningless chores like wet towels, cooking, or small expenses.",
+                        hin: "रोजमर्रा के मामूली कामों जैसे गीले तौलिये, खाना पकाने या छोटे खर्चों पर घर में भारी महाभारत मचाना।",
+                        hgl: "Rojamarr ke mamuli kamon jaise gile tauliye, khana pakane ya chhote kharchon par ghar men bhari mahabharata machana."
+                    },
+                    {
+                        eng: "Complete Loss of Personal Aura: Looking tired, dull, and carrying a heavy, negative energy that repels people from sitting near you.",
+                        hin: "हमेशा थका हुआ और निस्तेज दिखना, अपने भीतर एक नकारात्मक ऊर्जा लेकर चलना जिससे लोग आपके पास बैठने से कतराएं।",
+                        hgl: "Hamesha thak hua aur nistej dikhana, apane bhitar ek nakaratmak urja lekar chalana jisase log apake pasa baithane se kataraen."
+                    },
+                    {
+                        eng: "Chronic Ungratefulness & Victim Mindset: Focusing entirely on what you don't have, complaining about prices, and never thanking God for what you have.",
+                        hin: "हमेशा अपनी किस्मत को रोना, महंगाई की शिकायत करना और जो कुछ मिला है उसके लिए कभी भगवान का धन्यवाद न करना।",
+                        hgl: "Hamesha apani kismata ko rona, mahngai ki shikayata karana aur jo kuchha mila hai usake lie kabhi bhagavana ka dhanyavada na karana."
+                    },
+                    {
+                        eng: "Severe Cash Flow Blockages: Facing delay in client payments, sudden business expenses that drain savings, and chronic debts.",
+                        hin: "भुगतानों में लगातार देरी होना, अचानक ऐसे खर्चे आना जो बचत साफ कर दें और कर्ज का लगातार बढ़ते जाना।",
+                        hgl: "Bhugatanon men lagatar deri hona, achanak aise kharche ana jo bachata saf kar den aur karj ka lagatar badhate jana."
+                    }
                 ]
             },
             7: {
@@ -876,10 +996,26 @@
                 navdurga: "Goddess Siddhidatri (Navdurga - Center)",
                 mahavidya: "Goddess Dhumavati (Mahavidya - Center)",
                 symptoms: [
-                    "Consistently Failing at the Finish Line: Preparing beautifully for exams, interviews, or deals, but falling sick or making a silly mistake at the final hour.",
-                    "Talent Underutilization & Inaction: Having massive knowledge, degrees, or artistic skills but keeping them locked in your bedroom, taking zero steps to showcase them.",
-                    "Shyness & Self-Hiding Tendency: Walking with a bent head, wearing oversized/drab clothes to avoid being noticed, and refusing to turn on the camera on video calls.",
-                    "Severe Forced Isolation: Locking your door, switching off your phone for days, and ignoring knocks or calls from well-wishers."
+                    {
+                        eng: "Consistently Failing at the Finish Line: Preparing beautifully for exams, interviews, or deals, but falling sick or making a silly mistake at the final hour.",
+                        hin: "परीक्षा, इंटरव्यू या डील की पूरी तैयारी करना लेकिन ऐन वक्त पर बीमार हो जाना या कोई मूर्खतापूर्ण गलती कर देना।",
+                        hgl: "Pariksha, interview ya deal ki puri taiyari karana lekin aina vakta par bimar ho jana ya koi murkhatapurna galati kar dena."
+                    },
+                    {
+                        eng: "Talent Underutilization & Inaction: Having massive knowledge, degrees, or artistic skills but keeping them locked in your bedroom, taking zero steps to showcase them.",
+                        hin: "डिग्रियां और हुनर होने के बावजूद उन्हें कमरे में बंद रखना और दुनिया के सामने लाने के लिए कोई कदम न उठाना।",
+                        hgl: "Digriyan aur hunar hone ke bavajuda unhen kamare men bnda rakhana aur duniya ke samane lane ke lie koi kadam na uthana."
+                    },
+                    {
+                        eng: "Shyness & Self-Hiding Tendency: Walking with a bent head, wearing oversized/drab clothes to avoid being noticed, and refusing to turn on the camera on video calls.",
+                        hin: "हमेशा सिर झुकाकर चलना, जानबूझकर ढीले-ढाले या मटमैले कपड़े पहनना ताकि कोई ध्यान न दे और वीडियो कॉल पर कैमरा बंद रखना।",
+                        hgl: "Hamesha sir jhukakar chalana, janabujhakar dhile-dhale ya matamaile kapade pahanana taki koi dhyana na de aur video call par camera bnda rakhana."
+                    },
+                    {
+                        eng: "Severe Forced Isolation: Locking your door, switching off your phone for days, and ignoring knocks or calls from well-wishers.",
+                        hin: "कमरे का दरवाजा बंद रखना, फोन बंद कर देना और दोस्तों या शुभचिंतकों की आवाजों को पूरी तरह नजरअंदाज करना।",
+                        hgl: "Kamare ka daravaja bnda rakhana, phone bnda kar dena aur doston ya shubhachintakon ki avajon ko puri taraha najarandaj karana."
+                    }
                 ]
             },
             8: {
@@ -887,10 +1023,26 @@
                 navdurga: "Goddess Kalratri (Navdurga - West)",
                 mahavidya: "Goddess Kali (Mahavidya - West)",
                 symptoms: [
-                    "Chronic Laziness & Delay (Vilamb): Letting your tasks pile up until they become disasters, sleeping excessively, and showing absolute zero discipline.",
-                    "Severe Body Stiffness & Fatigue: Waking up in the morning with severe joint pain, body stiffness, and feeling completely unrefreshed.",
-                    "Rigid Mindset (No Flexibility): Becoming extremely stubborn, refusing to listen to others' viewpoints, and killing all teamwork or creative ideas.",
-                    "Obsessive Surveillance Habits: Constantly checking others' phones, tracking their locations, or physically monitoring staff through CCTV with deep suspicion."
+                    {
+                        eng: "Chronic Laziness & Delay (Vilamb): Letting your tasks pile up until they become disasters, sleeping excessively, and showing absolute zero discipline.",
+                        hin: "कामों को तब तक टालते रहना जब तक वे मुसीबत न बन जाएं, हद से ज्यादा सोना और जीवन में अनुशासन का नामोनिशान न होना।",
+                        hgl: "Kamon ko tab tak talate rahana jab tak ve musibata na bana jaen, hada se jyada sona aur jivana men anushasana ka namonishana na hona."
+                    },
+                    {
+                        eng: "Severe Body Stiffness & Fatigue: Waking up in the morning with severe joint pain, body stiffness, and feeling completely unrefreshed.",
+                        hin: "सुबह उठते ही जोड़ों में दर्द, शरीर में अकड़न महसूस होना और खुद को बिल्कुल भी तरोताजा न पाना।",
+                        hgl: "Subah uthate hi jodon men darda, sharir men akadana mahas hona aur khud ko bilkul bhi tarotaja na pana."
+                    },
+                    {
+                        eng: "Rigid Mindset (No Flexibility): Becoming extremely stubborn, refusing to listen to others' viewpoints, and killing all teamwork or creative ideas.",
+                        hin: "बेहद जिद्दी हो जाना, दूसरों की राय सुनने से पूरी तरह मना करना और टीमवर्क या नए विचारों का गला घोंट देना।",
+                        hgl: "Behada jiddi ho jana, dusaron ki raya sunane se puri taraha mana karana aur teamwork ya naye vicharon ka gala ghonta dena."
+                    },
+                    {
+                        eng: "Obsessive Surveillance Habits: Constantly checking others' phones, tracking their locations, or physically monitoring staff through CCTV with deep suspicion.",
+                        hin: "दूसरों के फोन चेक करना, उनकी लोकेशन ट्रैक करना या गहरी शंका के कारण सीसीटीवी से स्टाफ पर लगातार नजर रखना।",
+                        hgl: "Dusaron ke phone chek karana, unaki location traik karana ya gahari shnka ke karan cctv se staff par lagatar najar rakhana."
+                    }
                 ]
             },
             9: {
@@ -898,15 +1050,31 @@
                 navdurga: "Goddess Brahmacharini (Navdurga - South)",
                 mahavidya: "Goddess Baglamukhi (Mahavidya - South)",
                 symptoms: [
-                    "A Trail of Half-Done Projects: Leaving behind unfinished books, half-written business plans, half-renovated rooms, or incomplete assignments.",
-                    "Severe Physical Inertia (Aalashya): Lying down or scrolling on the phone for hours, feeling physically heavy and unmotivated to do even basic daily chores.",
-                    "Engaging in Toxic Verbal Wars: Fighting bitterly with neighbors, family members, or office colleagues over trivial arguments, using highly abusive language.",
-                    "Experiencing Uncontrolled Anger: Feeling a sudden surge of heat in the body and shouting at the top of your lungs when challenged or questioned."
+                    {
+                        eng: "A Trail of Half-Done Projects: Leaving behind unfinished books, half-written business plans, half-renovated rooms, or incomplete assignments.",
+                        hin: "अधूरी पढ़ी किताबें, आधे लिखे बिजनेस प्लान, आधे सुधारे हुए कमरे या अधूरे असाइनमेंट की कतार लगा देना।",
+                        hgl: "Adhuri padhi kitaben, adhe likhe business plan, adhe sudhare hue kamare ya adhure assignment ki katar laga dena."
+                    },
+                    {
+                        eng: "Severe Physical Inertia (Aalashya): Lying down or scrolling on the phone for hours, feeling physically heavy and unmotivated to do even basic daily chores.",
+                        hin: "घंटों बिस्तर पर पड़े रहकर फोन स्क्रॉल करना, शरीर में भारीपन महसूस करना और बुनियादी काम करने की भी प्रेरणा न होना।",
+                        hgl: "Ghnton bistar par pade rahakar phone scroll karana, sharir men bharipana mahasusa karana aur buniyadi kam karane ki bhi prerana na hona."
+                    },
+                    {
+                        eng: "Engaging in Toxic Verbal Wars: Fighting bitterly with neighbors, family members, or office colleagues over trivial arguments, using highly abusive language.",
+                        hin: "पड़ोसियों, परिवार या ऑफिस के लोगों के साथ मामूली बातों पर गाली-गलौज और कड़वे शब्दों का युद्ध लड़ना।",
+                        hgl: "Padosiyon, parivar ya office ke logon ke satha mamuli baton par gali-galauj aur kadave shabdon ka yuddha ladana."
+                    },
+                    {
+                        eng: "Experiencing Uncontrolled Anger: Feeling a sudden surge of heat in the body and shouting at the top of your lungs when challenged or questioned.",
+                        hin: "कोई सवाल पूछे जाने पर शरीर में अचानक गर्मी महसूस होना और पूरी ताकत से चिल्लाकर बात करना।",
+                        hgl: "Koi saval puchhe jane par sharir men achanak garmi mahasusa hona aur puri takata se chillakar bata karana."
+                    }
                 ]
             }
         };
 
-        // Chaldean Numerology Mapping Chart based on provided image
+        // Chaldean Numerology Mapping Chart
         const chaldeanMap = {
             'A': 1, 'I': 1, 'J': 1, 'Q': 1, 'Y': 1,
             'B': 2, 'K': 2, 'R': 2,
@@ -1022,7 +1190,7 @@
 
             dobResultBox.style.display = "grid";
 
-            // Populate Dynamic Quizzes based on Driver, Conductor, and Manifestation digital root values (1-9)
+            // Populate Dynamic Quizzes based on Driver, Conductor, and Manifestation values
             populateQuizCard('driverQuizLabel', 'driverQuizContent', driverNum, 'Driver (Nav Durga)');
             populateQuizCard('conductorQuizLabel', 'conductorQuizContent', conductorNum, 'Conductor (Mahavidya Diagnosis)');
             populateQuizCard('manifestationQuizLabel', 'manifestationQuizContent', manifestationNum, 'Manifestation (5 Devta)');
@@ -1041,14 +1209,18 @@
             let html = `
                 <div class="dynamic-quiz-card">
                     <h4>Associated Deities: ${planetData.navdurga} | ${planetData.mahavidya}</h4>
-                    <p style="margin-bottom: 12px; font-size: 13px; font-style: italic; color: #6b5a32;">Tick the symptoms that match your condition:</p>
+                    <p style="margin-bottom: 12px; font-size: 13px; font-style: italic; color: #4682B4;">Tick the symptoms that match your condition (ENG | HIN | Hinglish):</p>
             `;
 
-            planetData.symptoms.forEach((symptom, idx) => {
+            planetData.symptoms.forEach((item, idx) => {
                 html += `
                     <label class="symptom-item">
-                        <input type="checkbox" name="symptom_${planetCode}_${idx}" value="${symptom}">
-                        <span>${symptom}</span>
+                        <div class="symptom-header">
+                            <input type="checkbox" name="symptom_${planetCode}_${idx}" value="${item.eng}">
+                            <span><b>[ENG]</b> ${item.eng}</span>
+                        </div>
+                        <div class="symptom-hindi"><b>[हिन्दी]</b> ${item.hin}</div>
+                        <div class="symptom-hinglish"><b>[Hinglish]</b> ${item.hgl}</div>
                     </label>
                 `;
             });
@@ -1122,7 +1294,7 @@
             }).then(() => {
                 const statusDiv = document.getElementById('statusMessage');
                 statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Form successfully submitted `;
+                statusDiv.innerHTML = `✓ Form successfully submitted!`;
 
                 form.reset();
                 document.getElementById('submissionDate').valueAsDate = new Date();
