@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueberry Energy upcharak Experience | Royal Bengal Expo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon.png?v=2">
+    <style>
+        :root {
+            --foggy-blue: #4682B4;
+            --deep-blue: #0B192C;
+            --goldenrod: #DAA520;
+            --golden-yellow: #FFD700;
+            --orange: #FF8C00;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --input-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        body {
+            background: #dcecf7 url("images/watermark.png") center center / 700px no-repeat fixed;
+            color: var(--deep-blue);
+            padding: 40px 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Container Card */
+        .container {
+            max-width: 1150px;
+            width: 100%;
+            background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 60px 25px 25px;
+            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        /* Top Accent Line */
+        .top-orange {
+            height: 6px;
+            background: linear-gradient(90deg, #c99819, #f4d477, #c99819);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        /* Custom Golden Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F0F7FC;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #f4d477, #c99819);
+            border-radius: 10px;
+        }
+
+        /* Centered Logo with Golden Border */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 450px;
+            width: 90%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border: 3px solid #d4af37;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 30px 0;
+        }
+
+        /* Payment Section Card Refined */
+        .payment-card-refined {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.2);
+            margin-top: 25px;
+        }
+
+        .payment-left {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .payment-right {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr {
+            width: 170px;
+            height: 170px;
+            border: 3px solid #d4af37;
+            border-radius: 10px;
+            background: #fff;
+            padding: 0;
+            object-fit: contain;
+            display: block;
+        }
+
+        .payment-details h3 {
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #9a7415;
+            font-weight: 700;
+        }
+
+        .payment-details p {
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #403a2d;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .payment-details p b {
+            color: #403a2d;
+        }
+
+        /* Form Controls & Layout */
+        .form-section-title {
+            color: #9a7415;
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 6px;
+            margin: 35px 0 20px 0;
+            font-size: 27px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .field {
+            margin-bottom: 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #403a2d;
+            font-size: 15px;
+        }
+
+        label span {
+            color: #c99819;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background-color: #ffffff;
+            border: 1px solid #dfc36b;
+            border-radius: 8px;
+            color: #403a2d;
+            font-size: 15px;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.25s ease;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #403a2d;
+            opacity: 0.5;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #9a7415;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            background-color: #fffdf5;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Numerology and Astrological Calculation Display Boxes */
+        .numerology-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #fffdf5;
+            border: 1px solid #dfc36b;
+            border-radius: 10px;
+        }
+
+        .numerology-item {
+            font-size: 14px;
+            font-weight: 600;
+            color: #403a2d;
+        }
+
+        .numerology-item span {
+            color: #9a7415;
+            font-weight: 700;
+        }
+
+        /* Dynamic Quiz Section Styling */
+        .dynamic-quiz-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fffdf5;
+            border: 1px solid #dfc36b;
+            border-radius: 10px;
+        }
+
+        .dynamic-quiz-card {
+            background: #ffffff;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .dynamic-quiz-card h4 {
+            color: #9a7415;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .symptom-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #403a2d;
+            cursor: pointer;
+        }
+
+        .symptom-item input[type="checkbox"] {
+            margin-top: 3px;
+            accent-color: #9a7415;
+            transform: scale(1.1);
+        }
+
+        /* Phone Field List */
+        .phone-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .add-btn {
+            background-color: transparent;
+            border: 1.5px dashed #d4af37;
+            color: #80600f;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            align-self: flex-start;
+            transition: all 0.2s ease;
+        }
+
+        .add-btn:hover {
+            background-color: #d4af37;
+            color: #ffffff;
+        }
+
+        /* Submit Action */
+        .submit-btn {
+            background: linear-gradient(135deg, #c99819, #f4d477, #c99819);
+            color: #3b321f;
+            border: none;
+            padding: 16px 45px;
+            font-size: 17px;
+            font-weight: 800;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 35px auto 10px auto;
+            box-shadow: 0 4px 12px rgba(180, 140, 30, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(180, 140, 30, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Notification Box */
+        .status-msg {
+            display: none;
+            margin-top: 20px;
+            padding: 14px;
+            background-color: rgba(218, 165, 32, 0.15);
+            border: 1px solid var(--goldenrod);
+            color: var(--deep-blue);
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        /* Footer Style */
+        .blueberry-footer {
+            max-width: 1150px;
+            width: 100%;
+            margin-top: 45px;
+            background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .footer-icon {
+            font-size: 18px;
+            color: #b58918;
+        }
+
+        .footer-item h4 {
+            color: #8f6b12;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .footer-item p,
+        .footer-item a {
+            color: #4b4333;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            word-break: break-word;
+            opacity: 0.95;
+        }
+
+        .footer-item a:hover {
+            color: #9a7415;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #e2cf8a;
+            padding-top: 20px;
+            color: #6b5a32;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .footer-bottom span {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        p {
+            color: #403a2d;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 22px 18px;
+            }
+
+            .payment-card-refined {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            .payment-details h3 {
+                font-size: 12px;
+                margin-bottom: 3px;
+            }
+
+            .payment-details p {
+                font-size: 9px;
+                margin-bottom: 2px;
+                word-break: break-all;
+                white-space: nowrap;
+            }
+
+            .qr {
+                width: 95px;
+                height: 95px;
+            }
+        }
+    </style>
+</head>
+
+<body style="
+    margin: 0;
+    min-height: 100vh;
+    background-color: #dcecf7;
+    background-image: url('images/watermark.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+">
+
+    <div class="container">
+
+        <!-- Top Orange Bar -->
+        <div class="top-orange"></div>
+
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <img src="images/logo.png" alt="Logo" class="logo">
+        </div>
+
+        <hr>
+
+        <!-- Date of Form Filling Section -->
+        <div
+            style="background-color: rgba(255, 255, 255, 0.65); padding: 20px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4);">
+            <div class="field" style="margin-bottom: 0;">
+                <label style="color: #403a2d; font-size: 18px;"><b>Date of Form Filling</b> <span>*</span></label>
+                <input type="date" id="submissionDate" name="submissionDate" required>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Intake Form Body -->
+        <form id="astrovastuForm"
+            action="https://script.google.com/macros/s/AKfycbzdi9gUsKxkxDWJ5ThZr6NmIx0hqM9jXy4I3HLWj4Y7hNSFeWZz6t2z0AA-hutl8tw9/exec"
+            method="POST">
+
+            <h3 class="form-section-title">Personal Information</h3>
+
+            <div class="field">
+                <label for="fullName">Full Name <span>*</span></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Enter full name"
+                    oninput="calculateNumerology()">
+
+                <!-- Chaldean Name Numerology Output Display -->
+                <div class="numerology-box" id="numerologyResult" style="display: none;">
+                    <div class="numerology-item">First Name Score: <span id="firstNameScore">-</span></div>
+                    <div class="numerology-item">First Name Number: <span id="firstNameNumber">-</span></div>
+                    <div class="numerology-item">Total Name Score: <span id="totalNameScore">-</span></div>
+                    <div class="numerology-item">Total Name Number: <span id="totalNameNumber">-</span></div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="dob">Date of Birth <span>*</span></label>
+                <input type="date" id="dob" name="dob" required onchange="calculateDobNumerology()">
+
+                <!-- DOB Numerology (Driver, Conductor, Manifestation) Output Display -->
+                <div class="numerology-box" id="dobNumerologyResult" style="display: none;">
+                    <div class="numerology-item">Driver (Nav Durga): <span id="driverNumberOut">-</span></div>
+                    <div class="numerology-item">Conductor (Mahavidya): <span id="conductorNumberOut">-</span></div>
+                    <div class="numerology-item">Manifestation (5 Devta): <span id="manifestationNumberOut">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Diagnostic Questionnaires Based on Planet Codes (1-9) -->
+            <div id="dynamicQuizzesWrapper" style="display: none;">
+                <!-- Driver Section Quiz -->
+                <div class="field">
+                    <label id="driverQuizLabel">Driver Code Diagnosis Checklist</label>
+                    <div class="dynamic-quiz-container" id="driverQuizContent"></div>
+                </div>
+
+                <!-- Conductor Section Quiz -->
+                <div class="field">
+                    <label id="conductorQuizLabel">Conductor Code Diagnosis Checklist</label>
+                    <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
+                </div>
+
+                <!-- Manifestation Section Quiz -->
+                <div class="field">
+                    <label id="manifestationQuizLabel">Manifestation Code Diagnosis Checklist</label>
+                    <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="timeOfBirth">Time of Birth <small>(Optional)</small></label>
+                <input type="time" id="timeOfBirth" name="timeOfBirth">
+            </div>
+
+            <div class="field">
+                <label for="placeOfBirth">Place of Birth <small>(Optional)</small></label>
+                <input type="text" id="placeOfBirth" name="placeOfBirth" placeholder="City, State, Country">
+            </div>
+
+            <div class="field">
+                <label for="currentCity">Current City You Are Living <small>(Optional)</small></label>
+                <input type="text" id="currentCity" name="currentCity" placeholder="Enter current city">
+            </div>
+
+            <div class="field">
+                <label>Mobile Number <small>(Optional)</small></label>
+                <div id="phoneContainer">
+                    <div class="phone-group">
+                        <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number">
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
+            </div>
+
+            <h3 class="form-section-title">Details & Queries</h3>
+
+            <div class="field">
+                <label for="occupation">What do you do?</label>
+                <input type="text" id="occupation" name="occupation" placeholder="Your profession or business">
+            </div>
+
+            <div class="field">
+                <label for="earningSource">How do you earn money? / Your exact role in it.</label>
+                <textarea id="earningSource" name="earningSource"
+                    placeholder="Describe your earning stream and primary responsibilities..."></textarea>
+            </div>
+
+            <div class="field">
+                <label for="problemStatement">Problem Statement</label>
+                <textarea id="problemStatement" name="problemStatement"
+                    placeholder="Detail the specific challenges or questions you wish to resolve..."></textarea>
+            </div>
+
+            <div class="field">
+                <label for="userGoal">What is your goal? / What do you want to achieve?</label>
+                <textarea id="userGoal" name="userGoal"
+                    placeholder="Detail your goals or what you want to achieve..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Information</button>
+            <div id="statusMessage" class="status-msg"></div>
+        </form>
+
+        <!-- Redesigned Payment Details Block with QR Code on the Right -->
+        <div class="payment-card-refined">
+            <div class="payment-left payment-details">
+                <h3>Payment Details</h3>
+                <p><b>Google Pay:</b> 9693701283</p>
+                <p><b>PhonePe:</b> 9693701283</p>
+                <p><b>UPI ID:</b> piyush10junepriyanka@okicici</p>
+            </div>
+            <div class="payment-right">
+                <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <!-- FOOTER (Outside Form Block) -->
+        <footer class="blueberry-footer">
+
+            <!-- BLUEBERRY METHODOLOGY -->
+            <div style="max-width: 1150px; margin: 0 auto 55px; text-align: center;">
+
+                <div
+                    style="width: 80px; height: 3px; background: linear-gradient(90deg, #c99819, #f4d477, #c99819); margin: 0 auto 20px;">
+                </div>
+
+                <h2 style="color: #9a7415; font-size: 30px; margin: 0 0 25px; letter-spacing: 0.5px;">
+                    While Building New, Renovating, or Resolving Issues
+                    in Your House, Factory or Office
+                </h2>
+
+                <!-- PROCESS -->
+                <div
+                    style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin: 25px auto 30px; font-family: Arial, sans-serif;">
+                    <span
+                        style="background: #ffffff; border: 1px solid #d4af37; color: #80600f; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(180,140,30,0.12);">
+                        Structure Layout[cite: 1]
+                    </span>
+                    <span style="color: #c99819; font-size: 25px; font-weight: bold;">→</span>
+                    <span
+                        style="background: #ffffff; border: 1px solid #d4af37; color: #80600f; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(180,140,30,0.12);">
+                        Furniture Layout[cite: 1]
+                    </span>
+                    <span style="color: #c99819; font-size: 25px; font-weight: bold;">→</span>
+                    <span
+                        style="background: #ffffff; border: 1px solid #d4af37; color: #80600f; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(180,140,30,0.12);">
+                        Interior Layout[cite: 1]
+                    </span>
+                </div>
+
+                <p
+                    style="max-width: 950px; margin: 0 auto 45px; font-size: 17px; line-height: 1.8; color: #514936; text-align: center;">
+                    Once the interior layout is in place, you can build or renovate
+                    your <strong>home, office, or factory</strong> accordingly.[cite: 1]
+                </p>
+
+                <!-- HOW BLUEBERRY WORKS -->
+                <div
+                    style="max-width: 1050px; margin: 0 auto; padding: 35px 35px; background: rgba(255,255,255,0.85); border: 1px solid #dfc36b; border-radius: 18px; box-shadow: 0 8px 30px rgba(157,119,20,0.10); text-align: left;">
+                    <h3 style="text-align: center; color: #9a7415; font-size: 27px; margin: 0 0 25px;">
+                        How Blueberry Works
+                    </h3>
+                    <p style="font-size: 17px; line-height: 1.9; margin: 0; color: #403a2d;">
+                        <strong style="color:#8b6815;">
+                            Blueberry synchronizes the Architectural Drawings,
+                            integrates the Vastu principles and advice provided by
+                            your Vastu Consultant, and aligns the Luxury Interior
+                            Design created by your Interior Designer with AstroVastu,
+                            Numerology, Palmistry and Energy[cite: 1]
+                        </strong>
+                        — creating a personalized environment for the individual
+                        to enhance their[cite: 1]
+                        <strong style="color:#9a7415;">
+                            Aura (Personality), Profession, and Manifestation.[cite: 1]
+                        </strong>
+                    </p>
+                    <p style="font-size: 17px; line-height: 1.9; margin: 25px 0 0; color: #403a2d;">
+                        Blueberry brings these elements together to create a[cite: 1]
+                        <strong style="color:#9a7415;">
+                            synchronized environment where your space works in
+                            harmony with your personality[cite: 1]
+                        </strong>,
+                        helping you unlock your potential, strengthen your presence,
+                        and create greater visibility and impact in the market.[cite: 1]
+                    </p>
+                </div>
+
+                <!-- MAGICAL SYSTEM -->
+                <div
+                    style="max-width: 1000px; margin: 35px auto; padding: 25px 30px; background: linear-gradient(135deg, #fffdf5, #ffffff, #fff8df); border-top: 1px solid #d4af37; border-bottom: 1px solid #d4af37; text-align: center;">
+                    <p
+                        style="margin: 0; font-size: 20px; line-height: 1.7; color: #8a6713; font-weight: bold; font-style: italic; text-align: center;">
+                        “A Step-by-Step, Balanced & Magical System to Fulfill Your
+                        Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
+                        Home, Office, or Factory.”[cite: 1]
+                    </p>
+                </div>
+
+                <!-- STRATEGIC ADVICE -->
+                <div style="max-width: 1050px; margin: 0 auto; text-align: left;">
+                    <p style="font-size: 17px; line-height: 1.9; color: #403a2d; margin-bottom: 25px;">
+                        This[cite: 1]
+                        <strong style="color:#9a7415;">
+                            strategic advice[cite: 1]
+                        </strong>
+                        is designed to[cite: 1]
+                        <strong>
+                            structure and support your Subconscious mind[cite: 1]
+                        </strong>,
+                        which is essential for building a strong brand, creating
+                        substantial wealth, overcoming weaknesses and losses,
+                        and transforming challenges and losses into opportunities
+                        and investments.[cite: 1]
+                    </p>
+                    <p style="font-size: 18px; line-height: 1.9; color: #403a2d; text-align: center; margin: 0;">
+                        Ultimately, this strategic approach is designed to help you[cite: 1]
+                        become an[cite: 1]
+                        <strong style="color:#9a7415;">
+                            Influencer[cite: 1]
+                        </strong>,
+                        harness[cite: 1]
+                        <strong style="color:#9a7415;">
+                            Media Power[cite: 1]
+                        </strong>,
+                        and create a[cite: 1]
+                        <strong style="color:#9a7415;">
+                            Viral Presence[cite: 1]
+                        </strong>,
+                        enabling you to[cite: 1]
+                        <strong style="color:#80600f;">
+                            excel, achieve sustained growth, increase your visibility,
+                            and move towards a top position in the market.[cite: 1]
+                        </strong>
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- GOLD DIVIDER -->
+            <div
+                style="max-width: 1150px; height: 1px; background: linear-gradient(90deg, transparent, #d4af37, transparent); margin: 0 auto 40px;">
+            </div>
+
+            <!-- EXISTING CONTACT FOOTER -->
+            <div class="footer-grid"
+                style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                    <div class="footer-icon" style="color: #b58918; font-size: 25px;">✉</div>
+                    <div>
+                        <h4 style="color:#8f6b12; margin:0 0 8px;">Email</h4>
+                        <p style="margin:0;"><a href="mailto:infoblueberryvaastu@gmail.com"
+                                style="color:#4b4333; text-decoration:none;">Infoblueberryvaastu@gmail.com</a></p>
+                    </div>
+                </div>
+
+                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                    <div class="footer-icon" style="color: #b58918; font-size: 25px; font-weight:bold;">in</div>
+                    <div>
+                        <h4 style="color:#8f6b12; margin:0 0 8px;">LinkedIn</h4>
+                        <p style="margin:0; color:#4b4333;">Blueberry Luxury Interior Design inbuilt with Astrovastu</p>
+                    </div>
+                </div>
+
+                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                    <div class="footer-icon" style="color: #b58918; font-size: 25px;">📷</div>
+                    <div>
+                        <h4 style="color:#8f6b12; margin:0 0 8px;">Instagram</h4>
+                        <p style="margin:0; color:#4b4333;">blueberry_230326</p>
+                    </div>
+                </div>
+
+                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                    <div class="footer-icon" style="color: #b58918; font-size: 25px;">🌐</div>
+                    <div>
+                        <h4 style="color:#8f6b12; margin:0 0 8px;">Website</h4>
+                        <p style="margin:0; color:#4b4333;">blueberries.in</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER BOTTOM -->
+            <div class="footer-bottom"
+                style="max-width: 1150px; margin: 40px auto 0; padding-top: 22px; border-top: 1px solid #e2cf8a; text-align: center; color: #6b5a32; font-size: 14px;">
+                <p style="margin:0; color:#9a7415; text-align: center;">
+                    Thank you for choosing[cite: 1]
+                    <b style="color:#9a7415;">BLUEBERRY[cite: 1]</b>
+                </p>
+            </div>
+
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Engine: LocalStorage Handler & Google Sheets Submission -->
+    <script>
+        // Set Default Date of Filling to Today
+        document.getElementById('submissionDate').valueAsDate = new Date();
+
+        // Planet Diagnostic Symptoms Database based on Worksheet (Codes 1 to 9)
+        const planetSymptoms = {
+            1: {
+                name: "SUN / सूर्य (Surya)",
+                navdurga: "Goddess Shailputri (Navdurga - East)",
+                mahavidya: "Goddess Tripura Sundari & Bhairavi (Mahavidya - East)",
+                symptoms: [
+                    "Chronic Indecisiveness: Constantly asking multiple people for advice on small matters and being unable to stick to a single choice.",
+                    "Identity Crisis & Self-Doubt: Seeking validation from others for self-worth and feeling completely helpless when left alone.",
+                    "Weak Physical Posture & Low Stamina: Walking with slouched shoulders, feeling fatigued easily, and lacking physical or mental core strength.",
+                    "Severe Aesthetic Neglect: Keeping your room cluttered, wearing unwashed or dull clothes, and completely ignoring personal grooming.",
+                    "Fear-Induced Procrastination: Delaying critical projects simply because you fear the outcome won't be perfect or successful."
+                ]
+            },
+            2: {
+                name: "MOON / चन्द्र (Chandra)",
+                navdurga: "Goddess Chandraghanta (Navdurga - Northwest)",
+                mahavidya: "Goddess Bhuvaneshwari (Mahavidya - Northwest)",
+                symptoms: [
+                    "Nervous Habits & Restlessness: Constantly biting nails, tapping feet, shaking hands, or walking around the room in circles due to high anxiety.",
+                    "Extreme Mood Swings: Being happy one moment and bursting into tears or anger the next over trivial household issues.",
+                    "Claustrophobic & Negative Mindset: Believing that every new idea is bound to fail and refusing to try any modern or innovative methods.",
+                    "Withdrawing into a Shell: Avoiding social connections, locking oneself in a dark room, and limiting interactions with the outside world."
+                ]
+            },
+            3: {
+                name: "JUPITER / गुरु (Guru)",
+                navdurga: "Goddess Skandmata (Navdurga - Northeast)",
+                mahavidya: "Goddess Tara (Mahavidya - Northeast)",
+                symptoms: [
+                    "Deep Emotional Alienation: Living with a constant inner feeling of being an outsider in your own family or office team.",
+                    "Over-defensive & Suspicious Behavior: Treating every helpful gesture from others with suspicion, thinking they have a selfish motive.",
+                    "Stuck in 'Theory Only' Mode: Giving long, philosophical speeches to others while your own career, finances, and relationships are in a complete mess.",
+                    "Severe Analysis-Paralysis: Over-thinking every minor business contract or email draft until the client gets frustrated and cancels the deal."
+                ]
+            },
+            4: {
+                name: "RAHU / राहु",
+                navdurga: "Goddess Mahagauri (Navdurga - Southwest)",
+                mahavidya: "Goddess Chhinnamasta (Mahavidya - Southwest)",
+                symptoms: [
+                    "Hoarding Old Relics & Clutter: Keeping broken, unused items, old letters of ex-partners, or damaged clothes in the house for years.",
+                    "Repeatedly Talking about the Past: Bringing up old family disputes or business losses in every casual conversation.",
+                    "Extreme Emotional Outbursts: Screaming, shouting, throwing items, or completely breaking down in tears over small, daily inconveniences.",
+                    "'Control Freak' Obsession: Demanding to know every single second's update from partners, children, or staff, allowing them absolutely zero trust or freedom."
+                ]
+            },
+            5: {
+                name: "MERCURY / बुध (Budh)",
+                navdurga: "Goddess Kushmanda (Navdurga - North)",
+                mahavidya: "Goddess Matangi (Mahavidya - North)",
+                symptoms: [
+                    "Stagnant Work Approach: Repeating the same outdated business methods for years, completely refusing to upgrade technology or skills.",
+                    "Decline in Intellectual Focus: Inability to sit and read or plan for more than 10 minutes without getting distracted by social media.",
+                    "Mumbling & Unclear Pronunciation: Speaking too fast, swallowing words, or talking in an extremely low whisper that others cannot hear.",
+                    "Severe Stage Fright: Actively avoiding presentations, speeches, or front-facing hosting duties, even if it harms your career growth."
+                ]
+            },
+            6: {
+                name: "VENUS / शुक्र (Shukra)",
+                navdurga: "Goddess Katyayani (Navdurga - Southeast)",
+                mahavidya: "Goddess Kamala (Mahavidya - Southeast)",
+                symptoms: [
+                    "Constant Marital Disputes over Trifles: Arguing heavily over daily, meaningless chores like wet towels, cooking, or small expenses.",
+                    "Complete Loss of Personal Aura: Looking tired, dull, and carrying a heavy, negative energy that repels people from sitting near you.",
+                    "Chronic Ungratefulness & Victim Mindset: Focusing entirely on what you don't have, complaining about prices, and never thanking God for what you have.",
+                    "Severe Cash Flow Blockages: Facing delay in client payments, sudden business expenses that drain savings, and chronic debts."
+                ]
+            },
+            7: {
+                name: "KETU / केतु",
+                navdurga: "Goddess Siddhidatri (Navdurga - Center)",
+                mahavidya: "Goddess Dhumavati (Mahavidya - Center)",
+                symptoms: [
+                    "Consistently Failing at the Finish Line: Preparing beautifully for exams, interviews, or deals, but falling sick or making a silly mistake at the final hour.",
+                    "Talent Underutilization & Inaction: Having massive knowledge, degrees, or artistic skills but keeping them locked in your bedroom, taking zero steps to showcase them.",
+                    "Shyness & Self-Hiding Tendency: Walking with a bent head, wearing oversized/drab clothes to avoid being noticed, and refusing to turn on the camera on video calls.",
+                    "Severe Forced Isolation: Locking your door, switching off your phone for days, and ignoring knocks or calls from well-wishers."
+                ]
+            },
+            8: {
+                name: "SATURN / शनि (Shani)",
+                navdurga: "Goddess Kalratri (Navdurga - West)",
+                mahavidya: "Goddess Kali (Mahavidya - West)",
+                symptoms: [
+                    "Chronic Laziness & Delay (Vilamb): Letting your tasks pile up until they become disasters, sleeping excessively, and showing absolute zero discipline.",
+                    "Severe Body Stiffness & Fatigue: Waking up in the morning with severe joint pain, body stiffness, and feeling completely unrefreshed.",
+                    "Rigid Mindset (No Flexibility): Becoming extremely stubborn, refusing to listen to others' viewpoints, and killing all teamwork or creative ideas.",
+                    "Obsessive Surveillance Habits: Constantly checking others' phones, tracking their locations, or physically monitoring staff through CCTV with deep suspicion."
+                ]
+            },
+            9: {
+                name: "MARS / मंगल (Mangal)",
+                navdurga: "Goddess Brahmacharini (Navdurga - South)",
+                mahavidya: "Goddess Baglamukhi (Mahavidya - South)",
+                symptoms: [
+                    "A Trail of Half-Done Projects: Leaving behind unfinished books, half-written business plans, half-renovated rooms, or incomplete assignments.",
+                    "Severe Physical Inertia (Aalashya): Lying down or scrolling on the phone for hours, feeling physically heavy and unmotivated to do even basic daily chores.",
+                    "Engaging in Toxic Verbal Wars: Fighting bitterly with neighbors, family members, or office colleagues over trivial arguments, using highly abusive language.",
+                    "Experiencing Uncontrolled Anger: Feeling a sudden surge of heat in the body and shouting at the top of your lungs when challenged or questioned."
+                ]
+            }
+        };
+
+        // Chaldean Numerology Mapping Chart based on provided image
+        const chaldeanMap = {
+            'A': 1, 'I': 1, 'J': 1, 'Q': 1, 'Y': 1,
+            'B': 2, 'K': 2, 'R': 2,
+            'C': 3, 'G': 3, 'L': 3, 'S': 3,
+            'D': 4, 'M': 4, 'T': 4,
+            'E': 5, 'H': 5, 'N': 5, 'X': 5,
+            'U': 6, 'V': 6, 'W': 6,
+            'O': 7, 'Z': 7,
+            'F': 8, 'P': 8
+        };
+
+        function getWordScore(word) {
+            let sum = 0;
+            const upperWord = word.toUpperCase();
+            for (let i = 0; i < upperWord.length; i++) {
+                const char = upperWord[i];
+                if (chaldeanMap[char] !== undefined) {
+                    sum += chaldeanMap[char];
+                }
+            }
+            return sum;
+        }
+
+        function getDigitalRoot(num) {
+            if (num === 0) return 0;
+            let temp = num;
+            while (temp > 9) {
+                let sum = 0;
+                let str = temp.toString();
+                for (let i = 0; i < str.length; i++) {
+                    sum += parseInt(str[i], 10);
+                }
+                temp = sum;
+            }
+            return temp;
+        }
+
+        function calculateNumerology() {
+            const fullNameVal = document.getElementById('fullName').value.trim();
+            const resultBox = document.getElementById('numerologyResult');
+
+            if (fullNameVal === "") {
+                resultBox.style.display = "none";
+                return;
+            }
+
+            const nameParts = fullNameVal.split(/\s+/);
+            const firstName = nameParts[0] || "";
+
+            const firstScore = getWordScore(firstName);
+            const firstNum = getDigitalRoot(firstScore);
+
+            const cleanFullName = fullNameVal.replace(/\s+/g, '');
+            const totalScore = getWordScore(cleanFullName);
+            const totalNum = getDigitalRoot(totalScore);
+
+            document.getElementById('firstNameScore').innerText = firstScore > 0 ? `${firstScore} / ${firstNum}` : '-';
+            document.getElementById('firstNameNumber').innerText = firstNum > 0 ? firstNum : '-';
+            document.getElementById('totalNameScore').innerText = totalScore > 0 ? `${totalScore} / ${totalNum}` : '-';
+            document.getElementById('totalNameNumber').innerText = totalNum > 0 ? totalNum : '-';
+
+            resultBox.style.display = "grid";
+        }
+
+        // DOB Numerology Calculation & Dynamic Symptom Checklist Population
+        function calculateDobNumerology() {
+            const dobVal = document.getElementById('dob').value;
+            const dobResultBox = document.getElementById('dobNumerologyResult');
+            const dynamicWrapper = document.getElementById('dynamicQuizzesWrapper');
+
+            if (!dobVal) {
+                dobResultBox.style.display = "none";
+                dynamicWrapper.style.display = "none";
+                return;
+            }
+
+            const parts = dobVal.split('-');
+            if (parts.length !== 3) {
+                dobResultBox.style.display = "none";
+                dynamicWrapper.style.display = "none";
+                return;
+            }
+
+            const year = parts[0];
+            const month = parts[1];
+            const day = parts[2];
+
+            // Driver Number = total of DD
+            let daySum = 0;
+            for (let i = 0; i < day.length; i++) {
+                daySum += parseInt(day[i], 10);
+            }
+            const driverNum = getDigitalRoot(daySum);
+            const driverDisplay = `${daySum} / ${driverNum}`;
+
+            // Conductor Number = sum of DD/MM/YYYY digits
+            const fullDateStr = year + month + day;
+            let totalDateSum = 0;
+            for (let i = 0; i < fullDateStr.length; i++) {
+                totalDateSum += parseInt(fullDateStr[i], 10);
+            }
+            const conductorNum = getDigitalRoot(totalDateSum);
+            const conductorDisplay = `${totalDateSum} / ${conductorNum}`;
+
+            // Manifestation Number = Driver + Conductor (then digital root)
+            const manifestationRaw = driverNum + conductorNum;
+            const manifestationNum = getDigitalRoot(manifestationRaw);
+            const manifestationDisplay = `${manifestationRaw} / ${manifestationNum}`;
+
+            document.getElementById('driverNumberOut').innerText = driverDisplay;
+            document.getElementById('conductorNumberOut').innerText = conductorDisplay;
+            document.getElementById('manifestationNumberOut').innerText = manifestationDisplay;
+
+            dobResultBox.style.display = "grid";
+
+            // Populate Dynamic Quizzes based on Driver, Conductor, and Manifestation digital root values (1-9)
+            populateQuizCard('driverQuizLabel', 'driverQuizContent', driverNum, 'Driver (Nav Durga)');
+            populateQuizCard('conductorQuizLabel', 'conductorQuizContent', conductorNum, 'Conductor (Mahavidya Diagnosis)');
+            populateQuizCard('manifestationQuizLabel', 'manifestationQuizContent', manifestationNum, 'Manifestation (5 Devta)');
+
+            dynamicWrapper.style.display = "block";
+        }
+
+        function populateQuizCard(labelId, contentId, planetCode, titlePrefix) {
+            const labelEl = document.getElementById(labelId);
+            const contentEl = document.getElementById(contentId);
+
+            const planetData = planetSymptoms[planetCode] || planetSymptoms[1];
+
+            labelEl.innerHTML = `<b>${titlePrefix} - Code ${planetCode}: ${planetData.name}</b>`;
+
+            let html = `
+                <div class="dynamic-quiz-card">
+                    <h4>Associated Deities: ${planetData.navdurga} | ${planetData.mahavidya}</h4>
+                    <p style="margin-bottom: 12px; font-size: 13px; font-style: italic; color: #6b5a32;">Tick the symptoms that match your condition:</p>
+            `;
+
+            planetData.symptoms.forEach((symptom, idx) => {
+                html += `
+                    <label class="symptom-item">
+                        <input type="checkbox" name="symptom_${planetCode}_${idx}" value="${symptom}">
+                        <span>${symptom}</span>
+                    </label>
+                `;
+            });
+
+            html += `</div>`;
+            contentEl.innerHTML = html;
+        }
+
+        // Add additional mobile phone inputs
+        function addPhoneField() {
+            const container = document.getElementById('phoneContainer');
+            const newGroup = document.createElement('div');
+            newGroup.className = 'phone-group';
+            newGroup.innerHTML = `
+                <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number">
+            `;
+            container.appendChild(newGroup);
+        }
+
+        // Form Submit, Google Apps Script & LocalStorage Logic
+        document.getElementById('astrovastuForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const form = this;
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Submitting...";
+
+            // Collect all phone numbers into a single string
+            const phoneInputs = document.querySelectorAll('.mobileInput');
+            const mobileNumbers = Array.from(phoneInputs)
+                .map(input => input.value.trim())
+                .filter(val => val !== "")
+                .join(', ');
+
+            // Collect checked symptoms
+            const checkedSymptoms = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+
+            // Construct payload object for LocalStorage
+            const formDataLocal = {
+                id: 'SUB_' + Date.now(),
+                submissionDate: document.getElementById('submissionDate').value,
+                fullName: document.getElementById('fullName').value.trim(),
+                dob: document.getElementById('dob').value,
+                timeOfBirth: document.getElementById('timeOfBirth').value,
+                mobileNumbers: mobileNumbers,
+                checkedSymptoms: checkedSymptoms,
+                submittedAt: new Date().toISOString()
+            };
+
+            // 1. Save to LocalStorage
+            let existingSubmissions = JSON.parse(localStorage.getItem('astrovastu_submissions')) || [];
+            existingSubmissions.push(formDataLocal);
+            localStorage.setItem('astrovastu_submissions', JSON.stringify(existingSubmissions));
+
+            // 2. Prepare FormData payload for Google Apps Script
+            const postPayload = new FormData();
+            postPayload.append('submissionDate', document.getElementById('submissionDate').value);
+            postPayload.append('fullName', document.getElementById('fullName').value.trim());
+            postPayload.append('dob', document.getElementById('dob').value);
+            postPayload.append('timeOfBirth', document.getElementById('timeOfBirth').value);
+            postPayload.append('mobileNumber', mobileNumbers);
+            postPayload.append('checkedSymptoms', checkedSymptoms.join(' | '));
+
+            // 3. Post to Google Apps Script Web App
+            fetch(form.action, {
+                method: 'POST',
+                body: postPayload,
+                mode: 'no-cors' // Allows submitting cross-domain to Google Apps Script
+            }).then(() => {
+                const statusDiv = document.getElementById('statusMessage');
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = `✓ Form successfully submitted `;
+
+                form.reset();
+                document.getElementById('submissionDate').valueAsDate = new Date();
+                document.getElementById('numerologyResult').style.display = 'none';
+                document.getElementById('dobNumerologyResult').style.display = 'none';
+                document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
+            }).catch(error => {
+                const statusDiv = document.getElementById('statusMessage');
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = `✓ Saved locally!`;
+            }).finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Information";
+            });
+        });
+    </script>
+
+</body>
+
+</html>
