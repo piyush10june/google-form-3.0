@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blueberry Energy upcharak Experience | Royal Bengal Expo</title>
+    <title>Blueberry Energy upcharak Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -28,7 +28,7 @@
         }
 
         body {
-            background:url("images/watermark.png") center center / cover no-repeat fixed;
+            background: url("images/watermark.png") center center / cover no-repeat fixed;
             color: var(--deep-blue);
             padding: 40px 15px;
             min-height: 100vh;
@@ -85,7 +85,7 @@
         }
 
         .logo {
-            max-width: 800px;
+            max-width: 840px;
             width: 95%;
             height: auto;
             object-fit: contain;
@@ -279,7 +279,7 @@
             flex-direction: column;
             gap: 4px;
             margin-bottom: 14px;
-            padding: 10px;
+            padding: 12px 14px;
             background: #f8fafc;
             border-left: 3px solid #DAA520;
             border-radius: 4px;
@@ -295,9 +295,10 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: #0B192C;
+            margin-bottom: 4px;
         }
 
         .symptom-item input[type="checkbox"] {
@@ -308,14 +309,15 @@
         }
 
         .symptom-hindi {
-            font-size: 13px;
+            font-size: 14px;
             color: #4682B4;
             margin-left: 24px;
             font-style: italic;
+            margin-bottom: 2px;
         }
 
         .symptom-hinglish {
-            font-size: 12px;
+            font-size: 13px;
             color: #64748b;
             margin-left: 24px;
         }
@@ -543,32 +545,31 @@
                 <label for="dob">Date of Birth <span>*</span></label>
                 <input type="date" id="dob" name="dob" required onchange="calculateDobNumerology()">
 
-                <!-- DOB Numerology (Driver, Conductor, Manifestation) Output Display -->
+                <!-- DOB Numerology Clean Output Display (Only Driver, Conductor, Manifestation) -->
                 <div class="numerology-box" id="dobNumerologyResult" style="display: none;">
-                    <div class="numerology-item">Driver (Nav Durga): <span id="driverNumberOut">-</span></div>
-                    <div class="numerology-item">Conductor (Mahavidya): <span id="conductorNumberOut">-</span></div>
-                    <div class="numerology-item">Manifestation (5 Devta): <span id="manifestationNumberOut">-</span>
-                    </div>
+                    <div class="numerology-item">Driver: <span id="driverNumberOut">-</span></div>
+                    <div class="numerology-item">Conductor: <span id="conductorNumberOut">-</span></div>
+                    <div class="numerology-item">Manifestation: <span id="manifestationNumberOut">-</span></div>
                 </div>
             </div>
 
-            <!-- Dynamic Diagnostic Questionnaires Based on Planet Codes (1-9) & 45 Vastu Purusha Mandala Deities -->
+            <!-- Dynamic Diagnostic Questionnaires: Driver, Conductor, and Manifestation Checklist -->
             <div id="dynamicQuizzesWrapper" style="display: none;">
                 <!-- Driver Section Quiz -->
                 <div class="field">
-                    <label id="driverQuizLabel">Driver Code Diagnosis Checklist (5 Vastu Deities)</label>
+                    <label id="driverQuizLabel">Driver Code Diagnosis Checklist</label>
                     <div class="dynamic-quiz-container" id="driverQuizContent"></div>
                 </div>
 
                 <!-- Conductor Section Quiz -->
                 <div class="field">
-                    <label id="conductorQuizLabel">Conductor Code Diagnosis Checklist (5 Vastu Deities)</label>
+                    <label id="conductorQuizLabel">Conductor Code Diagnosis Checklist</label>
                     <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
                 </div>
 
-                <!-- Manifestation Section Quiz -->
+                <!-- Manifestation Section Quiz (45 Deities 5 Sets per Code 1 to 9) -->
                 <div class="field">
-                    <label id="manifestationQuizLabel">Manifestation Code Diagnosis Checklist (5 Vastu Deities)</label>
+                    <label id="manifestationQuizLabel">Manifestation Code Diagnosis Checklist</label>
                     <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
                 </div>
             </div>
@@ -660,24 +661,25 @@
                     style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin: 25px auto 30px; font-family: Arial, sans-serif;">
                     <span
                         style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
-                        Structure Layout[cite: 1]
+                        Structure Layout
                     </span>
                     <span style="color: #FF8C00; font-size: 25px; font-weight: bold;">→</span>
                     <span
                         style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
-                        Furniture Layout[cite: 1]
+                        Furniture Layout
                     </span>
                     <span style="color: #FF8C00; font-size: 25px; font-weight: bold;">→</span>
                     <span
                         style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
-                        Interior Layout[cite: 1]
+                        Interior Layout
                     </span>
+
                 </div>
 
                 <p
                     style="max-width: 950px; margin: 0 auto 45px; font-size: 17px; line-height: 1.8; color: #0B192C; text-align: center;">
                     Once the interior layout is in place, you can build or renovate
-                    your <strong>home, office, or factory</strong> accordingly.[cite: 1]
+                    your <strong>home, office, or factory</strong> accordingly.
                 </p>
 
                 <!-- HOW BLUEBERRY WORKS -->
@@ -692,22 +694,22 @@
                             integrates the Vastu principles and advice provided by
                             your Vastu Consultant, and aligns the Luxury Interior
                             Design created by your Interior Designer with AstroVastu,
-                            Numerology, Palmistry and Energy[cite: 1]
+                            Numerology, Palmistry and Energy
                         </strong>
                         — creating a personalized environment for the individual
-                        to enhance their[cite: 1]
+                        to enhance their
                         <strong style="color:#DAA520;">
-                            Aura (Personality), Profession, and Manifestation.[cite: 1]
+                            Aura (Personality), Profession, and Manifestation.
                         </strong>
                     </p>
                     <p style="font-size: 17px; line-height: 1.9; margin: 25px 0 0; color: #0B192C;">
-                        Blueberry brings these elements together to create a[cite: 1]
+                        Blueberry brings these elements together to create a
                         <strong style="color:#DAA520;">
                             synchronized environment where your space works in
-                            harmony with your personality[cite: 1]
+                            harmony with your personality
                         </strong>,
                         helping you unlock your potential, strengthen your presence,
-                        and create greater visibility and impact in the market.[cite: 1]
+                        and create greater visibility and impact in the market.
                     </p>
                 </div>
 
@@ -718,44 +720,44 @@
                         style="margin: 0; font-size: 20px; line-height: 1.7; color: #DAA520; font-weight: bold; font-style: italic; text-align: center;">
                         “A Step-by-Step, Balanced & Magical System to Fulfill Your
                         Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
-                        Home, Office, or Factory.”[cite: 1]
+                        Home, Office, or Factory.”
                     </p>
                 </div>
 
                 <!-- STRATEGIC ADVICE -->
                 <div style="max-width: 1050px; margin: 0 auto; text-align: left;">
                     <p style="font-size: 17px; line-height: 1.9; color: #0B192C; margin-bottom: 25px;">
-                        This[cite: 1]
+                        This
                         <strong style="color:#DAA520;">
-                            strategic advice[cite: 1]
+                            strategic advice
                         </strong>
-                        is designed to[cite: 1]
+                        is designed to
                         <strong>
-                            structure and support your Subconscious mind[cite: 1]
+                            structure and support your Subconscious mind
                         </strong>,
                         which is essential for building a strong brand, creating
                         substantial wealth, overcoming weaknesses and losses,
                         and transforming challenges and losses into opportunities
-                        and investments.[cite: 1]
+                        and investments.
                     </p>
                     <p style="font-size: 18px; line-height: 1.9; color: #0B192C; text-align: center; margin: 0;">
-                        Ultimately, this strategic approach is designed to help you[cite: 1]
-                        become an[cite: 1]
+                        Ultimately, this strategic approach is designed to help you
+                        become an
                         <strong style="color:#DAA520;">
-                            Influencer[cite: 1]
+                            Influencer
                         </strong>,
-                        harness[cite: 1]
+                        harness
                         <strong style="color:#DAA520;">
-                            Media Power[cite: 1]
+                            Media Power
                         </strong>,
-                        and create a[cite: 1]
+                        and create a
                         <strong style="color:#DAA520;">
-                            Viral Presence[cite: 1]
+                            Viral Presence
                         </strong>,
-                        enabling you to[cite: 1]
+                        enabling you to
                         <strong style="color:#FF8C00;">
                             excel, achieve sustained growth, increase your visibility,
-                            and move towards a top position in the market.[cite: 1]
+                            and move towards a top position in the market.
                         </strong>
                     </p>
                 </div>
@@ -808,8 +810,8 @@
             <div class="footer-bottom"
                 style="max-width: 1150px; margin: 40px auto 0; padding-top: 22px; border-top: 1px solid #DAA520; text-align: center; color: #0B192C; font-size: 14px;">
                 <p style="margin:0; color:#DAA520; text-align: center;">
-                    Thank you for choosing[cite: 1]
-                    <b style="color:#FF8C00;">BLUEBERRY[cite: 1]</b>
+                    Thank you for choosing
+                    <b style="color:#FF8C00;">BLUEBERRY</b>
                 </p>
             </div>
 
@@ -817,460 +819,836 @@
 
     </div>
 
-    <!-- JavaScript Engine: Complete 45 Vastu Purusha Mandala Deities Database & Trilingual Diagnostics -->
+    <!-- JavaScript Engine -->
     <script>
         // Set Default Date of Filling to Today
         document.getElementById('submissionDate').valueAsDate = new Date();
 
-        // Complete 45 Vastu Purusha Mandala Deities Database mapped across 9 Planet Codes (5 Deities per Planet)
-        // Each deity includes English, Hindi, and Hinglish trilingual symptoms extracted from clinical guidelines.
-        const planetDeitiesDatabase = {
+        // 1. Driver Database: Navdurga (8 Symptoms for Codes 1 to 9)
+        const driverNavdurgaDatabase = {
             1: {
-                planetName: "SUN / सूर्य (Surya)",
-                deities: [
+                name: "SUN / सूर्य (Surya)",
+                sets: [
                     {
-                        name: "1. JAYANT — THE GO-GETTER",
-                        corePain: "Severe laziness, procrastination, and inability to start any task.",
+                        setTitle: "Goddess Shailputri & Mahendra (Sun Sector)",
                         symptoms: [
-                            { eng: "I want to start new projects, but I keep delaying them for weeks.", hin: "मैं नए काम शुरू करना तो चाहता हूँ, लेकिन हफ्तों तक डिले रखता हूँ।", hgl: "Main naye kaam shuru toh karna chahta hu, lekin hafton tak delay rehta hu." },
-                            { eng: "I feel zero excitement or energy when beginning a new task.", hin: "नया काम शुरू करते समय मुझे कोई एक्साइटमेंट या एनर्जी फील नहीं होती।", hgl: "Naya kaam shuru karte waqt mujhe koi excitement ya energy feel nahi hoti." },
-                            { eng: "I have lost the confidence to take bold or dynamic actions.", hin: "मुझे लगता है कि मैंने बोल्ड स्टेप्स लेने का कॉन्फिडेंस खो दिया है।", hgl: "Mujhe lagta hai ki maine bold steps lene ka confidence kho diya hai." }
-                        ]
-                    },
-                    {
-                        name: "2. MAHENDRA — THE MANAGER",
-                        corePain: "Poor networking, bad administrative control, and isolation from influential people.",
-                        symptoms: [
-                            { eng: "I have no connection with big people, and no one supports my business.", hin: "बड़े लोगों से मेरा कोई कनेक्शन नहीं है, और मेरे बिजनेस में कोई सपोर्ट नहीं देता।", hgl: "Bade logo se mera koi connection nahi hai, aur mere business me koi support nahi deta." },
-                            { eng: "I struggle to manage my team; they never listen to my directions.", hin: "मुझे अपनी टीम को मैनेज करने में दिक्कत होती है, वो मेरी बात नहीं सुनते।", hgl: "Mujhe apni team ko manage karne me dikkat hoti hai, wo meri baat nahi sunte." },
-                            { eng: "Government departments and higher authorities always block my files.", hin: "गवर्नमेंट डिपार्टमेंट्स और ऑफिशियल्स हमेशा मेरी फाइल्स ब्लॉक कर देते हैं।", hgl: "Government departments aur officials hamesha meri files block kar dete hain." }
-                        ]
-                    },
-                    {
-                        name: "3. SURYA — THE REGULATOR",
-                        corePain: "Disorganized lifestyle, sleep issues, loss of respect, and tension with father.",
-                        symptoms: [
-                            { eng: "My daily sleeping pattern is completely ruined; I cannot wake up on time.", hin: "मेरा डेली रूटीन बिल्कुल खराब है, मैं सुबह टाइम पर उठ नहीं पाता।", hgl: "Mera daily routine bilkul kharab hai, main subah time par uth nahi pata." },
-                            { eng: "Nobody respects my hard work in my family or society anymore.", hin: "फैमिली या सोसाइटी में अब कोई मेरी हार्ड वर्क की रिस्पेक्ट नहीं करता।", hgl: "Family ya society me ab koi meri hard work ki respect nahi karta." },
-                            { eng: "My father and I have major ego issues; we cannot talk peacefully.", hin: "मेरा और मेरे फादर का हमेशा एगो क्लैश रहता है, शांति से बात नहीं होती।", hgl: "Mera aur mere father ka hamesha ego clash rehta hai, shanti se baat nahi hoti." }
-                        ]
-                    },
-                    {
-                        name: "4. SATYA — THE JUDGE",
-                        corePain: "Mental confusion, wrong decision making, broken commitments, and lack of trust.",
-                        symptoms: [
-                            { eng: "I am always confused about what is right and wrong; I keep doubting myself.", hin: "मैं हमेशा कंफ्यूज रहता हूँ कि क्या सही है और क्या गलत; खुद पर डाउट होता है।", hgl: "Main hamesha confused rehta hu ki kya sahi hai aur kya galat; khud par doubt hota hai." },
-                            { eng: "No one in my family trusts my promises or words anymore.", hin: "मेरे फैमिली में अब कोई मेरे प्रॉमिस या बातों पर ट्रस्ट नहीं करता।", hgl: "Mere family me ab koi mere promises ya baato par trust nahi karta." },
-                            { eng: "I made bad decisions in excitement that ruined my financial savings.", hin: "मैंने एक्साइटमेंट में गलत डिसीजन लिए जिससे मेरी सारी सेविंग्स खराब हो गई।", hgl: "Maine excitement me galat decisions liye jisse meri saari savings kharab ho gayi." }
-                        ]
-                    },
-                    {
-                        name: "5. BHRISHA — THE GRINDER",
-                        corePain: "Overthinking, severe anxiety, analysis paralysis, and failure in executing plans.",
-                        symptoms: [
-                            { eng: "I keep thinking about the same problem for hours but cannot find any solution.", hin: "मैं घंटों एक ही प्रॉब्लम के बारे में सोचता रहता हूँ पर कोई सॉल्यूशन नहीं मिलता।", hgl: "Main ghanto ek hi problem ke baare me sochta rehta hu par koi solution nahi milta." },
-                            { eng: "My brain gets completely jammed with thoughts when I have to make a plan.", hin: "जब मुझे कोई प्लान बनाना होता है, तो मेरा ब्रेन थॉट्स से ब्लॉक हो जाता है।", hgl: "Jab mujhe koi plan banana hota hai, toh mera brain thoughts se block ho jata hai." },
-                            { eng: "A small daily issue makes me extremely anxious and panicked.", hin: "डेली लाइफ की छोटी सी प्रॉब्लम भी मुझे बहुत एंशियस और पैंडिक्ड कर देती है।", hgl: "Daily life ki choti si problem bhi mujhe bohot anxious aur panicked kar deti hai." }
+                            { eng: "I don't know what career or business to choose; I change my plans every week.", hin: "मुझे समझ नहीं आता कि कौन सा करियर या बिजनेस चुनूँ, मैं हर हफ्ते अपनी योजना बदल देता हूँ।", hgl: "mujhe samajh nahi ata ki kaun sa career ya business chunun, main har hafte apani yojana badal deta hun." },
+                            { eng: "I feel like I don't exist; everyone dominates me and makes decisions for me.", hin: "मुझे लगता है कि मेरा अपना कोई अस्तित्व नहीं है, हर कोई मुझ पर हावी रहता है और मेरे फैसले लेता है।", hgl: "mujhe lagata hai ki mer apana koi astitv nahi hai, har koi mujha par havi rahata hai aur mere faisale leta hai." },
+                            { eng: "I start things with excitement but lose my ground very quickly.", hin: "मैं उत्साह में काम तो शुरू करता हूँ लेकिन बहुत जल्दी हिम्मत हार जाता हूँ।", hgl: "main utsaha men kam to shuru karata hun lekin bahut jaldi himmata har jata hun." },
+                            { eng: "I feel completely unstable and rootless in my own family/office.", hin: "मुझे अपने ही परिवार या ऑफिस में अपनी जड़ें कमजोर और अस्थिर महसूस होती हैं।", hgl: "mujhe apane hi parivar ya office men apani jaden kamzor aur asthir mahasusa hoti hain." },
+                            { eng: "Chronic Indecisiveness: Constantly asking multiple people for advice on small matters and being unable to stick to a single choice.", hin: "छोटी-छोटी बातों पर लोगों से राय मांगना और किसी एक फैसले पर टिक न पाना।", hgl: "chhoti-chhoti baton par logon se raya mangana aur kisi eka faisale par tik na pana." },
+                            { eng: "Identity Crisis & Self-Doubt: Seeking validation from others for self-worth and feeling completely helpless when left alone.", hin: "दूसरों से अपनी तारीफ सुनने की चाह रखना और अकेले होने पर असहाय महसूस करना।", hgl: "dusaron se apani tarif sunane ki chaha rakhana aur akele hone par asahaya mahasusa karana." },
+                            { eng: "Weak Physical Posture & Low Stamina: Walking with slouched shoulders, feeling fatigued easily, and lacking physical or mental core strength.", hin: "कंधे झुकाकर चलना, बहुत जल्दी थक जाना और शारीरिक व मानसिक मजबूती की कमी होना।", hgl: "kndhe jhukakar chalana, bahut jaldi thak jana aur sharirik va manasik majabuti ki kami hona." },
+                            { eng: "Escaping Responsibilities: Actively running away from leading a team or family project due to a fear of being blamed if things go wrong.", hin: "टीम या परिवार के कामों का नेतृत्व करने से बचना ताकि गलती होने पर जिम्मेदारी न लेनी पड़े।", hgl: "tim ya parivar ke kamon ka netritva karane se bachana taki galati hone par jimmedari na leni pade." }
                         ]
                     }
                 ]
             },
             2: {
-                planetName: "MOON / चन्द्र (Chandra)",
-                deities: [
+                name: "MOON / चन्द्र (Chandra)",
+                sets: [
                     {
-                        name: "6. RUDRA — THE CONTROLLER",
-                        corePain: "Loss of emotional control, sudden mood swings, unprovoked anger or deep sadness.",
+                        setTitle: "Rudra & Rajyakshma (Moon Sector)",
                         symptoms: [
-                            { eng: "I lose control over my emotions very quickly and start crying or shouting.", hin: "मैं अपनी इमोशंस पर कंट्रोल खो देता हूँ और रोने या चिल्लाने लगता हूँ।", hgl: "Main apni emotions par control kho deta hu aur rone ya chillane lagta hu." },
-                            { eng: "My mood shifts instantly from extremely happy to deeply sad for no reason.", hin: "मेरा मूड बिना बात के अचानक बहुत खुश से बहुत सैड हो जाता है।", hgl: "Mera mood bina baat ke sudden bohot khush se bohot sad ho jata hai." },
-                            { eng: "I feel an inner storm of anger that I cannot calm down.", hin: "मैं अपने अंदर गुस्से का एक ऐसा तूफान फील करता हूँ जिसे काम नहीं कर पाता।", hgl: "Main apne andar gusse ka ek aisa tufan feel karta hu jise calm nahi kar pata." }
-                        ]
-                    },
-                    {
-                        name: "7. RAJYAKSHMA — THE FLOW",
-                        corePain: "Mental blockages, inability to express love, holding onto past bitterness, and rigidity.",
-                        symptoms: [
-                            { eng: "I feel mentally blocked; I cannot express my love or warmth to my family.", hin: "मैं मेंटली ब्लॉक्ड फील करता हूँ; अपनी फैमिली को अपना प्यार एक्सप्रेस नहीं कर पाता।", hgl: "Main mentally blocked feel karta hu; apni family ko apna pyaar express nahi kar pata." },
-                            { eng: "I cannot forgive people who hurt me years ago; I keep holding grudges.", hin: "मैं उन लोगों को माफ नहीं कर पाता जिन्होंने सालो पहले हर्ट किया था; ग्रजेस रहते हैं।", hgl: "Main un logo ko maaf nahi kar pata jinhone saalo pehle hurt kiya tha; grudges rehte hain." },
-                            { eng: "My mind is dry; no creative ideas or positive thoughts flow into me.", hin: "मेरा माइंड ड्राई हो गया है; कोई क्रिएटिव आइडियाज या पॉजिटिव थॉट्स नहीं आते।", hgl: "Mera mind dry ho gaya hai; koi creative ideas ya positive thoughts nahi aate." }
-                        ]
-                    },
-                    {
-                        name: "8. AHIR — THE PROTECTOR",
-                        corePain: "Feeling vulnerable, unable to speak against injustice, being easily exploited.",
-                        symptoms: [
-                            { eng: "I feel highly unsafe and vulnerable, like anyone can come and damage my life.", hin: "मैं बहुत अनसेफ फील करता हूँ, जैसे कोई भी आकर मेरी लाइफ खराब कर सकता है।", hgl: "Main bohot unsafe feel karta hu, jaise koi bhi aakar meri life kharab kar sakta hai." },
-                            { eng: "I cannot stand up or speak against people who do wrong to me.", hin: "मैं उन लोगों के खिलाफ आवाज नहीं उठा पाता जो मेरे साथ गलत करते हैं।", hgl: "Main un logo ke khilaf awaz nahi utha pata jo mere sath galat karte hain." },
-                            { eng: "People constantly exploit my soft nature and take unfair advantage of me.", hin: "लोग मेरे सॉफ्ट नेचर का फायदा उठाते हैं और मुझे एक्सप्लॉइट करते हैं।", hgl: "Log mere soft nature ka fayda uthate hain aur mujhe exploit karte hain." }
-                        ]
-                    },
-                    {
-                        name: "9. ROG — THE ENERGISER",
-                        corePain: "Physical weakness, low immunity, waking up tired, and constant fatigue.",
-                        symptoms: [
-                            { eng: "I wake up in the morning feeling completely exhausted and heavy.", hin: "मैं सुबह उठता हूँ तो बॉडी कंपलीटली एग्जॉस्टेड और हेवी फील होती है।", hgl: "Main subah uthta hu toh body completely exhausted aur heavy feel hoti hai." },
-                            { eng: "My immunity is so low; I fall sick with every weather change.", hin: "मेरी इम्युनिटी बहुत वीक है; हर वेदर चेंज पर मैं बीमार पड़ जाता हूँ।", hgl: "Meri immunity bohot weak hai; har weather change par main bimar pad jata hu." },
-                            { eng: "I don't have any physical stamina or strength to do basic household work.", hin: "मुझमें बेसिक घर के काम करने के लिए भी स्टैमिना या स्ट्रेंथ नहीं है।", hgl: "Mujhme basic ghar ke kaam karne ke liye bhi stamina ya strength nahi hai." }
-                        ]
-                    },
-                    {
-                        name: "10. PAPYAKSHMA — THE PURIFIER",
-                        corePain: "Toxic addictions, repeating negative habits, deep guilt, shame, and self-abuse.",
-                        symptoms: [
-                            { eng: "I am trapped in toxic addictions (phone, food, or alcohol) that I cannot break.", hin: "मैं टॉक्सिक एडिक्शन (फोन, फूड, अल्कोहल) में फंसा हूँ जिसे ब्रेक नहीं कर पाता।", hgl: "Main toxic addictions (phone, food, alcohol) me fasa hu jise break nahi kar pata." },
-                            { eng: "I carry deep shame and guilt inside my heart about my past behaviors.", hin: "मैं अपने दिल में पास्ट बिहेवियर को लेकर डीप गिल्ट और शेम फील करता हूँ।", hgl: "Main apne dil me past behavior ko lekar deep guilt aur shame feel karta hu." },
-                            { eng: "I know some habits are ruining my life, but I still repeat them compulsively.", hin: "मैं जानता हूँ कि कुछ हैबिट्स लाइफ खराब कर रही हैं, फिर भी कंपल्सिव हो जाता हूँ।", hgl: "Main janta hu ki kuch habits life kharab kar rahi hain, fir bhi compulsive ho jata hu." }
+                            { eng: "I constantly feel a heavy tightness in my chest and feel anxious for no reason.", hin: "मुझे लगातार अपनी छाती में भारीपन महसूस होता है और बिना किसी वजह के घबराहट होती रहती है।", hgl: "mujhe lagatar apani chhati men bharipana mahasusa hota hai aur bina kisi vajaha ke ghabarahata hoti rahati hai." },
+                            { eng: "I am always worried that something terrible is about to happen to my family.", hin: "मुझे हमेशा यह डर सताता रहता है कि मेरे परिवार के साथ कुछ बहुत बुरा होने वाला है।", hgl: "mujhe hamesha yaha dar satata rahata hai ki mere parivar ke satha kuchha bahut bur hone val hai." },
+                            { eng: "I haven't slept deeply in months; my brain just won't stop thinking at night.", hin: "मैंने महीनों से गहरी नींद नहीं ली है, रात को मेरा दिमाग सोचना बंद ही नहीं करता।", hgl: "mainne mahinon se gahari ninda nahi li hai, rata ko mer dimag sochana bnda hi nahi karata." },
+                            { eng: "A small phone call or notification makes my heart beat extremely fast.", hin: "एक छोटा सा फोन कॉल या नोटिफिकेशन भी मेरे दिल की धड़कन को बहुत तेज कर देता है।", hgl: "eka chhota sa fona ka■l ya notifikeshana bhi mere dil ki dhadakana ko bahut tej kar deta hai." },
+                            { eng: "Nervous Habits & Restlessness: Constantly biting nails, tapping feet, shaking hands, or walking around the room in circles due to high anxiety.", hin: "चिंता के कारण नाखून चबाना, पैर हिलाना या कमरे में बिना वजह चक्कर काटना।", hgl: "chinta ke karana nakhuna chabana, pair hilana ya kamare men bina vajaha chakkar katana." },
+                            { eng: "Extreme Mood Swings: Being happy one moment and bursting into tears or anger the next over trivial household issues.", hin: "एक पल में खुश होना और अगले ही पल घर की छोटी सी बात पर रोने या गुस्सा करने लगना।", hgl: "eka pal men khusha hona aur agale hi pal ghar ki chhoti si bata par rone ya gussa karane lagana." },
+                            { eng: "Sudden Voice Raising: Speaking loudly or screaming abruptly when feeling emotionally overwhelmed or defensive.", hin: "भावनात्मक दबाव आने पर अचानक बहुत तेज आवाज में चिल्लाकर बात करने लगना।" },
+                            { eng: "Over-dependency on Others: Needing constant reassurance from partners or parents that everything is fine.", hin: "अपने पार्टनर या माता-पिता से बार-बार यह सुनना कि सब कुछ ठीक है ताकि मन शांत हो सके।" }
                         ]
                     }
                 ]
             },
             3: {
-                planetName: "JUPITER / गुरु (Guru)",
-                deities: [
+                name: "JUPITER / गुरु (Guru)",
+                sets: [
                     {
-                        name: "11. APAHA — THE NOURISHMENT",
-                        corePain: "Deep dissatisfaction, emotional dryness, lack of family love and nourishment.",
+                        setTitle: "Apaha & Parjanya (Jupiter Sector)",
                         symptoms: [
-                            { eng: "No matter what I achieve, I always feel highly unsatisfied and empty inside.", hin: "नो मैटर मैं क्या अचीव करूँ, हमेशा अनसैटिस्फाइड और एम्टी फील होता है।", hgl: "No matter main kya achieve karu, hamesha unsatisfied aur empty feel hota hai." },
-                            { eng: "I don't feel any love, care, or emotional warmth from my family members.", hin: "मुझे अपनी फैमिली से कोई प्यार, केयर या वॉर्मथ फील नहीं होती।", hgl: "Mujhe apni family se koi pyaar, care ya warmth feel nahi hoti." },
-                            { eng: "Everything in my life feels dry; I cannot enjoy food or simple comforts.", hin: "मेरा लाइफ बहुत ड्राई है; मैं फूड या बेसिक कम्फर्ट्स को एन्जॉय नहीं कर पाता।", hgl: "Mera life bohot dry hai; main food ya basic comforts ko enjoy nahi kar pata." }
-                        ]
-                    },
-                    {
-                        name: "12. AAPAHAVATSA — THE VITALITY",
-                        corePain: "Chronic low energy, complete lack of inner motivation, fatigue, and dullness.",
-                        symptoms: [
-                            { eng: "I feel extremely tired all the time; I have no energy to do anything.", hin: "मैं हमेशा बहुत थका हुआ फील करता हूँ; मुझमें कुछ करने की एनर्जी नहीं है।", hgl: "Main hamesha bohot thaka hua feel karta hu; mujhme kuch karne ki energy nahi hai." },
-                            { eng: "I want to work, but I don't feel any inner spark or drive to start.", hin: "मैं काम करना चाहता हूँ, पर शुरू करने के लिए कोई मोटिवेशन नहीं रहती।", hgl: "Main kaam karna chahta hu, par shuru karne ke liye koi motivation nahi rehti." },
-                            { eng: "Even after 10 hours of sleep, I wake up completely unrefreshed and heavy.", hin: "10 ऑवर्स सोने के बाद भी मैं कंपलीटली अनरिफ्रेश्ड और हेवी उठता हूँ।", hgl: "10 hours sone ke baad bhi main completely unrefreshed aur heavy uthta hu." }
-                        ]
-                    },
-                    {
-                        name: "13. PARJANYA — THE IDEA GENERATOR",
-                        corePain: "Creative dry spell, stagnant ideas, unable to grow business, mind going blank.",
-                        symptoms: [
-                            { eng: "My mind is completely blank; I can't generate any new ideas for my career.", hin: "मेरा दिमाग बिल्कुल ब्लैंक है; मैं करियर के लिए कोई नये आइडियाज नहीं सोच पाता।", hgl: "Mera dimaag bilkul blank hai; main career ke liye koi naye ideas nahi soch pata." },
-                            { eng: "My business has hit a wall; I am unable to bring any innovation or modern growth.", hin: "मेरा बिजनेस एक जगह रुक गया है; मैं कोई इनोवेशन या मॉडर्न ग्रोथ नहीं ला पाता।", hgl: "Mera business ek jagah ruk gaya hai; main koi innovation ya modern growth nahi la pata." },
-                            { eng: "I solve one problem, but another complex crisis comes; I feel completely blocked.", hin: "एक प्रॉब्लम सॉल्व करता हूँ तो दूसरी आ जाती है; मैं ब्लॉक्ड फील करता हूँ।", hgl: "Ek problem solve karta hu toh doosri aa jati hai; main blocked feel karta hu." }
-                        ]
-                    },
-                    {
-                        name: "14. SHIKHI — THE VISIONARY",
-                        corePain: "No foresight, absolute confusion, lack of clear goals, and weak intuition.",
-                        symptoms: [
-                            { eng: "I have no idea where my life is heading; I feel completely lost and confused.", hin: "मुझे नहीं पता मेरी लाइफ किस डायरेक्शन में जा रही है; मैं लॉस्ट फील करता हूँ।", hgl: "Mujhe nahi pata meri life kis direction me ja rahi hai; main lost feel karta hu." },
-                            { eng: "I have no clear goals or visual plans for my next 5 years.", hin: "मेरे पास नेक्स्ट 5 इयर्स के लिए कोई क्लियर गोल्स या विजुअल प्लांस नहीं हैं।", hgl: "Mere paas next 5 years ke liye koi clear goals ya visual plans nahi hain." },
-                            { eng: "My inner voice or intuition never works; I always make the wrong choices.", hin: "मेरा इनर वॉइस कभी काम नहीं करता; मैं हमेशा गलत चॉइसिस लेता हूँ।", hgl: "Mera inner voice kabhi kaam nahi karta; main hamesha galat choices leta hu." }
-                        ]
-                    },
-                    {
-                        name: "15. DITI — THE GROUNDER",
-                        corePain: "Severe over-thinking, insomnia, impractical plans, and unrealistic approach.",
-                        symptoms: [
-                            { eng: "My brain never stops thinking; I keep imagining worst-case scenarios at night.", hin: "मेरा दिमाग सोचना बंद नहीं करता; मैं रात को हमेशा खराब चीजें सोचता हूँ।", hgl: "Mera dimaag sochna band nahi karta; main raat ko hamesha kharab chije sochta hu." },
-                            { eng: "I make huge, grand plans in my head, but I fail to implement them on ground.", hin: "दिमाग में बड़े हवाई किले बनाना, पर रियलिटी में जीरो इम्प्लीमेंटेशन होना।", hgl: "Dimaag me bade hawaai kile banana, par reality me zero implementation hona." },
-                            { eng: "I cannot get deep, peaceful sleep; I keep waking up with anxiety.", hin: "मुझे गहरी और शांत नींद नहीं आती; मैं रात भर एंग्जाइटी में उठता रहता हूँ।", hgl: "Mujhe gehri aur shant neend nahi aati; main raat bhar anxiety me uthta rehta hu." }
+                            { eng: "No one stands by me or helps me when I am in a crisis.", hin: "जब मैं किसी मुसीबत में होता हूँ, तो कोई भी मेरे साथ नहीं खड़ा होता या मेरी मदद नहीं करता।" },
+                            { eng: "I have to do everything alone; my family is emotionally miles away from me.", hin: "मुझे सब कुछ अकेले ही करना पड़ता है, मेरा परिवार मुझसे भावनात्मक रूप से मीलों दूर है।" },
+                            { eng: "I feel like I am walking in a dark forest without any protective shield.", hin: "मुझे लगता है कि मैं बिना किसी सुरक्षा कवच के एक घने अंधेरे जंगल में चल रहा हूँ।" },
+                            { eng: "Even my closest team members or business partners betray me in times of need.", hin: "जरूरत पड़ने पर मेरे सबसे करीबी टीम के सदस्य या बिजनेस पार्टनर भी मेरा साथ छोड़ देते हैं।" },
+                            { eng: "Deep Emotional Alienation: Living with a constant inner feeling of being an outsider in your own family or office team.", hin: "अपने ही परिवार या ऑफिस की टीम में खुद को एक बाहरी व्यक्ति या अजनबी महसूस करना।" },
+                            { eng: "Over-defensive & Suspicious Behavior: Treating every helpful gesture from others with suspicion, thinking they have a selfish motive.", hin: "दूसरों की मदद की पेशकश को भी शक की निगाह से देखना कि उनका कोई स्वार्थ होगा।" },
+                            { eng: "Accumulating Assets Feebly: Hoarding cash and cheap material goods out of an intense, fearful insecurity about the future.", hin: "भविष्य के अत्यधिक डर और असुरक्षा के कारण नकदी या बेकार की चीजों को बटोर कर रखना।" },
+                            { eng: "Physical Sluggishness & Lack of Joy: Sitting in one place for hours, feeling heavy in the head, and showing zero interest in family bonding.", hin: "घंटों एक ही जगह बैठे रहना, सिर में भारीपन महसूस करना और परिवार के साथ बैठने में कोई रुचि न दिखाना।" }
                         ]
                     }
                 ]
             },
             4: {
-                planetName: "RAHU / राहु",
-                deities: [
+                name: "RAHU / राहु",
+                sets: [
                     {
-                        name: "16. PITRA — THE FOUNDATION / ROOTS",
-                        corePain: "Lineage block, family disputes, weak foundation, projects failing at final stage.",
+                        setTitle: "Pitra & Indra (Rahu Sector)",
                         symptoms: [
-                            { eng: "My family growth is stuck; we face constant fights and lack of unity.", hin: "हमारी फैमिली ग्रोथ रुक गई है; हमेशा कलेश और एकता की कमी रहती है।", hgl: "Humari family growth ruk gayi hai; hamesha kalesh aur ekta ki kami rehti hai." },
-                            { eng: "The very base of my life, career, and finances feels highly unstable.", hin: "मेरा करियर और फाइनेंशियल बेस बहुत अनस्टेबल और शेकी फील होता है।", hgl: "Mera career aur financial base bohot unstable aur shaky feel hota hai." },
-                            { eng: "My biggest business deals always collapse at the very final stage.", hin: "मेरे बड़े बिजनेस डील्स हमेशा लास्ट स्टेज पर पहुंच कर कैंसिल हो जाते हैं।", hgl: "Mere bade business deals hamesha last stage par pahunch kar cancel ho jate hain." }
-                        ]
-                    },
-                    {
-                        name: "17. INDRA — THE EXECUTOR",
-                        corePain: "Power deficit, weak leadership, administrative failure, official blockages.",
-                        symptoms: [
-                            { eng: "I have no power or authority; even my juniors ignore my directions.", hin: "मेरे पास कोई पावर या अथॉरिटी नहीं है; जूनियर्स भी मेरी बात इग्नोर करते हैं।", hgl: "Mere paas koi power ya authority nahi hai; juniors bhi meri baat ignore karte hain." },
-                            { eng: "I struggle to execute my thoughts; my plans never see the light of day.", hin: "अपने प्लांस इम्प्लीमेंट करने में बहुत स्ट्रगल है; मेरी प्लानिंग कभी पूरी नहीं होती।", hgl: "Apne plans implement karne me bohot struggle hai; meri planning kabhi puri nahi hoti." },
-                            { eng: "Government departments and official rules are continuously blocking my growth.", hin: "सरकारी डिपार्टमेंट्स और रूल्स हमेशा मेरी ग्रोथ को ब्लॉक करते हैं।", hgl: "Government departments aur rules hamesha meri growth ko block karte hain." }
-                        ]
-                    },
-                    {
-                        name: "18. JAYA — THE MASTER STRATEGIST",
-                        corePain: "Tactical failure, losing to competitors, bad contracts, poor business moves.",
-                        symptoms: [
-                            { eng: "I keep losing my clients and market to my competitors; I feel powerless.", hin: "मैं कॉम्पिटिटर्स से लगातार पीछे हो रहा हूँ और क्लाइंट्स खो रहा हूँ; हेल्पलेस फील करता हूँ।", hgl: "Main competitors se lagatar piche ho raha hu aur clients kho raha hu; helpless feel karta hu." },
-                            { eng: "I always sign the wrong business contracts and regret later due to loopholes.", hin: "मैं हमेशा गलत कॉन्ट्रैक्ट्स साइन करता हूँ और बाद में लूपहोल्स की वजह से पछताता हूँ।", hgl: "Main hamesha galat contracts sign karta hu aur baad me loopholes ki wajah se pachtata hu." },
-                            { eng: "I don't know how to handle crises or make smart tactical moves under pressure.", hin: "मुझे नहीं पता क्राइसिस कैसे हैंडल करूँ और प्रेशर में स्मार्ट टैक्टिकल मूव्स कैसे लूँ।", hgl: "Mujhe nahi pata crisis kaise handle karu aur pressure me smart tactical moves kaise lu." }
-                        ]
-                    },
-                    {
-                        name: "19. DAUWARIK — THE GUARDIAN",
-                        corePain: "Insecurity, disloyal partners/staff, theft, fraud, bad main entrance energy.",
-                        symptoms: [
-                            { eng: "I feel highly unsafe in my own house; I cannot sleep peacefully.", hin: "मैं अपने ही घर में इनसिक्योर फील करता हूँ; शांति से सो नहीं पाता।", hgl: "Main apne hi ghar me insecure feel karta hu; shanti se so nahi pata." },
-                            { eng: "My staff, partners, or servants are constantly deceiving me and stealing.", hin: "मेरे स्टाफ, पार्टनर्स या सर्वेंट्स मुझे धोखा दे रहे हैं और चोरी कर रहे हैं।", hgl: "Mere staff, partners ya servants mujhe dhoka de rahe hain aur chori kar rahe hain." },
-                            { eng: "The main entrance of my house feels dark, heavy, and very welcoming to negativity.", hin: "मेरा मेन एंट्रेंस डार्क और हेवी लगता है, जैसे हमेशा निगेटिविटी आती हो।", hgl: "Mera main entrance dark aur heavy lagta hai, jaise hamesha negativity aati ho." }
-                        ]
-                    },
-                    {
-                        name: "20. MRIGAH — THE HUNTER",
-                        corePain: "Lack of client-drive, poor target-seeking, distraction, zero killer instinct.",
-                        symptoms: [
-                            { eng: "I have no drive or hunger to find new opportunities; I feel completely passive.", hin: "मुझमें नए अपॉर्चुनिटीज ढूढ़ने की भूख या पैशन नहीं बचा; मैं पैसिव हूँ।", hgl: "Mujhme naye opportunities dhoodhne ki bhookh ya passion nahi bacha; main passive hu." },
-                            { eng: "I am constantly distracted by small things and lose focus on my business targets.", hin: "मैं छोटी चीजों से डिस्टर्ब हो जाता हूँ और बिजनेस टारगेट्स से भटक जाता हूँ।", hgl: "Main choti chije se distract ho jata hu aur business targets se bhatak jata hu." },
-                            { eng: "I see amazing deals right in front of me, but I don't have the courage to close them.", hin: "सामने प्रॉफिटेबल डील्स दिखती हैं, पर क्लोजिंग करने का 'किलर इंस्टिंक्ट' नहीं रहता।", hgl: "Samne profitable deals dikhti hain, par closing karne ka 'killer instinct' nahi rehta." }
+                            { eng: "I am completely trapped in what happened 5 years ago; I cannot forget that betrayal.", hin: "मैं 5 साल पहले हुई घटनाओं में पूरी तरह फंसा हुआ हूँ, मैं उस धोखे को भूल ही नहीं पाता।" },
+                            { eng: "I feel extremely guilty about my past mistakes, and I think I don't deserve success.", hin: "मुझे अपनी पुरानी गलतियों पर बहुत पछतावा है, मुझे लगता है कि मैं सफलता पाने के हकदार ही नहीं हूँ।" },
+                            { eng: "Whenever I try to start a new business or relationship, old fears block me instantly.", hin: "जब भी मैं कोई नया काम या रिश्ता शुरू करने की कोशिश करता हूँ, पुराना डर मुझे तुरंत रोक देता है।" },
+                            { eng: "I feel like my brain is dirty and filled with dark, heavy thoughts.", hin: "मुझे महसूस होता है कि मेरा दिमाग बहुत गंदा और नकारात्मक, भारी विचारों से भरा हुआ है।" },
+                            { eng: "Hoarding Old Relics & Clutter: Keeping broken, unused items, old letters of ex-partners, or damaged clothes in the house for years.", hin: "घर में पुरानी टूटी-फूटी चीजें, पुराने प्रेम पत्र या फटे-पुराने कपड़े सालों तक सहेज कर रखना।" },
+                            { eng: "Repeatedly Talking about the Past: Bringing up old family disputes or business losses in every casual conversation.", hin: "हर आम बातचीत में बार-बार पुराने पारिवारिक झगड़ों या व्यापारिक नुकसान का रोना रोना।" },
+                            { eng: "Self-Punishing Behaviors: Neglecting physical hygiene, skipping meals, or purposefully ruining new positive opportunities out of self-loathing.", hin: "खुद को सजा देने की प्रवृत्ति, जैसे समय पर खाना न खाना, शरीर को साफ न रखना या अच्छे मौकों को खुद ही बिगाड़ लेना।" },
+                            { eng: "Resistance to Fresh Ideas: Refusing to change the interiors of your house, repaint old walls, or adapt to any modern habits.", hin: "घर का पुराना रंग-रोगन बदलने से मना करना, पुरानी व्यवस्था से चिपके रहना और किसी भी नए तरीके को न अपनाना।" }
                         ]
                     }
                 ]
             },
             5: {
-                planetName: "MERCURY / बुध (Budh)",
-                deities: [
+                name: "MERCURY / बुध (Budh)",
+                sets: [
                     {
-                        name: "21. SOMA — THE SOLUTION PROVIDER",
-                        corePain: "Brain-fog, high mental noise, unable to solve crises, blocked logic.",
+                        setTitle: "Soma & Aditi (Mercury Sector)",
                         symptoms: [
-                            { eng: "My head is always filled with noisy thoughts; I cannot find simple solutions.", hin: "मेरा दिमाग हमेशा शोर से भरा रहता हूँ; मैं प्रॉब्लम्स के सिंपल सॉल्यूशंस नहीं ढूंढ पाता।", hgl: "Mera dimaag hamesha shor se bhara rehta hai; main problems ke simple solutions nahi dhoodh pata." },
-                            { eng: "The moment a business crisis comes, I panic and make highly illogical decisions.", hin: "जब भी बिजनेस में कोई क्राइसिस आता है, मैं पैनिक करके गलत और बिना दिमाग के डिसीजन लेता हूँ।", hgl: "Jab bhi business me koi crisis aata hai, main panic karke galat aur bina dimaag ke decisions leta hu." },
-                            { eng: "I feel my mental intellect is completely blocked; I cannot analyze things logically.", hin: "मुझे लगता है मेरी बुद्धि (इंटेलेक्ट) ब्लॉक्ड है; मैं लॉजिकली एनालाइज नहीं कर पाता।", hgl: "Mujhe lagta hai meri buddhi (intellect) blocked hai; main logically analyze nahi kar pata." }
-                        ]
-                    },
-                    {
-                        name: "22. ADITI — THE CARE TAKER",
-                        corePain: "Extreme emotional insecurity, constant worry, anxiety, lack of close support.",
-                        symptoms: [
-                            { eng: "I constantly live in fear that my family or friends don't love or value me.", hin: "मैं हमेशा इस डर में जीता हूँ कि मेरे फैमिली या फ्रेंड्स मेरी रिस्पेक्ट या वैल्यू नहीं करते।", hgl: "Main hamesha is darr me jeeta hu ki mere family ya friends meri respect ya value nahi karte." },
-                            { eng: "My mind is plagued with scary future anxieties; I feel completely unprotected.", hin: "मेरा ब्रेन फ्यूचर की खराब एंग्जाइटी से भरा रहता है; मैं अनप्रोटेक्टेड फील करता हूँ।", hgl: "Mera brain future ki kharab anxieties se bhara rehta hai; main unprotected feel karta hu." },
-                            { eng: "No one in my close circle provides me with a warm, caring emotional safety net.", hin: "मेरे क्लोज सर्कल में कोई भी मुझे सच्चा इमोशनल सपोर्ट या सेफ्टी फील नहीं कराता।", hgl: "Mere close circle me koi bhi mujhe sacha emotional support ya safety feel nahi karata." }
-                        ]
-                    },
-                    {
-                        name: "23. BHUJAG — THE HEALER",
-                        corePain: "Low physical vitality, weak self-healing, slow illness recovery, face dullness.",
-                        symptoms: [
-                            { eng: "My body takes weeks to recover from even a small common cold or fever.", hin: "मेरा बॉडी नॉर्मल सर्दी-खांसी से रिकवर होने में भी हफ्तों लगा देता है।", hgl: "Mera body normal sardi-khasi se recover hone me bhi hafton laga deta hai." },
-                            { eng: "I feel physically weak and lack any natural physical glow or brightness on my face.", hin: "मैं फिजिकली वीक फील करता हूँ और मेरे फेस पर कोई ग्लो या ब्राइटनेस नहीं है।", hgl: "Main physically weak feel karta hu aur mere face par koi glow ya brightness nahi hai." },
-                            { eng: "Most of my hard-earned money goes into paying doctor fees and medical bills.", hin: "मेरा ज्यादा पैसा डॉक्टर की फीस और मेडिकल बिल भरने में चला जाता है।", hgl: "Mera zyada paisa doctor ki fees aur medical bills bharne me chala jata hai." }
-                        ]
-                    },
-                    {
-                        name: "24. BHALLAT — THE WEALTH ACCUMULATOR",
-                        corePain: "Poor money smartness, bad investments, low business profit, cash leakage.",
-                        symptoms: [
-                            { eng: "I have very poor financial intelligence; I don't know how to save or invest.", hin: "मेरी फाइनेंशियल इंटेलिजेंस बहुत वीक है; मुझे नहीं पता सेविंग्स कैसे करे और इन्वेस्ट कैसे करे।", hgl: "Meri financial intelligence bohot weak hai; mujhe nahi pata savings kaise kare aur invest kaise kare." },
-                            { eng: "My business runs fine, but my cash profits are extremely low or non-existent.", hin: "बिजनेस ठीक चलता है पर कैश प्रॉफिट बिल्कुल ना के बराबर रहता है।", hgl: "Business thik chalta hai par cash profit bilkul na ke barabar rehta hai." },
-                            { eng: "I keep making worst investment choices that lock and block my hard-earned wealth.", hin: "मैं गलत जगह इन्वेस्ट कर देता हूँ जिससे मेरा हार्ड-अर्न्ड वेल्थ ब्लॉक हो जाता है।", hgl: "Main galat jagah invest kar deta hu jisse mera hard-earned wealth block ho jata hai." }
-                        ]
-                    },
-                    {
-                        name: "25. MUKHYA — THE DETAIL DESIGNER",
-                        corePain: "Messy workflows, poor presentation, cluttered workspace, bad execution blueprints.",
-                        symptoms: [
-                            { eng: "I cannot explain or present my thoughts beautifully to my team or clients.", hin: "मैं अपनी टीम या क्लाइंट्स के सामने अपने आइडियाज को ब्यूटीफुली प्रेजेंट नहीं कर पाता।", hgl: "Main apni team ya clients ke samne apne ideas ko beautifully present nahi kar pata." },
-                            { eng: "My workspace and house are always messy and full of garbage; I cannot organize.", hin: "मेरा वर्कस्पेस और घर हमेशा गंदा और मेस्सी रहता है; मैं ऑर्गेनाइज नहीं कर पाता।", hgl: "Mera workspace aur ghar hamesha ganda aur messy rehta hai; main organize nahi kar pata." },
-                            { eng: "I make big blueprints for my projects, but they are always full of execution errors.", hin: "मैं बिग प्रोजेक्ट ब्लूप्रिंट्स बनाता हूँ पर उनमें हमेशा एग्जीक्यूशन मिस्टेक्स होती हैं।", hgl: "Main big project blueprints banata hu par unme hamesha execution mistakes hoti hain." }
+                            { eng: "My business is completely dead; no new clients or opportunities are coming.", hin: "मेरा बिजनेस पूरी तरह से ठप पड़ गया है, कोई भी नया क्लाइंट या कमाई का जरिया नहीं आ रहा।" },
+                            { eng: "My mind is completely dry; I cannot generate a single creative idea for my project.", hin: "मेरा दिमाग पूरी तरह सूख गया है, मैं अपने प्रोजेक्ट के लिए एक भी नया और रचनात्मक विचार नहीं सोच पा रहा।" },
+                            { eng: "I feel like a spectator in my life; everything is moving ahead except me.", hin: "मुझे लगता है कि मैं अपने ही जीवन में केवल एक दर्शक हूँ, मेरे अलावा बाकी सब आगे बढ़ रहे हैं।" },
+                            { eng: "I see opportunities right in front of me, but I fail to grab them in time.", hin: "मुझे अपने सामने तरक्की के मौके दिखाई तो देते हैं, लेकिन मैं उन्हें सही समय पर पकड़ने में चूक जाता हूँ।" },
+                            { eng: "Stagnant Work Approach: Repeating the same outdated business methods for years, completely refusing to upgrade technology or skills.", hin: "सालों तक एक ही पुरानी घिसी-पिटी तकनीक और तरीके का इस्तेमाल करना और खुद को अपडेट करने से मना करना।" },
+                            { eng: "Decline in Intellectual Focus: Inability to sit and read or plan for more than 10 minutes without getting distracted by social media.", hin: "सोशल मीडिया पर भटके बिना 10 मिनट भी बैठकर किसी काम की योजना न बना पाना या पढ़ाई न कर पाना।" },
+                            { eng: "Ignoring Market Trends: Mocking modern market demands, digital marketing, or online business strategies as useless.", hin: "आधुनिक बाजार की मांगों, ऑनलाइन तरीकों या डिजिटल मार्केटिंग को फालतू मानकर उनका मज़ाक उड़ाना।" },
+                            { eng: "Severe Mental Clutter: Carrying dozens of half-thought ideas in your mind without ever writing them down or sorting them logically.", hin: "दिमाग में दर्जनों अधूरे विचारों को लेकर घूमना लेकिन उन्हें कभी डायरी पर लिखकर व्यवस्थित न करना।" }
                         ]
                     }
                 ]
             },
             6: {
-                planetName: "VENUS / शुक्र (Shukra)",
-                deities: [
+                name: "VENUS / शुक्र (Shukra)",
+                sets: [
                     {
-                        name: "26. SAVITRA — THE CASH FLOW DISTRIBUTOR",
-                        corePain: "Blocked cash flow, delayed payments, bad distribution networks.",
+                        setTitle: "Savitra & Savita (Venus Sector)",
                         symptoms: [
-                            { eng: "My cash flow is completely blocked; I don't receive my payments on time.", hin: "मेरा कैश फ्लो कंपलीटली ब्लॉक हो गया है; पेमेंट्स टाइम पर नहीं मिलतीं।", hgl: "Mera cash flow completely block ho gaya hai; payments time par nahi milti." },
-                            { eng: "I have worked extremely hard, but my products and services are not reaching the market.", hin: "मैंने बहुत मेहनत की है पर मेरे प्रोडक्ट्स और सर्विसेज मार्केट तक नहीं पहुंच रहे।", hgl: "Maine bohot mehnat ki hai par mere products aur services market tak nahi pahunch rahe." },
-                            { eng: "Money never stays in my hands; it circulates out before I can save or invest.", hin: "पैसा मेरे हाथ में कभी नहीं टिकता; बचत करने से पहले ही खराब हो जाता है।", hgl: "Paisa mere haath me kabhi nahi tikta; bachat karne se pehle hi kharab ho jata hai." }
-                        ]
-                    },
-                    {
-                        name: "27. SAVITA — THE SPONSOR",
-                        corePain: "Lack of sponsors/backers, loan rejection, no financial backup during losses.",
-                        symptoms: [
-                            { eng: "I cannot find any financial backers, investors, or sponsors for my new project.", hin: "मुझे नए प्रोजेक्ट के लिए कोई इन्वेस्टर्स या स्पॉन्सर्स नहीं मिल रहे।", hgl: "Mujhe naye project ke liye koi investors ya sponsors nahi mil rahe." },
-                            { eng: "My bank loans and funding approvals are continuously getting rejected.", hin: "मेरे बैंक लोन और प्रोजेक्ट फंडिंग रिक्वेस्ट्स कंटिन्यूअसली रिजेक्ट हो रही हैं।", hgl: "Mere bank loans aur project funding requests continuously reject ho rahi hain." },
-                            { eng: "When I face financial losses, there is no backup or supportive person to save me.", hin: "जब लॉसेस होते हैं, तो मुझे बचाने के लिए कोई फाइनेंशियल बैकअप नहीं होता।", hgl: "Jab losses hote hain, toh mujhe bachaane ke liye koi financial backup nahi hota." }
-                        ]
-                    },
-                    {
-                        name: "28. PUSHA — THE NAVIGATOR",
-                        corePain: "Bad choices, poor career direction, unsafe/delayed travels, weak intuition.",
-                        symptoms: [
-                            { eng: "I always make the worst choices in my career and relationships and regret later.", hin: "मैं हमेशा करियर और रिलेशनशिप्स में गलत चॉइसिस लेता हूँ और बाद में पछताता हूँ।", hgl: "Main hamesha career aur relationships me galat choices leta hu aur baad me pachtata hu." },
-                            { eng: "My travels and business journeys are always delayed, unsafe, and extremely exhausting.", hin: "मेरी ट्रैवल्स हमेशा डिले, अनसेफ और थका देने वाली होती हैं।", hgl: "Meri travels hamesha delay, unsafe aur thaka dene wali hoti hain." },
-                            { eng: "I have completely lost my inner compass; I don't know which direction to walk.", hin: "मैंने अपना इनर डायरेक्शन-सेंस खो दिया है; समझ नहीं आता किस पथ पर चलूँ।", hgl: "Maine apna inner direction-sense kho diya hai; samajh nahi aata kis path par chalu." }
-                        ]
-                    },
-                    {
-                        name: "29. ANIL — THE UPLIFTER",
-                        corePain: "Heavy mental stagnation, wake up tired, lack of enthusiasm, easily defeated.",
-                        symptoms: [
-                            { eng: "I wake up with heavy motivation deficits; I feel depressed almost every morning.", hin: "मैं सुबह बिना किसी एनर्जी के उठता हूँ; हर मॉर्निंग डिप्रेस और हेवी लगती है।", hgl: "Main subah bina kisi energy ke uthta hu; har morning depress aur heavy lagti hai." },
-                            { eng: "My life has become completely stagnant; there is no movement or progress.", hin: "मेरा लाइफ कंपलीटली फ्रीज हो गया है; कोई मूवमेंट या प्रोग्रेस नहीं दिखती।", hgl: "Mera life completely freeze ho gaya hai; koi movement ya progress nahi dikhti." },
-                            { eng: "I easily get defeated by small setbacks; I cannot break out of negative loops.", hin: "मैं छोटे लॉसेस से जल्दी डिप्रेस हो जाता हूँ; निगेटिव थॉट्स से बाहर नहीं आ पाता।", hgl: "Main chote losses se jaldi depress ho jata hu; negative thoughts se bahar nahi aa pata." }
-                        ]
-                    },
-                    {
-                        name: "30. ANTRIKSH — THE EXPANDER",
-                        corePain: "Narrow thinking, restricted business reach, lack of freedom, feeling chained.",
-                        symptoms: [
-                            { eng: "I feel extremely restricted and chained in my actions; I have no independent freedom.", hin: "मैं बहुत रेस्ट्रिक्टेड और चेन्ड फील करता हूँ; मेरे पास कोई फ्रीडम नहीं है।", hgl: "Main bohot restricted aur chained feel karta hu; mere paas koi freedom nahi hai." },
-                            { eng: "I cannot scale my business; my reach is limited to a very small narrow boundary.", hin: "मैं बिजनेस स्केल नहीं कर पा रहा; मेरी रीच बहुत नैरो बाउंड्री में छोटी रह गई है।", hgl: "Main business scale nahi kar pa raha; meri reach bohot narrow boundary me choti reh gayi hai." },
-                            { eng: "I think very small; I am terrified of planning large-scale ventures or risks.", hin: "मैं बहुत छोटा सोचता हूँ; बड़ा बिजनेस प्लान करने में मुझे बहुत डर लगता है।", hgl: "Main bohot chota sochta hu; bada business plan karne me mujhe bohot darr lagta hai." }
+                            { eng: "My relationship has become a silent war; we either argue bitterly or ignore each other.", hin: "मेरा रिश्ता एक खामोश जंग बन चुका है, हम या तो बुरी तरह लड़ते हैं या फिर एक-दूसरे को अनदेखा करते हैं।" },
+                            { eng: "No one is attracted to me anymore; I feel invisible and highly ignored.", hin: "अब कोई मेरी तरफ आकर्षित नहीं होता, मुझे लगता है कि मैं सबके लिए अदृश्य और उपेक्षित हूँ।" },
+                            { eng: "I feel completely unappreciated and taken for granted by my family/partner.", hin: "मुझे लगता है कि मेरे परिवार या पार्टनर द्वारा मेरे काम की कोई कद्र नहीं की जाती, मुझे हल्के में लिया जाता है।" },
+                            { eng: "There is a cold, dry wall built between me and my life partner.", hin: "मेरे और मेरे जीवनसाथी के बीच एक ठंडी और सूखी दीवार खड़ी हो गई है।" },
+                            { eng: "Constant Marital Disputes over Trifles: Arguing heavily over daily, meaningless chores like wet towels, cooking, or small expenses.", hin: "रोजमर्रा के मामूली कामों जैसे गीले तौलिये, खाना पकाने या छोटे खर्चों पर घर में भारी महाभारत मचाना।" },
+                            { eng: "Complete Loss of Personal Aura: Looking tired, dull, and carrying a heavy, negative energy that repels people from sitting near you.", hin: "हमेशा थका हुआ और निस्तेज दिखना, अपने भीतर एक नकारात्मक ऊर्जा लेकर चलना जिससे लोग आपके पास बैठने से कतराएं।" },
+                            { eng: "Fearing Commitment & Marriage: Avoiding talks about marriage, finding silly excuses to delay commitment, and living in constant fear of heartbreak.", hin: "शादी की बातों से बचना, कमिटमेंट टालने के अजीब बहाने खोजना और हमेशा दिल टूटने के डर में जीना।" },
+                            { eng: "Avoiding Intimacy & Affection: Pulling away from physical touch, hugs, or sweet conversations, showing a dry, cold attitude.", hin: "शारीरिक स्पर्श, आलिंगन या मीठी बातों से पूरी तरह दूर भागना और रूखा व्यवहार रखना।" }
                         ]
                     }
                 ]
             },
             7: {
-                planetName: "KETU / केतु",
-                deities: [
+                name: "KETU / केतु",
+                sets: [
                     {
-                        name: "31. BRAHMA — THE GOAL SETTER",
-                        corePain: "No life purpose, severe distraction, hard work yielding zero output, self-sabotage.",
+                        setTitle: "Brahma & Bhudhar (Ketu Sector)",
                         symptoms: [
-                            { eng: "I don't know why I am living; my life has no clear purpose or meaning.", hin: "मुझे नहीं पता मैं क्यों जी रहा हूँ; लाइफ में कोई क्लियर पर्पस या मीनिंग नहीं है।", hgl: "Mujhe nahi pata main kyun jee raha hu; life me koi clear purpose ya meaning nahi hai." },
-                            { eng: "I work extremely hard day and night, but it never translates into actual results.", hin: "मैं दिन-रात बहुत मेहनत करता हूँ पर कभी कोई बड़ा रिजल्ट नहीं मिलता।", hgl: "Main din-raat bohot mehnat karta hu par kabhi koi bada result nahi milta." },
-                            { eng: "I have zero concentration; I keep sabotaging my own business plans midway.", hin: "मेरा कंसंट्रेशन जीरो है; मैं खुद ही अपने प्लांस को खराब कर लेता हूँ।", hgl: "Mera concentration zero hai; main khud hi apne plans ko kharab kar leta hu." }
-                        ]
-                    },
-                    {
-                        name: "32. BHUDHAR — THE SYSTEM ARCHITECT",
-                        corePain: "Weak systems, fragile foundations, physical core weakness, structural defects.",
-                        symptoms: [
-                            { eng: "My business projects are highly fragile; they collapse midway at any small issue.", hin: "मेरे बिजनेस प्रोजेक्ट्स बहुत कच्चे हैं; छोटी सी प्रॉब्लम पर बीच में रुक जाते हैं।", hgl: "Mere business projects bohot kachhe hain; choti si problem par beech me ruk jate hain." },
-                            { eng: "I feel physically weak and lack any inner core strength or backbone.", hin: "मैं फिजिकली वीक फील करता हूँ; मुझमें कोई बैकबोन्स या इनर स्ट्रेंथ नहीं है।", hgl: "Main physically weak feel karta hu; mujhme koi backbone ya inner strength nahi hai." },
-                            { eng: "The physical structure of my house has severe cracks and dampness.", hin: "मेरे घर के स्ट्रक्चर में क्रैक्स, डैम्पनेस या स्ट्रक्चरल डिफैक्ट्स बहुत हैं।", hgl: "Mere ghar ke structure me cracks, dampness ya structural defects bohot hain." }
-                        ]
-                    },
-                    {
-                        name: "33. ARYAMA — THE PERFECT COORDINATOR",
-                        corePain: "Poor coordination, zero social help in crisis, ancestor blocks, social anxiety.",
-                        symptoms: [
-                            { eng: "I feel completely disconnected from my relatives and society; nobody supports me.", hin: "मैं रिलेटिव्स और सोसाइटी से कंपलीटली डिस्कनेक्टेड हूँ; कोई मुझे सपोर्ट नहीं करता।", hgl: "Main relatives aur society se completely disconnected hu; koi mujhe support nahi karta." },
-                            { eng: "When a major crisis comes, even my closest friends refuse to help me.", hin: "मुश्किल वक्त में मेरे सबसे अच्छे फ्रेंड्स भी हेल्प करने से दूर भागते हैं।", hgl: "Mushkil waqt me mere sabse ache friends bhi help karne se dhoor bhaagte hain." },
-                            { eng: "I feel highly anxious, sweaty, and terrified during social gatherings or marriages.", hin: "सोशल गैदरिंग्स या फंक्शन्स में मुझे बहुत स्वेट, एंग्जाइटी और डर लगता है।", hgl: "Social gatherings ya functions me mujhe bohot sweat, anxiety aur darr lagta hai." }
-                        ]
-                    },
-                    {
-                        name: "34. VIVASWAN — THE REGAL PRESENCE",
-                        corePain: "Identity deficit, low self-respect, lack of authority, fear of power/responsibility.",
-                        symptoms: [
-                            { eng: "I carry very low self-respect; I feel like a zero in front of others.", hin: "मेरा सेल्फ-रिस्पेक्ट बहुत वीक है; दूसरों के सामने मैं खुद को जीरो समझता हूँ।", hgl: "Mera self-respect bohot weak hai; doosro ke samne main khud ko zero samajhta hu." },
-                            { eng: "No one takes my opinion seriously; people treat me like an ordinary servant.", hin: "कोई मेरी ओपिनियन सीरियसली नहीं लेता; लोग मुझे ऑर्डिनरी ट्रीटमेंट देते हैं।", hgl: "Koi meri opinion seriously nahi leta; log mujhe ordinary treatment dete hain." },
-                            { eng: "I cannot face high-stress executive situations; my mind completely freezes under power.", hin: "मैं हाई-स्ट्रेस सिचुएशंस फेस नहीं कर पाता; दिमाग कंपलीटली ब्लैंक हो जाता है।", hgl: "Main high-stress situations face nahi kar pata; dimaag completely blank ho jata hai." }
-                        ]
-                    },
-                    {
-                        name: "35. MITRA — THE UNION MAKER",
-                        corePain: "Disloved partners, fake friends, bad business alliances, team coordination failure.",
-                        symptoms: [
-                            { eng: "I keep attracting fake friends who use me for their money and then dump me.", hin: "मैं हमेशा फेक फ्रेंड्स अट्रैक्ट करता हूँ जो यूज़ करके मुझे डंप कर देते हैं।", hgl: "Main hamesha fake friends attract karta hu jo use karke mujhe dump kar dete hain." },
-                            { eng: "My business partnerships are a nightmare; we end up in massive legal disputes.", hin: "मेरी बिजनेस पार्टनरशिप्स खराब हैं; हमेशा कलेश और कोर्ट केसेज हो जाते हैं।", hgl: "Meri business partnerships kharab hain; hamesha kalesh aur court cases ho jate hain." },
-                            { eng: "My team has zero trust and loyalty; they keep plotting behind my back.", hin: "मेरी टीम में कोई ट्रस्ट और लॉयल्टी नहीं है; मेरे पीछे हमेशा साज़िश होती है।", hgl: "Meri team me koi trust aur loyalty nahi hai; mere piche hamesha saajish hoti hai." }
+                            { eng: "I work 16 hours a day, but others take all the credit and I get nothing.", hin: "मैं दिन में 16 घंटे काम करता हूँ, लेकिन क्रेडिट दूसरे ले जाते हैं और मेरे हाथ कुछ नहीं आता।" },
+                            { eng: "My deals and projects run beautifully but crash consistently at the very final signature.", hin: "मेरे प्रोजेक्ट्स बहुत शानदार चलते हैं लेकिन बिल्कुल आखिरी हस्ताक्षर या पेमेंट के समय अटक जाते हैं।" },
+                            { eng: "I have deep talents, but no one recognizes my potential; I feel completely wasted.", hin: "मेरे पास अद्भुत हुनर है, लेकिन कोई मेरी क्षमता को नहीं पहचानता, मेरी प्रतिभा पूरी तरह बेकार जा रही है।" },
+                            { eng: "I am extremely close to my destination, but I always fall back at the last second.", hin: "मैं अपनी सफलता के बिल्कुल करीब पहुँच जाता हूँ, लेकिन अंतिम सेकंड में वापस पीछे गिर जाता हूँ।" },
+                            { eng: "Consistently Failing at the Finish Line: Preparing beautifully for exams, interviews, or deals, but falling sick or making a silly mistake at the final hour.", hin: "परीक्षा, इंटरव्यू या डील की पूरी तैयारी करना लेकिन ऐन वक्त पर बीमार हो जाना या कोई मूर्खतापूर्ण गलती कर देना।" },
+                            { eng: "Talent Underutilization & Inaction: Having massive knowledge, degrees, or artistic skills but keeping them locked in your bedroom, taking zero steps to showcase them.", hin: "डिग्रियां और हुनर होने के बावजूद उन्हें कमरे में बंद रखना और दुनिया के सामने लाने के लिए कोई कदम न उठाना।" },
+                            { eng: "Severe Disappointment & Bitterness: Believing that 'luck is never in my favor' and developing a deep, passive anger toward successful people.", hin: "यह मान लेना कि 'किस्मत ही खराब है' और सफल लोगों के प्रति अपने मन में गहरी कड़वाहट व गुस्सा पाल लेना।" },
+                            { eng: "Losing Motivation to Try: Giving up midway on business projects simply because it will fail anyway in the end.", hin: "कामों को बीच में ही छोड़ देना क्योंकि आपके मन में बैठ चुका है कि 'अंत में तो यह वैसे भी खराब ही होना है।" }
                         ]
                     }
                 ]
             },
             8: {
-                planetName: "SATURN / शनि (Shani)",
-                deities: [
+                name: "SATURN / शनि (Shani)",
+                sets: [
                     {
-                        name: "36. VARUN — THE CHIEF OPERATOR",
-                        corePain: "Chaos, absolute lack of rules, heavy indiscipline, broken promises/timelines.",
+                        setTitle: "Varun & Shosha (Saturn Sector)",
                         symptoms: [
-                            { eng: "My daily operations are completely chaotic; I cannot follow any system or rules.", hin: "मेरा डेली ऑपरेशंस बिल्कुल खराब है; मैं किसी भी रूल्स को फॉलो नहीं कर पाता।", hgl: "Mera daily operations bilkul kharab hai; main kisi bhi rules ko follow nahi kar pata." },
-                            { eng: "I keep breaking my delivery timelines; clients are extremely angry with me.", hin: "मैं हमेशा डिलीवरी टाइमलाइंस फेल करता हूँ; क्लाइंट्स मुझसे बहुत गुस्से में हैं।", hgl: "Main hamesha delivery timelines fail karta hu; clients mujhse bohot gusse me hain." },
-                            { eng: "I have zero control over my schedule; my work and life are messy.", hin: "मेरा शेड्यूल पर कोई कंट्रोल नहीं है; काम और लाइफ दोनों मेस्सी हैं।", hgl: "Mera schedule par koi control nahi hai; kaam aur life dono messy hain." }
-                        ]
-                    },
-                    {
-                        name: "37. SHOSHA — THE DETOX / CLEANER",
-                        corePain: "Mental garbage, unable to let go of trauma, severe physical constipation/toxins.",
-                        symptoms: [
-                            { eng: "I am unable to throw away past painful memories; they keep toxic in my head.", hin: "मैं पास्ट पेनफुल मेमोरीज को भूल नहीं पाता; वो दिमाग में पॉइज़न की तरह चलती हैं।", hgl: "Main past painful memories ko bhool nahi pata; wo dimaag me poison ki tarah chalti hain." },
-                            { eng: "My body is full of toxins; I suffer from severe chronic digestive issues.", hin: "मेरा बॉडी टॉक्सिन्स से भरा है; मुझे डाइजेशन और पेट खराब होने की प्रॉब्लम रहती है।", hgl: "Mera body toxins se bhara hai; mujhe digestion aur pet kharab hone ki problem rehti hai." },
-                            { eng: "I cannot throw away old, broken, useless scrap from my office/house.", hin: "मैं घर या ऑफिस से कबाड़ और ब्रोकन आइटम्स बाहर नहीं निकाल पाता, हॉर्डिंग्स करता हूँ।", hgl: "Main ghar ya office se kabaad aur broken items bahar nahi nikal pata, hoarding karta hu." }
-                        ]
-                    },
-                    {
-                        name: "38. ASUR — THE CONFIDENTIALITY MASTER",
-                        corePain: "Information leaks, unable to keep secrets, losing plans to rivals, loose talk.",
-                        symptoms: [
-                            { eng: "I cannot keep my business plans secret; I speak too much and ruin the deals.", hin: "मैं बिजनेस प्लांस सीक्रेट नहीं रख पाता; बहुत बोल देता हूँ और डील्स खराब कर देता हूँ।", hgl: "Main business plans secret nahi rakh pata; bohot bol deta hu aur deals kharab kar deta hu." },
-                            { eng: "My competitors always decode and steal my strategies before I execute them.", hin: "कॉम्पिटिटर्स मेरे लॉन्च करने से पहले ही प्लांस चुरा लेते हैं; हमेशा लीकेज होता है।", hgl: "Competitors mere launch karne se pehle hi plans chura lete hain; hamesha leakage hota hai." },
-                            { eng: "I suffer from severe emotional insecurity; I trust the wrong people easily.", hin: "मुझे इमोशनल इनसिक्योरिटी है; मैं गलत लोगों पर जल्दी ट्रस्ट करके सीक्रेट्स बता देता हूँ।", hgl: "Mujhe emotional insecurity hai; main galat logo par jaldi trust karke secrets bata deta hu." }
-                        ]
-                    },
-                    {
-                        name: "39. PUSHPdant — THE KNOWLEDGE RECEIVER",
-                        corePain: "Blocked learning, bad mentors, lack of respect for guru/elders, illogical thinking.",
-                        symptoms: [
-                            { eng: "I cannot absorb or master new professional skills; my learning is completely blocked.", hin: "मैं नए प्रोफेशनल स्किल्स नहीं सीख पाता; मेरी लर्निंग पावर ब्लॉक है।", hgl: "Main naye professional skills nahi seekh pata; meri learning power block hai." },
-                            { eng: "I keep attracting fake, manipulative mentors who guide me onto the wrong path.", hin: "मैं हमेशा मेनुपुलेटिव और फेक मेंटर्स ढूंढता हूँ जो मुझे भटका देते हैं।", hgl: "Main hamesha manipulative aur fake mentors dhoodhta hu jo mujhe bhatka dete hain." },
-                            { eng: "I carry deep resentment toward my teachers, elders, and ancient verified principles.", hin: "मैं अपने टीचर्स, एल्डर्स और पुराने वेरीफाइड प्रिंसिपल्स का मज़ाक उड़ाता हूँ।", hgl: "Main apne teachers, elders aur purane verified principles ka mazaak udata hu." }
-                        ]
-                    },
-                    {
-                        name: "40. SUGREEV — THE GRASPER",
-                        corePain: "Weak grasping power, poor memory, slow brain response, missing golden chances.",
-                        symptoms: [
-                            { eng: "My memory is extremely weak; I forget complex business details instantly.", hin: "मेरी मेमोरी बहुत खराब है; मैं बिजनेस डिटेल्स तुरंत भूल जाता हूँ।", hgl: "Meri memory bohot kharab hai; main business details turant bhool jata hu." },
-                            { eng: "My brain takes too much time to understand simple concepts; I feel slow.", hin: "मेरा ब्रेन सिंपल कॉन्सेप्ट्स समझने में बहुत टाइम लेता है; मैं स्लो फील करता हूँ।", hgl: "Mera brain simple concepts samajhne me bohot time leta hai; main slow feel karta hu." },
-                            { eng: "I see golden growth opportunities, but I fail to grab them at the correct timing.", hin: "मैं गोल्डेन ग्रोथ ऑप्शंस देखता हूँ पर सही टाइम पर ग्रास्प नहीं कर पाता।", hgl: "Main golden growth options dekhta hu par sahi time par grasp nahi kar pata." }
+                            { eng: "I break down and run away the moment I face any hard work or difficulty.", hin: "जैसे ही मेरे सामने कोई कठिन काम या परेशानी आती है, मैं मानसिक रूप से टूट जाता हूँ और वहाँ से भाग जाता हूँ।" },
+                            { eng: "My simple government works or files are delayed for years without any reason.", hin: "मेरे सीधे-सादे सरकारी काम या फाइलें बिना किसी वजह के सालों से लटके पड़े हैं।" },
+                            { eng: "My body and mind feel so heavy, like I am carrying a mountain on my back.", hin: "मेरा शरीर और दिमाग इतना भारी महसूस होता है, जैसे मेरी पीठ पर कोई पहाड़ लदा हो।" },
+                            { eng: "I am terrified of hard physical work; I always find shortcuts to escape it.", hin: "मुझे शारीरिक मेहनत करने से बहुत डर लगता है, मैं हमेशा इससे बचने के शॉर्टकट ढूंढता रहता हूँ।" },
+                            { eng: "Chronic Laziness & Delay (Vilamb): Letting your tasks pile up until they become disasters, sleeping excessively, and showing absolute zero discipline.", hin: "कामों को तब तक टालते रहना जब तक वे मुसीबत न बन जाएं, हद से ज्यादा सोना और जीवन में अनुशासन का नामोनिशान न होना।" },
+                            { eng: "Escaping Realistic Demands: Running away from exams, difficult business audits, or hard career struggles, choosing to stay in low-paying but safe zones instead.", hin: "परीक्षाओं, कठिन बिजनेस ऑडिट या करियर के संघर्षों से भाग जाना और घर पर खाली बैठे रहना पसंद करना।" },
+                            { eng: "Severe Body Stiffness & Fatigue: Waking up in the morning with severe joint pain, body stiffness, and feeling completely unrefreshed.", hin: "सुबह उठते ही जोड़ों में दर्द, शरीर में अकड़न महसूस होना और खुद को बिल्कुल भी तरोताजा न पाना।" },
+                            { eng: "Seeing Threats Everywhere: Viewing simple daily tasks as giant, scary mountains and crying about how hard life is.", hin: "दैनिक जीवन के आसान कामों को भी एक बड़े संकट की तरह देखना और हमेशा अपनी जिंदगी की कठिनाई का रोना रोते रहना।" }
                         ]
                     }
                 ]
             },
             9: {
-                planetName: "MARS / मंगल (Mangal)",
-                deities: [
+                name: "MARS / मंगल (Mangal)",
+                sets: [
                     {
-                        name: "41. YAMA — THE DISCIPLINER",
-                        corePain: "Severe indiscipline, ignoring ethics, heavy time-wasting, procrastination.",
+                        setTitle: "Yama & Bhringraj (Mars Sector)",
                         symptoms: [
-                            { eng: "I have absolutely zero self-control; I can never follow daily rules.", hin: "मुझमें सेल्फ-कंट्रोल बिल्कुल नहीं है; मैं डेली रूल्स फॉलो नहीं कर पाता।", hgl: "Mujhme self-control bilkul nahi hai; main daily rules follow nahi kar pata." },
-                            { eng: "I waste my precious time on useless phone scrolling and feel heavy later.", hin: "मैं फोन स्क्रॉलिंग में अपना टाइम खराब करता हूँ और बाद में पछताता हूँ।", hgl: "Main phone scrolling me apna time kharab karta hu aur baad me pachtata hu." },
-                            { eng: "I keep breaking my promises and appointments; punctuality is impossible for me.", hin: "मैं अपॉइंटमेंट्स और प्रॉमिसेज ब्रेक करता हूँ; पंक्चुअलिटी रखना इंपॉसिबल लगता है।", hgl: "Main appointments aur promises break karta hu; punctuality rakhna impossible lagta hai." }
+                            { eng: "I start every single task with massive fire, but I lose interest and leave it half-done.", hin: "मैं हर काम बहुत बड़े उत्साह और आग के साथ शुरू तो करता हूँ, लेकिन जल्दी ही रुचि खो देता हूँ और उसे आधा छोड़ देता हूँ।" },
+                            { eng: "I keep making daily plans and schedules, but I fail to follow them even for a single day.", hin: "मैं रोज टाइम-टेबल और योजनाएं बनाता हूँ, लेकिन एक दिन भी उनका पालन नहीं कर पाता।" },
+                            { eng: "I know I have to study or work, but my lazy body simply won't move from the bed.", hin: "मैं जानता हूँ कि मुझे काम या पढ़ाई करनी है, लेकिन मेरा आलसी शरीर बेड से हिलने का नाम ही नहीं लेता।" },
+                            { eng: "I have zero willpower; I am easily distracted by social media, TV, or video games.", hin: "मुझमें इच्छाशक्ति बिल्कुल नहीं बची है, मैं सोशल मीडिया, टीवी या वीडियो गेम्स की तरफ तुरंत भटक जाता हूँ।" },
+                            { eng: "A Trail of Half-Done Projects: Leaving behind unfinished books, half-written business plans, half-renovated rooms, or incomplete assignments.", hin: "अधूरी पढ़ी किताबें, आधे लिखे बिजनेस प्लान, आधे सुधारे हुए कमरे या अधूरे असाइनमेंट की कतार लगा देना।" },
+                            { eng: "Severe Physical Inertia (Aalashya): Lying down or scrolling on the phone for hours, feeling physically heavy and unmotivated to do even basic daily chores.", hin: "घंटों बिस्तर पर पड़े रहकर फोन स्क्रॉल करना, शरीर में भारीपन महसूस करना और बुनियादी काम करने की भी प्रेरणा न होना।" },
+                            { eng: "Immediate Loss of Focus: Getting distracted within 5 minutes of starting a critical physical or mental task.", hin: "कोई जरूरी काम शुरू करने के 5 मिनट के भीतर ही ध्यान खो देना और दूसरे फालतू कामों में लग जाना।" },
+                            { eng: "Fearing Consistent Efforts: Actively avoiding any task that requires daily, long-term consistent efforts, like exercise, learning a skill, or running a business.", hin: "ऐसी किसी भी चीज से बचना जिसमें रोज मेहनत करनी पड़े, जैसे एक्सरसाइज, नया हुनर सीखना या बिजनेस चलाना।" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // 2. Conductor Database: Mahavidya (8 Symptoms for ALL Codes 1 to 9)
+        const conductorMahavidyaDatabase = {
+            1: {
+                name: "SUN / सूर्य (Surya) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Tripura Sundari & Bhairavi (East)",
+                        symptoms: [
+                            { eng: "There is absolutely no joy left in my life; everything feels like a boring machine.", hin: "मेरे जीवन में कोई खुशी या रस नहीं बचा है, सब कुछ एक बोरिंग मशीन जैसा लगता है।" },
+                            { eng: "No matter how much money I earn, I feel empty and lonely inside.", hin: "मैं चाहे कितना भी पैसा कमा लूँ, अंदर से हमेशा खालीपन और अकेलापन ही महसूस होता है।" },
+                            { eng: "Nobody gets attracted to me or enjoys talking to me anymore.", hin: "अब कोई मेरी तरफ आकर्षित नहीं होता और न ही कोई मुझसे बात करना पसंद करता है।" },
+                            { eng: "My partner treats me like a roommate, not a lover.", hin: "मेरा पार्टनर रूममेट की तरह व्यवहार करता है, प्रेमी की तरह नहीं।" },
+                            { eng: "Severe Aesthetic Neglect: Keeping your room cluttered, wearing unwashed or dull clothes, and completely ignoring personal grooming.", hin: "कमरे को बिखरा रखना, गंदे या बिना इस्त्री किए कपड़े पहनना और खुद के सौंदर्य पर ध्यान न देना।" },
+                            { eng: "Dry & Emotionless Interactions: Speaking in a monotonous, dry voice and failing to express warmth, love, or appreciation to family members.", hin: "बिना किसी भावना के रूखी आवाज में बात करना और अपनों के प्रति प्यार या आभार न जताना।" },
+                            { eng: "Fear-Induced Procrastination: Delaying critical projects simply because you fear the outcome won't be perfect or successful.", hin: "काम को केवल इसलिए टालते रहना क्योंकि आपको डर है कि परिणाम सही नहीं आएगा।" },
+                            { eng: "Lack of Self-Discipline: Finding excuses to skip physical exercise, waking up late, and being completely disorganized with daily tasks.", hin: "कसरत न करने के बहाने खोजना, सुबह देर से उठना और दिनचर्या को पूरी तरह अस्त-व्यस्त रखना।" }
+                        ]
+                    }
+                ]
+            },
+            2: {
+                name: "MOON / चन्द्र (Chandra) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Bhuvaneshwari (Northwest)",
+                        symptoms: [
+                            { eng: "I feel completely trapped in my life, like there is no exit door for me.", hin: "मैं अपने जीवन में पूरी तरह से फंस गया हूँ, ऐसा लगता है कि बाहर निकलने का कोई रास्ता ही नहीं है।" },
+                            { eng: "There is absolutely no space for me to express my thoughts in this house.", hin: "इस घर में मेरे विचारों को व्यक्त करने के लिए बिल्कुल भी जगह या सम्मान नहीं है।" },
+                            { eng: "Every path to expand my business seems blocked by walls.", hin: "अपने बिजनेस को बढ़ाने का हर रास्ता मुझे बंद दीवारों की तरह नजर आता है।" },
+                            { eng: "I feel mentally suffocated whenever I think about my future.", hin: "जब भी मैं अपने भविष्य के बारे में सोचता हूँ, मुझे मानसिक रूप से घुटन होने लगती है।" },
+                            { eng: "Claustrophobic & Negative Mindset: Believing that every new idea is bound to fail and refusing to try any modern or innovative methods.", hin: "यह मानना कि हर नया विचार असफल ही होगा और नए तौर-तरीकों को अपनाने से पूरी तरह मना करना।" },
+                            { eng: "Withdrawing into a Shell: Avoiding social connections, locking oneself in a dark room, and limiting interactions with the outside world.", hin: "लोगों से मिलना-जुलना बंद कर देना, खुद को बंद कमरे में रखना और बाहरी दुनिया से कट जाना।" },
+                            { eng: "Fearing Expansion & Risk: Refusing to take logical risks to scale up your career, choosing to stay in low-paying but safe zones.", hin: "करियर को बड़ा करने के लिए तार्किक जोखिम न लेना और कम पैसे वाली लेकिन सुरक्षित जगह पर पड़े रहना।" },
+                            { eng: "Perceiving Constant Boundaries: Seeing rules and regulations as heavy, punishing chains rather than helpful frameworks.", hin: "नियमों और अनुशासन को मदद के बजाय खुद को बांधने वाली बेड़ियों के रूप में देखना।" }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                name: "JUPITER / गुरु (Guru) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Tara (Northeast)",
+                        symptoms: [
+                            { eng: "I have read all the spiritual and business books, but I cannot earn a single rupee practically.", hin: "मैंने ज्ञान और बिजनेस की सारी किताबें पढ़ ली हैं, लेकिन व्यावहारिक रूप से मैं एक रुपया भी नहीं कमा पा रहा।" },
+                            { eng: "I don't know what step to take next; there is no guru or guide in my life.", hin: "मुझे समझ नहीं आता कि अगला कदम क्या उठाऊँ, मेरे जीवन में कोई गुरु या सही राह दिखाने वाला नहीं है।" },
+                            { eng: "I spend weeks analyzing a small problem, and the opportunity passes away.", hin: "मैं एक छोटी सी समस्या का विश्लेषण करने में हफ़्तों लगा देता हूँ, और मौका हाथ से निकल जाता है।" },
+                            { eng: "My head is full of brilliant plans, but I fail to execute even one of them.", hin: "मेरा दिमाग बेहतरीन योजनाओं से भरा है, लेकिन मैं उनमें से एक को भी जमीन पर लागू नहीं कर पाता।" },
+                            { eng: "Stuck in 'Theory Only' Mode: Giving long, philosophical speeches to others while your own career, finances, and relationships are in a complete mess.", hin: "दूसरों को बड़े-बड़े उपदेश देना जबकि खुद का करियर, पैसा और रिश्ते पूरी तरह बिखरे हुए हों।" },
+                            { eng: "Constant Information Overload: Buying endless online courses and books, but never opening or completing them, leading to mental chaos.", hin: "लगातार ऑनलाइन कोर्स और किताबें खरीदते रहना लेकिन उन्हें कभी पूरा न करना, जिससे दिमाग में उलझन बढ़ती है।" },
+                            { eng: "Severe Analysis-Paralysis: Over-thinking every minor business contract or email draft until the client gets frustrated and cancels the deal.", hin: "एक छोटे से बिजनेस कॉन्ट्रैक्ट या ईमेल को इतना अधिक सोचना कि क्लाइंट परेशान होकर डील ही कैंसिल कर दे।" },
+                            { eng: "Ignoring Practical Advice: Mocking realistic, simple solutions from well-wishers and preferring highly complex, impractical philosophies.", hin: "शुभचिंतकों के सीधे और सरल सुझावों का मज़ाक उड़ाना और जटिल, अव्यावहारिक बातों में उलझे रहना।" }
+                        ]
+                    }
+                ]
+            },
+            4: {
+                name: "RAHU / राहु - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Chhinnamasta (Southwest)",
+                        symptoms: [
+                            { eng: "I am completely unable to control my sudden cravings, anger, or impulses.", hin: "मैं अपने अचानक आने वाले गुस्से, इच्छाओं या आवेगों पर बिल्कुल भी नियंत्रण नहीं रख पाता/पाती।" },
+                            { eng: "I react so heavily to minor arguments that I end up breaking expensive things in the house.", hin: "मैं छोटे से झगड़े में इतना उग्र हो जाता हूँ कि गुस्से में घर का कीमती सामान तोड़ बैठता हूँ।" },
+                            { eng: "My life was completely stable, but one impatient step from my side destroyed everything.", hin: "मेरा जीवन पूरी तरह से स्थिर चल रहा था, लेकिन मेरी एक जल्दबाजी और नासमझी ने सब कुछ बर्बाद कर दिया।" },
+                            { eng: "I feel trapped in toxic addictions (food, phone, or substances) that drain my energy.", hin: "मैं जहरीले व्यसनों (फोन, गलत खान-पान या नशा) में फंसा हुआ हूँ जो मेरी पूरी ऊर्जा सोख लेते हैं।" },
+                            { eng: "Extreme Emotional Outbursts: Screaming, shouting, throwing items, or completely breaking down in tears over small, daily inconveniences.", hin: "रोजमर्रा की छोटी-छोटी परेशानियों पर चिल्लाना, चीजें फेंकना या फूट-फूट कर रोने लगना।" },
+                            { eng: "Severe Personal Energy Leakage: Feeling completely exhausted, dizzy, or heavy in the head after reacting aggressively to an argument.", hin: "किसी बहस में उग्र प्रतिक्रिया देने के बाद खुद को शारीरिक रूप से पूरी तरह थका हुआ और खाली महसूस करना।" },
+                            { eng: "'Control Freak' Obsession: Demanding to know every single second's update from partners, children, or staff, allowing them absolutely zero trust or freedom.", hin: "पार्टनर, बच्चों या स्टाफ की पल-पल की खबर रखने की सनक, उन पर बिल्कुल भी भरोसा न करना।" },
+                            { eng: "Compulsive Spends & Cravings: Spending massive amounts of money on shopping, junk food, or toxic entertainment under emotional stress.", hin: "भावनात्मक तनाव में आकर अंधाधुंध पैसा खर्च करना, शॉपिंग करना या गलत चीजों का सेवन करना।" }
+                        ]
+                    }
+                ]
+            },
+            5: {
+                name: "MERCURY / बुध (Budh) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Matangi (North)",
+                        symptoms: [
+                            { eng: "Whenever I speak in a meeting, no one pays attention or takes me seriously.", hin: "जब भी मैं किसी मीटिंग में बोलता हूँ, कोई मुझ पर ध्यान नहीं देता और न ही मुझे गंभीरता से लेता है।" },
+                            { eng: "I know exactly what I want to say, but I stammer or get blocked when I speak.", hin: "मैं अच्छी तरह जानता हूँ कि मुझे क्या कहना है, लेकिन बोलते समय मैं हकलाने लगता हूँ या शब्द भूल जाता हूँ।" },
+                            { eng: "My presentation was brilliant, but my poor talking ruined the entire client deal.", hin: "मेरी प्रेजेंटेशन बहुत शानदार थी, लेकिन मेरी खराब बातचीत के कारण पूरा क्लाइंट डील हाथ से निकल गया।" },
+                            { eng: "I feel a terrifying cold shiver down my spine when asked to speak in front of a group.", hin: "जब भी मुझे लोगों के समूह के सामने बोलने के लिए कहा जाता है, तो मेरे पैर कांपने लगते हैं और घबराहट होने लगती है।" },
+                            { eng: "Mumbling & Unclear Pronunciation: Speaking too fast, swallowing words, or talking in an extremely low whisper that others cannot hear.", hin: "बहुत जल्दी-जल्दी बोलना, शब्दों को खा जाना या इतनी धीमी आवाज में बात करना कि दूसरों को सुनाई न दे।" },
+                            { eng: "Severe Stage Fright: Actively avoiding presentations, speeches, or front-facing hosting duties, even if it harms your career growth.", hin: "प्रेजेंटेशन देने, मंच पर बोलने या किसी प्रोग्राम की मेजबानी करने से बचना चाहे इससे करियर को कितना भी नुकसान हो।" },
+                            { eng: "Inability to Pitch Ideas: Failing to explain the value of your services or products to clients, leading to immediate rejection.", hin: "क्लाइंट के सामने अपने काम या प्रोडक्ट की खूबियों को ठीक से पेश न कर पाना, जिससे लगातार असफलता मिलना।" },
+                            { eng: "Frequent Arguments due to Miscommunication: Using harsh, confusing, or double-meaning words that create massive misunderstandings with family.", hin: "अस्पष्ट या कड़वे शब्दों का प्रयोग करना जिससे परिवार और कार्यस्थल पर गलतफहमियां पैदा हों।" }
+                        ]
+                    }
+                ]
+            },
+            6: {
+                name: "VENUS / शुक्र (Shukra) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Kamala (Southeast)",
+                        symptoms: [
+                            { eng: "Money comes into my account but slips away instantly; I have zero savings.", hin: "मेरे अकाउंट में पैसा आता तो है लेकिन तुरंत बह जाता है, मेरी कोई बचत ही नहीं हो पाती।" },
+                            { eng: "No matter how much I earn, I always feel broke and terrified of running out of money.", hin: "मैं चाहे कितना भी कमा लूँ, मुझे हमेशा पैसे खत्म हो जाने का भयानक डर सताता रहता है।" },
+                            { eng: "I keep making worst financial investments; my money always gets stuck.", hin: "मैं हमेशा सबसे खराब जगह पैसा निवेश करता हूँ, मेरा पैसा हमेशा डूब या अटक जाता है।" },
+                            { eng: "My house lacks basic comforts, and I cannot enjoy any luxury or peaceful moment.", hin: "मेरे घर में बुनियादी सुख-सुविधाओं की भारी कमी है, मैं कभी किसी आराम या शांति के पल का आनंद नहीं ले पाता।" },
+                            { eng: "Chronic Ungratefulness & Victim Mindset: Focusing entirely on what you don't have, complaining about prices, and never thanking God for what you have.", hin: "हमेशा अपनी किस्मत को रोना, महंगाई की शिकायत करना और जो कुछ मिला है उसके लिए कभी भगवान का धन्यवाद न करना।" },
+                            { eng: "Severe Cash Flow Blockages: Facing delay in client payments, sudden business expenses that drain savings, and chronic debts.", hin: "भुगतानों में लगातार देरी होना, अचानक ऐसे खर्चे आना जो बचत साफ कर दें और कर्ज का लगातार बढ़ते जाना।" },
+                            { eng: "Poor Material Choices: Buying cheap, low-quality clothes or appliances that break down quickly, out of a fear of spending money on quality.", hin: "पैसे बचाने के चक्कर में हमेशा घटिया और खराब क्वालिटी का सामान खरीदना जो बार-बार बिगड़े।" },
+                            { eng: "Struggling to Convert Deals: Pitching beautifully to clients but losing them at the final stage of payment or commercial closing.", hin: "क्लाइंट्स को अपना काम बहुत अच्छे से दिखाना लेकिन पैसे की अंतिम बात आते ही डील को गंवा देना।" }
+                        ]
+                    }
+                ]
+            },
+            7: {
+                name: "KETU / केतु - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Dhumavati (Center)",
+                        symptoms: [
+                            { eng: "My life is a complete vacuum; I feel empty, hollow, and ready to give up.", hin: "मेरा जीवन पूरी तरह से शून्य बन चुका है, मैं अंदर से खालीपन महसूस करता हूँ और सब कुछ छोड़ देना चाहता हूँ।" },
+                            { eng: "I don't want to show my face to anyone; I just want to hide in a dark corner.", hin: "मैं किसी को अपना चेहरा नहीं दिखाना चाहता, बस एक अंधेरे कोने में छिपे रहना चाहता हूँ।" },
+                            { eng: "Everything is slipping away from my hands, and I have no energy to save it.", hin: "मेरे हाथ से सब कुछ फिसलता जा रहा है, और मेरे पास इसे बचाने की बिल्कुल भी ताकत नहीं बची है।" },
+                            { eng: "I feel extremely shy and terrified when asked to sit or interact with people.", hin: "लोगों के बीच बैठने या बातचीत करने के नाम पर मुझे भारी संकोच, शर्म और डर महसूस होता है।" },
+                            { eng: "Shyness & Self-Hiding Tendency: Walking with a bent head, wearing oversized/drab clothes to avoid being noticed, and refusing to turn on the camera on video calls.", hin: "हमेशा सिर झुकाकर चलना, जानबूझकर ढीले-ढाले या मटमैले कपड़े पहनना ताकि कोई ध्यान न दे और वीडियो कॉल पर कैमरा बंद रखना।" },
+                            { eng: "Severe Forced Isolation: Locking your door, switching off your phone for days, and ignoring knocks or calls from well-wishers.", hin: "कमरे का दरवाजा बंद रखना, फोन बंद कर देना और दोस्तों या शुभचिंतकों की आवाजों को पूरी तरह नजरअंदाज करना।" },
+                            { eng: "Persistent Grief & Melancholic Look: Carrying a constant, deep-seated expression of sadness on your face, rarely smiling, and looking empty-eyed.", hin: "चेहरे पर हमेशा उदासी का भाव रखना, कभी न मुस्कुराना और आँखों में एक सूनापन व मायूसी लेकर चलना।" },
+                            { eng: "Extreme Pessimism & Fatalism: Predicting disaster in every situation, believing that every relationship will end in pain.", hin: "हर परिस्थिति में केवल बर्बादी की भविष्यवाणी करना और यह मानना कि हर रिश्ते का अंत दर्दनाक ही होगा।" }
+                        ]
+                    }
+                ]
+            },
+            8: {
+                name: "SATURN / शनि (Shani) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Kali (West)",
+                        symptoms: [
+                            { eng: "I live in constant, suffocating fear that my status, money, or family will be destroyed.", hin: "मैं हमेशा इस दमघोंटू डर में जीता हूँ कि मेरा पैसा, सम्मान या परिवार अचानक बर्बाद हो जाएगा।" },
+                            { eng: "I cannot change my opinions; I have my own fixed rules, and everyone must follow them.", hin: "मैं अपनी सोच नहीं बदल सकता, मेरे अपने नियम हैं और हर किसी को उनका पालन करना ही होगा।" },
+                            { eng: "I don't trust my staff or family; if I don't monitor them, they will ruin me.", hin: "मुझे अपने स्टाफ या परिवार पर बिल्कुल भरोसा नहीं है, अगर मैं उन पर नजर न रखूँ तो वे मुझे बर्बाद कर देंगे।" },
+                            { eng: "I feel a deep, toxic anger boiling inside me that destroys my peace of mind.", hin: "मुझे अपने अंदर एक कड़वा और जहरीला गुस्सा उबलता हुआ महसूस होता है जो मेरी दिमागी शांति छीन लेता है।" },
+                            { eng: "Rigid Mindset (No Flexibility): Becoming extremely stubborn, refusing to listen to others' viewpoints, and killing all teamwork or creative ideas.", hin: "बेहद जिद्दी हो जाना, दूसरों की राय सुनने से पूरी तरह मना करना और टीमवर्क या नए विचारों का गला घोंट देना।" },
+                            { eng: "Obsessive Surveillance Habits: Constantly checking others' phones, tracking their locations, or physically monitoring staff through CCTV with deep suspicion.", hin: "दूसरों के फोन चेक करना, उनकी लोकेशन ट्रैक करना या गहरी शंका के कारण सीसीटीवी से स्टाफ पर लगातार नजर रखना।" },
+                            { eng: "Fearing Any Change: Refusing to relocate to a better city, refusing to change a bad office layout, or resisting any healthy transformation in life.", hin: "बेहतर शहर में शिफ्ट होने से मना करना, ऑफिस के खराब लेआउट को बदलने का विरोध करना और जीवन में किसी भी अच्छे बदलाव से डरना।" },
+                            { eng: "Uncontrolled Outbursts of Anger: Screaming with bloodshot eyes at staff, family, or domestic help over tiny, meaningless mistakes.", hin: "स्टाफ, परिवार या काम करने वालों पर छोटी-छोटी गलतियों पर लाल आँखों से चिल्लाना और हिंसक गुस्सा दिखाना।" }
+                        ]
+                    }
+                ]
+            },
+            9: {
+                name: "MARS / मंगल (Mangal) - Mahavidya",
+                sets: [
+                    {
+                        setTitle: "Goddess Baglamukhi (South)",
+                        symptoms: [
+                            { eng: "People and competitors are constantly plotting behind my back to ruin my reputation.", hin: "लोग और मेरे प्रतिस्पर्धी पीठ पीछे मेरे खिलाफ साजिश रचते हैं ताकि मेरी प्रतिष्ठा खराब कर सकें।" },
+                            { eng: "I am stuck in bitter, never-ending legal cases or court disputes that drain my money.", hin: "मैं कोर्ट-कचहरी के ऐसे अंतहीन और कड़वे मामलों में फंसा हुआ हूँ जो मेरा सारा पैसा निगल रहे हैं।" },
+                            { eng: "I speak so harshly in anger that I turn normal friends into lifetime enemies.", hin: "मैं गुस्से में इतना कड़वा बोल देता हूँ कि अच्छे-भले दोस्तों को भी अपना कट्टर दुश्मन बना बैठता हूँ।" },
+                            { eng: "I feel completely surrounded by hostile people who are waiting for my single mistake.", hin: "मुझे लगता है कि मैं दुश्मनों से घिरा हूँ जो मेरी एक गलती का इंतजार कर रहे हैं ताकि मुझ पर हमला कर सकें।" },
+                            { eng: "Engaging in Toxic Verbal Wars: Fighting bitterly with neighbors, family members, or office colleagues over trivial arguments, using highly abusive language.", hin: "पड़ोसियों, परिवार या ऑफिस के लोगों के साथ मामूली बातों पर गाली-गलौज और कड़वे शब्दों का युद्ध लड़ना।" },
+                            { eng: "Experiencing Uncontrolled Anger: Feeling a sudden surge of heat in the body and shouting at the top of your lungs when challenged or questioned.", hin: "कोई सवाल पूछे जाने पर शरीर में अचानक गर्मी महसूस होना और पूरी ताकत से चिल्लाकर बात करना।" },
+                            { eng: "Obsession with Rivals' Activities: Spending hours researching or spying on what your competitors or enemies are doing, instead of focusing on your own growth.", hin: "अपने काम पर ध्यान देने के बजाय दिन भर प्रतिस्पर्धियों या दुश्मनों की गतिविधियों पर नजर रखना और उनके बारे में सोचना।" },
+                            { eng: "Succumbing to External Pressure: Easily getting intimidated, panicked, or losing confidence the moment someone speaks against you or criticizes your work.", hin: "किसी के थोड़ा सा खिलाफ बोलते ही या आलोचना करते ही तुरंत घबरा जाना, डर जाना या अपना आत्मविश्वास खो देना।" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // 3. Manifestation Database: Complete 45 Vastu Purusha Mandala Deities (Codes 1 to 9, exactly 5 Deities per code with full symptoms)
+        const manifestationDeitiesDatabase = {
+            1: {
+                name: "SUN / सूर्य - 5 Deities (Jayant, Mahendra, Surya, Satya, Bhrisha)",
+                sets: [
+                    {
+                        setTitle: "1. Jayant (The Go-Getter)",
+                        symptoms: [
+                            { eng: "I want to start new projects, but I keep delaying them for weeks.", hin: "मैं नए काम शुरू तो करना चाहता हूँ, लेकिन hafton तक टालता रहता हूँ।", hgl: "Main naye kaam shuru toh karna chahta hu, lekin hafton tak delay rehta hu." },
+                            { eng: "I feel zero excitement or energy when beginning a new task.", hin: "नया काम शुरू करते वाइट मुझे कोई उत्साह महसूस नहीं होता।", hgl: "Naya kaam shuru karte waqt mujhe koi excitement ya energy feel nahi hoti." },
+                            { eng: "Chronic Indecisiveness: Letting important daily tasks accumulate until they turn into major crises.", hin: "जरूरी कामों को डिले करके बड़ा संकट बनने तक पाइल अप करना।", hgl: "Zaroori kaamo ko delay karke bada crisis banne tak pile up karna." },
+                            { eng: "Escaping Responsibility: Shunning any leadership role, preferring to sit in a passive, safe zone.", hin: "नेतृत्व की भूमिका लेने से बचना और हमेशा पैसिव सेफ जोन में रहना।", hgl: "Leadership role lene se bachna aur hamesha passive safe zone me rehna." },
+                            { eng: "Giving Up Easily: Quitting goals at the very first sign of external criticism.", hin: "छोटी सी आलोचना या रुकावट आते ही काम बीच में छोड़ देना।", hgl: "Choti si criticism ya rukawat aate hi kaam beech me chodh dena." }
                         ]
                     },
                     {
-                        name: "42. BHRINGRAJ — THE ENERGY FILTRATOR",
-                        corePain: "Cluttered mind/space, repeating old mistakes, energy leakage into useless relations.",
+                        setTitle: "2. Mahendra (The Manager)",
                         symptoms: [
-                            { eng: "I keep spending my energy on toxic people who waste my precious time.", hin: "मैं अपनी एनर्जी टॉक्सिक लोगों पर लगाता हूँ जो मेरा टाइम वेस्ट करते हैं।", hgl: "Main apni energy toxic logo par lagata hu jo mera time waste karte hain." },
-                            { eng: "My mind and physical house are always cluttered; I cannot clean the trash.", hin: "मेरा दिमाग और घर हमेशा क्लटर्ड रहता हूँ; मैं ट्रैश क्लीन नहीं कर पाता।", hgl: "Mera dimaag aur ghar hamesha cluttered rehta hai; main trash clean nahi kar pata." },
-                            { eng: "I never learn from my past mistakes; I keep repeating the same bad choices.", hin: "मैं अपनी पास्ट मिस्टेक्स से नहीं सीखता; बार-बार गलत ऑप्शंस रिपीट करता हूँ।", hgl: "Main apni past mistakes se nahi seekhta; baar-baar galat options repeat karta hu." }
+                            { eng: "I have no connection with big people, and no one supports my business.", hin: "बड़े लोगों से मेरा कोई संपर्क नहीं है, और मेरे व्यापार में कोई सहयोग नहीं देता।", hgl: "Bade logo se mera koi connection nahi hai, aur mere business me koi support nahi deta." },
+                            { eng: "I struggle to manage my team; they never listen to my directions.", hin: "मुझे अपनी टीम को मैनेज करने में दिक्कत होती है, वे मेरी बात नहीं सुनते।", hgl: "Mujhe apni team ko manage karne me dikkat hoti hai, wo meri baat nahi sunte." },
+                            { eng: "Bad Management: Total failure in managing and delegating tasks to office or family teams.", hin: "ऑफिस या परिवार में काम मैनेज करने और दूसरों को डिस्ट्रीब्यूट करने में विफलता।", hgl: "Office ya family me kaam manage karne aur doosro ko distribute karne me failure." },
+                            { eng: "Poor Social Networking: Frequent arguments and lack of coordination with high-status people.", hin: "सोसाइटी के बड़े लोगों के साथ हमेशा कोऑर्डिनेशन खराब रहना और विवाद होना।", hgl: "Society ke bade logo ke sath hamesha coordination kharab rehna aur vivad hona." },
+                            { eng: "Systemic Chaos: Losing administrative control over your business, leading to operational blockages.", hin: "बिजनेस पर अपना नियंत्रण खो देना, जिससे पूरा मैनेजमेंट खराब हो जाता है।", hgl: "Business par apna control kho dena, jisse poora management kharab ho jata hai." }
                         ]
                     },
                     {
-                        name: "43. GANDHARVA — THE MAGNETIC PRESENTATION",
-                        corePain: "Faded charisma, dull personality, social neglect, unable to present yourself.",
+                        setTitle: "3. Surya (The Regulator)",
                         symptoms: [
-                            { eng: "Nobody notices my presence in social meetings; I feel completely invisible.", hin: "सोशल गैदरिंग्स में कोई मुझे नोटिस नहीं करता; मैं कंपलीटली इनविजिबल फील करता हूँ।", hgl: "Social gatherings me koi mujhe notice nahi karta; main completely invisible feel karta hu." },
-                            { eng: "I cannot present or express myself confidently; I feel dull and uncharismatic.", hin: "मैं खुद को कॉन्फिडेंस से प्रेजेंट नहीं कर पाता; मैं डल और अनचारिस्मैटिक फील करता हूँ।", hgl: "Main khud ko confidence se present nahi kar pata; main dull aur uncharismatic feel karta hu." },
-                            { eng: "I have completely lost my interest in music, arts, or creative celebratory works.", hin: "मेरा म्यूजिक, आर्ट और क्रिएटिव सेलिब्रेशंस में इंटरेस्ट कंपलीटली खत्म हो गया है।", hgl: "Mera music, art aur creative celebrations me interest completely khatam ho gaya hai." }
+                            { eng: "My daily sleeping pattern is completely ruined; I cannot wake up on time.", hin: "मेरा दैनिक सोने का पैटर्न पूरी तरह खराब है; मैं समय पर उठ नहीं पाता।", hgl: "Mera daily routine bilkul kharab hai, main subah time par uth nahi pata." },
+                            { eng: "Nobody respects my hard work in my family or society anymore.", hin: "परिवार या सोसाइटी में अब कोई मेरी मेहनत की इज्जत नहीं करता।", hgl: "Family ya society me ab koi meri hard work ki respect nahi karta." },
+                            { eng: "Erratic Sleep Cycles: Following an extremely erratic sleep-wake cycle, leading to constant low energy.", hin: "सोने-जागने का कोई फिक्स शेड्यूल न होना, जिससे बॉडी में एनर्जी नहीं रहती।", hgl: "Sone-jaagne ka koi fixed schedule na hona, jisse body me energy nahi rehti." },
+                            { eng: "Reputation Loss: Experiencing ongoing loss of fame, respect, or reputation in your social circle.", hin: "सोसाइटी या प्रोफेशनल सर्कल में इज्जत और रेपुटेशन का लगातार खराब होना।", hgl: "Society ya professional circle me respect aur reputation ka continuously kharab hona." },
+                            { eng: "Harsh Authority: Showing imbalanced, harsh authority purely due to position rather than logical reason.", hin: "बिना किसी लॉजिक के गुस्से में अपना ऑर्डर थोपना और हार्श बिहेवियर रखना।", hgl: "Bina kisi logic ke gusse me apna order thopna aur harsh behavior rakhna." }
                         ]
                     },
                     {
-                        name: "44. GRIHASPATYA — THE GROUP BINDER",
-                        corePain: "Family disputes, broken contracts, weak team coordination, fragmented bonds.",
+                        setTitle: "4. Satya (The Judge)",
                         symptoms: [
-                            { eng: "My family is completely fragmented; we are always fighting and arguing bitterly.", hin: "मेरा फैमिली कंपलीटली फ्रेशमेंट हो गया है; हम हमेशा आपस में कलेश करते हैं।", hgl: "Mera family completely fragment ho gaya hai; hum hamesha aapas me kalesh karte hain." },
-                            { eng: "My business partners and I keep breaking our contracts and trust.", hin: "बिजनेस पार्टनर्स के साथ कॉन्ट्रैक्ट्स और ट्रस्ट लगातार ब्रेक होते हैं।", hgl: "Business partners ke sath contracts aur trust lagatar break hote hain." },
-                            { eng: "There is zero coordination in my office team; they act like separate islands.", hin: "मेरी ऑफिस टीम में जीरो कोऑर्डिनेशन है; सब अलग-अलग भागते हैं।", hgl: "Meri office team me zero coordination hai; sab alag-alag bhaagte hain." }
+                            { eng: "I am always confused about what is right and wrong; I keep doubting myself.", hin: "मैं हमेशा इस बात को लेकर भ्रमित रहता हूँ कि क्या सही है और क्या गलत; मुझे खुद पर संदेह होता है।", hgl: "Main hamesha confused rehta hu ki kya sahi hai aur kya galat; khud par doubt hota hai." },
+                            { eng: "No one in my family trusts my promises or words anymore.", hin: "मेरे परिवार में अब कोई मेरे वादों या बातों पर भरोसा नहीं करता।", hgl: "Mere family me ab koi mere promises ya baato par trust nahi karta." },
+                            { eng: "Illogical Choices: Making erratic, highly illogical decisions under emotional pressure.", hin: "इमोशनल प्रेशर में आकर बार-बार गलत और बिना लॉजिक के डिसीजन लेना।", hgl: "Emotional pressure me aakar baar-bar galat aur bina logic ke decisions lena." },
+                            { eng: "Broken Promises: Failing consistently to keep business commitments or verbal promises.", hin: "बिजनेस कमिटमेंट्स और वर्बल प्रॉमिस को पूरा करने में फेल होना।", hgl: "Business commitments aur verbal promises ko poora karne me fail hona." },
+                            { eng: "Compelled Compromises: Acting with double standards and making compromises on truth and justice.", hin: "सच्चाई और न्याय से समझौता करना और डबल स्टैंडर्ड रखना।", hgl: "Truth aur justice se compromise karna aur double-standards rakhna." }
                         ]
                     },
                     {
-                        name: "45. VITASTA — THE AUDITOR / BUDGET CONTROLLER",
-                        corePain: "Bad financial bookkeeping, high debts, missed quality errors, chaotic budgets.",
+                        setTitle: "5. Bhrisha (The Grinder)",
                         symptoms: [
-                            { eng: "I have no control over my daily budget; I am drowning in severe debts.", hin: "मेरा डेली बजट पर कोई कंट्रोल नहीं है; मैं बहुत बड़े डेब्त (कर्ज) में डूब रहा हूँ।", hgl: "Mera daily budget par koi control nahi hai; main bohot bade debt (karz) me dhoob raha hu." },
-                            { eng: "My financial bookkeeping is completely messy; I don't know where my money goes.", hin: "मेरा अकाउंट्स और बुककीपिंग बिल्कुल मेस्सी है; मुझे नहीं पता पैसा कहां जा रहा है।", hgl: "Mera accounts aur bookkeeping bilkul messy hai; mujhe nahi pata paisa kahan ja raha hai." },
-                            { eng: "I keep missing critical quality errors in my business projects that cause heavy penalties.", hin: "मैं बिजनेस प्रोजेक्ट्स में क्वालिटी एरर्स मिस कर देता हूँ जिससे भारी नुकसान होता है।", hgl: "Main business projects me quality errors miss kar deta hu jisse bhari nuksan hota hai." }
+                            { eng: "I keep thinking about the same problem for hours but cannot find any solution.", hin: "मैं घंटों एक ही समस्या के बारे में सोचता रहता हूँ लेकिन कोई समाधान नहीं ढूँढ पाता।", hgl: "Main ghanto ek hi problem ke baare me sochta rehta hu par koi solution nahi milta." },
+                            { eng: "My brain gets completely jammed with thoughts when I have to make a plan.", hin: "जब मुझे कोई प्लान बनाना होता है, तो मेरा दिमाग विचारों से ब्लॉक हो जाता है।", hgl: "Jab mujhe koi plan banana hota hai, toh mera brain thoughts se block ho jata hai." },
+                            { eng: "Analysis Paralysis: Suffering from severe mental fatigue due to continuous over-analyzing.", hin: "लगातार ओवर-थिंकिंग की वजह से दिमागी थकान होना।", hgl: "Continuous over-thinking ki wajah se mental fatigue (dimagi thakan) hona." },
+                            { eng: "Implementation Block: Failing to convert great strategic thoughts into physical, realistic steps.", hin: "शानदार रणनीतियों को वास्तविक जीवन के चरणों में लागू न कर पाना।", hgl: "Brilliant strategies ko real life steps me implement na kar pana." },
+                            { eng: "High Reactivity: Becoming highly reactive and losing cool on daily operational stressors.", hin: "छोटे-मोटे डेली स्ट्रेस पर हाइपर होना और अपनी शांति खो देना।", hgl: "Chote-mote daily stress par hyper hona aur apni shanti kho dena." }
+                        ]
+                    }
+                ]
+            },
+            2: {
+                name: "MOON / चन्द्र - 5 Deities (Rudra, Rajyakshma, Ahir, Rog, Papyakshma)",
+                sets: [
+                    {
+                        setTitle: "6. Rudra (The Controller)",
+                        symptoms: [
+                            { eng: "I lose control over my emotions very quickly and start crying or shouting.", hin: "मैं बहुत जल्दी अपनी भावनाओं पर से नियंत्रण खो देता हूँ और रोने या चिल्लाने लगता हूँ।", hgl: "Main apni emotions par control kho deta hu aur rone ya chillane lagta hu." },
+                            { eng: "My mood shifts instantly from extremely happy to deeply sad for no reason.", hin: "मेरा मूड बिना बात के अचानक बहुत खुश से बहुत दुखी हो जाता है।", hgl: "Mera mood bina baat ke sudden bohot khush se bohot sad ho jata hai." },
+                            { eng: "Extreme Sensitivity: Reacting with extreme emotional sensitivity to minor, harmless remarks.", hin: "छोटी-छोटी और हानिरहित बातों पर अत्यधिक संवेदनशील प्रतिक्रिया देना।", hgl: "Family members ki normal baato par bohot sensitive hokar react karna." },
+                            { eng: "Unstable Relations: Total lack of stability in relationships due to continuous emotional outbursts.", hin: "इमोशनल आउटबर्स्ट्स की वजह से रिश्तों में स्थिरता न रहना।", hgl: "Emotional outbursts ki wajah se relationships me stability na rehna." },
+                            { eng: "Sudden Depression: Experiencing sudden, unprovoked bouts of crying or severe mental depression.", hin: "बिना किसी कारण के अचानक रोना आना या गहरे डिप्रेशन में चले जाना।", hgl: "Bina kisi reason ke sudden rona aana ya deep depression me chale jana." }
+                        ]
+                    },
+                    {
+                        setTitle: "7. Rajyakshma (The Flow)",
+                        symptoms: [
+                            { eng: "I feel mentally blocked; I cannot express my love or warmth to my family.", hin: "मैं मानसिक रूप से अवरुद्ध महसूस करता हूँ; मैं अपने परिवार के प्रति अपना प्यार व्यक्त नहीं कर पाता।", hgl: "Main mentally blocked feel karta hu; apni family ko apna pyaar express nahi kar pata." },
+                            { eng: "I cannot forgive people who hurt me years ago; I keep holding grudges.", hin: "मैं उन लोगों को माफ नहीं कर पाता जिन्होंने सालों पहले चोट पहुंचाई थी; मन में कुंठा रहती है।", hgl: "Main un logo ko maaf nahi kar pata jinhone saalo pehle hurt kiya tha; grudges rehte hain." },
+                            { eng: "Holding Grudges: Holding onto old bitter memories, which blocks you from enjoying the present.", hin: "पुरानी कड़वी यादों से चिपके रहना, जिससे वर्तमान जीवन का आनंद न ले पाना।", hgl: "Purani kadwi yaado se chipke rehna, jisse present life ko enjoy nahi kar pate." },
+                            { eng: "Poor Adaptability: Refusing to adapt or adjust to new places, environments, or corporate cultures.", hin: "नए माहौल या बदलावों के साथ सामंजस्य बिठाने से पूरी तरह मना करना।", hgl: "Naye mahol ya changes ke sath adjust karne se completely mana karna." },
+                            { eng: "Dry Interactions: Speaking in a dry, monotonous tone, leaving no space for sweet bonding.", hin: "रूखे ढंग से बात करना, जिससे रिश्तों में मिठास खत्म हो जाती है।", hgl: "Rukhe dhang se baat karna, jisse rishto me sweetness khatam ho jati hai." }
+                        ]
+                    },
+                    {
+                        setTitle: "8. Ahir (The Protector)",
+                        symptoms: [
+                            { eng: "I feel highly unsafe and vulnerable, like anyone can come and damage my life.", hin: "मैं खुद को बहुत असुरक्षित महसूस करता हूँ, जैसे कोई भी आकर मेरे जीवन को नुकसान पहुँचा सकता है।", hgl: "Main bohot unsafe feel karta hu, jaise koi bhi aakar meri life kharab kar sakta hai." },
+                            { eng: "People constantly exploit my soft nature and take unfair advantage of me.", hin: "लोग मेरे सीधेपन का फायदा उठाते हैं और मेरा शोषण करते हैं।", hgl: "Log mere soft nature ka fayda uthate hain aur mujhe exploit karte hain." },
+                            { eng: "No Boundaries: Failing completely to protect your personal boundaries and rights in society.", hin: "सोसाइटी में अपनी व्यक्तिगत सीमाओं और अधिकारों की रक्षा करने में असफल होना।", hgl: "Society me apni personal boundaries aur rights ki raksha karne me fail hona." },
+                            { eng: "Submissive Posture: Displaying a highly submissive, fearful posture in front of aggressive people.", hin: "आक्रामक लोगों के सामने बहुत दब्बू और डरा हुआ व्यवहार दिखाना।", hgl: "Aggressive logo ke samne bohot dabbu aur dara hua behavior dikhana." },
+                            { eng: "Fear of Conflict: Giving up your due credits or money simply to avoid a direct conflict.", hin: "सीधे झगड़े से बचने के लिए अपना श्रेय या पैसा दूसरों को दे देना।", hgl: "Direct fight se bachne ke liye apna credit ya paisa doosro ko de dena." }
+                        ]
+                    },
+                    {
+                        setTitle: "9. Rog (The Energiser)",
+                        symptoms: [
+                            { eng: "I wake up in the morning feeling completely exhausted and heavy.", hin: "मैं सुबह पूरी तरह थका हुआ और भारी महसूस करते हुए उठता हूँ।", hgl: "Main subah uthta hu toh body completely exhausted aur heavy feel hoti hai." },
+                            { eng: "My immunity is so low; I fall sick with every weather change.", hin: "मेरी रोग प्रतिरोधक क्षमता इतनी कम है; मौसम बदलते ही मैं बीमार पड़ जाता हूँ।", hgl: "Meri immunity bohot weak hai; har weather change par main bimar pad jata hu." },
+                            { eng: "High Medical Bills: Spending vast amounts of money on medical tests and doctor consultations.", hin: "नियमित रूप से डॉक्टर के चक्कर काटना और मेडिकल बिलों पर पैसा खर्च करना।", hgl: "Regularly doctor ke chakkar katna aur medical bills par paisa waste karna." },
+                            { eng: "Bedridden Inertia: Wasting the entire day lying on bed due to chronic body weakness.", hin: "शारीरिक कमजोरी के कारण पूरा दिन बिस्तर पर पड़े रहना और समय बर्बाद करना।", hgl: "Body weakness ki wajah se poora din bed par pade rehna aur time waste karna." },
+                            { eng: "Dull Appearance: Having a pale, dull face and complete lack of life force or physical glow.", hin: "चेहरे पर कोई चमक न होना, फीका दिखना और शरीर में ऊर्जा की कमी होना।", hgl: "Face par koi glow na hona, dull dikhna, aur body me energy na hona." }
+                        ]
+                    },
+                    {
+                        setTitle: "10. Papyakshma (The Purifier)",
+                        symptoms: [
+                            { eng: "I am trapped in toxic addictions (phone, food, or alcohol) that I cannot break.", hin: "मैं ऐसे जहरीले व्यसनों (फोन, खान-पान या नशा) में फंसा हूँ जिन्हें मैं छोड़ नहीं पा रहा हूँ।", hgl: "Main toxic addictions (phone, food, alcohol) me fasa hu jise break nahi kar pata." },
+                            { eng: "I carry deep shame and guilt inside my heart about my past behaviors.", hin: "मैं अपने अतीत के व्यवहार को लेकर अपने दिल में गहरा अपराधबोध और शर्म महसूस करता हूँ।", hgl: "Main apne dil me past behavior ko lekar deep guilt aur shame feel karta hu." },
+                            { eng: "Self-Neglect: Developing deep self-loathing, neglecting personal hygiene, and eating junk food.", hin: "खुद से घृणा करना, व्यक्तिगत स्वच्छता की उपेक्षा करना और लगातार जंक फूड खाना।", hgl: "Self-loathing develop karna, personal hygiene neglect karna, aur junk food khana." },
+                            { eng: "Impulse Slave: Allowing short-term temporary cravings to completely master your long-term success.", hin: "अल्पकालिक इच्छाओं को अपनी दीर्घकालिक सफलता पर हावी होने देना।", hgl: "Short-term cravings ko apni long-term success par dominate hone dena." },
+                            { eng: "Deceptive Habits: Displaying extremely secretive, manipulative, and non-transparent behaviors.", hin: "अत्यधिक गुप्त, चालाक और गैर-पारदर्शी व्यवहार चक्र में रहना।", hgl: "Sly, manipulative aur non-transparent behavior loops me rehna." }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                name: "JUPITER / गुरु - 5 Deities (Apaha, Aapahavatsa, Parjanya, Shikhi, Diti)",
+                sets: [
+                    {
+                        setTitle: "11. Apaha (The Nourishment)",
+                        symptoms: [
+                            { eng: "No matter what I achieve, I always feel highly unsatisfied and empty inside.", hin: "मैं चाहे कुछ भी प्राप्त कर लूँ, हमेशा अंदर से अत्यधिक असंतुष्ट और खाली महसूस करता हूँ।", hgl: "No matter main kya achieve karu, hamesha unsatisfied aur empty feel hota hai." },
+                            { eng: "I don't feel any love, care, or emotional warmth from my family members.", hin: "मुझे अपने परिवार से कोई प्यार, देखभाल या गर्माहट महसूस नहीं होती।", hgl: "Mujhe apni family se koi pyaar, care ya warmth feel nahi hoti." },
+                            { eng: "Dry Vibe: Living in constant emotional distress and radiating negative, dry energy to others.", hin: "निरंतर भावनात्मक परेशानी में रहना और दूसरों को रूखी ऊर्जा प्रसारित करना।", hgl: "Constant emotional distress me rehna aur doosro ko dry energy radiate karna." },
+                            { eng: "Elders Dispute: Frequently fighting with mother or female figures, blocking baseline nourishment.", hin: "माता या महिला बुजुर्गों के साथ बार-बार झगड़ा करना, जिससे बुनियादी पोषण रुक जाता है।", hgl: "Mother ya female elders ke sath hamesha ladai-jhagda karna." },
+                            { eng: "Incurable Greed: Losing the ability to content with material gains, constantly chasing more greedily.", hin: "प्राप्तियों से कभी संतुष्ट न होना, हमेशा लालच में भागते रहना।", hgl: "Gains se kabhi content na hona, hamesha greed me bhaagte rehna." }
+                        ]
+                    },
+                    {
+                        setTitle: "12. Aapahavatsa (The Vitality)",
+                        symptoms: [
+                            { eng: "I feel extremely tired all the time; I have no energy to do anything.", hin: "मैं हर समय बहुत थका हुआ महसूस करता हूँ; मेरे पास कुछ करने की ऊर्जा नहीं है।", hgl: "Main hamesha bohot thaka hua feel karta hu; mujhme kuch karne ki energy nahi hai." },
+                            { eng: "I want to work, but I don't feel any inner spark or drive to start.", hin: "मैं काम करना चाहता हूँ, पर शुरू करने के लिए कोई प्रेरणा नहीं मिलती।", hgl: "Main kaam karna chahta hu, par shuru karne ke liye koi motivation nahi rehti." },
+                            { eng: "Lethargy: Showing complete physical inertia, staying in bed for hours doing unproductive tasks.", hin: "पूर्ण शारीरिक सुस्ती दिखाना, अनुत्पादक कामों में घंटों बिस्तर पर पड़े रहना।", hgl: "Ghutno ke dard ya body lethargy me rehna, poora din bed par pade rehna." },
+                            { eng: "No Joy: Total disappearance of fun, playfulness, and celebratory mood from your daily lifestyle.", hin: "जीवन से मौज-मस्ती, खेलकूद और उत्सव का मूड पूरी तरह गायब हो जाना।", hgl: "Life me se fun, playfulness aur celebration ka completely gayab ho jana." },
+                            { eng: "Low Stamina: Procrastinating on urgent, critical tasks simply due to a lack of physical stamina.", hin: "स्टैमिना की कमी के कारण महत्वपूर्ण और जरूरी कामों को टालते रहना।", hgl: "Stamina ki kami ke karan important aur urgent kaamo ko delay karte rehna." }
+                        ]
+                    },
+                    {
+                        setTitle: "13. Parjanya (The Idea Generator)",
+                        symptoms: [
+                            { eng: "My mind is completely blank; I can't generate any new ideas for my career.", hin: "मेरा दिमाग पूरी तरह खाली है; मैं अपने करियर के लिए कोई नया विचार उत्पन्न नहीं कर पा रहा हूँ।", hgl: "Mera dimaag bilkul blank hai; main career ke liye koi naye ideas nahi soch pata." },
+                            { eng: "My business has hit a wall; I am unable to bring any innovation or modern growth.", hin: "मेरा व्यापार एक जगह रुक गया है; मैं कोई नयापन या आधुनिक विकास नहीं ला पा रहा हूँ।", hgl: "Mera business ek jagah ruk gaya hai; main koi innovation ya modern growth nahi la pata." },
+                            { eng: "Rigid Approach: Sticking blindly to outdated, traditional methods even when they are causing losses.", hin: "नुकसान होने पर भी पुराने, आउट-ऑफ-डेट तरीकों से आँख मूंदकर चिपके रहना।", hgl: "Losses hone par bhi purane out-of-date methods par hi stick rehna." },
+                            { eng: "No Scaling: Failing to convert raw business plans into profitable commercial strategies.", hin: "कच्ची व्यावसायिक योजनाओं को लाभदायक रणनीतियों में न बदल पाना।", hgl: "Raw business plans ko profitable aur real money-making strategies me na badal pana." },
+                            { eng: "Anti-Modern: Developing a highly pessimistic attitude toward any modern digital or technical upgrades.", hin: "आधुनिक तकनीकी उन्नयन या डिजिटल रुझानों को फालतू मानकर नजरअंदाज करना।", hgl: "Modern technical upgrades ya digital trends ko faltu bol kar ignore karna." }
+                        ]
+                    },
+                    {
+                        setTitle: "14. Shikhi (The Visionary)",
+                        symptoms: [
+                            { eng: "I have no idea where my life is heading; I feel completely lost and confused.", hin: "मुझे कोई अंदाजा नहीं है कि मेरा जीवन किस दिशा में जा रहा है; मैं पूरी तरह खोया हुआ महसूस करता हूँ।", hgl: "Mujhe nahi pata meri life kis direction me ja rahi hai; main lost feel karta hu." },
+                            { eng: "I have no clear goals or visual plans for my next 5 years.", hin: "मेरे पास अगले 5 वर्षों के लिए कोई स्पष्ट लक्ष्य या विजुअल प्लान नहीं हैं।", hgl: "Mere paas next 5 years ke liye koi clear goals ya visual plans nahi hain." },
+                            { eng: "Goal Shift: Living with high mental clutter, constantly changing major goals due to confusion.", hin: "दिमाग में हमेशा खिचड़ी बनना, कन्फ्यूजन में बार-बार बड़े लक्ष्य बदलना।", hgl: "Dimaag me hamesha khichdi banna, confusion me baar-baar goals change karna." },
+                            { eng: "Short-Sighted: Chasing temporary short-term gains while completely destroying long-term success.", hin: "अल्पकालिक लाभ के पीछे भागना और दीर्घकालिक सफलता को बर्बाद कर देना।", hgl: "Short-term profits ke piche bhagna aur long-term growth ko kharab kar dena." },
+                            { eng: "Fear of Silence: Fearing silence, meditation, or spending quiet time with yourself due to mental noise.", hin: "शांत समय बिताने से डरना क्योंकि दिमाग में शोर चलता रहता है।", hgl: "Quiet time spend karne se darna kyonki dimaag me shor chalta rehta hai." }
+                        ]
+                    },
+                    {
+                        setTitle: "15. Diti (The Grounder)",
+                        symptoms: [
+                            { eng: "My brain never stops thinking; I keep imagining worst-case scenarios at night.", hin: "मेरा दिमाग सोचना कभी बंद नहीं करता; मैं रात में हमेशा सबसे खराब परिदृश्य की कल्पना करता रहता हूँ।", hgl: "Mera dimaag sochna band nahi karta; main raat ko hamesha kharab chije sochta hu." },
+                            { eng: "I make huge, grand plans in my head, but I fail to implement them on ground.", hin: "दिमाग में बड़े हवाई किले बनाना, पर वास्तविकता में शून्य क्रियान्वयन होना।", hgl: "Dimaag me bade hawaai kile banana, par reality me zero implementation hona." },
+                            { eng: "Impractical: Developing highly unrealistic, impractical plans that fail immediately in real life.", hin: "अव्यावहारिक और अवास्तविक योजनाएं बनाना जो वास्तविक दुनिया में तुरंत विफल हो जाएं।", hgl: "Impractical aur unrealistic plans banana jo real world me jaldi fail ho jaye." },
+                            { eng: "Scary Doubts: Struggling with excessive, scary imaginary doubts that hold you back from taking action.", hin: "डरावने और काल्पनिक संदेहों में फंसे रहना, जिससे एक्शन न ले पाना।", hgl: "Daraavne aur imaginary doubts me phase rehna, jisse action na le paaye." },
+                            { eng: "Disconnected: Having a complete disconnect with practical, logical, and realistic business structures.", hin: "व्यावहारिक और तार्किक व्यावसायिक वास्तविकताओं से पूरी तरह कटे रहना।", hgl: "Practical aur logical business reality se completely disconnected rehna." }
+                        ]
+                    }
+                ]
+            },
+            4: {
+                name: "RAHU / राहु - 5 Deities (Pitra, Indra, Jaya, Dauwarik, Mrigah)",
+                sets: [
+                    {
+                        setTitle: "16. Pitra (The Foundation / Roots)",
+                        symptoms: [
+                            { eng: "My family growth is stuck; we face constant fights and lack of unity.", hin: "हमारे परिवार की वृद्धि रुकी हुई है; हमें निरंतर झगड़ों और एकता की कमी का सामना करना पड़ता है।", hgl: "Humari family growth ruk gayi hai; hamesha kalesh aur ekta ki kami rehti hai." },
+                            { eng: "The very base of my life, career, and finances feels highly unstable.", hin: "मेरे जीवन, करियर और वित्त का मूल आधार बहुत अस्थिर महसूस होता है।", hgl: "Mera career aur financial base bohot unstable aur shaky feel hota hai." },
+                            { eng: "Elders Dispute: Showing complete disrespect, verbal fights, or emotional disconnect with family elders.", hin: "घर के बड़े-बुजुर्गों की इज्जत न करना और उनसे भावनात्मक रूप से कटे रहना।", hgl: "Ghar ke bade-bujurgo ki respect na karna aur unse disconnect rehna." },
+                            { eng: "Lineage Block: Getting consistently blocked in child-birth, dynasty continuation, or stable legacy creation.", hin: "वंश वृद्धि या स्थिर विरासत निर्माण में लगातार रुकावटें आना।", hgl: "Dynasty growth ya legacy creation me continuously blockages aana." },
+                            { eng: "Property Issues: Operating without any long-term family vision, leading to ancestral disputes.", hin: "पारिवारिक संपत्ति के विवादों या झगड़ों में फंसे रहना।", hgl: "Ancestral property disputes ya pariwarik jhagdo me phase rehna." }
+                        ]
+                    },
+                    {
+                        setTitle: "17. Indra (The Executor)",
+                        symptoms: [
+                            { eng: "I have no power or authority; even my juniors ignore my directions.", hin: "मेरे पास कोई शक्ति या अधिकार नहीं है; मेरे जूनियर भी मेरे निर्देशों की उपेक्षा करते हैं।", hgl: "Mere paas koi power ya authority nahi hai; juniors bhi meri baat ignore karte hain." },
+                            { eng: "I struggle to execute my thoughts; my plans never see the light of day.", hin: "अपने विचारों को क्रियान्वित करने में बहुत संघर्ष है; मेरी योजनाएं कभी पूरी नहीं होतीं।", hgl: "Apne plans implement karne me bohot struggle hai; meri planning kabhi puri nahi hoti." },
+                            { eng: "Weak Leadership: Showing massive hesitation when leading teams, offices, or managing large groups.", hin: "टीमों या कार्यालयों का नेतृत्व करते समय भारी घबराहट और हिचकिचाहट दिखाना।", hgl: "Teams ya offices ko lead karne me bhari ghabrahat aur hesitation dikhana." },
+                            { eng: "Systemic Collapse: Suffering from complete breakdown of official or administrative systems in business.", hin: "कारोबार में प्रशासनिक प्रणालियों का पूरी तरह चरमरा जाना।", hgl: "Business me administrative systems ka completely collapse ho jana." },
+                            { eng: "Rule Failure: Failing consistently to implement crucial rules or make others follow policy structures.", hin: "महत्वपूर्ण नियमों या नीतियों को लागू करवाने में लगातार असफल होना।", hgl: "Rules aur policies ko enforce karne me continuously fail hona." }
+                        ]
+                    },
+                    {
+                        setTitle: "18. Jaya (The Master Strategist)",
+                        symptoms: [
+                            { eng: "I keep losing my clients and market to my competitors; I feel powerless.", hin: "मैं अपने ग्राहकों और बाजार को अपने प्रतिद्वंद्वियों के हाथों लगातार खो रहा हूँ; असहाय महसूस करता हूँ।", hgl: "Main competitors se lagatar piche ho raha hu aur clients kho raha hu; helpless feel karta hu." },
+                            { eng: "I always sign the wrong business contracts and regret later due to loopholes.", hin: "मैं हमेशा गलत अनुबंध साइन करता हूँ और बाद में कमियों के कारण पछताता हूँ।", hgl: "Main hamesha galat contracts sign karta hu aur baad me loopholes ki wajah se pachtata hu." },
+                            { eng: "Market Deficit: Having zero competitive awareness, letting rivals easily capture your market share.", hin: "प्रतिस्पर्धियों के प्रति पूरी तरह लापरवाह रहना, जिससे वे बाजार पर कब्जा कर लें।", hgl: "Competitors ke prati bilkul careless rehna, jisse wo market share cheen le." },
+                            { eng: "Blind Action: Making erratic, unvetted business expansion plans without reading contracts carefully.", hin: "बिना अनुबंध पढ़े जल्दबाजी में गलत व्यावसायिक विस्तार की कोशिश करना।", hgl: "Bina contracts padhe jaldi me galat business expand karne ki koshish karna." },
+                            { eng: "Negotiation Fail: Failing completely in crucial negotiation meetings, losing profitable opportunities.", hin: "बड़ी वार्ताओं में असफल हो जाना और लाभदायक सौदों को हाथ से निकल जाने देना।", hgl: "Badi negotiations me fail ho jana aur profitable deals ko haath se nikalne dena." }
+                        ]
+                    },
+                    {
+                        setTitle: "19. Dauwarik (The Guardian)",
+                        symptoms: [
+                            { eng: "I feel highly unsafe in my own house; I cannot sleep peacefully.", hin: "मैं अपने ही घर में बहुत असुरक्षित महसूस करता हूँ; मैं शांति से सो नहीं पाता।", hgl: "Main apne hi ghar me insecure feel karta hu; shanti se so nahi pata." },
+                            { eng: "My staff, partners, or servants are constantly deceiving me and stealing.", hin: "मेरे कर्मचारी, साझेदार या नौकर मुझे धोखा दे रहे हैं और चोरी कर रहे हैं।", hgl: "Mere staff, partners ya servants mujhe dhoka de rahe hain aur chori kar rahe hain." },
+                            { eng: "Fraud / Theft: Suffering from frequent thefts, financial scams, or cyber frauds on your premises.", hin: "घर या कार्यालय में बार-बार चोरी, वित्तीय घोटाले या फ्रॉड होना।", hgl: "Ghar ya office me baar-baar chori, financial scam ya fraud hona." },
+                            { eng: "Disloyal Teams: Surrounding yourself with disloyal, toxic staff or partners who leak secrets.", hin: "ऐसे बेईमान और जहरीले कर्मचारियों को रखना जो राज लीक करते हैं।", hgl: "Disloyal aur toxic staff ko job par rakhna jo secrets leak karte hain." },
+                            { eng: "Defected Gate: Having a dirty, cluttered, or defected main door that repels positive cash flow.", hin: "मुख्य द्वार को गंदा या cluttered रखना जो सकारात्मक ऊर्जा को रोकता है।", hgl: "Main door kharab ya cluttered rakhna jo positive energies ko rokta hai." }
+                        ]
+                    },
+                    {
+                        setTitle: "20. Mrigah (The Hunter)",
+                        symptoms: [
+                            { eng: "I have no drive or hunger to find new opportunities; I feel completely passive.", hin: "नए अवसर तलाशने की मुझमें कोई ललक नहीं बची है; मैं पूरी तरह निष्क्रिय हूँ।", hgl: "Mujhme naye opportunities dhoodhne ki bhookh ya passion nahi bacha; main passive hu." },
+                            { eng: "I am constantly distracted by small things and lose focus on my business targets.", hin: "मैं छोटी-छोटी चीजों से विचलित हो जाता हूँ और अपने व्यावसायिक लक्ष्यों से भटक जाता हूँ।", hgl: "Main choti chije se distract ho jata hu aur business targets se bhatak jata hu." },
+                            { eng: "Lead Deficit: Failing completely to generate a continuous stream of new sales leads or clients.", hin: "व्यवसाय में लगातार नए ग्राहक या लीड्स उत्पन्न करने में असफल होना।", hgl: "Business me continuously naye clients ya leads generate na kar pana." },
+                            { eng: "Scattered Energy: Working in multiple scattered directions without a single sharp, focused business plan.", hin: "बिना किसी लेजर फोकस के अलग-अलग दिशाओं में ऊर्जा बर्बाद करना।", hgl: "Bina kisi laser focus ke alag-alag galat directions me energy waste karna." },
+                            { eng: "Slow Chase: Showing complete lack of target-seeking speed, letting other competitors win deals.", hin: "गति और सक्रियता की कमी दिखाना, जिससे दूसरे लोग सौदे ले जाएं।", hgl: "Speed aur active chase ki kami dikhana, jisse doosre log deals le jaye." }
+                        ]
+                    }
+                ]
+            },
+            5: {
+                name: "MERCURY / बुध - 5 Deities (Soma, Aditi, Bhujag, Bhallat, Mukhya)",
+                sets: [
+                    {
+                        setTitle: "21. Soma (The Solution Provider)",
+                        symptoms: [
+                            { eng: "My head is always filled with noisy thoughts; I cannot find simple solutions.", hin: "मेरा सिर हमेशा शोरगुल वाले विचारों से भरा रहता है; मैं सरल समाधान नहीं ढूँढ पाता।", hgl: "Mera dimaag hamesha shor se bhara rehta hai; main problems ke simple solutions nahi dhoodh pata." },
+                            { eng: "The moment a business crisis comes, I panic and make highly illogical decisions.", hin: "जब भी व्यापार में कोई संकट आता है, मैं घबराकर तर्कहीन निर्णय लेता हूँ।", hgl: "Jab bhi business me koi crisis aata hai, main panic karke galat aur bina dimaag ke decisions leta hu." },
+                            { eng: "Brain Clutter: Suffering from severe brain-clutter, over-thinking minor issues and ignoring main problems.", hin: "बहुत ज्यादा दिमागी खिचड़ी बनना, छोटी बातों पर सोचना और मुख्य समस्या की उपेक्षा करना।", hgl: "Bohot zyada dimagi khichdi banna, choti baato par sochna aur main issue ignore karna." },
+                            { eng: "Poor Advisory: Failing consistently to provide smart, peaceful, and logical advice to team or clients.", hin: "ग्राहकों या टीम को सही, सरल और तार्किक सलाह देने में असफल होना।", hgl: "Clients ya team ko correct, simple aur logical solutions dene me fail hona." },
+                            { eng: "Meeting Freeze: Getting paralyzed with stress during high-pressure business execution meetings.", hin: "उच्च-तनाव वाली बैठकों के दौरान डर के मारे ब्लैंक या फ्रीज हो जाना।", hgl: "High-pressure meetings me darr ke maare blank ya freeze ho jana." }
+                        ]
+                    },
+                    {
+                        setTitle: "22. Aditi (The Care Taker)",
+                        symptoms: [
+                            { eng: "I constantly live in fear that my family or friends don't love or value me.", hin: "मैं लगातार इस डर में जीता हूँ कि मेरे परिवार या दोस्त मुझसे प्यार नहीं करते या मेरी कद्र नहीं करते।", hgl: "Main hamesha is darr me jeeta hu ki mere family ya friends meri respect ya value nahi karte." },
+                            { eng: "My mind is plagued with scary future anxieties; I feel completely unprotected.", hin: "मेरा मस्तिष्क भविष्य की डरावनी चिंताओं से ग्रस्त है; मैं खुद को पूरी तरह असुरक्षित महसूस करता हूँ।", hgl: "Mera brain future ki kharab anxieties se bhara rehta hai; main unprotected feel karta hu." },
+                            { eng: "Imaginary Worries: Living with chronic, imaginary anxieties that destroy your daily peace and actions.", hin: "अनावश्यक काल्पनिक चिंताओं में रहना जिससे दैनिक शांति और कार्य प्रभावित हों।", hgl: "Unnecessary imaginary worries me rehna jisse daily peace aur shanti kharab ho." },
+                            { eng: "Social Shell: Isolating yourself from loved ones out of a fear of being rejected or judged.", hin: "अस्वीकार किए जाने के डर से अपनों से दूर हो जाना और अकेले रहना।", hgl: "Rejection ke darr se apne close logo se dhoor ho jana aur akele rehna." },
+                            { eng: "Validation Seeker: Constantly seeking reassurance and emotional validation from others for small things.", hin: "छोटी-छोटी बातों पर दूसरों से अनुमोदन मांगते रहना।", hgl: "Choti-choti baato par doosro se validation aur approval maangte rehna." }
+                        ]
+                    },
+                    {
+                        setTitle: "23. Bhujag (The Healer)",
+                        symptoms: [
+                            { eng: "My body takes weeks to recover from even a small common cold or fever.", hin: "सामान्य सर्दी या बुखार से भी उबरने में मेरे शरीर को हफ़्तों लग जाते हैं।", hgl: "Mera body normal sardi-khasi se recover hone me bhi hafton laga deta hai." },
+                            { eng: "I feel physically weak and lack any natural physical glow or brightness on my face.", hin: "मैं शारीरिक रूप से कमजोर महसूस करता हूँ और मेरे चेहरे पर कोई चमक नहीं है।", hgl: "Main physically weak feel karta hu aur mere face par koi glow ya brightness nahi hai." },
+                            { eng: "Weak Immunity: Suffering from chronic weak immunity and picking up infections quickly.", hin: "प्रतिरक्षा प्रणाली बहुत कमजोर होना और जल्दी-जल्दी संक्रमण की चपेट में आना।", hgl: "Immunity bohot weak hona aur jaldi-jaldi infections ka shikar ho jana." },
+                            { eng: "No Recovery: Failing consistently to see positive results from any medicine or wellness regime.", hin: "किसी भी चिकित्सा उपचार या स्वास्थ्य दिनचर्या का शरीर पर कोई सकारात्मक परिणाम न आना।", hgl: "Kisi bhi medical treatment ya health routine ka body par koi positive result na aana." },
+                            { eng: "Dark Circles: Carrying constant dark circles, pale skin, and absolute lack of life force.", hin: "चेहरे पर काले घेरे, सूखी त्वचा और शरीर में प्राण ऊर्जा की भारी कमी।", hgl: "Face par black circles, dry skin, aur body me life force (Prana) ki bhari kami." }
+                        ]
+                    },
+                    {
+                        setTitle: "24. Bhallat (The Wealth Accumulator)",
+                        symptoms: [
+                            { eng: "I have very poor financial intelligence; I don't know how to save or invest.", hin: "मेरी वित्तीय बुद्धिमत्ता बहुत कमजोर है; मुझे बचत या निवेश करना नहीं आता।", hgl: "Meri financial intelligence bohot weak hai; mujhe nahi pata savings kaise kare aur invest kaise kare." },
+                            { eng: "My business runs fine, but my cash profits are extremely low or non-existent.", hin: "व्यापार ठीक चलता है पर नकदी मुनाफा नाममात्र का होता है।", hgl: "Business thik chalta hai par cash profit bilkul na ke barabar rehta hai." },
+                            { eng: "Loss of Margin: Failing completely in negotiation meetings, accepting low-margin deals due to fear.", hin: "वार्ताओं में असफल होना और डर के मारे कम मार्जिन वाले सौदे स्वीकार करना।", hgl: "Negotiation me completely fail hona aur darr ke low-margin deals accept karna." },
+                            { eng: "Risky Bets: Losing massive amounts of money on speculative trading, risky scams, or false promises.", hin: "सट्टेबाजी, जोखिम भरे घोटालों या झूठे वादों में बहुत सारा पैसा गंवाना।", hgl: "Risky schemes, scams ya speculative trading me bohot saara paisa lose karna." },
+                            { eng: "Low Sales: An absolute inability to convince customers or clients, ruining sales conversions.", hin: "ग्राहकों को मनाने में असमर्थ होना, जिससे बिक्री रूपांतरण शून्य हो जाए।", hgl: "Customers ko convince na kar pana, jisse sales conversion zero ho jaye." }
+                        ]
+                    },
+                    {
+                        setTitle: "25. Mukhya (The Detail Designer)",
+                        symptoms: [
+                            { eng: "I cannot explain or present my thoughts beautifully to my team or clients.", hin: "मैं अपनी टीम या ग्राहकों के सामने अपने विचारों को अच्छी तरह से प्रस्तुत नहीं कर पाता।", hgl: "Main apni team ya clients ke samne apne ideas ko beautifully present nahi kar pata." },
+                            { eng: "My workspace and house are always messy and full of garbage; I cannot organize.", hin: "मेरा कार्यक्षेत्र और घर हमेशा गंदा और अस्त-व्यस्त रहता है; मैं व्यवस्थित नहीं कर पाता।", hgl: "Mera workspace aur ghar hamesha ganda aur messy rehta hai; main organize nahi kar pata." },
+                            { eng: "Dusty Clutter: Living and working in highly unorganized, cluttered environments continuously.", hin: "अव्यवस्थित, गंदे और अव्यवस्थित वातावरण में लगातार रहना।", hgl: "Bohot disorganized, cluttered aur dirty environment me continuously rehna." },
+                            { eng: "No Order: Showing complete lack of systematic order, structure, or neatness in daily tasks.", hin: "दैनिक कार्यों में कोई व्यवस्था, संरचना या साफ-सुथरेपन का अभाव होना।", hgl: "Daily tasks me koi system, order, structure ya neatness na rakhna." },
+                            { eng: "Creative Fail: Suffering from blockages or failures in fields of designing, planning, or architecture.", hin: "डिजाइनिंग, योजना या वास्तुकला के क्षेत्रों में लगातार असफलता का सामना करना।", hgl: "Designing, planning ya architecture ke fields me continuous failures face karna." }
+                        ]
+                    }
+                ]
+            },
+            6: {
+                name: "VENUS / शुक्र - 5 Deities (Savitra, Savita, Pusha, Anil, Antriksh)",
+                sets: [
+                    {
+                        setTitle: "26. Savitra (The Cash Flow Distributor)",
+                        symptoms: [
+                            { eng: "My cash flow is completely blocked; I don't receive my payments on time.", hin: "मेरा कैश फ्लो पूरी तरह अवरुद्ध है; मुझे समय पर भुगतान नहीं मिलता है।", hgl: "Mera cash flow completely block ho gaya hai; payments time par nahi milti." },
+                            { eng: "I have worked extremely hard, but my products and services are not reaching the market.", hin: "मैंने बहुत मेहनत की है पर मेरे उत्पाद और सेवाएं बाजार तक नहीं पहुँच रहे।", hgl: "Maine bohot mehnat ki hai par mere products aur services market tak nahi pahunch rahe." },
+                            { eng: "Delayed Cash: Facing recurring, heavy delay in client payments, causing immense business stress.", hin: "ग्राहक भुगतानों में लगातार भारी देरी होना, जिससे जबरदस्त तनाव बना रहे।", hgl: "Client payments me hamesha heavy delay hona, jisse tension bani rehre." },
+                            { eng: "Weak Channels: Having a very weak, unorganized distribution or marketing channel that yields zero sales.", hin: "विपणन और वितरण चैनलों का खराब होना, जिससे बिक्री शून्य हो जाए।", hgl: "Marketing aur distribution channels ka kharab hona, jisse sales zero ho jaye." },
+                            { eng: "Sunk Reserves: Spending savings on sudden operational crises rather than secure investments.", hin: "बचत को सुरक्षित निवेश के बजाय अचानक आए परिचालन संकटों में गंवाना।", hgl: "Savings ko investments ke bajaye sudden operational losses me waste karna." }
+                        ]
+                    },
+                    {
+                        setTitle: "27. Savita (The Sponsor)",
+                        symptoms: [
+                            { eng: "I cannot find any financial backers, investors, or sponsors for my new project.", hin: "मुझे नए प्रोजेक्ट के लिए कोई निवेशक या प्रायोजक नहीं मिल पा रहे हैं।", hgl: "Mujhe naye project ke liye koi investors ya sponsors nahi mil rahe." },
+                            { eng: "My bank loans and funding approvals are continuously getting rejected.", hin: "मेरे बैंक ऋण और फंडिंग अनुरोध लगातार अस्वीकृत हो रहे हैं।", hgl: "Mere bank loans aur project funding requests continuously reject ho rahi hain." },
+                            { eng: "Hand-to-Mouth: Struggling constantly with a lack of protective financial cushions, living hand-to-mouth.", hin: "सुरक्षात्मक वित्तीय कुशन की कमी के कारण लगातार संघर्ष करना, तंगी में जीना।", hgl: "Insecure financial condition me rehna, hamesha tona-tani bani rehna." },
+                            { eng: "No Elite Trust: Failing consistently to win the trust of rich, influential partners or investors.", hin: "अमीर और प्रभावशाली निवेशकों का भरोसा जीतने में लगातार असफल होना।", hgl: "Rich aur influential investors ka trust jeetne me continuously fail hona." },
+                            { eng: "Corporate Cut: Being completely cut off from big corporate support systems or elite networks.", hin: "बड़े एलीट नेटवर्क्स और सपोर्ट ग्रुप्स से पूरी तरह कटे रहना।", hgl: "Bade elite networks aur support groups se completely disconnected rehna." }
+                        ]
+                    },
+                    {
+                        setTitle: "28. Pusha (The Navigator)",
+                        symptoms: [
+                            { eng: "I always make the worst choices in my career and relationships and regret later.", hin: "मैं हमेशा करियर और रिश्तों में सबसे खराब चुनाव करता हूँ और बाद में पछताता हूँ।", hgl: "Main hamesha career aur relationships me galat choices leta hu aur baad me pachtata hu." },
+                            { eng: "My travels and business journeys are always delayed, unsafe, and extremely exhausting.", hin: "मेरी यात्राएं हमेशा देरी से, असुरक्षित और अत्यधिक थका देने वाली होती हैं।", hgl: "Meri travels hamesha delay, unsafe aur thaka dene wali hoti hain." },
+                            { eng: "Fake Gurus: Consistently choosing unreliable, toxic mentors or coaches who guide you incorrectly.", hin: "अविश्वसनीय, जहरीले सलाहकारों को चुनना जो आपको गुमराह करते हैं।", hgl: "Galat and fake advisors ko chunna jo apko bhatka dete hain." },
+                            { eng: "Travel Issues: Facing constant vehicle breakdowns, flight delays, or loss of luggage during travels.", hin: "यात्राओं के दौरान गाड़ी खराब होना, फ्लाइट लेट होना या सामान खोना।", hgl: "Travels ke dauran gaadi kharab hona ya hamesha luggage aur tickets me problem aana." },
+                            { eng: "Slow Decisions: Showing complete lack of decision-making speed due to fear of taking wrong path.", hin: "गलत रास्ता चुन लेने के डर से निर्णय लेने की गति बिल्कुल न होना।", hgl: "Decision-making speed bilkul na hona kyonki darr rehta hai ki galat rasta chun lenege." }
+                        ]
+                    },
+                    {
+                        setTitle: "29. Anil (The Uplifter)",
+                        symptoms: [
+                            { eng: "I wake up with heavy motivation deficits; I feel depressed almost every morning.", hin: "मैं सुबह प्रेरणा की भारी कमी के साथ उठता हूँ; लगभग हर सुबह उदासी महसूस होती है।", hgl: "Main subah bina kisi energy ke uthta hu; har morning depress aur heavy lagti hai." },
+                            { eng: "My life has become completely stagnant; there is no movement or progress.", hin: "मेरा जीवन पूरी तरह ठप हो गया है; कोई गति या प्रगति नहीं है।", hgl: "Mera life completely freeze ho gaya hai; koi movement ya progress nahi dikhti." },
+                            { eng: "Laziness Block: Showing massive resistance to any physical movement, exercise, or lifestyle changes.", hin: "शारीरिक गतिविधि, व्यायाम या जीवनशैली में बदलाव करने में भारी आलस दिखाना।", hgl: "Body movement, exercise ya lifestyle changes karne me bohot zyada laziness dikhana." },
+                            { eng: "Sust Attitude: Letting negative, stagnating thoughts completely rule over your professional decisions.", hin: "नकारात्मक विचारों को अपने व्यावसायिक निर्णयों पर पूरी तरह हावी होने देना।", hgl: "Sust aur negative thoughts ko apne business decisions par control karne dena." },
+                            { eng: "Depressing Vibe: Having a highly low-spirited morale that actively repels and dampens others' moods.", hin: "अत्यधिक सुस्त रहना, जिससे दूसरों का मूड भी खराब हो जाए।", hgl: "Bohot low-spirited rehna, jisse doosre log bhi bimar aur sust feel karein." }
+                        ]
+                    },
+                    {
+                        setTitle: "30. Antriksh (The Expander)",
+                        symptoms: [
+                            { eng: "I feel extremely restricted and chained in my actions; I have no independent freedom.", hin: "मैं अपने कार्यों में अत्यधिक प्रतिबंधित और बंधा हुआ महसूस करता हूँ; कोई स्वतंत्रता नहीं है।", hgl: "Main bohot restricted aur chained feel karta hu; mere paas koi freedom nahi hai." },
+                            { eng: "I cannot scale my business; my reach is limited to a very small narrow boundary.", hin: "मैं अपना व्यवसाय बढ़ा नहीं पा रहा; मेरी पहुंच एक बहुत छोटी संकीर्ण सीमा तक सीमित है।", hgl: "Main business scale nahi kar pa raha; meri reach bohot narrow boundary me choti reh gayi hai." },
+                            { eng: "Narrow Boundaries: Displaying extremely narrow, rigid, and insecure boundaries in professional thinking.", hin: "व्यासायिक सोच में अत्यधिक संकुचित, कठोर और असुरक्षित सीमाएं रखना।", hgl: "Professional thinking me bohot narrow aur rigid boundaries rakhna." },
+                            { eng: "Isolated Circle: Failing consistently to expand your social network or professional circle of influence.", hin: "अपने सामाजिक नेटवर्क या प्रभाव के दायरे को बढ़ाने में लगातार असफल रहना।", hgl: "Social network aur contact circles ko expand karne me fail rehna." },
+                            { eng: "Cramped Room: Living in a physically cramped, cluttered room without any open space or fresh air.", hin: "बिना किसी खुली जगह या ताजी हवा के, तंग और अव्यवस्थित कमरे में रहना।", hgl: "Cramped room me bina open space ya ventilation ke rehna." }
+                        ]
+                    }
+                ]
+            },
+            7: {
+                name: "KETU / केतु - 5 Deities (Brahma, Bhudhar, Aryama, Vivaswan, Mitra)",
+                sets: [
+                    {
+                        setTitle: "31. Brahma (The Goal Setter)",
+                        symptoms: [
+                            { eng: "I don't know why I am living; my life has no clear purpose or meaning.", hin: "मुझे नहीं पता कि मैं क्यों जी रहा हूँ; मेरे जीवन का कोई स्पष्ट उद्देश्य या अर्थ नहीं है।", hgl: "Mujhe nahi pata main kyun jee raha hu; life me koi clear purpose ya meaning nahi hai." },
+                            { eng: "I work extremely hard day and night, but it never translates into actual results.", hin: "मैं दिन-रात बहुत कड़ी मेहनत करता हूँ, लेकिन इसका कोई परिणाम नहीं निकलता।", hgl: "Main din-raat bohot mehnat karta hu par kabhi koi bada result nahi milta." },
+                            { eng: "No Targets: Failing consistently to define clear, realistic, and written targets for your projects.", hin: "अपने प्रोजेक्ट्स के लिए कभी स्पष्ट और लिखित लक्ष्य निर्धारित करने में असफल होना।", hgl: "Apne projects ke liye kabhi clear aur written targets na banana." },
+                            { eng: "Dhandha Badalna: Constantly shifting from one business path to another without completing a single one.", hin: "बिना एक भी काम पूरा किए लगातार एक व्यावसायिक रास्ते से दूसरे पर भटकना।", hgl: "Baar-baar dhandha badalna bina kisi ek kaam ko poora kiye." },
+                            { eng: "Inner Void: Carrying deep mental confusion, experiencing a total lack of connection with your inner self.", hin: "गहरे मानसिक संशय में रहना और अपनी आंतरिक ऊर्जा से कटे रहना।", hgl: "Bohot bade confusion me rehna aur apne self-worth ko completely zero manna." }
+                        ]
+                    },
+                    {
+                        setTitle: "32. Bhudhar (The System Architect)",
+                        symptoms: [
+                            { eng: "My business projects are highly fragile; they collapse midway at any small issue.", hin: "मेरे व्यापारिक प्रोजेक्ट बहुत नाजुक हैं; वे किसी भी छोटी सी समस्या पर बीच में ही ढह जाते हैं।", hgl: "Mere business projects bohot kachhe hain; choti si problem par beech me ruk jate hain." },
+                            { eng: "I feel physically weak and lack any inner core strength or backbone.", hin: "मैं शारीरिक रूप से कमजोर महसूस करता हूँ; मुझमें कोई आंतरिक मजबूती या रीढ़ नहीं है।", hgl: "Main physically weak feel karta hu; mujhme koi backbone ya inner strength nahi hai." },
+                            { eng: "Unstable Ground: Operating on highly unrealistic, non-grounded, and impractical business platforms.", hin: "बिना किसी ठोस जमीन के हवा में व्यवसाय चलाने की कोशिश करना।", hgl: "Bina kisi solid groundwork ke hawa me business chalane ki koshish karna." },
+                            { eng: "No Systems: Experiencing complete failure in setting up stable corporate or official systems.", hin: "स्थिर प्रबंधन या व्यवस्थित कार्य संरचना स्थापित करने में पूर्ण विफलता।", hgl: "Stable management ya systematic work structure set up karne me fail hona." },
+                            { eng: "Weak Routine: Failing consistently to maintain physical stability or a disciplined lifestyle.", hin: "जीवन में शारीरिक अनुशासन और स्थिरता बनाए रखने में असफल होना।", hgl: "Life me physical discipline aur stability maintain na rakh pana." }
+                        ]
+                    },
+                    {
+                        setTitle: "33. Aryama (The Perfect Coordinator)",
+                        symptoms: [
+                            { eng: "I feel completely disconnected from my relatives and society; nobody supports me.", hin: "मैं रिश्तेदारों और समाज से पूरी तरह कटा हुआ महसूस करता हूँ; कोई मेरा समर्थन नहीं करता।", hgl: "Main relatives aur society se completely disconnected hu; koi mujhe support nahi karta." },
+                            { eng: "When a major crisis comes, even my closest friends refuse to help me.", hin: "जब कोई बड़ा संकट आता है, तो मेरे सबसे करीबी दोस्त भी मदद करने से भागते हैं।", hgl: "Mushkil waqt me mere sabse ache friends bhi help karne se dhoor bhaagte hain." },
+                            { eng: "Blocked Inheritance: Experiencing ongoing blockages in receiving family inheritance or ancestral support.", hin: "पारिवारिक विरासत या पैतृक समर्थन प्राप्त करने में लगातार रुकावटें आना।", hgl: "Ancestral support ya property milne me continuously blockages aana." },
+                            { eng: "No Social Ties: Failing completely to build or maintain beneficial social connections or business ties.", hin: "लाभदायक सामाजिक संपर्क या व्यावसायिक संबंध बनाने में असफल रहना।", hgl: "Beneficial business networking ya social contacts develop karne me fail rehna." },
+                            { eng: "Neighbors Fights: Engaging in continuous disputes with neighbors, society committee, or local authorities.", hin: "पड़ोसियों या सोसाइटी कमेटियों के साथ हमेशा लड़ाई-झगड़ा करना।", hgl: "Neighbors ya local society committees ke sath hamesha ladai-jhagda karna." }
+                        ]
+                    },
+                    {
+                        setTitle: "34. Vivaswan (The Regal Presence)",
+                        symptoms: [
+                            { eng: "I carry very low self-respect; I feel like a zero in front of others.", hin: "मेरा आत्म-सम्मान बहुत कम है; मैं दूसरों के सामने खुद को शून्य महसूस करता हूँ।", hgl: "Mera self-respect bohot weak hai; doosro ke samne main khud ko zero samajhta hu." },
+                            { eng: "No one takes my opinion seriously; people treat me like an ordinary servant.", hin: "कोई मेरी राय गंभीरता से नहीं लेता; लोग मेरे साथ सामान्य नौकर जैसा बर्ताव करते हैं।", hgl: "Koi meri opinion seriously nahi leta; log mujhe ordinary treatment dete hain." },
+                            { eng: "No Aura: Showing complete lack of personal charisma, regal aura, or commanding power.", hin: "चेहरे पर कोई तेज, प्रभाव या कमांडिंग अथॉरिटी न होना।", hgl: "Face par koi radiance, tejas ya commanding authority na hona." },
+                            { eng: "Servant Attitude: Developing highly submissive, slave-like behavioral patterns to escape responsibility.", hin: "दब्बू व्यवहार रखना, हमेशा जिम्मेदारियों से दूर भागने की कोशिश करना।", hgl: "Dabbu behavior rakhna, hamesha responsibilities se dhoor bhagne ki koshish karna." },
+                            { eng: "Constant Insults: Facing constant humiliations and downgrades in your career or family status.", hin: "करियर या पारिवारिक स्थिति में लगातार अपमान और डिमोशन का सामना करना।", hgl: "Professional ya family life me continuously insult aur downgrade face karna." }
+                        ]
+                    },
+                    {
+                        setTitle: "35. Mitra (The Union Maker)",
+                        symptoms: [
+                            { eng: "I keep attracting fake friends who use me for their money and then dump me.", hin: "मैं ऐसे फर्जी दोस्तों को आकर्षित करता रहता हूँ जो मेरे पैसे का उपयोग करके मुझे छोड़ देते हैं।", hgl: "Main hamesha fake friends attract karta hu jo use karke mujhe dump kar dete hain." },
+                            { eng: "My business partnerships are a nightmare; we end up in massive legal disputes.", hin: "मेरी व्यावसायिक साझेदारियां खराब हैं; अंततः भारी कानूनी विवाद हो जाते हैं।", hgl: "Meri business partnerships kharab hain; hamesha kalesh aur court cases ho jate hain." },
+                            { eng: "No Deep Bonds: Failing consistently to maintain warm, loving, and long-lasting human relationships.", hin: "दीर्घकालिक और मधुर संबंध बनाए रखने में लगातार असफल होना।", hgl: "Long-term aur sweet rishte maintain karne me continuously fail hona." },
+                            { eng: "Failed Teamwork: Experiencing complete collapse of office or organizational coordination and teamwork.", hin: "कार्यालय टीम वर्क या आंतरिक कॉर्पोरेट समन्वय का पूरी तरह शून्य हो जाना।", hgl: "Office team work ya internal corporate coordination ka completely zero ho jana." },
+                            { eng: "Social Isolation: Being isolated and actively rejected by social clubs, groups, or community circles.", hin: "सामाजिक समूहों और क्लबों द्वारा लगातार उपेक्षित और अस्वीकृत किया जाना।", hgl: "Social circles aur groups se hamesha ignore aur reject kiya jana." }
+                        ]
+                    }
+                ]
+            },
+            8: {
+                name: "SATURN / शनि - 5 Deities (Varun, Shosha, Asur, Pushpdant, Sugreev)",
+                sets: [
+                    {
+                        setTitle: "36. Varun (The Chief Operator)",
+                        symptoms: [
+                            { eng: "My daily operations are completely chaotic; I cannot follow any system or rules.", hin: "मेरे दैनिक संचालन पूरी तरह से अस्त-व्यस्त हैं; मैं किसी भी प्रणाली या नियमों का पालन नहीं कर सकता।", hgl: "Mera daily operations bilkul kharab hai; main kisi bhi rules ko follow nahi kar pata." },
+                            { eng: "I keep breaking my delivery timelines; clients are extremely angry with me.", hin: "मैं अपनी डिलीवरी समय सीमा तोड़ता रहता हूँ; ग्राहक मुझसे बहुत गुस्से में हैं।", hgl: "Main hamesha delivery timelines fail karta hu; clients mujhse bohot gusse me hain." },
+                            { eng: "Breaking Rules: Showing severe indiscipline, ignoring official agreements, and violating regulations.", hin: "अनुशासनहीनता दिखाना, आधिकारिक समझौतों की उपेक्षा करना और नियम तोड़ना।", hgl: "Indiscipline dikhana, official agreements ignore karna, aur rules break karna." },
+                            { eng: "Messy Workspaces: Running a highly disorganized, dirty, and chaotic office or home workspace.", hin: "कार्यालय या घर के कार्यक्षेत्र को गंदा और अस्त-व्यस्त रखना, हमेशा कबाड़ रहना।", hgl: "Office aur ghar ko ganda aur chaotic dhang se rakhna, hamesha clutter rehna." },
+                            { eng: "Unpunctual: Lacking completely any sense of punctuality in meetings, appointments, or closures.", hin: "बैठकों और प्रतिबद्धताओं में हमेशा देर से आना और समय की पाबंदी शून्य रखना।", hgl: "Meetings aur commitments me hamesha late aana aur punctuality zero rakhna." }
+                        ]
+                    },
+                    {
+                        setTitle: "37. Shosha (The Detox / Cleaner)",
+                        symptoms: [
+                            { eng: "I am unable to throw away past painful memories; they keep toxic in my head.", hin: "मैं अतीत की दर्दनाक यादों को भूल नहीं पाता; वे मेरे दिमाग में जहर की तरह चलती हैं।", hgl: "Main past painful memories ko bhool nahi pata; wo dimaag me poison ki tarah chalti hain." },
+                            { eng: "My body is full of toxins; I suffer from severe chronic digestive issues.", hin: "मेरा शरीर विषैले तत्वों से भरा है; मुझे पाचन और पेट खराब होने की समस्या रहती है।", hgl: "Mera body toxins se bhara hai; mujhe digestion aur pet kharab hone ki problem rehti hai." },
+                            { eng: "Toxic Pull: Holding onto toxic, dead relationships simply due to a fear of being left alone.", hin: "अकेले होने के डर से जहरीले और मृत रिश्तों को घसीटते रहना।", hgl: "Toxic aur dead relationships ko kheeche chalna kyonki akele hone se darr lagta hai." },
+                            { eng: "No Detox: Having severe blockages in physical bodily detoxification, feeling heavy continuously.", hin: "कब्ज और शारीरिक थकान में फंसे रहना, हमेशा भारी महसूस करना।", hgl: "Constipation aur bodily fatigue me phase rehna, hamesha heavy feel karna." },
+                            { eng: "Cynical Thinking: Developing highly negative, cynical, and pessimistic mental thought loops.", hin: "नकारात्मक विचारों, निराशावाद और निराशाजनक दृष्टिकोण चक्र में घूमना।", hgl: "Negative thoughts, cynicism aur pessimistic attitude me ghume rehna." }
+                        ]
+                    },
+                    {
+                        setTitle: "38. Asur (The Confidentiality Master)",
+                        symptoms: [
+                            { eng: "I cannot keep my business plans secret; I speak too much and ruin the deals.", hin: "मैं अपनी व्यावसायिक योजनाओं को गुप्त नहीं रख पाता; मैं बहुत बोल देता हूँ और सौदों को बिगाड़ देता हूँ।", hgl: "Main business plans secret nahi rakh pata; bohot bol deta hu aur deals kharab kar deta hu." },
+                            { eng: "My competitors always decode and steal my strategies before I execute them.", hin: "मेरे प्रतिद्वंदी मेरे लॉन्च करने से पहले ही मेरी रणनीतिक योजनाएं चुरा लेते हैं।", hgl: "Competitors mere launch karne se pehle hi plans chura lete hain; hamesha leakage hota hai." },
+                            { eng: "Loose Talk: Speaking without filter, leaking sensitive corporate data or family plans to outsiders.", hin: "बिना फिल्टर के बोलना, संवेदनशील कॉर्पोरेट और पारिवारिक डेटा बाहर लीक करना।", hgl: "Bina filter ke bolna, sensitive business aur family data outsiders ko batana." },
+                            { eng: "No Backstage Skill: Total failure in silent, backstage execution, letting rivals easily trace your moves.", hin: "पर्दे के पीछे का शांत काम न कर पाना, हर चाल प्रतिद्वंदियों को पता चल जाना।", hgl: "Behind-the-scenes silent work na kar pana, har move competitors ko pata chal jana." },
+                            { eng: "Paranoia: Suffering from constant paranoia, feeling deeply insecure about business secrets.", hin: "हमेशा डर में रहना कि कोई गुप्त बात लीक कर देगा और कर्मचारियों पर शंका करना।", hgl: "Hamesha darr me rehna ki koi secret leak kar dega aur employees par shanka karna." }
+                        ]
+                    },
+                    {
+                        setTitle: "39. Pushpdant (The Knowledge Receiver)",
+                        symptoms: [
+                            { eng: "I cannot absorb or master new professional skills; my learning is completely blocked.", hin: "मैं नए व्यावसायिक कौशल नहीं सीख पा रहा हूँ; मेरी सीखने की क्षमता अवरुद्ध है।", hgl: "Main naye professional skills nahi seekh pata; meri learning power block hai." },
+                            { eng: "I keep attracting fake, manipulative mentors who guide me onto the wrong path.", hin: "मैं हमेशा ऐसे झूठे और चालाक गुरुओं को आकर्षित करता हूँ जो मुझे गलत रास्ते पर ले जाते हैं।", hgl: "Main hamesha manipulative aur fake mentors dhoodhta hu jo mujhe bhatka dete hain." },
+                            { eng: "Guru Disrespect: Displaying highly arrogant, egoistic behavior in front of teachers and gurus.", hin: "शिक्षकों और गुरुओं के सामने बहुत घमंड और बदतमीजी दिखाना।", hgl: "Teachers aur gurus ke samne bohot ghamand aur battameezi dikhana." },
+                            { eng: "Cynical Mind: Failing to apply logical reasoning, operating on unverified rumors and false data.", hin: "तार्किक सोच न रखना, हमेशा अफवाहों और गलत डेटा पर निर्णय लेना।", hgl: "Logical thinking na rakhna, hamesha rumors aur galat data par options lena." },
+                            { eng: "No Output: Spending vast resources on books and degrees but achieving zero practical progress.", hin: "डिग्री और किताबों पर पैसे बर्बाद करना पर वास्तविक जीवन में शून्य प्रगति मिलना।", hgl: "Degrees aur courses par paise kharab karna par real life me zero growth milna." }
+                        ]
+                    },
+                    {
+                        setTitle: "40. Sugreev (The Grasper)",
+                        symptoms: [
+                            { eng: "My memory is extremely weak; I forget complex business details instantly.", hin: "मेरी याददाश्त बेहद कमजोर है; मैं जटिल व्यावसायिक विवरणों को तुरंत भूल जाता हूँ।", hgl: "Meri memory bohot kharab hai; main business details turant bhool jata hu." },
+                            { eng: "My brain takes too much time to understand simple concepts; I feel slow.", hin: "मेरा दिमाग सरल अवधारणाओं को समझने में बहुत समय लेता है; मैं खुद को सुस्त महसूस करता हूँ।", hgl: "Mera brain simple concepts samajhne me bohot time leta hai; main slow feel karta hu." },
+                            { eng: "No Grip: Showing complete lack of situational control, letting life events drag you helplessly.", hin: "परिस्थितियों पर कोई नियंत्रण न होना, असहाय होकर घटनाओं के साथ बहते जाना।", hgl: "Situations par koi control na hona, helpless hokar behte jana." },
+                            { eng: "Delayed Responses: Responding with highly delayed, slow, or dull reactions to critical client queries.", hin: "ग्राहकों के महत्वपूर्ण प्रश्नों पर बहुत देर से और सुस्त प्रतिक्रिया देना।", hgl: "Clients ki important queries par bohot late aur slow response dena." },
+                            { eng: "Skill block: Struggling to learn or absorb any new software, tech tools, or professional skills.", hin: "नया सॉफ्टवेयर या तकनीक सीखने में बहुत ज्यादा कठिनाई महसूस होना।", hgl: "Naye software ya tech tools seekhne me bohot zyada dikkat face karna." }
+                        ]
+                    }
+                ]
+            },
+            9: {
+                name: "MARS / मंगल - 5 Deities (Yama, Bhringraj, Gandharva, Grihaspatya, Vitasta)",
+                sets: [
+                    {
+                        setTitle: "41. Yama (The Discipliner)",
+                        symptoms: [
+                            { eng: "I have absolutely zero self-control; I can never follow daily rules.", hin: "मुझमें आत्म-नियंत्रण बिल्कुल शून्य है; मैं कभी भी दैनिक नियमों का पालन नहीं कर सकता।", hgl: "Mujhme self-control bilkul nahi hai; main daily rules follow nahi kar pata." },
+                            { eng: "I waste my precious time on useless phone scrolling and feel heavy later.", hin: "मैं फोन पर फालतू स्क्रॉलिंग में अपना कीमती समय बर्बाद करता हूँ और बाद में पछताता हूँ।", hgl: "Main phone scrolling me apna time kharab karta hu aur baad me pachtata hu." },
+                            { eng: "Violating Limits: Violating ethical codes, moral values, or professional regulations compulsively.", hin: "व्यासायिक नैतिकता, नैतिक मूल्यों या नियमों का लगातार उल्लंघन करना।", hgl: "Professional ethics aur moral values ko consistently violate karna." },
+                            { eng: "Crisis Build Up: Letting critical, emergency tasks accumulate due to heavy ongoing procrastination.", hin: "भारी टालमटोल के कारण जरूरी और आपातकालीन कामों का ढेर लगने देना।", hgl: "Urgent kaamo ko jana hone dena kyonki aalashya bohot zyada hai." },
+                            { eng: "Late Comer: Showing complete disregard for others' schedules, constantly coming late to appointments.", hin: "दूसरों के समय की इज्जत न करना, मुलाकातों में हमेशा देर से पहुंचना।", hgl: "Doosro ke time ki value na karna, hamesha late pahunchana." }
+                        ]
+                    },
+                    {
+                        setTitle: "42. Bhringraj (The Energy Filtrator)",
+                        symptoms: [
+                            { eng: "I keep spending my energy on toxic people who waste my precious time.", hin: "मैं अपनी ऊर्जा ऐसे जहरीले लोगों पर खर्च करता हूँ जो मेरा कीमती समय बर्बाद करते हैं।", hgl: "Main apni energy toxic logo par lagata hu jo mera time waste karte hain." },
+                            { eng: "My mind and physical house are always cluttered; I cannot clean the trash.", hin: "मेरा दिमाग और घर हमेशा कबाड़ से भरा रहता है; मैं कचरा साफ नहीं कर पाता।", hgl: "Mera dimaag aur ghar hamesha cluttered rehta hai; main trash clean nahi kar pata." },
+                            { eng: "Hoarding Junk: Allowing useless clutter, damaged items, or old trash to accumulate in your living space.", hin: "घर में कबाड़ और खराब सामान को इकट्ठा होने देना, सफाई न करना।", hgl: "Ghar me kabaad aur kharab items ko accumulate hone dena, cleaning na karna." },
+                            { eng: "No Filtration: Failing completely to filter out negative, toxic behaviors or bad lifestyle habits.", hin: "जहरीले व्यवहार या खराब दिनचर्या की आदतों को बाहर न निकाल पाना।", hgl: "Toxic behavior ya bad routine habits ko filter out na kar pana." },
+                            { eng: "Meaningless Gossip: Wasting body stamina and mental attention on unproductive gossip.", hin: "फालतू की बातों और गपशप में अपनी शारीरिक ऊर्जा और मानसिक ध्यान नष्ट करना।", hgl: "Faltu ki baato aur gossip me apni body energy aur time waste karna." }
+                        ]
+                    },
+                    {
+                        setTitle: "43. Gandharva (The Magnetic Presentation)",
+                        symptoms: [
+                            { eng: "Nobody notices my presence in social meetings; I feel completely invisible.", hin: "सामाजिक बैठकों में कोई मेरी उपस्थिति पर ध्यान नहीं देता; मैं पूरी तरह अदृश्य महसूस करता हूँ।", hgl: "Social gatherings me koi mujhe notice nahi karta; main completely invisible feel karta hu." },
+                            { eng: "I cannot present or express myself confidently; I feel dull and uncharismatic.", hin: "मैं आत्मविश्वास से खुद को प्रस्तुत नहीं कर पाता; मैं फीका और प्रभावहीन महसूस करता हूँ।", hgl: "Main khud ko confidence se present nahi kar pata; main dull aur uncharismatic feel karta hu." },
+                            { eng: "Neglected Looks: Wreaking severe neglect on personal dressing, grooming, or hygienic presentation.", hin: "अपने पहनावे, संवरने (ग्रूमिंग) या प्रस्तुति पर बिल्कुल ध्यान न देना।", hgl: "Apne looks, dressing aur grooming par bilkul dhyan na dena, careless rehna." },
+                            { eng: "Dry Life Vibe: Living an emotionally dry, uninspired life with zero fun or aesthetic appreciation.", hin: "बिना किसी उत्साह या कलात्मक प्रशंसा के, भावनात्मक रूप से रूखा जीवन जीना।", hgl: "Emotionally dry life jeena, bina kisi excitement ya art appreciation ke." },
+                            { eng: "Dull Aura: Failing consistently to attract clients or partners due to a highly dull, negative aura.", hin: "नकारात्मक और फीकी आभा (औरा) के कारण पेशेवर ग्राहकों को आकर्षित न कर पाना।", hgl: "Negative aura ke karan professional and social clients ko attract na kar pana." }
+                        ]
+                    },
+                    {
+                        setTitle: "44. Grihaspatya (The Group Binder)",
+                        symptoms: [
+                            { eng: "My family is completely fragmented; we are always fighting and arguing bitterly.", hin: "मेरा परिवार पूरी तरह खंडित हो चुका है; हम हमेशा कड़वी लड़ाई और बहस करते रहते हैं।", hgl: "Mera family completely fragment ho gaya hai; hum hamesha aapas me kalesh karte hain." },
+                            { eng: "My business partners and I keep breaking our contracts and trust.", hin: "मेरे व्यावसायिक साझेदार और मैं अपने अनुबंधों और भरोसे को तोड़ते रहते हैं।", hgl: "Business partners ke sath contracts aur trust lagatar break hote hain." },
+                            { eng: "Fragile Bonds: Suffering from severe relationship instability, causing constant fear of breakups.", hin: "रिश्तों में निरंतर अस्थिरता रहना, हमेशा टूटने का डर बना रहना।", hgl: "Relationships me continuous instability rehna, hamesha tootne ka darr rehna." },
+                            { eng: "Broken Alliances: Failing consistently to maintain successful and profitable business alliances.", hin: "सफल और लाभदायक व्यावसायिक साझेदारियों को बनाए रखने में असफल होना।", hgl: "Profitable and long-term business partnerships maintain karne me fail hona." },
+                            { eng: "Self-Specific: Displaying highly selfish, individualistic behavior that destroys group harmony.", hin: "बहुत स्वार्थी और अकेला रहने का व्यवहार दिखाना जो समूह तालमेल को खराब करे।", hgl: "Bohot selfish aur akela rehne ka behavior dikhana jo team coordination kharab kare." }
+                        ]
+                    },
+                    {
+                        setTitle: "45. Vitasta (The Auditor / Budget Controller)",
+                        symptoms: [
+                            { eng: "I have no control over my daily budget; I am drowning in severe debts.", hin: "मेरा दैनिक बजट पर कोई नियंत्रण नहीं है; मैं भारी कर्ज में डूब रहा हूँ।", hgl: "Mera daily budget par koi control nahi hai; main bohot bade debt (karz) me dhoob raha hu." },
+                            { eng: "My financial bookkeeping is completely messy; I don't know where my money goes.", hin: "मेरा बहीखाता पूरी तरह अस्त-व्यस्त है; मुझे नहीं पता मेरा पैसा कहाँ जा रहा है।", hgl: "Mera accounts aur bookkeeping bilkul messy hai; mujhe nahi pata paisa kahan ja raha hai." },
+                            { eng: "Audit Failures: Failing completely to implement structural audit checks or quality control frameworks.", hin: "व्यवसाय में गुणवत्ता नियंत्रण या ऑडिट जांच लागू करने में पूरी तरह असफल रहना।", hgl: "Business me quality control ya audit checks implement karne me completely fail rehna." },
+                            { eng: "Chaotic Spendings: Spending money on irrational, uncalculated, and highly chaotic shopping desires.", hin: "बिना किसी बजट के अराजक और फालतू खरीदारी पर पैसा बर्बाद करना।", hgl: "Bina kisi budget ke chaotic aur faltu shopping par paisa waste karna." },
+                            { eng: "Compliance Fines: Faced with continuous tax audits, accounting mistakes, or financial compliance fines.", hin: " लगातार टैक्स संबंधी समस्याएं, लेखांकन गलतियां और वित्तीय जुर्माने का सामना करना।", hgl: "Continuous tax problems, accounting mistakes aur financial compliance penalty lagna." }
                         ]
                     }
                 ]
@@ -1342,7 +1720,7 @@
             resultBox.style.display = "grid";
         }
 
-        // DOB Numerology Calculation & Dynamic Symptom Checklist Population for all 45 Vastu Deities
+        // DOB Numerology Calculation & Dynamic Checklist Population:
         function calculateDobNumerology() {
             const dobVal = document.getElementById('dob').value;
             const dobResultBox = document.getElementById('dobNumerologyResult');
@@ -1393,40 +1771,42 @@
 
             dobResultBox.style.display = "grid";
 
-            // Populate Dynamic Quizzes based on Driver, Conductor, and Manifestation values (incorporating all 5 Vastu Deities per code)
-            populateQuizCard('driverQuizLabel', 'driverQuizContent', driverNum, 'Driver (Nav Durga & 5 Vastu Deities)');
-            populateQuizCard('conductorQuizLabel', 'conductorQuizContent', conductorNum, 'Conductor (Mahavidya & 5 Vastu Deities)');
-            populateQuizCard('manifestationQuizLabel', 'manifestationQuizContent', manifestationNum, 'Manifestation (5 Devta & Vastu Deities)');
+            // Populate Checklists for Driver, Conductor, and Manifestation using their dedicated databases
+            populateQuizCard('driverQuizLabel', 'driverQuizContent', driverNum, driverNavdurgaDatabase, 'Driver');
+            populateQuizCard('conductorQuizLabel', 'conductorQuizContent', conductorNum, conductorMahavidyaDatabase, 'Conductor');
+            populateQuizCard('manifestationQuizLabel', 'manifestationQuizContent', manifestationNum, manifestationDeitiesDatabase, 'Manifestation');
+
+            // Unhide Manifestation section field wrapper container since user wants it for manifestation numbers now
+            document.getElementById('manifestationQuizLabel').closest('.field').style.display = 'flex';
 
             dynamicWrapper.style.display = "block";
         }
 
-        function populateQuizCard(labelId, contentId, planetCode, titlePrefix) {
+        function populateQuizCard(labelId, contentId, planetCode, databaseObj, titlePrefix) {
             const labelEl = document.getElementById(labelId);
             const contentEl = document.getElementById(contentId);
+            const record = databaseObj[planetCode] || databaseObj[1];
 
-            const planetRecord = planetDeitiesDatabase[planetCode] || planetDeitiesDatabase[1];
-
-            labelEl.innerHTML = `<b>${titlePrefix} - Code ${planetCode}: ${planetRecord.planetName} (5 Vastu Deities Checklist)</b>`;
+            labelEl.innerHTML = `<b>${titlePrefix} Code ${planetCode} Checklist (${record.name})</b>`;
 
             let html = ``;
 
-            planetRecord.deities.forEach((deity, dIdx) => {
+            record.sets.forEach((setObj, setIdx) => {
                 html += `
                     <div class="dynamic-quiz-card">
-                        <h4>${deity.name}</h4>
-                        <p style="margin-bottom: 8px; font-size: 13px; font-style: italic; color: #DAA520;"><b>Core Pain:</b> ${deity.corePain}</p>
+                        <h4>${setObj.setTitle}</h4>
+                        <p style="margin-bottom: 8px; font-size: 13px; font-style: italic; color: #DAA520;">Tick active symptoms:</p>
                 `;
 
-                deity.symptoms.forEach((item, sIdx) => {
+                setObj.symptoms.forEach((item, idx) => {
                     html += `
                         <label class="symptom-item">
                             <div class="symptom-header">
-                                <input type="checkbox" name="sym_${planetCode}_${dIdx}_${sIdx}" value="${item.eng}">
-                                <span><b>[ENG]</b> ${item.eng}</span>
+                                <input type="checkbox" name="set_${titlePrefix}_${planetCode}_${setIdx}_${idx}" value="${item.eng}">
+                                <span>${item.eng}</span>
                             </div>
-                            <div class="symptom-hindi"><b>[हिन्दी]</b> ${item.hin}</div>
-                            <div class="symptom-hinglish"><b>[Hinglish]</b> ${item.hgl}</div>
+                            <div class="symptom-hindi">${item.hin || ''}</div>
+                            <div class="symptom-hinglish">${item.hgl || ''}</div>
                         </label>
                     `;
                 });
@@ -1498,7 +1878,7 @@
             fetch(form.action, {
                 method: 'POST',
                 body: postPayload,
-                mode: 'no-cors' // Allows submitting cross-domain to Google Apps Script
+                mode: 'no-cors'
             }).then(() => {
                 const statusDiv = document.getElementById('statusMessage');
                 statusDiv.style.display = 'block';
