@@ -143,7 +143,7 @@
         }
 
         .qr {
-            width: 170px;
+            width: auto;
             height: 170px;
             border: 3px solid #DAA520;
             border-radius: 10px;
@@ -205,6 +205,7 @@
         input[type="date"],
         input[type="time"],
         input[type="tel"],
+        select,
         textarea {
             width: 100%;
             padding: 13px 16px;
@@ -226,6 +227,7 @@
         }
 
         input:focus,
+        select:focus,
         textarea:focus {
             border-color: #FF8C00;
             box-shadow: 0 0 0 4px rgba(255, 140, 0, 0.2);
@@ -564,6 +566,20 @@
 
         <hr>
 
+        <!-- Language Selection Section -->
+        <div
+            style="background-color: rgba(255, 255, 255, 0.65); padding: 20px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4); margin-bottom: 25px;">
+            <div class="field" style="margin-bottom: 0;">
+                <label for="displayLanguage" style="color: #0B192C; font-size: 18px;"><b>Select Language / भाषा
+                        चुनें</b> <span>*</span></label>
+                <select id="displayLanguage" name="displayLanguage" onchange="onLanguageChange()">
+                    <option value="eng">English</option>
+                    <option value="hin">Hindi (हिंदी)</option>
+                    <option value="hgl" selected>Hinglish</option>
+                </select>
+            </div>
+        </div>
+
         <!-- Date of Form Filling Section -->
         <div
             style="background-color: rgba(255, 255, 255, 0.65); padding: 20px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4);">
@@ -596,6 +612,27 @@
             </div>
 
             <div class="field">
+                <label for="timeOfBirth">Time of Birth <small>(Optional)</small></label>
+                <input type="time" id="timeOfBirth" name="timeOfBirth">
+            </div>
+
+            <div class="field">
+                <label>Mobile Number <small>(Optional)</small></label>
+                <div id="phoneContainer">
+                    <div class="phone-group">
+                        <div class="phone-input-row">
+                            <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number"
+                                oninput="calculatePhoneNumerology(this)">
+                        </div>
+                        <div class="phone-score-display" style="display: none;">
+                            Sum: <span class="phoneScoreVal">-</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
+            </div>
+
+            <div class="field">
                 <label for="dob">Date of Birth <span>*</span></label>
                 <input type="date" id="dob" name="dob" required onchange="calculateDobNumerology()"
                     oninput="calculateDobNumerology()">
@@ -610,6 +647,13 @@
 
             <!-- Dynamic Diagnostic Questionnaires: Driver, Conductor, and Manifestation Checklist -->
             <div id="dynamicQuizzesWrapper" style="display: none;">
+                <!-- Overall Diagnosis Summary Scorebox -->
+                <div class="numerology-box"
+                    style="margin-bottom: 20px; background: #0B192C; border: 1px solid #DAA520;">
+                    <div class="numerology-item" style="color: #FFD700;">Total Selected Checkbox Score: <span
+                            id="totalMasterScore" style="color: #FF8C00;">0</span></div>
+                </div>
+
                 <!-- Driver Section Quiz -->
                 <div class="field">
                     <label id="driverQuizLabel">Navdurga Diagnosis Checklist</label>
@@ -629,27 +673,6 @@
                 </div>
             </div>
 
-            <div class="field">
-                <label for="timeOfBirth">Time of Birth <small>(Optional)</small></label>
-                <input type="time" id="timeOfBirth" name="timeOfBirth">
-            </div>
-
-            <div class="field">
-                <label>Mobile Number <small>(Optional)</small></label>
-                <div id="phoneContainer">
-                    <div class="phone-group">
-                        <div class="phone-input-row">
-                            <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number"
-                                oninput="calculatePhoneNumerology(this)">
-                        </div>
-                        <div class="phone-score-display" style="display: none;">
-                            Digital Root / Sum: <span class="phoneScoreVal">-</span>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
-            </div>
-
             <button type="submit" class="submit-btn">Submit Information</button>
             <div id="statusMessage" class="status-msg"></div>
 
@@ -664,7 +687,7 @@
                 <p><b>UPI ID:</b> piyush10junepriyanka@okicici</p>
             </div>
             <div class="payment-right">
-                <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'">
+                <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'" height="130px" width="auto">
             </div>
         </div>
 
@@ -688,8 +711,8 @@
                     style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; margin: 25px auto 30px; font-family: Arial, sans-serif;">
 
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="images/image 1.png" alt="Structure Layout"
-                            style="width: 70px; height: 70px; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                        <img src="image3.png" alt="Structure Layout"
+                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
                         <span
                             style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
                             Structure Layout
@@ -699,8 +722,8 @@
                     <span style="color: #FF8C00; font-size: 25px; font-weight: bold; align-self: center;">→</span>
 
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="images/image 2.png" alt="Furniture Layout"
-                            style="width: 70px; height: 70px; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                        <img src="image2.png" alt="Furniture Layout"
+                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
                         <span
                             style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
                             Furniture Layout
@@ -710,8 +733,8 @@
                     <span style="color: #FF8C00; font-size: 25px; font-weight: bold; align-self: center;">→</span>
 
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="images/image 3.png" alt="Interior Layout"
-                            style="width: 70px; height: 70px; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                        <img src="image1.png" alt="Interior Layout"
+                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
                         <span
                             style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
                             Interior Layout
@@ -868,21 +891,21 @@
         // Set Default Date of Filling to Today
         document.getElementById('submissionDate').valueAsDate = new Date();
 
-        // 1. Driver Database: Navdurga (Codes 1 to 9 with full original content)
+        // 1. Driver Database: Navdurga (Codes 1 to 9 with full original content and complete Hinglish)
         const driverNavdurgaDatabase = {
             1: {
                 name: "Surya",
                 sets: [{
                     setTitle: "Navdurga (Sun Sector)",
                     symptoms: [
-                        { eng: "I don't know what career or business to choose; I change my plans every week.", hin: "मुझे समझ नहीं आता कि कौन सा करियर या बिजनेस चुनूँ, मैं हर हफ्ते अपनी योजना बदल देता हूँ।", hgl: "mujhe samajh nahi ata ki kaun sa career ya business chunun, main har hafte apani yojana badal deta hun." },
-                        { eng: "I feel like I don't exist; everyone dominates me and makes decisions for me.", hin: "मुझे लगता है कि मेरा अपना कोई अस्तित्व नहीं है, हर कोई मुझ पर हावी रहता है और मेरे फैसले लेता है।", hgl: "mujhe lagata hai ki mer apana koi astitv nahi hai, har koi mujha par havi rahata hai aur mere faisale leta hai." },
-                        { eng: "I start things with excitement but lose my ground very quickly.", hin: "मैं उत्साह में काम तो शुरू करता हूँ लेकिन बहुत जल्दी हिम्मत हार जाता हूँ।", hgl: "main utsaha men kam to shuru karata hun lekin bahut jaldi himmata har jata hun." },
-                        { eng: "I feel completely unstable and rootless in my own family/office.", hin: "मुझे अपने ही परिवार या ऑफिस में अपनी जड़ें कमजोर और अस्थिर महसूस होती हैं।", hgl: "mujhe apane hi parivar ya office men apani jaden kamzor aur asthir mahasusa hoti hain." },
-                        { eng: "Chronic Indecisiveness: Constantly asking multiple people for advice on small matters and being unable to stick to a single choice.", hin: "छोटी-छोटी बातों पर लोगों से राय मांगना और किसी एक फैसले पर टिक न पाना।", hgl: "chhoti-chhoti baton par logon se raya mangana aur kisi eka faisale par tik na pana." },
-                        { eng: "Identity Crisis & Self-Doubt: Seeking validation from others for self-worth and feeling completely helpless when left alone.", hin: "दूसरों से अपनी तारीफ सुनने की चाह रखना और अकेले होने पर असहाय महसूस करना।", hgl: "dusaron se apani tarif sunane ki chaha rakhana aur akele hone par asahaya mahasusa karana." },
-                        { eng: "Weak Physical Posture & Low Stamina: Walking with slouched shoulders, feeling fatigued easily, and lacking physical or mental core strength.", hin: "कंधे झुकाकर चलना, बहुत जल्दी थक जाना और शारीरिक व मानसिक मजबूती की कमी होना।", hgl: "kndhe jhukakar chalana, bahut jaldi thak jana aur sharirik va manasik majabuti ki kami hona." },
-                        { eng: "Escaping Responsibilities: Actively running away from leading a team or family project due to a fear of being blamed if things go wrong.", hin: "टीम या परिवार के कामों का नेतृत्व करने से बचना ताकि गलती होने पर जिम्मेदारी न लेनी पड़े।", hgl: "tim ya parivar ke kamon ka netritva karane se bachana taki galati hone par jimmedari na leni pade." }
+                        { eng: "I don't know what career or business to choose; I change my plans every week.", hin: "मुझे समझ नहीं आता कि कौन सा करियर या बिजनेस चुनूँ, मैं हर हफ्ते अपनी योजना बदल देता हूँ।", hgl: "Mujhe samajh nahi aata ki kaun sa career ya business chunun, main har hafte apani yojana badal deta hun." },
+                        { eng: "I feel like I don't exist; everyone dominates me and makes decisions for me.", hin: "मुझे लगता है कि मेरा अपना कोई अस्तित्व नहीं है, हर कोई मुझ पर हावी रहता है और मेरे फैसले लेता है।", hgl: "Mujhe lagata hai ki mera apana koi astitv nahi hai, har koi mujh par havi rahata hai aur mere faisale leta hai." },
+                        { eng: "I start things with excitement but lose my ground very quickly.", hin: "मैं उत्साह में काम तो शुरू करता हूँ लेकिन बहुत जल्दी हिम्मत हार जाता हूँ।", hgl: "Main utsaha men kam to shuru karata hun lekin bahut jaldi himmat haar jata hun." },
+                        { eng: "I feel completely unstable and rootless in my own family/office.", hin: "मुझे अपने ही परिवार या ऑफिस में अपनी जड़ें कमजोर और अस्थिर महसूस होती हैं।", hgl: "Mujhe apane hi parivar ya office men apani jaden kamzor aur asthir mahasusa hoti hain." },
+                        { eng: "Chronic Indecisiveness: Constantly asking multiple people for advice on small matters and being unable to stick to a single choice.", hin: "छोटी-छोटी बातों पर लोगों से राय मांगना और किसी एक फैसले पर टिक न पाना।", hgl: "Chhoti-chhoti baton par logon se raya mangana aur kisi ek faisale par tik na pana." },
+                        { eng: "Identity Crisis & Self-Doubt: Seeking validation from others for self-worth and feeling completely helpless when left alone.", hin: "दूसरों से अपनी तारीफ सुनने की चाह रखना और अकेले होने पर असहाय महसूस करना।", hgl: "Dusaron se apani tarif sunane ki chaha rakhana aur akele hone par asahaya mahasusa karana." },
+                        { eng: "Weak Physical Posture & Low Stamina: Walking with slouched shoulders, feeling fatigued easily, and lacking physical or mental core strength.", hin: "कंधे झुकाकर चलना, बहुत जल्दी थक जाना और शारीरिक व मानसिक मजबूती की कमी होना।", hgl: "Kandhe jhukakar chalana, bahut jaldi thak jana aur sharirik va manasik majabuti ki kami hona." },
+                        { eng: "Escaping Responsibilities: Actively running away from leading a team or family project due to a fear of being blamed if things go wrong.", hin: "टीम या परिवार के कामों का नेतृत्व करने से बचना ताकि गलती होने पर जिम्मेदारी न लेनी पड़े।", hgl: "Team ya parivar ke kamon ka netritva karane se bachana taki galati hone par jimmedari na leni pade." }
                     ]
                 }]
             },
@@ -891,14 +914,14 @@
                 sets: [{
                     setTitle: "Navdurga (Moon Sector)",
                     symptoms: [
-                        { eng: "I constantly feel a heavy tightness in my chest and feel anxious for no reason.", hin: "मुझे लगातार अपनी छाती में भारीपन महसूस होता है और बिना किसी वजह के घबराहट होती रहती है।", hgl: "mujhe lagatar apani chhati men bharipana mahasusa hota hai aur bina kisi vajaha ke ghabarahata hoti rahati hai." },
-                        { eng: "I am always worried that something terrible is about to happen to my family.", hin: "मुझे हमेशा यह डर सताता रहता है कि मेरे परिवार के साथ कुछ बहुत बुरा होने वाला है।", hgl: "mujhe hamesha yaha dar satata rahata hai ki mere parivar ke satha kuchha bahut bur hone val hai." },
-                        { eng: "I haven't slept deeply in months; my brain just won't stop thinking at night.", hin: "मैंने महीनों से गहरी नींद नहीं ली है, रात को मेरा दिमाग सोचना बंद ही नहीं करता।", hgl: "mainne mahinon se gahari ninda nahi li hai, rata ko mer dimag sochana bnda hi nahi karata." },
-                        { eng: "A small phone call or notification makes my heart beat extremely fast.", hin: "एक छोटा सा फोन कॉल या नोटिफिकेशन भी मेरे दिल की धड़कन को बहुत तेज कर देता है।", hgl: "eka chhota sa fona ka■l ya notifikeshana bhi mere dil ki dhadakana ko bahut tej kar deta hai." },
-                        { eng: "Nervous Habits & Restlessness: Constantly biting nails, tapping feet, shaking hands, or walking around the room in circles due to high anxiety.", hin: "चिंता के कारण नाखून चबाना, पैर हिलाना या कमरे में बिना वजह चक्कर काटना।", hgl: "chinta ke karana nakhuna chabana, pair hilana ya kamare men bina vajaha chakkar katana." },
-                        { eng: "Extreme Mood Swings: Being happy one moment and bursting into tears or anger the next over trivial household issues.", hin: "एक पल में खुश होना और अगले ही पल घर की छोटी सी बात पर रोने या गुस्सा करने लगना।", hgl: "eka pal men khusha hona aur agale hi pal ghar ki chhoti si bata par rone ya gussa karane lagana." },
-                        { eng: "Sudden Voice Raising: Speaking loudly or screaming abruptly when feeling emotionally overwhelmed or defensive.", hin: "भावनात्मक दबाव आने पर अचानक बहुत तेज आवाज में चिल्लाकर बात करने लगना।" },
-                        { eng: "Over-dependency on Others: Needing constant reassurance from partners or parents that everything is fine.", hin: "अपने पार्टनर या माता-पिता से बार-बार यह सुनना कि सब कुछ ठीक है ताकि मन शांत हो सके।" }
+                        { eng: "I constantly feel a heavy tightness in my chest and feel anxious for no reason.", hin: "मुझे लगातार अपनी छाती में भारीपन महसूस होता है और बिना किसी वजह के घबराहट होती रहती है।", hgl: "Mujhe lagatar apani chhati men bharipana mahasusa hota hai aur bina kisi vajaha ke ghabarahata hoti rahati hai." },
+                        { eng: "I am always worried that something terrible is about to happen to my family.", hin: "मुझे हमेशा यह डर सताता रहता है कि मेरे परिवार के साथ कुछ बहुत बुरा होने वाला है।", hgl: "Mujhe hamesha yah dar satata rahata hai ki mere parivar ke satha kuchha bahut bura hone vala hai." },
+                        { eng: "I haven't slept deeply in months; my brain just won't stop thinking at night.", hin: "मैंने महीनों से गहरी नींद नहीं ली है, रात को मेरा दिमाग सोचना बंद ही नहीं करता।", hgl: "Mainne mahinon se gahari ninda nahi li hai, rata ko mera dimag sochana bnda hi nahi karata." },
+                        { eng: "A small phone call or notification makes my heart beat extremely fast.", hin: "एक छोटा सा फोन कॉल या नोटिफिकेशन भी मेरे दिल की धड़कन को बहुत तेज कर देता है।", hgl: "Ek chhota sa fona call ya notification bhi mere dil ki dhadakana ko bahut tej kar deta hai." },
+                        { eng: "Nervous Habits & Restlessness: Constantly biting nails, tapping feet, shaking hands, or walking around the room in circles due to high anxiety.", hin: "चिंता के कारण नाखून चबाना, पैर हिलाना या कमरे में बिना वजह चक्कर काटना।", hgl: "Chinta ke karana nakhuna chabana, pair hilana ya kamare men bina vajaha chakkar katana." },
+                        { eng: "Extreme Mood Swings: Being happy one moment and bursting into tears or anger the next over trivial household issues.", hin: "एक पल में खुश होना और अगले ही पल घर की छोटी सी बात पर रोने या गुस्सा करने लगना।", hgl: "Ek pal men khusha hona aur agale hi pal ghar ki chhoti si bata par rone ya gussa karane lagana." },
+                        { eng: "Sudden Voice Raising: Speaking loudly or screaming abruptly when feeling emotionally overwhelmed or defensive.", hin: "भावनात्मक दबाव आने पर अचानक बहुत तेज आवाज में चिल्लाकर बात करने लगना।", hgl: "Bhavatmak dabav ane par achanak bahut tej awaz me chillakar baat karane lagana." },
+                        { eng: "Over-dependency on Others: Needing constant reassurance from partners or parents that everything is fine.", hin: "अपने पार्टनर या माता-पिता से बार-बार यह सुनना कि सब कुछ ठीक है ताकि मन शांत हो सके।", hgl: "Apane partner ya mata-pita se bar-bar yah sunana ki sab kuchha thik hai taki man shant ho sake." }
                     ]
                 }]
             },
@@ -907,14 +930,14 @@
                 sets: [{
                     setTitle: "Navdurga (Jupiter Sector)",
                     symptoms: [
-                        { eng: "No one stands by me or helps me when I am in a crisis.", hin: "जब मैं किसी मुसीबत में होता हूँ, तो कोई भी मेरे साथ नहीं खड़ा होता या मेरी मदद नहीं करता।" },
-                        { eng: "I have to do everything alone; my family is emotionally miles away from me.", hin: "मुझे सब कुछ अकेले ही करना पड़ता है, मेरा परिवार मुझसे भावनात्मक रूप से मीलों दूर है।" },
-                        { eng: "I feel like I am walking in a dark forest without any protective shield.", hin: "मुझे लगता है कि मैं बिना किसी सुरक्षा कवच के एक घने अंधेरे जंगल में चल रहा हूँ।" },
-                        { eng: "Even my closest team members or business partners betray me in times of need.", hin: "जरूरत पड़ने पर मेरे सबसे करीबी टीम के सदस्य या बिजनेस पार्टनर भी मेरा साथ छोड़ देते हैं।" },
-                        { eng: "Deep Emotional Alienation: Living with a constant inner feeling of being an outsider in your own family or office team.", hin: "अपने ही परिवार या ऑफिस की टीम में खुद को एक बाहरी व्यक्ति या अजनबी महसूस करना।" },
-                        { eng: "Over-defensive & Suspicious Behavior: Treating every helpful gesture from others with suspicion, thinking they have a selfish motive.", hin: "दूसरों की मदद की पेशकश को भी शक की निगाह से देखना कि उनका कोई स्वार्थ होगा।" },
-                        { eng: "Accumulating Assets Feebly: Hoarding cash and cheap material goods out of an intense, fearful insecurity about the future.", hin: "भविष्य के अत्यधिक डर और असुरक्षा के कारण नकदी या बेकार की चीजों को बटोर कर रखना।" },
-                        { eng: "Physical Sluggishness & Lack of Joy: Sitting in one place for hours, feeling heavy in the head, and showing zero interest in family bonding.", hin: "घंटों एक ही जगह बैठे रहना, सिर में भारीपन महसूस करना और परिवार के साथ बैठने में कोई रुचि न दिखाना।" }
+                        { eng: "No one stands by me or helps me when I am in a crisis.", hin: "जब मैं किसी मुसीबत में होता हूँ, तो कोई भी मेरे साथ नहीं खड़ा होता या मेरी मदद नहीं करता।", hgl: "Jab main kisi musibat men hota hun, to koi bhi mere satha nahi khada hota ya meri madad nahi karata." },
+                        { eng: "I have to do everything alone; my family is emotionally miles away from me.", hin: "मुझे सब कुछ अकेले ही करना पड़ता है, मेरा परिवार मुझसे भावनात्मक रूप से मीलों दूर है।", hgl: "Mujhe sab kuchha akele hi karana padata hai, mera parivar mujhase bhavatmak roop se melon door hai." },
+                        { eng: "I feel like I am walking in a dark forest without any protective shield.", hin: "मुझे लगता है कि मैं बिना किसी सुरक्षा कवच के एक घने अंधेरे जंगल में चल रहा हूँ।", hgl: "Mujhe lagata hai ki main bina kisi suraksha kavacha ke ek ghane andhere jangal men chal raha hun." },
+                        { eng: "Even my closest team members or business partners betray me in times of need.", hin: "जरूरत पड़ने पर मेरे सबसे करीबी टीम के सदस्य या बिजनेस पार्टनर भी मेरा साथ छोड़ देते हैं।", hgl: "Zaroorat padane par mere sabase karibi tim ke sadasya ya business partner bhi mera satha chhod dete hain." },
+                        { eng: "Deep Emotional Alienation: Living with a constant inner feeling of being an outsider in your own family or office team.", hin: "अपने ही परिवार या ऑफिस की टीम में खुद को एक बाहरी व्यक्ति या अजनबी महसूस करना।", hgl: "Apane hi parivar ya office ki tim men khud ko ek bahari vyakti ya ajanabi mahasusa karana." },
+                        { eng: "Over-defensive & Suspicious Behavior: Treating every helpful gesture from others with suspicion, thinking they have a selfish motive.", hin: "दूसरों की मदद की पेशकश को भी शक की निगाह से देखना कि उनका कोई स्वार्थ होगा।", hgl: "Dusaron ki madad ki peshakasha ko bhi shak ki nigaha se dekhana ki unaka koi swartha hoga." },
+                        { eng: "Accumulating Assets Feebly: Hoarding cash and cheap material goods out of an intense, fearful insecurity about the future.", hin: "भविष्य के अत्यधिक डर और असुरक्षा के कारण नकदी या बेकार की चीजों को बटोर कर रखना।", hgl: "Bhavishya ke atyadhik dar aur asuraksha ke karana nakadi ya bekar ki cheezon ko batora kar rakhana." },
+                        { eng: "Physical Sluggishness & Lack of Joy: Sitting in one place for hours, feeling heavy in the head, and showing zero interest in family bonding.", hin: "घंटों एक ही जगह बैठे रहना, सिर में भारीपन महसूस करना और परिवार के साथ बैठने में कोई रुचि न दिखाना।", hgl: "Ghanton ek hi jagah baithe rahana, sir men bharipana mahasusa karana aur parivar ke satha baithane men koi ruchi na dikhana." }
                     ]
                 }]
             },
@@ -923,9 +946,9 @@
                 sets: [{
                     setTitle: "Navdurga (Rahu Sector)",
                     symptoms: [
-                        { eng: "I am completely trapped in what happened 5 years ago; I cannot forget that betrayal.", hin: "मैं 5 साल पहले हुई घटनाओं में पूरी तरह फंसा हुआ हूँ, मैं उस धोखे को भूल ही नहीं पाता।" },
-                        { eng: "I feel extremely guilty about my past mistakes, and I think I don't deserve success.", hin: "मुझे अपनी पुरानी गलतियों पर बहुत पछतावा है, मुझे लगता है कि मैं सफलता पाने के हकदार ही नहीं हूँ।" },
-                        { eng: "Whenever I try to start a new business or relationship, old fears block me instantly.", hin: "जब भी मैं कोई नया काम या रिश्ता शुरू करने की कोशिश करता हूँ, पुराना डर मुझे तुरंत रोक देता है।" },
+                        { eng: "I am completely trapped in what happened 5 years ago; I cannot forget that betrayal.", hin: "मैं 5 साल पहले हुई घटनाओं में पूरी तरह फंसा हुआ हूँ, मैं उस धोखे को भूल ही नहीं पाता।", hgl: "Main 5 sal pahle hui ghatanaon men poori tarah phansa hua hun, main us dhokhe ko bhool hi nahi pata." },
+                        { eng: "I feel extremely guilty about my past mistakes, and I think I don't deserve success.", hin: "मुझे अपनी पुरानी गलतियों पर बहुत पछतावा है, मुझे लगता है कि मैं सफलता पाने के हकदार ही नहीं हूँ।", hgl: "Mujhe apani purani galatiyon par bahut pachhatava hai, mujhe lagata hai ki main saphalata pane ke hakadar hi nahi hun." },
+                        { eng: "Whenever I try to start a new business or relationship, old fears block me instantly.", hin: "जब भी मैं कोई नया काम या रिश्ता शुरू करने की कोशिश करता हूँ, पुराना डर मुझे तुरंत रोक देता है।", hgl: "Jab bhi main koi naya kam ya rishta shuru karane ki koshish karata hun, purana dar mujhe turant rok deta hai." },
                         { eng: "I feel like my brain is dirty and filled with dark, heavy thoughts.", hin: "मुझे महसूस होता है कि मेरा दिमाग बहुत गंदा और नकारात्मक, भारी विचारों से भरा हुआ है।" },
                         { eng: "Hoarding Old Relics & Clutter: Keeping broken, unused items, old letters of ex-partners, or damaged clothes in the house for years.", hin: "घर में पुरानी टूटी-फूटी चीजें, पुराने प्रेम पत्र या फटे-पुराने कपड़े सालों तक सहेज कर रखना।" },
                         { eng: "Repeatedly Talking about the Past: Bringing up old family disputes or business losses in every casual conversation.", hin: "हर आम बातचीत में बार-बार पुराने पारिवारिक झगड़ों या व्यापारिक नुकसान का रोना रोना।" },
@@ -1016,7 +1039,7 @@
             }
         };
 
-        // 2. Conductor Database: Mahavidya (8 Symptoms for ALL Codes 1 to 9)
+        // 2. Conductor Database: Mahavidya (8 Symptoms for ALL Codes 1 to 9 with complete Hinglish)
         const conductorMahavidyaDatabase = {
             1: {
                 name: "Surya",
@@ -1809,6 +1832,7 @@
             document.getElementById('manifestationQuizLabel').closest('.field').style.display = 'flex';
 
             dynamicWrapper.style.display = "block";
+            updateMasterTotalScore();
         }
 
         function populateQuizCard(labelId, contentId, planetCode, databaseObj, titlePrefix) {
@@ -1824,6 +1848,8 @@
                 labelEl.innerHTML = `Manifestation Code ${planetCode} Checklist (${record.name})`;
             }
 
+            const currentLang = document.getElementById('displayLanguage').value;
+
             let html = `
                 <div class="quiz-score-summary">
                     Total Checked Symptoms Score: <span class="quizScoreVal_${titlePrefix}">0</span>
@@ -1837,14 +1863,19 @@
                 `;
 
                 setObj.symptoms.forEach((item, idx) => {
+                    let displayText = item.eng;
+                    if (currentLang === 'hin') {
+                        displayText = item.hin || item.eng;
+                    } else if (currentLang === 'hgl') {
+                        displayText = item.hgl || item.eng;
+                    }
+
                     html += `
-                        <label class="symptom-item">
+                        <label class="symptom-item" data-eng="${escapeHtml(item.eng)}" data-hin="${escapeHtml(item.hin || '')}" data-hgl="${escapeHtml(item.hgl || '')}">
                             <div class="symptom-header">
-                                <input type="checkbox" name="set_${titlePrefix}_${planetCode}_${setIdx}_${idx}" value="${item.eng}" onchange="updateQuizScore('${titlePrefix}')">
-                                <span>${item.eng}</span>
+                                <input type="checkbox" name="set_${titlePrefix}_${planetCode}_${setIdx}_${idx}" value="${escapeHtml(item.eng)}" onchange="updateQuizScore('${titlePrefix}')">
+                                <span class="symptom-text">${escapeHtml(displayText)}</span>
                             </div>
-                            <div class="symptom-hindi">${item.hin || ''}</div>
-                            <div class="symptom-hinglish">${item.hgl || ''}</div>
                         </label>
                     `;
                 });
@@ -1853,6 +1884,31 @@
             });
 
             contentEl.innerHTML = html;
+        }
+
+        // Re-render checklist text labels when language selector changes
+        function onLanguageChange() {
+            const currentLang = document.getElementById('displayLanguage').value;
+            const symptomItems = document.querySelectorAll('.symptom-item');
+            symptomItems.forEach(item => {
+                const textSpan = item.querySelector('.symptom-text');
+                if (!textSpan) return;
+                const eng = item.getAttribute('data-eng') || '';
+                const hin = item.getAttribute('data-hin') || '';
+                const hgl = item.getAttribute('data-hgl') || '';
+
+                if (currentLang === 'hin') {
+                    textSpan.innerText = hin || eng;
+                } else if (currentLang === 'hgl') {
+                    textSpan.innerText = hgl || eng;
+                } else {
+                    textSpan.innerText = eng;
+                }
+            });
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
         // Update total score for each quiz section dynamically when checkboxes are toggled
@@ -1865,6 +1921,16 @@
             const scoreSpan = container.querySelector(`.quizScoreVal_${titlePrefix}`);
             if (scoreSpan) {
                 scoreSpan.innerText = checkedCount;
+            }
+            updateMasterTotalScore();
+        }
+
+        // Update combined master overall total score
+        function updateMasterTotalScore() {
+            const allChecked = document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').length;
+            const masterScoreEl = document.getElementById('totalMasterScore');
+            if (masterScoreEl) {
+                masterScoreEl.innerText = allChecked;
             }
         }
 
