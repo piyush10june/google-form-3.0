@@ -675,6 +675,8 @@
                     <button type="button" class="nav-btn" id="prevQuizBtn" onclick="navigateQuizStep(-1)"
                         style="display: none;">← Previous</button>
                     <button type="button" class="nav-btn" id="nextQuizBtn" onclick="navigateQuizStep(1)">Next →</button>
+                    <button type="button" class="nav-btn" id="finishQuizBtn" onclick="finishQuizzes()"
+                        style="display: none; background: #DAA520; color: #0B192C;">✓ Finish & Save</button>
                 </div>
             </div>
 
@@ -954,9 +956,9 @@
                 sets: [{
                     setTitle: "Navdurga (Rahu Sector)",
                     symptoms: [
-                        { eng: "I am completely trapped in what happened 5 years ago; I cannot forget that betrayal.", hin: "मैं 5 साल पहले हुई घटनाओं में पूरी तरह फंसा हुआ हूँ, मैं उस धोखे को भूल ही नहीं पाता।", hgl: "Main 5 sal pahle hui ghatanaon men poori tarah phansa hua hun, main us dhokhe ko bhool hi nahi pata." },
-                        { eng: "I feel extremely guilty about my past mistakes, and I think I don't deserve success.", hin: "मुझे अपनी पुरानी गलतियों पर बहुत पछतावा है, मुझे लगता है कि मैं सफलता पाने के हकदार ही नहीं हूँ।", hgl: "Mujhe apani purani galatiyon par bahut pachhatava hai, mujhe lagata hai ki main saphalata pane ke hakadar hi nahi hun." },
-                        { eng: "Whenever I try to start a new business or relationship, old fears block me instantly.", hin: "जब भी मैं कोई नया काम या रिश्ता शुरू करने की कोशिश करता हूँ, पुराना डर मुझे तुरंत रोक देता है।", hgl: "Jab bhi main koi naya kam ya rishta shuru karane ki koshish karata hun, purana dar mujhe turant rok deta hai." },
+                        { eng: "I am completely trapped in what happened 5 years ago; I cannot forget that betrayal.", hin: "मैं 5 साल पहले हुई घटनाओं में पूरी तरह फंसा हुआ हूँ, मैं उस धोखे को भूल ही नहीं पाता।" },
+                        { eng: "I feel extremely guilty about my past mistakes, and I think I don't deserve success.", hin: "मुझे अपनी पुरानी गलतियों पर बहुत पछतावा है, मुझे लगता है कि मैं सफलता पाने के हकदार ही नहीं हूँ।" },
+                        { eng: "Whenever I try to start a new business or relationship, old fears block me instantly.", hin: "जब भी मैं कोई नया काम या रिश्ता शुरू करने की कोशिश करता हूँ, पुराना डर मुझे तुरंत रोक देता है।" },
                         { eng: "I feel like my brain is dirty and filled with dark, heavy thoughts.", hin: "मुझे महसूस होता है कि मेरा दिमाग बहुत गंदा और नकारात्मक, भारी विचारों से भरा हुआ है।" },
                         { eng: "Hoarding Old Relics & Clutter: Keeping broken, unused items, old letters of ex-partners, or damaged clothes in the house for years.", hin: "घर में पुरानी टूटी-फूटी चीजें, पुराने प्रेम पत्र या फटे-पुराने कपड़े सालों तक सहेज कर रखना।" },
                         { eng: "Repeatedly Talking about the Past: Bringing up old family disputes or business losses in every casual conversation.", hin: "हर आम बातचीत में बार-बार पुराने पारिवारिक झगड़ों या व्यापारिक नुकसान का रोना रोना।" },
@@ -1170,7 +1172,7 @@
                         { eng: "I cannot change my opinions; I have my own fixed rules, and everyone must follow them.", hin: "मैं अपनी सोच नहीं बदल सकता, मेरे अपने नियम हैं और हर कोई उनका पालन करना ही होगा।" },
                         { eng: "I don't trust my staff or family; if I don't monitor them, they will ruin me.", hin: "मुझे अपने स्टाफ या परिवार पर बिल्कुल भरोसा नहीं है, अगर मैं उन पर नजर न रखूँ तो वे मुझे बर्बाद कर देंगे।" },
                         { eng: "I feel a deep, toxic anger boiling inside me that destroys my peace of mind.", hin: "मुझे अपने अंदर एक कड़वा और जहरीला गुस्सा उबलता हुआ महसूस होता है जो मेरी दिमागी शांति छीन लेता है।" },
-                        { eng: "Rigid Mindset (No Flexibility): Becoming extremely stubborn, refusing to listen to others' viewpoints, and killing all teamwork or creative ideas.", hin: "बेहद जिद्दी हो जाना, दूसरों की राय सुनने से पूरी तरह मना करना और टीमवर्क या नए विचारों का गला घोंट देना।" },
+                        { eng: "Rigid Mindset (No Flexibility): Becoming extremely stubborn, refusing to listen to others' viewpoints, and killing all teamwork or creative ideas.", hin: "बेहद जिद्दी हो जाना, दूसरों की राय सुनने से पूरी तरह मना करना और टीमवर्क या नए विचारों का गला घोट देना।" },
                         { eng: "Obsessive Surveillance Habits: Constantly checking others' phones, tracking their locations, or physically monitoring staff through CCTV with deep suspicion.", hin: "दूसरों के फोन चेक करना, उनकी लोकेशन ट्रैक करना या गहरी शंका के कारण सीसीटीवी से स्टाफ पर लगातार नजर रखना।" },
                         { eng: "Fearing Any Change: Refusing to relocate to a better city, refusing to change a bad office layout, or resisting any healthy transformation in life.", hin: "बेहतर शहर में शिफ्ट होने से मना करना, ऑफिस के खराब लेआउट को बदलने का विरोध करना और जीवन में किसी भी अच्छे बदलाव से डरना।" },
                         { eng: "Uncontrolled Outbursts of Anger: Screaming with bloodshot eyes at staff, family, or domestic help over tiny, meaningless mistakes.", hin: "स्टाफ, परिवार या काम करने वालों पर छोटी-छोटी गलतियों पर लाल आँखों से चिल्लाना और हिंसक गुस्सा दिखाना।" }
@@ -1523,7 +1525,7 @@
                             { eng: "I feel completely disconnected from my relatives and society; nobody supports me." },
                             { eng: "When a major crisis comes, even my closest friends refuse to help me." },
                             { eng: "Blocked Inheritance: Experiencing ongoing blockages in receiving family inheritance or ancestral support." },
-                            { eng: "No Social Ties: Failing completely to build or maintain beneficial social connections or business ties." },
+                            { eng: "No Social Ties: Failing consistently to build or maintain beneficial social connections or business ties." },
                             { eng: "Neighbors Fights: Engaging in continuous disputes with neighbors, society committee, or local authorities." }
                         ]
                     },
@@ -1702,7 +1704,7 @@
             if (rawVal === "") { scoreDisplay.style.display = "none"; return; }
             let sum = 0;
             for (let i = 0; i < rawVal.length; i++) sum += parseInt(rawVal[i], 10);
-            scoreValSpan.innerText = `${sum} / Root: ${getDigitalRoot(sum)}`;
+            scoreValSpan.innerText = `${sum} / ${getDigitalRoot(sum)}`;
             scoreDisplay.style.display = "block";
         }
 
@@ -1811,7 +1813,18 @@
                 if (pane) pane.style.display = (i === currentQuizStep) ? 'block' : 'none';
             }
             document.getElementById('prevQuizBtn').style.display = (currentQuizStep === 0) ? 'none' : 'block';
-            document.getElementById('nextQuizBtn').style.display = (currentQuizStep === totalQuizSteps - 1) ? 'none' : 'block';
+
+            const isLastStep = (currentQuizStep === totalQuizSteps - 1);
+            document.getElementById('nextQuizBtn').style.display = isLastStep ? 'none' : 'block';
+            document.getElementById('finishQuizBtn').style.display = isLastStep ? 'block' : 'none';
+        }
+
+        function finishQuizzes() {
+            // Save checklists and hide containers neatly as requested
+            document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = `✓ Checklists completed and scores locked! You can now submit your form.`;
         }
 
         function updateQuizScore(titlePrefix) {
@@ -1897,6 +1910,10 @@
                 fullName: document.getElementById('fullName').value.trim(),
                 dob: document.getElementById('dob').value,
                 mobileNumbers: mobileNumbers,
+                driver: document.getElementById('driverNumberOut').innerText,
+                conductor: document.getElementById('conductorNumberOut').innerText,
+                manifestation: document.getElementById('manifestationNumberOut').innerText,
+                totalMasterScore: document.getElementById('totalMasterScore').innerText,
                 checkedSymptoms: checkedSymptoms,
                 submittedAt: new Date().toISOString()
             };
@@ -1910,6 +1927,10 @@
             postPayload.append('fullName', formDataLocal.fullName);
             postPayload.append('dob', formDataLocal.dob);
             postPayload.append('mobileNumber', mobileNumbers);
+            postPayload.append('driver', formDataLocal.driver);
+            postPayload.append('conductor', formDataLocal.conductor);
+            postPayload.append('manifestation', formDataLocal.manifestation);
+            postPayload.append('totalMasterScore', formDataLocal.totalMasterScore);
             postPayload.append('checkedSymptoms', checkedSymptoms.join(' | '));
 
             fetch(form.action, { method: 'POST', body: postPayload, mode: 'no-cors' }).then(() => {
