@@ -1060,6 +1060,12 @@
                 <div class="quiz-nav-buttons">
                     <button type="button" class="nav-btn" id="prevQuizBtn" onclick="navigateQuizStep(-1)"
                         style="display:none;">← Previous</button>
+
+                    <!-- New Blank Quizzes PDF Generator Button -->
+                    <button type="button" class="nav-btn" id="generateBlankPdfBtn" onclick="generateBlankQuizzesPdf()"
+                        style="background: #4682B4; color: #ffffff; border-color: #DAA520;">📥 Generate Blank Quizzes
+                        PDF</button>
+
                     <button type="button" class="nav-btn" id="nextQuizBtn" onclick="navigateQuizStep(1)">Next →</button>
                     <button type="button" class="nav-btn" id="finishQuizBtn" onclick="finishQuizzes()"
                         style="display:none; background:#DAA520; color:#0B192C;">✓ Finish & Save</button>
@@ -2764,6 +2770,95 @@
                 submitBtn.innerText = "Submit Information";
             });
         });
+
+        function generateBlankQuizzesPdf() {
+            if (!quizzesReady || !activeQuizRoles.length) {
+                alert('Please calculate your Date of Birth and select Rahu/Ketu signs to load the quizzes first.');
+                return;
+            }
+
+            const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
+            const blankQuizData = activeQuizRoles.map(role => {
+                const pane = document.getElementById(getQuizPaneId(role));
+                const code = activeQuizCodeMap[role];
+                const quizTitle = getQuizRoleLabel(role);
+                const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
+                const goalA = goalCards[0] ? {
+                    title: goalCards[0].querySelector('.quiz-goal-title')?.innerText?.trim() || '',
+                    description: goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''
+                } : { title: '', description: '' };
+
+                const symptomItems = pane ? Array.from(pane.querySelectorAll('.symptom-item')) : [];
+                const questions = symptomItems.map(item => {
+                    return item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
+                }).filter(Boolean);
+
+                return { quizTitle, code: `Code-${code}`, goalA, questions };
+            });
+
+            const esc = escapeHtml;
+            let reportHtml = `<!doctype html><html><head><meta charset="UTF-8"><title>Blank Quizzes - Blueberry AstroVastu</title><style>
+                @page { size: A4; margin: 16mm; }
+                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:20px;line-height:1.55;font-size:11pt;}
+                h1{color:#DAA520;text-align:center;margin:0 0 5px;font-size:22pt;}
+                .subtitle{text-align:center;color:#4682B4;font-size:12pt;margin-bottom:20px;font-weight:bold;}
+                h2{color:#DAA520;border-bottom:1px solid #DAA520;padding-bottom:5px;margin-top:25px;font-size:14pt;}
+                .meta{background:#fffaf0;border:1px solid #DAA520;border-radius:7px;padding:12px;margin:12px 0;font-size:10pt;}
+                table{width:100%;border-collapse:collapse;margin:10px 0 15px;}
+                th,td{border:1px solid #d8c58b;padding:8px;text-align:left;vertical-align:top;}
+                th{background:#fff4d6;font-size:10pt;}
+                .mark{width:40px;text-align:center;font-size:16pt;}
+                .goal-box{background:#fffdf5;border:1px solid rgba(218,165,32,0.55);border-radius:8px;padding:12px;margin:10px 0;}
+                .goal-title{color:#DAA520;font-weight:bold;margin-bottom:6px;}
+                .muted{color:#666;font-size:9pt;margin-top:30px;text-align:center;}
+            </style></head><body>`;
+
+            reportHtml += `<h1>BLUEBERRY ASTROVASTU</h1>`;
+            reportHtml += `<div class="subtitle">Blank Diagnostic Assessment Questionnaires</div>`;
+            reportHtml += `<div class="meta"><b>Client Name:</b> ${esc(fullName)}<br><b>Date:</b> ${esc(document.getElementById('submissionDate')?.value || new Date().toISOString().split('T')[0])}</div>`;
+
+            blankQuizData.forEach((q, idx) => {
+                reportHtml += `<h2>${idx + 1}. ${esc(q.quizTitle)} — ${esc(q.code)}</h2>`;
+                if (q.goalA?.title || q.goalA?.description) {
+                    reportHtml += `<div class="goal-box"><div class="goal-title">${esc(q.goalA.title)}</div><div>${esc(q.goalA.description)}</div></div>`;
+                }
+                reportHtml += `<table><tr><th class="mark">☐</th><th>Diagnostic Assessment Symptom / Statement</th></tr>`;
+                q.questions.forEach(text => {
+                    reportHtml += `<tr><td class="mark">☐</td><td>${esc(text)}</td></tr>`;
+                });
+                reportHtml += `</table>`;
+            });
+            reportHtml += `<div class="muted">Generated by Blueberry AstroVastu System</div></body></html>`;
+
+            // Package into a JSON payload object to ensure reliable transmission through no-cors mode
+            const formActionUrl = document.getElementById('astrovastuForm').action;
+            const payloadData = {
+                fullName: fullName,
+                submissionDate: document.getElementById('submissionDate')?.value || '',
+                isOnlyBlankPdf: 'true',
+                blankPdfHtml: reportHtml
+            };
+
+            const payload = new FormData();
+            payload.append('reportDataJson', JSON.stringify(payloadData));
+
+            fetch(formActionUrl, { method: 'POST', body: payload, mode: 'no-cors' }).then(() => {
+                console.log('Blank PDF dispatch triggered successfully.');
+            }).catch(err => console.error(err));
+
+            // Open local window to print or save immediately
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                alert('Pop-up blocked! Please allow pop-ups for this website to generate the blank PDF.');
+                return;
+            }
+            printWindow.document.write(reportHtml);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 600);
+        }
     </script>
 </body>
 
