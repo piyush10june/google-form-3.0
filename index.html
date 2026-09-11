@@ -479,10 +479,214 @@
             border: 1px solid rgba(218, 165, 32, 0.4);
         }
 
+        .dob-action-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .dob-action-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .dob-action-row .nav-btn {
+            flex: 0 0 auto;
+        }
+
+        .auto-day-card {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 18px 0 24px;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #fffdf5, #ffffff);
+            border: 1px solid #DAA520;
+            border-radius: 12px;
+            box-shadow: 0 5px 16px rgba(11, 25, 44, .08);
+        }
+
+        .auto-day-main {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .auto-day-label {
+            font-size: 13px;
+            color: #4682B4;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .auto-day-main strong {
+            font-size: 20px;
+            color: #0B192C;
+        }
+
+        .auto-day-code {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0B192C;
+        }
+
+        .auto-day-code span {
+            color: #FF8C00;
+        }
+
+        .quiz-step-pane {
+            animation: quizFade .22s ease;
+        }
+
+        @keyframes quizFade {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-nav-buttons {
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                padding: 22px 10px;
+            }
+
+            .container {
+                padding: 42px 16px 20px;
+            }
+
+            .logo {
+                width: 100%;
+            }
+
+            .form-section-title {
+                font-size: 23px;
+            }
+
+            .dynamic-quiz-container {
+                padding: 14px;
+            }
+
+            .dynamic-quiz-card,
+            .quiz-goal-card {
+                padding: 14px;
+            }
+        }
+
         @media (max-width: 700px) {
             .quiz-overview-box {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .payment-card-refined {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .payment-right {
+                width: 100%;
+            }
+
+            .qr {
+                max-width: 100%;
+                height: auto;
+                max-height: 180px;
+                margin: auto;
+            }
+
+            .auto-day-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dob-action-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .dob-action-row .nav-btn {
+                width: 100%;
+            }
+
+            .quiz-nav-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .quiz-nav-buttons .nav-btn {
+                width: 100%;
+                padding: 11px 14px;
+            }
+
+            #finishQuizBtn {
+                grid-column: 1 / -1;
+            }
+
+            .symptom-header {
+                font-size: 14px;
+            }
+
+            .quiz-goal-description {
+                font-size: 13.5px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="time"],
+            input[type="tel"],
+            select,
+            textarea {
+                font-size: 16px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 14px 20px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .container {
+                border-radius: 8px;
+                padding-left: 11px;
+                padding-right: 11px;
+            }
+
+            .field {
+                margin-bottom: 18px;
+            }
+
+            .quiz-score-summary {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+
+            .dynamic-quiz-container {
+                padding: 10px;
+            }
+
+            .dynamic-quiz-card,
+            .quiz-goal-card {
+                padding: 11px;
+            }
+
+            .symptom-item {
+                padding: 10px;
+            }
+
+            .nav-btn {
+                font-size: 14px;
             }
         }
 
@@ -642,49 +846,22 @@
                 <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
             </div>
 
-            <div class="field">
-                <label for="birthday">Day of Birth <span>*</span></label>
-                <div style="display:flex; gap:10px;">
-                    <select id="birthday" name="birthday" required>
-                        <option value="">Select birth day</option>
-                        <option>Monday</option>
-                        <option>Tuesday</option>
-                        <option>Wednesday</option>
-                        <option>Thursday</option>
-                        <option>Friday</option>
-                        <option>Saturday</option>
-                        <option>Sunday</option>
-                    </select>
-                    <button type="button" class="nav-btn" onclick="confirmBirthDayAndStartQuiz()"
-                        style="padding:10px 20px; white-space:nowrap;">Confirm & Open Day Quiz</button>
+            <!-- Day of Birth is calculated automatically from Date of Birth -->
+            <div class="auto-day-card" id="autoDayCard" style="display:none;">
+                <div class="auto-day-main">
+                    <span class="auto-day-label">Day of Birth</span>
+                    <strong id="birthdayDisplay">-</strong>
                 </div>
-                <div class="numerology-box" id="birthDayCodeResult" style="display:none;">
-                    <div class="numerology-item">Birth Day Code: <span id="birthDayCodeOut">-</span></div>
-                </div>
-            </div>
-
-            <div id="birthDayQuizWrapper" style="display:none; margin-bottom:22px;">
-                <div class="numerology-box quiz-overview-box">
-                    <div class="numerology-item"><span>Day of Birth Quiz</span></div>
-                    <div class="numerology-item">Selected Checkbox Score: <span id="birthDayQuizScore"
-                            style="color:#FF8C00;">0</span></div>
-                </div>
-                <div class="field">
-                    <label id="birthDayQuizLabel">Day of Birth Diagnosis — Code</label>
-                    <div class="dynamic-quiz-container" id="birthDayQuizContent"></div>
-                </div>
-                <div class="quiz-nav-buttons" style="justify-content:flex-end;">
-                    <button type="button" class="nav-btn" onclick="finishBirthDayQuiz()"
-                        style="background:#DAA520; color:#0B192C;">✓ Finish & Save</button>
-                </div>
+                <div class="auto-day-code">Birth Day Code: <span id="birthDayCodeOut">-</span></div>
+                <input type="hidden" id="birthday" name="birthday" value="">
             </div>
 
             <div class="field">
                 <label for="dob">Date of Birth <span>*</span></label>
-                <div style="display: flex; gap: 10px;">
+                <div class="dob-action-row">
                     <input type="date" id="dob" name="dob" required>
                     <button type="button" class="nav-btn" onclick="confirmDobAndStartQuizzes()"
-                        style="padding: 10px 20px; white-space: nowrap;">Calculate DOB & Continue</button>
+                        style="padding: 10px 20px; white-space: nowrap;"> Open Quizzes</button>
                 </div>
 
                 <!-- DOB Numerology Clean Output Display -->
@@ -727,51 +904,43 @@
                 </div>
             </div>
 
-            <!-- Dynamic Step-by-Step Diagnostic Checklists Wrapper -->
-            <div id="dynamicQuizzesWrapper" style="display: none;">
+            <!-- Dynamic Step-by-Step Diagnostic Checklists -->
+            <div id="dynamicQuizzesWrapper" style="display:none;">
                 <div class="numerology-box quiz-overview-box">
-                    <div class="numerology-item"><span id="quizProgressLabel">Quiz Page 1 of 3</span></div>
+                    <div class="numerology-item"><span id="quizProgressLabel">Quiz Page</span></div>
                     <div class="numerology-item">Total Selected Checkbox Score: <span id="totalMasterScore"
                             style="color:#FF8C00;">0</span></div>
                 </div>
 
-                <!-- Page 1: Driver Code -->
-                <div class="quiz-step-pane" id="quizStep_0" style="display: block;">
-                    <div class="field">
-                        <label id="driverQuizLabel">Driver Diagnosis — Code</label>
+                <!-- Maximum six quiz types. Duplicate codes are automatically merged into one quiz. -->
+                <div class="quiz-step-pane" id="quizStep_0" style="display:none;">
+                    <div class="field"><label id="driverQuizLabel">Quiz</label>
                         <div class="dynamic-quiz-container" id="driverQuizContent"></div>
                     </div>
                 </div>
-
-                <!-- Page 2: Conductor Code -->
-                <div class="quiz-step-pane" id="quizStep_1" style="display: none;">
-                    <div class="field">
-                        <label id="conductorQuizLabel">Conductor Diagnosis — Code</label>
+                <div class="quiz-step-pane" id="quizStep_1" style="display:none;">
+                    <div class="field"><label id="conductorQuizLabel">Quiz</label>
                         <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
                     </div>
                 </div>
-
-                <!-- Page 3: Manifestation Code -->
-                <div class="quiz-step-pane" id="quizStep_2" style="display: none;">
-                    <div class="field">
-                        <label id="manifestationQuizLabel">Manifestation Diagnosis — Code</label>
+                <div class="quiz-step-pane" id="quizStep_2" style="display:none;">
+                    <div class="field"><label id="manifestationQuizLabel">Quiz</label>
                         <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
                     </div>
                 </div>
-
-                <!-- Conditional Page: Rahu Code-4 (only when Rahu sign ruler code matches Driver/Conductor/Manifestation) -->
                 <div class="quiz-step-pane" id="quizStep_3" style="display:none;">
-                    <div class="field">
-                        <label id="rahuQuizLabel">Rahu Diagnosis — Code-4</label>
+                    <div class="field"><label id="rahuQuizLabel">Rahu Quiz</label>
                         <div class="dynamic-quiz-container" id="rahuQuizContent"></div>
                     </div>
                 </div>
-
-                <!-- Conditional Page: Ketu Code-7 (only when Ketu sign ruler code matches Driver/Conductor/Manifestation) -->
                 <div class="quiz-step-pane" id="quizStep_4" style="display:none;">
-                    <div class="field">
-                        <label id="ketuQuizLabel">Ketu Diagnosis — Code-7</label>
+                    <div class="field"><label id="ketuQuizLabel">Ketu Quiz</label>
                         <div class="dynamic-quiz-container" id="ketuQuizContent"></div>
+                    </div>
+                </div>
+                <div class="quiz-step-pane" id="quizStep_5" style="display:none;">
+                    <div class="field"><label id="birthdayQuizLabel">Day of Birth Quiz</label>
+                        <div class="dynamic-quiz-container" id="birthdayQuizContent"></div>
                     </div>
                 </div>
 
@@ -999,7 +1168,10 @@
         });
 
         let currentQuizStep = 0;
-        let activeQuizRoles = ['driver', 'conductor', 'manifestation'];
+        let activeQuizRoles = [];
+        let activeQuizCodeMap = {};
+        let activeQuizMeta = {};
+        let dayQuizFinished = false;
         let quizzesReady = false;
         let rahuKetuReady = false;
         let rahuQuizRequired = false;
@@ -1022,9 +1194,8 @@
             'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
             'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
         ];
-        let birthDayQuizReady = false;
-        let birthDayQuizFinished = false;
         let selectedBirthDayCode = null;
+        let selectedBirthDayName = '';
 
         // Source: "9 planet problem in code format final.pdf".
         // Every selected code uses all four goals from the source, including all Code-X-a to Code-X-e sub-codes.
@@ -1604,7 +1775,9 @@
                 driver: { eng: 'Driver', hin: 'ड्राइवर' },
                 conductor: { eng: 'Conductor', hin: 'कंडक्टर' },
                 manifestation: { eng: 'Manifestation', hin: 'मैनिफेस्टेशन' },
-                birthday: { eng: 'Day of Birth', hin: 'जन्म वार' }
+                birthday: { eng: 'Day of Birth', hin: 'जन्म वार' },
+                rahu: { eng: 'Rahu', hin: 'राहु' },
+                ketu: { eng: 'Ketu', hin: 'केतु' }
             };
             const roleName = roleNames[role]?.[lang] || roleNames[role]?.eng || role;
             labelEl.innerText = `${roleName} Diagnosis — Code-${code}`;
@@ -1658,30 +1831,27 @@
 
         const birthDayCodeMap = { Monday: 2, Tuesday: 9, Wednesday: 5, Thursday: 3, Friday: 6, Saturday: 8, Sunday: 1 };
 
-        function confirmBirthDayAndStartQuiz() {
-            const day = document.getElementById('birthday').value;
-            if (!day || !birthDayCodeMap[day]) { alert('Please select your Day of Birth first.'); return; }
-            selectedBirthDayCode = birthDayCodeMap[day];
-            birthDayQuizReady = true; birthDayQuizFinished = false;
-            document.getElementById('birthDayCodeOut').innerText = `${day} / Code-${selectedBirthDayCode}`;
-            document.getElementById('birthDayCodeResult').style.display = 'grid';
-            document.getElementById('birthDayQuizContent').innerHTML = '';
-            renderCodeQuiz('birthDayQuizContent', 'birthDayQuizLabel', selectedBirthDayCode, 'birthday');
-            document.getElementById('birthDayQuizWrapper').style.display = 'block';
-            document.getElementById('birthDayQuizScore').innerText = '0';
-            updateSubmitRestriction();
-            document.getElementById('birthDayQuizWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        function getBirthDayNameFromDate(dateValue) {
+            const d = new Date(`${dateValue}T00:00:00`);
+            return d.toLocaleDateString('en-US', { weekday: 'long' });
         }
 
-        function finishBirthDayQuiz() {
-            if (!birthDayQuizReady || document.querySelectorAll('#birthDayQuizContent input[type="checkbox"]:checked').length === 0) {
-                const c = document.getElementById('birthDayQuizContent'); c?.classList.add('quiz-missing'); setTimeout(() => c?.classList.remove('quiz-missing'), 1800);
-                alert('Please select at least one checkbox in the Day of Birth quiz before Finish & Save.'); return;
-            }
-            birthDayQuizFinished = true;
-            document.getElementById('birthDayQuizWrapper').style.display = 'none';
-            const statusDiv = document.getElementById('statusMessage'); statusDiv.style.display = 'block';
-            statusDiv.innerHTML = '✓ Day of Birth quiz completed and saved.';
+        function prepareAutomaticBirthDayQuiz(dayName) {
+            selectedBirthDayName = dayName;
+            selectedBirthDayCode = birthDayCodeMap[dayName];
+            dayQuizFinished = false;
+            document.getElementById('birthday').value = dayName;
+            document.getElementById('birthdayDisplay').innerText = dayName;
+            document.getElementById('birthDayCodeOut').innerText = `Code-${selectedBirthDayCode}`;
+            document.getElementById('autoDayCard').style.display = 'flex';
+            document.getElementById('birthdayQuizContent').innerHTML = '';
+            renderCodeQuiz('birthdayQuizContent', 'birthdayQuizLabel', selectedBirthDayCode, 'birthday');
+            document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
+            activeQuizRoles = ['birthday'];
+            activeQuizCodeMap = { birthday: selectedBirthDayCode };
+            activeQuizMeta = { birthday: { code: selectedBirthDayCode, roles: ['birthday'] } };
+            currentQuizStep = 0;
+            updateQuizStepVisibility();
             updateSubmitRestriction();
         }
 
@@ -1729,20 +1899,26 @@
             document.getElementById('manifestationNumberOut').innerText = `${driverNum + conductorNum} / ${manifestationNum}`;
             document.getElementById('dobNumerologyResult').style.display = 'grid';
 
+            const dayName = getBirthDayNameFromDate(dobVal);
+            prepareAutomaticBirthDayQuiz(dayName);
+
+            selectedRahuSign = '';
+            selectedKetuSign = '';
             populateZodiacSelects();
             document.getElementById('rahuKetuSection').style.display = 'block';
             document.getElementById('rahuKetuMatchResult').style.display = 'none';
             rahuKetuReady = false;
             quizzesReady = false;
+            document.getElementById('statusMessage').style.display = 'none';
             updateSubmitRestriction();
-            document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('autoDayCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function confirmRahuKetuAndOpenQuizzes() {
             const rahuSign = document.getElementById('rahuSign').value;
             const ketuSign = document.getElementById('ketuSign').value;
-            if (!selectedNumerology.driver || !selectedNumerology.conductor || !selectedNumerology.manifestation) {
-                alert('Please confirm your Date of Birth first.');
+            if (!selectedNumerology.driver || !selectedNumerology.conductor || !selectedNumerology.manifestation || !selectedBirthDayCode) {
+                alert('Please calculate your Date of Birth first.');
                 return;
             }
             if (!rahuSign || !ketuSign) {
@@ -1752,31 +1928,71 @@
 
             selectedRahuSign = rahuSign;
             selectedKetuSign = ketuSign;
-            const extraRoles = getMatchingExtraQuizRoles();
-            activeQuizRoles = ['driver', 'conductor', 'manifestation', ...extraRoles];
-            rahuKetuReady = true;
+            const numerologyCodes = [selectedNumerology.driver, selectedNumerology.conductor, selectedNumerology.manifestation];
+            const rahuCode = signCodeMap[rahuSign];
+            const ketuCode = signCodeMap[ketuSign];
+            rahuQuizRequired = numerologyCodes.includes(rahuCode);
+            ketuQuizRequired = numerologyCodes.includes(ketuCode);
 
-            document.getElementById('rahuCodeOut').innerText = `Code-${signCodeMap[rahuSign]}`;
-            document.getElementById('ketuCodeOut').innerText = `Code-${signCodeMap[ketuSign]}`;
+            document.getElementById('rahuCodeOut').innerText = `Code-${rahuCode}`;
+            document.getElementById('ketuCodeOut').innerText = `Code-${ketuCode}`;
             const extraLabels = [];
             if (rahuQuizRequired) extraLabels.push('Rahu Code-4');
             if (ketuQuizRequired) extraLabels.push('Ketu Code-7');
             document.getElementById('rahuKetuQuizOut').innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
             document.getElementById('rahuKetuMatchResult').style.display = 'grid';
 
-            document.getElementById('driverQuizContent').innerHTML = '';
-            document.getElementById('conductorQuizContent').innerHTML = '';
-            document.getElementById('manifestationQuizContent').innerHTML = '';
-            document.getElementById('rahuQuizContent').innerHTML = '';
-            document.getElementById('ketuQuizContent').innerHTML = '';
+            // Build quiz pages by UNIQUE CODE. If two or more roles resolve to the same code,
+            // that code is rendered only once and one checkbox set satisfies that quiz.
+            const selectedBeforeRebuild = saveQuizSelections();
+            const roleSpecs = [
+                { role: 'birthday', code: selectedBirthDayCode, label: 'Day of Birth' },
+                { role: 'driver', code: selectedNumerology.driver, label: 'Driver' },
+                { role: 'conductor', code: selectedNumerology.conductor, label: 'Conductor' },
+                { role: 'manifestation', code: selectedNumerology.manifestation, label: 'Manifestation' }
+            ];
+            if (rahuQuizRequired) roleSpecs.push({ role: 'rahu', code: 4, label: 'Rahu' });
+            if (ketuQuizRequired) roleSpecs.push({ role: 'ketu', code: 7, label: 'Ketu' });
 
-            renderCodeQuiz('driverQuizContent', 'driverQuizLabel', selectedNumerology.driver, 'driver');
-            renderCodeQuiz('conductorQuizContent', 'conductorQuizLabel', selectedNumerology.conductor, 'conductor');
-            renderCodeQuiz('manifestationQuizContent', 'manifestationQuizLabel', selectedNumerology.manifestation, 'manifestation');
-            if (rahuQuizRequired) renderCodeQuiz('rahuQuizContent', 'rahuQuizLabel', 4, 'rahu');
-            if (ketuQuizRequired) renderCodeQuiz('ketuQuizContent', 'ketuQuizLabel', 7, 'ketu');
+            const seenCodes = new Set();
+            activeQuizRoles = [];
+            activeQuizCodeMap = {};
+            activeQuizMeta = {};
+            roleSpecs.forEach(spec => {
+                const key = String(spec.code);
+                if (seenCodes.has(key)) {
+                    const existingRole = activeQuizRoles.find(r => String(activeQuizCodeMap[r]) === key);
+                    if (existingRole) activeQuizMeta[existingRole].roles.push(spec.role);
+                    return;
+                }
+                seenCodes.add(key);
+                activeQuizRoles.push(spec.role);
+                activeQuizCodeMap[spec.role] = spec.code;
+                activeQuizMeta[spec.role] = { code: spec.code, roles: [spec.role] };
+            });
 
+            const containers = {
+                birthday: ['birthdayQuizContent', 'birthdayQuizLabel'],
+                driver: ['driverQuizContent', 'driverQuizLabel'],
+                conductor: ['conductorQuizContent', 'conductorQuizLabel'],
+                manifestation: ['manifestationQuizContent', 'manifestationQuizLabel'],
+                rahu: ['rahuQuizContent', 'rahuQuizLabel'],
+                ketu: ['ketuQuizContent', 'ketuQuizLabel']
+            };
+            Object.values(containers).forEach(([content]) => { const el = document.getElementById(content); if (el) el.innerHTML = ''; });
+            roleSpecs.forEach(spec => {
+                const isUnique = activeQuizRoles.includes(spec.role) && activeQuizCodeMap[spec.role] === spec.code;
+                if (!isUnique) return;
+                const pair = containers[spec.role];
+                renderCodeQuiz(pair[0], pair[1], spec.code, spec.role);
+            });
+            restoreQuizSelections(selectedBeforeRebuild);
+
+            // The Day of Birth quiz remains mandatory, but if its code is duplicated by another
+            // role it is already represented by the same single unique-code quiz.
+            dayQuizFinished = hasRoleSelection('birthday');
             quizzesReady = true;
+            rahuKetuReady = true;
             document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
             document.getElementById('statusMessage').style.display = 'none';
             currentQuizStep = 0;
@@ -1787,7 +2003,7 @@
 
         function saveQuizSelections() {
             const selected = new Set();
-            document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked, #birthDayQuizContent input[type="checkbox"]:checked').forEach(cb => selected.add(cb.name));
+            document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').forEach(cb => selected.add(cb.name));
             return selected;
         }
 
@@ -1797,13 +2013,29 @@
             updateSubmitRestriction();
         }
 
+        function getQuizPaneId(role) {
+            return { birthday: 'quizStep_5', driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' }[role];
+        }
+
+        function getQuizRoleLabel(role) {
+            const lang = document.getElementById('displayLanguage')?.value || 'eng';
+            const labels = {
+                birthday: { eng: 'Day of Birth', hin: 'जन्म वार' }, driver: { eng: 'Driver', hin: 'ड्राइवर' },
+                conductor: { eng: 'Conductor', hin: 'कंडक्टर' }, manifestation: { eng: 'Manifestation', hin: 'मैनिफेस्टेशन' },
+                rahu: { eng: 'Rahu Code-4', hin: 'राहु कोड-4' }, ketu: { eng: 'Ketu Code-7', hin: 'केतु कोड-7' }
+            };
+            const meta = activeQuizMeta[role];
+            if (meta?.roles?.length > 1) {
+                return meta.roles.map(r => labels[r]?.[lang] || labels[r]?.eng || r).join(' + ');
+            }
+            return labels[role]?.[lang] || labels[role]?.eng || role;
+        }
+
         function updateQuizScore(role) {
-            const paneMap = { driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' };
-            const pane = role === 'birthday' ? document.getElementById('birthDayQuizWrapper') : document.getElementById(paneMap[role]);
+            const pane = document.getElementById(getQuizPaneId(role));
             if (!pane) return;
-            const checkboxes = pane.querySelectorAll('input[type="checkbox"]');
             const checked = pane.querySelectorAll('input[type="checkbox"]:checked').length;
-            const total = checkboxes.length;
+            const total = pane.querySelectorAll('input[type="checkbox"]').length;
             const percentage = total ? ((checked / total) * 100).toFixed(1) : '0.0';
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const scoreWord = lang === 'hin' ? 'स्कोर / प्रतिशत' : 'Score / %';
@@ -1814,12 +2046,7 @@
             summary.innerHTML = `${scoreWord}: <span>${checked} (${percentage}%)</span>`;
             const container = pane.querySelector('.dynamic-quiz-container');
             if (container) container.prepend(summary);
-
-            if (role === 'birthday') {
-                const dayScore = document.getElementById('birthDayQuizScore');
-                if (dayScore) dayScore.innerText = checked;
-                birthDayQuizFinished = false;
-            }
+            if (role === 'birthday') dayQuizFinished = false;
             updateMasterTotalScore();
             updateSubmitRestriction();
         }
@@ -1827,10 +2054,6 @@
         function updateMasterTotalScore() {
             const el = document.getElementById('totalMasterScore');
             if (el) el.innerText = document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').length;
-        }
-
-        function getQuizPaneId(role) {
-            return { driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' }[role];
         }
 
         function hasRoleSelection(role) {
@@ -1847,13 +2070,13 @@
             const submitBtn = document.querySelector('#astrovastuForm .submit-btn');
             if (!submitBtn) return;
             const missingRole = getMissingQuizRole();
-            const complete = quizzesReady && rahuKetuReady && missingRole === null && birthDayQuizReady && birthDayQuizFinished && document.querySelectorAll('#birthDayQuizContent input[type="checkbox"]:checked').length > 0;
+            const complete = quizzesReady && rahuKetuReady && missingRole === null;
             submitBtn.dataset.quizComplete = complete ? 'true' : 'false';
-            submitBtn.title = complete ? 'All required quizzes are completed and saved.' : 'Complete and save the Day of Birth quiz and every required quiz page before submitting.';
+            submitBtn.title = complete ? 'All required quizzes are completed and saved.' : 'Complete every displayed quiz page and click Finish & Save before submitting.';
         }
 
         function navigateQuizStep(direction) {
-            if (!quizzesReady) return;
+            if (!quizzesReady || !activeQuizRoles.length) return;
             const nextStep = currentQuizStep + direction;
             if (nextStep < 0 || nextStep >= activeQuizRoles.length) return;
             currentQuizStep = nextStep;
@@ -1861,22 +2084,13 @@
         }
 
         function updateQuizStepVisibility() {
-            const labels = {
-                driver: { eng: 'Driver', hin: 'ड्राइवर' },
-                conductor: { eng: 'Conductor', hin: 'कंडक्टर' },
-                manifestation: { eng: 'Manifestation', hin: 'मैनिफेस्टेशन' },
-                rahu: { eng: 'Rahu Code-4', hin: 'राहु कोड-4' },
-                ketu: { eng: 'Ketu Code-7', hin: 'केतु कोड-7' }
-            };
-            document.querySelectorAll('.quiz-step-pane').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('#dynamicQuizzesWrapper .quiz-step-pane').forEach(p => p.style.display = 'none');
             const role = activeQuizRoles[currentQuizStep];
             const pane = role ? document.getElementById(getQuizPaneId(role)) : null;
             if (pane) pane.style.display = 'block';
-
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const total = activeQuizRoles.length;
-            const roleLabel = labels[role]?.[lang] || labels[role]?.eng || role || '';
-            document.getElementById('quizProgressLabel').innerText = `${roleLabel} — Page ${currentQuizStep + 1} of ${total}`;
+            const label = role ? getQuizRoleLabel(role) : 'Quiz';
+            document.getElementById('quizProgressLabel').innerText = `${label} — Page ${currentQuizStep + 1} of ${total}`;
             document.getElementById('prevQuizBtn').style.display = currentQuizStep === 0 ? 'none' : 'block';
             const isLast = currentQuizStep === total - 1;
             document.getElementById('nextQuizBtn').style.display = isLast ? 'none' : 'block';
@@ -1890,36 +2104,34 @@
                 updateQuizStepVisibility();
                 const pane = document.getElementById(getQuizPaneId(missingRole));
                 const container = pane?.querySelector('.dynamic-quiz-container');
-                if (container) {
-                    container.classList.add('quiz-missing');
-                    setTimeout(() => container.classList.remove('quiz-missing'), 1800);
-                }
-                const roleName = { driver: 'Driver', conductor: 'Conductor', manifestation: 'Manifestation', rahu: 'Rahu Code-4', ketu: 'Ketu Code-7' }[missingRole];
-                alert(`Please select at least one checkbox on the ${roleName} quiz before Finish & Save.`);
+                if (container) { container.classList.add('quiz-missing'); setTimeout(() => container.classList.remove('quiz-missing'), 1800); }
+                alert(`Please select at least one checkbox on the ${getQuizRoleLabel(missingRole)} before Finish & Save.`);
                 return;
             }
+            if (hasRoleSelection('birthday')) dayQuizFinished = true;
             document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
             const statusDiv = document.getElementById('statusMessage');
             statusDiv.style.display = 'block';
-            statusDiv.innerHTML = '✓ All required quizzes completed. You can now submit the form.';
+            statusDiv.innerHTML = '✓ All required quizzes completed and saved. You can now submit the form.';
             updateSubmitRestriction();
         }
 
         async function onLanguageChange() {
             const selected = saveQuizSelections();
             applyStaticLanguage(document.getElementById('displayLanguage').value);
-            if (birthDayQuizReady && selectedBirthDayCode) {
-                renderCodeQuiz('birthDayQuizContent', 'birthDayQuizLabel', selectedBirthDayCode, 'birthday');
-                restoreQuizSelections(selected);
+            if (selectedBirthDayCode && document.getElementById('birthdayQuizContent')) {
+                renderCodeQuiz('birthdayQuizContent', 'birthdayQuizLabel', selectedBirthDayCode, 'birthday');
             }
             if (quizzesReady) {
-                renderCodeQuiz('driverQuizContent', 'driverQuizLabel', selectedNumerology.driver, 'driver');
-                renderCodeQuiz('conductorQuizContent', 'conductorQuizLabel', selectedNumerology.conductor, 'conductor');
-                renderCodeQuiz('manifestationQuizContent', 'manifestationQuizLabel', selectedNumerology.manifestation, 'manifestation');
-                if (rahuQuizRequired) renderCodeQuiz('rahuQuizContent', 'rahuQuizLabel', 4, 'rahu');
-                if (ketuQuizRequired) renderCodeQuiz('ketuQuizContent', 'ketuQuizLabel', 7, 'ketu');
+                const roleTargets = { driver: ['driverQuizContent', 'driverQuizLabel'], conductor: ['conductorQuizContent', 'conductorQuizLabel'], manifestation: ['manifestationQuizContent', 'manifestationQuizLabel'], rahu: ['rahuQuizContent', 'rahuQuizLabel'], ketu: ['ketuQuizContent', 'ketuQuizLabel'] };
+                activeQuizRoles.forEach(role => {
+                    const target = roleTargets[role];
+                    if (target) renderCodeQuiz(target[0], target[1], activeQuizCodeMap[role], role);
+                });
                 restoreQuizSelections(selected);
                 updateQuizStepVisibility();
+            } else {
+                updateSubmitRestriction();
             }
         }
 
@@ -2098,28 +2310,26 @@
         document.getElementById('astrovastuForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // HARD SUBMIT RESTRICTION: Day of Birth quiz + all three DOB quiz pages must be completed.
-            if (!birthDayQuizReady || !birthDayQuizFinished || document.querySelectorAll('#birthDayQuizContent input[type="checkbox"]:checked').length === 0) {
-                alert('Please complete the Day of Birth quiz and click Finish & Save before submitting the form.');
-                document.getElementById('birthDayQuizWrapper').style.display = 'block';
-                document.getElementById('birthDayQuizWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return;
-            }
+            // HARD SUBMIT RESTRICTION: every quiz page that is displayed must have at least one selection.
             const missingQuizRole = getMissingQuizRole();
             if (!quizzesReady || !rahuKetuReady || missingQuizRole !== null) {
-                if (!quizzesReady || !rahuKetuReady) {
-                    alert('Please complete Date of Birth, select Rahu and Ketu signs, and open the required quizzes first.');
+                if (!quizzesReady) {
+                    alert('Please calculate your Date of Birth and complete the quiz setup first.');
+                    return;
+                }
+                if (!rahuKetuReady) {
+                    alert('Please select both Rahu and Ketu signs and confirm them first.');
+                    document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
                     return;
                 }
                 currentQuizStep = activeQuizRoles.indexOf(missingQuizRole);
                 updateQuizStepVisibility();
                 const missingPane = document.getElementById(getQuizPaneId(missingQuizRole));
                 const missingContainer = missingPane?.querySelector('.dynamic-quiz-container');
-                if (missingContainer) {
-                    missingContainer.classList.add('quiz-missing');
-                    setTimeout(() => missingContainer.classList.remove('quiz-missing'), 1800);
-                }
-                alert('Please select at least one checkbox on every required quiz page before submitting the form.');
+                if (missingContainer) { missingContainer.classList.add('quiz-missing'); setTimeout(() => missingContainer.classList.remove('quiz-missing'), 1800); }
+                alert(`Please select at least one checkbox on the ${getQuizRoleLabel(missingQuizRole)} quiz before submitting.`);
+                document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
+                document.getElementById('dynamicQuizzesWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 return;
             }
 
