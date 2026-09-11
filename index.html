@@ -918,7 +918,7 @@
 
         <!-- Intake Form Body -->
         <form id="astrovastuForm"
-            action="https://script.google.com/macros/s/AKfycbzdi9gUsKxkxDWJ5ThZr6NmIx0hqM9jXy4I3HLWj4Y7hNSFeWZz6t2z0AA-hutl8tw9/exec"
+            action="https://script.google.com/macros/s/AKfycbxSu-zqANDARWBd6YzigVB4FniZK3Kv3tkjwFOIrgabsZyDrTx8815nOu-EMyEwfBtx/exec"
             method="POST">
 
             <h3 class="form-section-title">Personal Information</h3>
@@ -2299,7 +2299,7 @@
             const progressLabel = document.getElementById('quizProgressLabel');
             if (progressLabel) progressLabel.innerText = '';
             document.getElementById('prevQuizBtn').style.display = currentQuizStep === 0 ? 'none' : 'block';
-            const isLast = currentQuizStep === total - 1;
+            const isLast = currentQuizStep === activeQuizRoles.length - 1;
             document.getElementById('nextQuizBtn').style.display = isLast ? 'none' : 'block';
             document.getElementById('finishQuizBtn').style.display = isLast ? 'block' : 'none';
         }
@@ -2623,6 +2623,19 @@
             return { reportData, reportHtml: html };
         }
 
+        // Safety helpers for quiz controls.
+        function safeOpenQuizzes() {
+            if (typeof confirmRahuKetuAndOpenQuizzes === 'function') {
+                confirmRahuKetuAndOpenQuizzes();
+            }
+        }
+
+        function safeCalculateDOB() {
+            if (typeof confirmDobAndStartQuizzes === 'function') {
+                confirmDobAndStartQuizzes();
+            }
+        }
+
         // Reliable button bindings. The script is at the bottom of the page, so bind
         // immediately and also keep a delegated fallback for dynamically hosted pages.
         (function bindQuizButtons() {
@@ -2633,14 +2646,14 @@
                     dobBtn.dataset.bound = '1';
                     dobBtn.addEventListener('click', function (event) {
                         event.preventDefault();
-                        confirmDobAndStartQuizzes();
+                        safeCalculateDOB();
                     });
                 }
                 if (rkBtn && !rkBtn.dataset.bound) {
                     rkBtn.dataset.bound = '1';
                     rkBtn.addEventListener('click', function (event) {
                         event.preventDefault();
-                        confirmRahuKetuAndOpenQuizzes();
+                        safeOpenQuizzes();
                     });
                 }
             }
@@ -2650,7 +2663,7 @@
                 const target = event.target.closest?.('#confirmDobBtn, #confirmRahuKetuBtn');
                 if (!target || target.dataset.bound) return;
                 event.preventDefault();
-                target.id === 'confirmDobBtn' ? confirmDobAndStartQuizzes() : confirmRahuKetuAndOpenQuizzes();
+                target.id === 'confirmDobBtn' ? safeCalculateDOB() : safeOpenQuizzes();
             });
         })();
 
