@@ -1019,7 +1019,8 @@
             <!-- Dynamic Step-by-Step Diagnostic Checklists -->
             <div id="dynamicQuizzesWrapper" style="display:none;">
                 <div class="numerology-box quiz-overview-box">
-                    <div class="numerology-item"><span id="quizProgressLabel">Quiz Page</span></div>
+                    <div class="numerology-item" id="quizProgressItem" style="display:none;"><span
+                            id="quizProgressLabel"></span></div>
                     <div class="numerology-item">Total Selected Checkbox Score: <span id="totalMasterScore"
                             style="color:#FF8C00;">0</span></div>
                 </div>
@@ -2294,9 +2295,9 @@
             const role = activeQuizRoles[currentQuizStep];
             const pane = role ? document.getElementById(getQuizPaneId(role)) : null;
             if (pane) pane.style.display = 'block';
-            const total = activeQuizRoles.length;
-            const label = role ? getQuizRoleLabel(role) : 'Quiz';
-            document.getElementById('quizProgressLabel').innerText = `${label} — Page ${currentQuizStep + 1} of ${total}`;
+            // Intentionally keep quiz role names and page counts hidden from the person filling the form.
+            const progressLabel = document.getElementById('quizProgressLabel');
+            if (progressLabel) progressLabel.innerText = '';
             document.getElementById('prevQuizBtn').style.display = currentQuizStep === 0 ? 'none' : 'block';
             const isLast = currentQuizStep === total - 1;
             document.getElementById('nextQuizBtn').style.display = isLast ? 'none' : 'block';
