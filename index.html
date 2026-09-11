@@ -472,6 +472,13 @@
             box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.12);
         }
 
+        #rahuKetuSection {
+            background: rgba(255, 255, 255, 0.65);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(218, 165, 32, 0.4);
+        }
+
         @media (max-width: 700px) {
             .quiz-overview-box {
                 flex-direction: column;
@@ -677,7 +684,7 @@
                 <div style="display: flex; gap: 10px;">
                     <input type="date" id="dob" name="dob" required>
                     <button type="button" class="nav-btn" onclick="confirmDobAndStartQuizzes()"
-                        style="padding: 10px 20px; white-space: nowrap;">Confirm & Open Quizzes</button>
+                        style="padding: 10px 20px; white-space: nowrap;">Calculate DOB & Continue</button>
                 </div>
 
                 <!-- DOB Numerology Clean Output Display -->
@@ -685,6 +692,38 @@
                     <div class="numerology-item">Driver: <span id="driverNumberOut">-</span></div>
                     <div class="numerology-item">Conductor: <span id="conductorNumberOut">-</span></div>
                     <div class="numerology-item">Manifestation: <span id="manifestationNumberOut">-</span></div>
+                </div>
+            </div>
+
+            <!-- Rahu / Ketu Sign Selection: shown after DOB is calculated -->
+            <div id="rahuKetuSection" style="display:none; margin-bottom:22px;">
+                <div class="numerology-box quiz-overview-box">
+                    <div class="numerology-item"><strong>Rahu & Ketu Sign Details</strong></div>
+                    <div class="numerology-item">Select both signs to continue</div>
+                </div>
+
+                <div class="field">
+                    <label for="rahuSign">Rahu in which sign? <span>*</span></label>
+                    <select id="rahuSign" name="rahuSign">
+                        <option value="">Select Rahu sign</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="ketuSign">Ketu in which sign? <span>*</span></label>
+                    <select id="ketuSign" name="ketuSign">
+                        <option value="">Select Ketu sign</option>
+                    </select>
+                </div>
+
+                <button type="button" class="nav-btn" onclick="confirmRahuKetuAndOpenQuizzes()" style="width:100%;">
+                    Confirm Rahu & Ketu and Open Quizzes
+                </button>
+
+                <div class="numerology-box" id="rahuKetuMatchResult" style="display:none;">
+                    <div class="numerology-item">Rahu Code: <span id="rahuCodeOut">-</span></div>
+                    <div class="numerology-item">Ketu Code: <span id="ketuCodeOut">-</span></div>
+                    <div class="numerology-item">Additional Quizzes: <span id="rahuKetuQuizOut">None</span></div>
                 </div>
             </div>
 
@@ -717,6 +756,22 @@
                     <div class="field">
                         <label id="manifestationQuizLabel">Manifestation Diagnosis — Code</label>
                         <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
+                    </div>
+                </div>
+
+                <!-- Conditional Page: Rahu Code-4 (only when Rahu sign ruler code matches Driver/Conductor/Manifestation) -->
+                <div class="quiz-step-pane" id="quizStep_3" style="display:none;">
+                    <div class="field">
+                        <label id="rahuQuizLabel">Rahu Diagnosis — Code-4</label>
+                        <div class="dynamic-quiz-container" id="rahuQuizContent"></div>
+                    </div>
+                </div>
+
+                <!-- Conditional Page: Ketu Code-7 (only when Ketu sign ruler code matches Driver/Conductor/Manifestation) -->
+                <div class="quiz-step-pane" id="quizStep_4" style="display:none;">
+                    <div class="field">
+                        <label id="ketuQuizLabel">Ketu Diagnosis — Code-7</label>
+                        <div class="dynamic-quiz-container" id="ketuQuizContent"></div>
                     </div>
                 </div>
 
@@ -938,12 +993,35 @@
     <!-- JavaScript Engine -->
     <script>
         document.getElementById('submissionDate').valueAsDate = new Date();
-        document.addEventListener('DOMContentLoaded', () => applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng'));
+        document.addEventListener('DOMContentLoaded', () => {
+            applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng');
+            populateZodiacSelects();
+        });
 
         let currentQuizStep = 0;
-        const totalQuizSteps = 3;
+        let activeQuizRoles = ['driver', 'conductor', 'manifestation'];
         let quizzesReady = false;
+        let rahuKetuReady = false;
+        let rahuQuizRequired = false;
+        let ketuQuizRequired = false;
         let selectedNumerology = { driver: null, conductor: null, manifestation: null };
+        let selectedRahuSign = '';
+        let selectedKetuSign = '';
+
+        const signCodeMap = {
+            Aries: 9, Scorpio: 9,
+            Taurus: 6, Libra: 6,
+            Gemini: 5, Virgo: 5,
+            Cancer: 2,
+            Leo: 1,
+            Sagittarius: 3, Pisces: 3,
+            Aquarius: 8, Capricorn: 8
+        };
+
+        const zodiacSigns = [
+            'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
+            'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+        ];
         let birthDayQuizReady = false;
         let birthDayQuizFinished = false;
         let selectedBirthDayCode = null;
@@ -1508,7 +1586,6 @@
         function getQuizLanguageText(eng, hin) {
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             if (lang === 'hin') return hin || eng;
-            if (lang === 'hgl') return hindiToHinglish(hin || eng);
             return eng;
         }
 
@@ -1524,8 +1601,8 @@
 
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const roleNames = {
-                driver: { eng: 'Driver', hin: 'ड्राइवर', hgl: 'Driver' },
-                conductor: { eng: 'Conductor', hin: 'कंडक्टर', hgl: 'Conductor' },
+                driver: { eng: 'Driver', hin: 'ड्राइवर' },
+                conductor: { eng: 'Conductor', hin: 'कंडक्टर' },
                 manifestation: { eng: 'Manifestation', hin: 'मैनिफेस्टेशन' },
                 birthday: { eng: 'Day of Birth', hin: 'जन्म वार' }
             };
@@ -1533,10 +1610,10 @@
             labelEl.innerText = `${roleName} Diagnosis — Code-${code}`;
 
             const goalTitles = {
-                a: { eng: `Goal a) General Issue Related to Code-${code}`, hin: `Goal a) Code-${code} से संबंधित सामान्य समस्या`, hgl: `Goal a) Code-${code} ki General Problem` },
-                b: { eng: `Goal b) Problems Related to First for Code-${code}`, hin: `Goal b) Code-${code} के लिए First से संबंधित समस्याएं`, hgl: `Goal b) Code-${code} ke First se related problems` },
-                c: { eng: `Goal c) Second Issues for Code-${code}`, hin: `Goal c) Code-${code} के लिए Second से संबंधित समस्याएं`, hgl: `Goal c) Code-${code} ke Second se related problems` },
-                d: { eng: `Goal d) Elaborate the Problem Related to Third for Code-${code}`, hin: `Goal d) Code-${code} के Third से संबंधित समस्याओं का विवरण`, hgl: `Goal d) Code-${code} ke Third se related problems` }
+                a: { eng: `Goal a) General Issue Related to Code-${code}`, hin: `Goal a) Code-${code} से संबंधित सामान्य समस्या` },
+                b: { eng: `Goal b) Problems Related to First for Code-${code}`, hin: `Goal b) Code-${code} के लिए First से संबंधित समस्याएं` },
+                c: { eng: `Goal c) Second Issues for Code-${code}`, hin: `Goal c) Code-${code} के लिए Second से संबंधित समस्याएं` },
+                d: { eng: `Goal d) Elaborate the Problem Related to Third for Code-${code}`, hin: `Goal d) Code-${code} के Third से संबंधित समस्याओं का विवरण` }
             };
 
             let html = `<div class="quiz-page-heading">${escapeHtml(getQuizLanguageText(`Code-${code}`, `कोड-${code}`))}</div>`;
@@ -1547,14 +1624,13 @@
             html += renderChecklistGoal('C', goalTitles.c, record.goalC, role, code);
 
             html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
-            html += `<div class="quiz-required-note">${lang === 'hin' ? 'नीचे दिए गए सभी Code sub-codes इस quiz में शामिल हैं।' : lang === 'hgl' ? 'Neeche diye gaye saare Code sub-codes is quiz mein included hain.' : 'All Code sub-codes below are included in this quiz.'}</div>`;
+            html += `<div class="quiz-required-note">${lang === 'hin' ? 'नीचे दिए गए सभी Code sub-codes इस quiz में शामिल हैं।' : 'All Code sub-codes below are included in this quiz.'}</div>`;
             record.goalD.forEach((sub, idx) => {
                 const checkboxId = `q_${role}_${code}_D_${idx}`;
                 const engText = `${sub.title}: ${sub.eng}`;
                 const hinText = `${sub.title}: ${sub.hin}`;
                 const shown = getQuizLanguageText(engText, hinText);
-                const hgl = hindiToHinglish(hinText);
-                html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(engText)}" data-hin="${escapeHtml(hinText)}" data-hgl="${escapeHtml(hgl)}"><div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(engText)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div></label>`;
+                html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(engText)}" data-hin="${escapeHtml(hinText)}"><div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(engText)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div></label>`;
             });
             html += `</div>`;
 
@@ -1572,10 +1648,9 @@
             for (let i = 0; i < total; i++) {
                 const eng = engItems[i] || '';
                 const hin = hinItems[i] || eng;
-                const hgl = hindiToHinglish(hin);
                 const checkboxId = `q_${role}_${code}_${goalKey}_${i}`;
                 const shown = getQuizLanguageText(eng, hin);
-                html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}" data-hgl="${escapeHtml(hgl)}"><div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div></label>`;
+                html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}"><div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div></label>`;
             }
             html += `</div>`;
             return html;
@@ -1610,6 +1685,28 @@
             updateSubmitRestriction();
         }
 
+        function populateZodiacSelects() {
+            ['rahuSign', 'ketuSign'].forEach(id => {
+                const select = document.getElementById(id);
+                if (!select) return;
+                const current = select.value;
+                select.innerHTML = '<option value="">Select sign</option>' + zodiacSigns.map(sign => `<option value="${sign}">${sign}</option>`).join('');
+                if (current) select.value = current;
+            });
+        }
+
+        function getMatchingExtraQuizRoles() {
+            const matched = [];
+            const numerologyCodes = [selectedNumerology.driver, selectedNumerology.conductor, selectedNumerology.manifestation];
+            const rahuCode = signCodeMap[selectedRahuSign];
+            const ketuCode = signCodeMap[selectedKetuSign];
+            rahuQuizRequired = numerologyCodes.includes(rahuCode);
+            ketuQuizRequired = numerologyCodes.includes(ketuCode);
+            if (rahuQuizRequired) matched.push('rahu');
+            if (ketuQuizRequired) matched.push('ketu');
+            return matched;
+        }
+
         function confirmDobAndStartQuizzes() {
             const dobVal = document.getElementById('dob').value;
             if (!dobVal) { alert('Please select your Date of Birth first.'); return; }
@@ -1632,12 +1729,52 @@
             document.getElementById('manifestationNumberOut').innerText = `${driverNum + conductorNum} / ${manifestationNum}`;
             document.getElementById('dobNumerologyResult').style.display = 'grid';
 
+            populateZodiacSelects();
+            document.getElementById('rahuKetuSection').style.display = 'block';
+            document.getElementById('rahuKetuMatchResult').style.display = 'none';
+            rahuKetuReady = false;
+            quizzesReady = false;
+            updateSubmitRestriction();
+            document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function confirmRahuKetuAndOpenQuizzes() {
+            const rahuSign = document.getElementById('rahuSign').value;
+            const ketuSign = document.getElementById('ketuSign').value;
+            if (!selectedNumerology.driver || !selectedNumerology.conductor || !selectedNumerology.manifestation) {
+                alert('Please confirm your Date of Birth first.');
+                return;
+            }
+            if (!rahuSign || !ketuSign) {
+                alert('Please select both Rahu sign and Ketu sign.');
+                return;
+            }
+
+            selectedRahuSign = rahuSign;
+            selectedKetuSign = ketuSign;
+            const extraRoles = getMatchingExtraQuizRoles();
+            activeQuizRoles = ['driver', 'conductor', 'manifestation', ...extraRoles];
+            rahuKetuReady = true;
+
+            document.getElementById('rahuCodeOut').innerText = `Code-${signCodeMap[rahuSign]}`;
+            document.getElementById('ketuCodeOut').innerText = `Code-${signCodeMap[ketuSign]}`;
+            const extraLabels = [];
+            if (rahuQuizRequired) extraLabels.push('Rahu Code-4');
+            if (ketuQuizRequired) extraLabels.push('Ketu Code-7');
+            document.getElementById('rahuKetuQuizOut').innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
+            document.getElementById('rahuKetuMatchResult').style.display = 'grid';
+
             document.getElementById('driverQuizContent').innerHTML = '';
             document.getElementById('conductorQuizContent').innerHTML = '';
             document.getElementById('manifestationQuizContent').innerHTML = '';
-            renderCodeQuiz('driverQuizContent', 'driverQuizLabel', driverNum, 'driver');
-            renderCodeQuiz('conductorQuizContent', 'conductorQuizLabel', conductorNum, 'conductor');
-            renderCodeQuiz('manifestationQuizContent', 'manifestationQuizLabel', manifestationNum, 'manifestation');
+            document.getElementById('rahuQuizContent').innerHTML = '';
+            document.getElementById('ketuQuizContent').innerHTML = '';
+
+            renderCodeQuiz('driverQuizContent', 'driverQuizLabel', selectedNumerology.driver, 'driver');
+            renderCodeQuiz('conductorQuizContent', 'conductorQuizLabel', selectedNumerology.conductor, 'conductor');
+            renderCodeQuiz('manifestationQuizContent', 'manifestationQuizLabel', selectedNumerology.manifestation, 'manifestation');
+            if (rahuQuizRequired) renderCodeQuiz('rahuQuizContent', 'rahuQuizLabel', 4, 'rahu');
+            if (ketuQuizRequired) renderCodeQuiz('ketuQuizContent', 'ketuQuizLabel', 7, 'ketu');
 
             quizzesReady = true;
             document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
@@ -1645,6 +1782,7 @@
             currentQuizStep = 0;
             updateQuizStepVisibility();
             updateSubmitRestriction();
+            document.getElementById('dynamicQuizzesWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function saveQuizSelections() {
@@ -1660,94 +1798,110 @@
         }
 
         function updateQuizScore(role) {
-            const paneMap = { driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2' };
-            const pane = document.getElementById(paneMap[role]);
+            const paneMap = { driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' };
+            const pane = role === 'birthday' ? document.getElementById('birthDayQuizWrapper') : document.getElementById(paneMap[role]);
             if (!pane) return;
             const checkboxes = pane.querySelectorAll('input[type="checkbox"]');
             const checked = pane.querySelectorAll('input[type="checkbox"]:checked').length;
             const total = checkboxes.length;
             const percentage = total ? ((checked / total) * 100).toFixed(1) : '0.0';
+            const lang = document.getElementById('displayLanguage')?.value || 'eng';
+            const scoreWord = lang === 'hin' ? 'स्कोर / प्रतिशत' : 'Score / %';
             const oldSummary = pane.querySelector('.quiz-score-summary');
             if (oldSummary) oldSummary.remove();
             const summary = document.createElement('div');
             summary.className = 'quiz-score-summary';
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const scoreWord = lang === 'hin' ? 'स्कोर / प्रतिशत' : lang === 'hgl' ? 'Score / Percent' : 'Score / %';
             summary.innerHTML = `${scoreWord}: <span>${checked} (${percentage}%)</span>`;
             const container = pane.querySelector('.dynamic-quiz-container');
             if (container) container.prepend(summary);
-            updateMasterTotalScore();
+
             if (role === 'birthday') {
-                const dayChecked = document.querySelectorAll('#birthDayQuizContent input[type="checkbox"]:checked').length;
-                const dayScore = document.getElementById('birthDayQuizScore'); if (dayScore) dayScore.innerText = dayChecked;
+                const dayScore = document.getElementById('birthDayQuizScore');
+                if (dayScore) dayScore.innerText = checked;
                 birthDayQuizFinished = false;
             }
+            updateMasterTotalScore();
             updateSubmitRestriction();
         }
 
         function updateMasterTotalScore() {
-            document.getElementById('totalMasterScore').innerText = document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').length;
+            const el = document.getElementById('totalMasterScore');
+            if (el) el.innerText = document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').length;
         }
 
-        function hasPageSelection(stepIndex) {
-            const pane = document.getElementById(`quizStep_${stepIndex}`);
+        function getQuizPaneId(role) {
+            return { driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' }[role];
+        }
+
+        function hasRoleSelection(role) {
+            const pane = document.getElementById(getQuizPaneId(role));
             return !!pane && pane.querySelectorAll('input[type="checkbox"]:checked').length > 0;
         }
 
-        function getMissingQuizStep() {
-            for (let i = 0; i < totalQuizSteps; i++) if (!hasPageSelection(i)) return i;
-            return -1;
+        function getMissingQuizRole() {
+            for (const role of activeQuizRoles) if (!hasRoleSelection(role)) return role;
+            return null;
         }
 
         function updateSubmitRestriction() {
             const submitBtn = document.querySelector('#astrovastuForm .submit-btn');
             if (!submitBtn) return;
-            const complete = quizzesReady && getMissingQuizStep() === -1 && birthDayQuizReady && birthDayQuizFinished && document.querySelectorAll('#birthDayQuizContent input[type="checkbox"]:checked').length > 0;
+            const missingRole = getMissingQuizRole();
+            const complete = quizzesReady && rahuKetuReady && missingRole === null && birthDayQuizReady && birthDayQuizFinished && document.querySelectorAll('#birthDayQuizContent input[type="checkbox"]:checked').length > 0;
             submitBtn.dataset.quizComplete = complete ? 'true' : 'false';
-            submitBtn.title = complete ? 'Day of Birth quiz and all three DOB quiz pages are completed.' : 'Complete the Day of Birth quiz and select at least one checkbox on each of the three DOB quiz pages before submitting.';
+            submitBtn.title = complete ? 'All required quizzes are completed and saved.' : 'Complete and save the Day of Birth quiz and every required quiz page before submitting.';
         }
 
         function navigateQuizStep(direction) {
             if (!quizzesReady) return;
             const nextStep = currentQuizStep + direction;
-            if (nextStep < 0 || nextStep >= totalQuizSteps) return;
+            if (nextStep < 0 || nextStep >= activeQuizRoles.length) return;
             currentQuizStep = nextStep;
             updateQuizStepVisibility();
         }
 
         function updateQuizStepVisibility() {
-            for (let i = 0; i < totalQuizSteps; i++) {
-                const pane = document.getElementById(`quizStep_${i}`);
-                if (pane) pane.style.display = (i === currentQuizStep) ? 'block' : 'none';
-            }
+            const labels = {
+                driver: { eng: 'Driver', hin: 'ड्राइवर' },
+                conductor: { eng: 'Conductor', hin: 'कंडक्टर' },
+                manifestation: { eng: 'Manifestation', hin: 'मैनिफेस्टेशन' },
+                rahu: { eng: 'Rahu Code-4', hin: 'राहु कोड-4' },
+                ketu: { eng: 'Ketu Code-7', hin: 'केतु कोड-7' }
+            };
+            document.querySelectorAll('.quiz-step-pane').forEach(p => p.style.display = 'none');
+            const role = activeQuizRoles[currentQuizStep];
+            const pane = role ? document.getElementById(getQuizPaneId(role)) : null;
+            if (pane) pane.style.display = 'block';
+
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const labels = lang === 'hin' ? ['क्विज पेज 1 / 3', 'क्विज पेज 2 / 3', 'क्विज पेज 3 / 3'] : ['Quiz Page 1 of 3', 'Quiz Page 2 of 3', 'Quiz Page 3 of 3'];
-            document.getElementById('quizProgressLabel').innerText = labels[currentQuizStep];
+            const total = activeQuizRoles.length;
+            const roleLabel = labels[role]?.[lang] || labels[role]?.eng || role || '';
+            document.getElementById('quizProgressLabel').innerText = `${roleLabel} — Page ${currentQuizStep + 1} of ${total}`;
             document.getElementById('prevQuizBtn').style.display = currentQuizStep === 0 ? 'none' : 'block';
-            const isLast = currentQuizStep === totalQuizSteps - 1;
+            const isLast = currentQuizStep === total - 1;
             document.getElementById('nextQuizBtn').style.display = isLast ? 'none' : 'block';
             document.getElementById('finishQuizBtn').style.display = isLast ? 'block' : 'none';
         }
 
         function finishQuizzes() {
-            const missing = getMissingQuizStep();
-            if (missing !== -1) {
-                currentQuizStep = missing;
+            const missingRole = getMissingQuizRole();
+            if (missingRole) {
+                currentQuizStep = activeQuizRoles.indexOf(missingRole);
                 updateQuizStepVisibility();
-                const pane = document.getElementById(`quizStep_${missing}`);
+                const pane = document.getElementById(getQuizPaneId(missingRole));
                 const container = pane?.querySelector('.dynamic-quiz-container');
                 if (container) {
                     container.classList.add('quiz-missing');
                     setTimeout(() => container.classList.remove('quiz-missing'), 1800);
                 }
-                const lang = document.getElementById('displayLanguage')?.value || 'eng';
-                alert(lang === 'hin' ? 'Submit करने से पहले तीनों quiz pages पर कम से कम एक checkbox चुनें।' : 'Please select at least one checkbox on each of the three quiz pages before submitting.');
+                const roleName = { driver: 'Driver', conductor: 'Conductor', manifestation: 'Manifestation', rahu: 'Rahu Code-4', ketu: 'Ketu Code-7' }[missingRole];
+                alert(`Please select at least one checkbox on the ${roleName} quiz before Finish & Save.`);
                 return;
             }
             document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
             const statusDiv = document.getElementById('statusMessage');
             statusDiv.style.display = 'block';
-            statusDiv.innerHTML = '✓ All 3 quiz pages completed. You can now submit the form.';
+            statusDiv.innerHTML = '✓ All required quizzes completed. You can now submit the form.';
             updateSubmitRestriction();
         }
 
@@ -1762,6 +1916,8 @@
                 renderCodeQuiz('driverQuizContent', 'driverQuizLabel', selectedNumerology.driver, 'driver');
                 renderCodeQuiz('conductorQuizContent', 'conductorQuizLabel', selectedNumerology.conductor, 'conductor');
                 renderCodeQuiz('manifestationQuizContent', 'manifestationQuizLabel', selectedNumerology.manifestation, 'manifestation');
+                if (rahuQuizRequired) renderCodeQuiz('rahuQuizContent', 'rahuQuizLabel', 4, 'rahu');
+                if (ketuQuizRequired) renderCodeQuiz('ketuQuizContent', 'ketuQuizLabel', 7, 'ketu');
                 restoreQuizSelections(selected);
                 updateQuizStepVisibility();
             }
@@ -1772,13 +1928,12 @@
         }
 
         // --- Translation Engine: complete fallback for every question ---
-        const translationCache = { hi: new Map(), hgl: new Map() };
+        const translationCache = { hi: new Map() };
         const translationPending = new Map();
 
         function getTranslatedText(item, lang) {
             if (lang === 'eng') return item.eng;
             if (lang === 'hin') return (item.hin && item.hin.trim()) ? item.hin : item.eng;
-            if (lang === 'hgl') return (item.hgl && item.hgl.trim()) ? item.hgl : item.eng;
             return item.eng;
         }
 
@@ -1805,58 +1960,17 @@
             return promise;
         }
 
-        // Hindi -> Roman Hindi (Hinglish) transliteration.
-        function hindiToHinglish(text) {
-            if (!text) return text;
-            const independent = {
-                'अ': 'a', 'आ': 'aa', 'इ': 'i', 'ई': 'ee', 'उ': 'u', 'ऊ': 'oo', 'ऋ': 'ri', 'ए': 'e', 'ऐ': 'ai', 'ओ': 'o', 'औ': 'au',
-                'अं': 'an', 'अः': 'ah', 'ऑ': 'o', 'ऍ': 'e', 'ॐ': 'om'
-            };
-            const matras = { 'ा': 'aa', 'ि': 'i', 'ी': 'ee', 'ु': 'u', 'ू': 'oo', 'ृ': 'ri', 'े': 'e', 'ै': 'ai', 'ो': 'o', 'ौ': 'au', 'ं': 'n', 'ः': 'h', 'ँ': 'n', 'ॅ': 'e', 'ॉ': 'o' };
-            const cons = {
-                'क': 'k', 'ख': 'kh', 'ग': 'g', 'घ': 'gh', 'ङ': 'ng', 'च': 'ch', 'छ': 'chh', 'ज': 'j', 'झ': 'jh', 'ञ': 'ny',
-                'ट': 't', 'ठ': 'th', 'ड': 'd', 'ढ': 'dh', 'ण': 'n', 'त': 't', 'थ': 'th', 'द': 'd', 'ध': 'dh', 'न': 'n',
-                'प': 'p', 'फ': 'ph', 'ब': 'b', 'भ': 'bh', 'म': 'm', 'य': 'y', 'र': 'r', 'ल': 'l', 'व': 'v',
-                'श': 'sh', 'ष': 'sh', 'स': 's', 'ह': 'h', 'ळ': 'l', 'क्ष': 'ksh', 'त्र': 'tr', 'ज्ञ': 'gya', 'ड़': 'r', 'ढ़': 'rh', 'क़': 'q', 'ख़': 'kh', 'ग़': 'gh', 'ज़': 'z', 'फ़': 'f'
-            };
-            let out = '';
-            for (let i = 0; i < text.length; i++) {
-                const ch = text[i];
-                if (independent[ch]) { out += independent[ch]; continue; }
-                if (cons[ch]) {
-                    let syl = cons[ch];
-                    const next = text[i + 1];
-                    if (next === '्') { out += syl; i++; continue; }
-                    if (next && matras[next]) { out += syl + matras[next]; i++; continue; }
-                    out += syl + 'a';
-                    continue;
-                }
-                out += ch;
-            }
-            return out
-                .replace(/aaaa+/g, 'aa')
-                .replace(/([aeiou])a\b/gi, '$1')
-                .replace(/\s+/g, ' ')
-                .trim();
-        }
-
         async function getCompleteTranslation(item, lang) {
             if (lang === 'eng') return item.eng;
             if (lang === 'hin') {
                 if (item.hin && item.hin.trim()) return item.hin;
                 return await fetchGoogleTranslation(item.eng, 'hi');
             }
-            if (lang === 'hgl') {
-                if (item.hgl && item.hgl.trim()) return item.hgl;
-                const hindi = await fetchGoogleTranslation(item.eng, 'hi');
-                return hindiToHinglish(hindi);
-            }
             return item.eng;
         }
 
         // Synchronous fallback retained for first paint; missing translations are filled asynchronously.
         function autoTranslateToHindi(text) { return text; }
-        function autoTranslateToHinglish(text) { return text; }
 
         const staticLanguageText = {
             eng: {
@@ -1870,12 +1984,6 @@
                 'Date of Birth': 'जन्म तिथि', 'Payment Details': 'भुगतान विवरण', 'Submit Information': 'जानकारी जमा करें',
                 'Select Language / भाषा चुनें': 'भाषा चुनें', 'Date of Form Filling': 'फॉर्म भरने की तारीख',
                 'Previous': 'पिछला', 'Next': 'अगला', 'Finish & Save': 'पूरा करें और सेव करें'
-            },
-            hgl: {
-                'Personal Information': 'Personal Information', 'Time of Birth': 'Birth ka Time', 'Mobile Number': 'Mobile Number',
-                'Date of Birth': 'Date of Birth', 'Payment Details': 'Payment Details', 'Submit Information': 'Information Submit Karein',
-                'Select Language / भाषा चुनें': 'Language Select Karein', 'Date of Form Filling': 'Form Filling ki Date',
-                'Previous': 'Pichhla', 'Next': 'Agla', 'Finish & Save': 'Finish & Save'
             }
         };
 
@@ -1903,8 +2011,7 @@
                 if (!textSpan) return;
                 const eng = item.getAttribute('data-eng') || '';
                 const hin = item.getAttribute('data-hin') || '';
-                const hgl = item.getAttribute('data-hgl') || '';
-                const obj = { eng, hin, hgl };
+                const obj = { eng, hin };
                 const translated = await getCompleteTranslation(obj, lang);
                 // Do not overwrite if the user changed language again while requests were running.
                 if (document.getElementById('displayLanguage').value === lang) textSpan.innerText = translated;
@@ -1913,7 +2020,7 @@
                 const eng = el.getAttribute('data-set-eng') || el.textContent.trim();
                 if (lang === 'eng') { el.innerText = eng; return; }
                 const translated = await fetchGoogleTranslation(eng, 'hi');
-                el.innerText = lang === 'hgl' ? hindiToHinglish(translated) : translated;
+                el.innerText = translated;
             });
             await Promise.all([...jobs, ...titleJobs]);
         }
@@ -1998,21 +2105,21 @@
                 document.getElementById('birthDayQuizWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 return;
             }
-            const missingQuizStep = getMissingQuizStep();
-            if (!quizzesReady || missingQuizStep !== -1) {
-                if (!quizzesReady) {
-                    alert('Please enter your Date of Birth and open the three quizzes first.');
+            const missingQuizRole = getMissingQuizRole();
+            if (!quizzesReady || !rahuKetuReady || missingQuizRole !== null) {
+                if (!quizzesReady || !rahuKetuReady) {
+                    alert('Please complete Date of Birth, select Rahu and Ketu signs, and open the required quizzes first.');
                     return;
                 }
-                currentQuizStep = missingQuizStep;
+                currentQuizStep = activeQuizRoles.indexOf(missingQuizRole);
                 updateQuizStepVisibility();
-                const missingPane = document.getElementById(`quizStep_${missingQuizStep}`);
+                const missingPane = document.getElementById(getQuizPaneId(missingQuizRole));
                 const missingContainer = missingPane?.querySelector('.dynamic-quiz-container');
                 if (missingContainer) {
                     missingContainer.classList.add('quiz-missing');
                     setTimeout(() => missingContainer.classList.remove('quiz-missing'), 1800);
                 }
-                alert('Please select at least one checkbox on each of the three quiz pages before submitting the form.');
+                alert('Please select at least one checkbox on every required quiz page before submitting the form.');
                 return;
             }
 
@@ -2031,6 +2138,12 @@
                 dob: document.getElementById('dob').value,
                 birthday: document.getElementById('birthday').value,
                 birthDayCode: selectedBirthDayCode ? `Code-${selectedBirthDayCode}` : '',
+                rahuSign: selectedRahuSign,
+                ketuSign: selectedKetuSign,
+                rahuCode: selectedRahuSign ? `Code-${signCodeMap[selectedRahuSign]}` : '',
+                ketuCode: selectedKetuSign ? `Code-${signCodeMap[selectedKetuSign]}` : '',
+                rahuQuizOpened: rahuQuizRequired,
+                ketuQuizOpened: ketuQuizRequired,
                 mobileNumbers: mobileNumbers,
                 driver: document.getElementById('driverNumberOut').innerText,
                 conductor: document.getElementById('conductorNumberOut').innerText,
@@ -2050,6 +2163,12 @@
             postPayload.append('dob', formDataLocal.dob);
             postPayload.append('birthday', formDataLocal.birthday);
             postPayload.append('birthDayCode', formDataLocal.birthDayCode);
+            postPayload.append('rahuSign', formDataLocal.rahuSign);
+            postPayload.append('ketuSign', formDataLocal.ketuSign);
+            postPayload.append('rahuCode', formDataLocal.rahuCode);
+            postPayload.append('ketuCode', formDataLocal.ketuCode);
+            postPayload.append('rahuQuizOpened', formDataLocal.rahuQuizOpened);
+            postPayload.append('ketuQuizOpened', formDataLocal.ketuQuizOpened);
             postPayload.append('mobileNumber', mobileNumbers);
             postPayload.append('driver', formDataLocal.driver);
             postPayload.append('conductor', formDataLocal.conductor);
