@@ -460,6 +460,21 @@
             margin: 0;
         }
 
+        .quiz-goal-c-split {
+            border-left: 4px solid #FF8C00;
+        }
+
+        .quiz-subsection-title {
+            margin: 16px 0 9px;
+            padding: 9px 12px;
+            background: #eef6ff;
+            border: 1px solid rgba(70, 130, 180, .35);
+            border-radius: 7px;
+            color: #0B192C;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
         .quiz-required-note {
             margin-top: 8px;
             color: #FF8C00;
@@ -767,6 +782,103 @@
             text-align: left;
             font-size: 15px;
         }
+
+        /* Final responsive refinements */
+        .auto-day-card {
+            display: none !important;
+        }
+
+        .report-ready-note {
+            font-size: 13px;
+            color: #4682B4;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 18px 10px;
+            }
+
+            .container {
+                padding: 35px 14px 18px;
+                border-radius: 10px;
+            }
+
+            .form-section-title {
+                font-size: 23px;
+                margin-top: 25px;
+            }
+
+            .dob-action-row {
+                flex-direction: column;
+            }
+
+            .dob-action-row .nav-btn {
+                width: 100%;
+            }
+
+            .quiz-nav-buttons {
+                flex-wrap: wrap;
+            }
+
+            .quiz-nav-buttons .nav-btn {
+                flex: 1 1 140px;
+                min-width: 120px;
+            }
+
+            .payment-card-refined {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .payment-right {
+                width: 100%;
+            }
+
+            .qr {
+                height: 150px;
+                max-width: 100%;
+            }
+
+            .quiz-overview-box {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="time"],
+            input[type="tel"],
+            select,
+            textarea {
+                font-size: 16px;
+            }
+
+            .dynamic-quiz-container {
+                padding: 12px;
+            }
+
+            .dynamic-quiz-card,
+            .quiz-goal-card {
+                padding: 12px;
+            }
+
+            .symptom-item {
+                padding: 10px;
+            }
+
+            .quiz-score-summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
     </style>
 </head>
 
@@ -847,7 +959,7 @@
             </div>
 
             <!-- Day of Birth is calculated automatically from Date of Birth -->
-            <div class="auto-day-card" id="autoDayCard" style="display:none;">
+            <div class="auto-day-card" id="autoDayCard" style="display:none !important;">
                 <div class="auto-day-main">
                     <span class="auto-day-label">Day of Birth</span>
                     <strong id="birthdayDisplay">-</strong>
@@ -860,8 +972,8 @@
                 <label for="dob">Date of Birth <span>*</span></label>
                 <div class="dob-action-row">
                     <input type="date" id="dob" name="dob" required>
-                    <button type="button" class="nav-btn" onclick="confirmDobAndStartQuizzes()"
-                        style="padding: 10px 20px; white-space: nowrap;"> Open Quizzes</button>
+                    <button type="button" class="nav-btn" id="confirmDobBtn"
+                        style="padding: 10px 20px; white-space: nowrap;">Calculate DOB & Continue</button>
                 </div>
 
                 <!-- DOB Numerology Clean Output Display -->
@@ -893,7 +1005,7 @@
                     </select>
                 </div>
 
-                <button type="button" class="nav-btn" onclick="confirmRahuKetuAndOpenQuizzes()" style="width:100%;">
+                <button type="button" class="nav-btn" id="confirmRahuKetuBtn" style="width:100%;">
                     Confirm Rahu & Ketu and Open Quizzes
                 </button>
 
@@ -1754,6 +1866,65 @@
             }
         };
 
+        // Code-1 (Sun) Goal C is intentionally divided into two diagnostic parts.
+        // Each part keeps separate Subconscious Client Language and Observable External Symptoms.
+        const code1GoalCSplit = [
+            {
+                title: {
+                    eng: 'Goal C — Part 1: Love, Happiness & Relationships',
+                    hin: 'Goal C — भाग 1: प्रेम, खुशी और रिश्ते'
+                },
+                subconscious: {
+                    eng: [
+                        '“There is no joy or happiness in my life anymore.”',
+                        '“Nobody understands me or my feelings.”'
+                    ],
+                    hin: [
+                        '“जीवन में खुशी नहीं है।”',
+                        '“कोई मुझे नहीं समझता।”'
+                    ]
+                },
+                observable: {
+                    eng: [
+                        'Chronic tension, coldness, or friction in personal and professional relationships.',
+                        'A distinct lack of personal attraction, warmth, or charisma.',
+                        'Severe self-rejection and low self-worth.'
+                    ],
+                    hin: [
+                        'व्यक्तिगत और व्यावसायिक रिश्तों में लगातार तनाव, ठंडापन या टकराव।',
+                        'व्यक्तिगत आकर्षण, गर्मजोशी या करिश्मे की स्पष्ट कमी।',
+                        'गंभीर आत्म-अस्वीकार और कम आत्म-मूल्य।'
+                    ]
+                }
+            },
+            {
+                title: {
+                    eng: 'Goal C — Part 2: Achievement, Confidence & Responsibility',
+                    hin: 'Goal C — भाग 2: उपलब्धि, आत्मविश्वास और जिम्मेदारी'
+                },
+                subconscious: {
+                    eng: [
+                        '“I won’t be able to achieve anything big in my life.”'
+                    ],
+                    hin: [
+                        '“मुझसे कुछ बड़ा नहीं होगा।”'
+                    ]
+                },
+                observable: {
+                    eng: [
+                        'Complete depletion of core self-confidence and personal authority.',
+                        'Leaving tasks and projects half-done.',
+                        'Avoiding responsibility or running away from struggles due to low internal drive.'
+                    ],
+                    hin: [
+                        'मूल आत्मविश्वास और व्यक्तिगत अधिकार की पूरी कमी।',
+                        'कार्य और प्रोजेक्ट अधूरे छोड़ देना।',
+                        'आंतरिक प्रेरणा की कमी के कारण जिम्मेदारी से बचना या संघर्षों से भागना।'
+                    ]
+                }
+            }
+        ];
+
         function getQuizLanguageText(eng, hin) {
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             if (lang === 'hin') return hin || eng;
@@ -1794,7 +1965,7 @@
             html += `<p class="quiz-goal-description">${escapeHtml(getQuizLanguageText(record.goalA.eng, record.goalA.hin))}</p></div>`;
 
             html += renderChecklistGoal('B', goalTitles.b, record.goalB, role, code);
-            html += renderChecklistGoal('C', goalTitles.c, record.goalC, role, code);
+            html += (String(code) === '1' ? renderCode1GoalCSplit(role, code) : renderChecklistGoal('C', goalTitles.c, record.goalC, role, code));
 
             html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
             html += `<div class="quiz-required-note">${lang === 'hin' ? 'नीचे दिए गए सभी Code sub-codes इस quiz में शामिल हैं।' : 'All Code sub-codes below are included in this quiz.'}</div>`;
@@ -1809,6 +1980,35 @@
 
             contentEl.innerHTML = html;
             updateQuizScore(role);
+        }
+
+        function renderCode1GoalCSplit(role, code) {
+            const lang = document.getElementById('displayLanguage')?.value || 'eng';
+            let html = '';
+            code1GoalCSplit.forEach((part, partIndex) => {
+                html += `<div class="quiz-goal-card quiz-goal-c-split">
+                    <div class="quiz-goal-title">${escapeHtml(part.title[lang] || part.title.eng)}</div>`;
+                html += `<div class="quiz-subsection-title">${lang === 'hin' ? 'Subconscious Client Language (यदि व्यक्ति कहता है...)' : 'Subconscious Client Language (if the person says...)'}</div>`;
+                part.subconscious.eng.forEach((eng, i) => {
+                    const hin = part.subconscious.hin[i] || eng;
+                    const checkboxId = `q_${role}_${code}_C_${partIndex}_SC_${i}`;
+                    const shown = getQuizLanguageText(eng, hin);
+                    html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}">
+                        <div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div>
+                    </label>`;
+                });
+                html += `<div class="quiz-subsection-title">${lang === 'hin' ? 'Observable External Symptoms (दिखाई देने वाले लक्षण)' : 'Observable External Symptoms'}</div>`;
+                part.observable.eng.forEach((eng, i) => {
+                    const hin = part.observable.hin[i] || eng;
+                    const checkboxId = `q_${role}_${code}_C_${partIndex}_OBS_${i}`;
+                    const shown = getQuizLanguageText(eng, hin);
+                    html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}">
+                        <div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div>
+                    </label>`;
+                });
+                html += `</div>`;
+            });
+            return html;
         }
 
         function renderChecklistGoal(goalKey, titleObj, goalData, role, code) {
@@ -1837,21 +2037,27 @@
         }
 
         function prepareAutomaticBirthDayQuiz(dayName) {
+            // The weekday is calculated from DOB and stored internally.
+            // Do NOT open the quiz yet. Rahu/Ketu must be selected first.
             selectedBirthDayName = dayName;
             selectedBirthDayCode = birthDayCodeMap[dayName];
             dayQuizFinished = false;
             document.getElementById('birthday').value = dayName;
             document.getElementById('birthdayDisplay').innerText = dayName;
             document.getElementById('birthDayCodeOut').innerText = `Code-${selectedBirthDayCode}`;
-            document.getElementById('autoDayCard').style.display = 'flex';
-            document.getElementById('birthdayQuizContent').innerHTML = '';
-            renderCodeQuiz('birthdayQuizContent', 'birthdayQuizLabel', selectedBirthDayCode, 'birthday');
-            document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
-            activeQuizRoles = ['birthday'];
-            activeQuizCodeMap = { birthday: selectedBirthDayCode };
-            activeQuizMeta = { birthday: { code: selectedBirthDayCode, roles: ['birthday'] } };
-            currentQuizStep = 0;
-            updateQuizStepVisibility();
+
+            // Keep Day of Birth hidden from the person filling the form.
+            document.getElementById('autoDayCard').style.display = 'none';
+
+            // Clear any previous quiz session until Rahu/Ketu is confirmed.
+            activeQuizRoles = [];
+            activeQuizCodeMap = {};
+            activeQuizMeta = {};
+            quizzesReady = false;
+            rahuKetuReady = false;
+            document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
+            ['birthdayQuizContent', 'driverQuizContent', 'conductorQuizContent', 'manifestationQuizContent', 'rahuQuizContent', 'ketuQuizContent']
+                .forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ''; });
             updateSubmitRestriction();
         }
 
@@ -1911,7 +2117,7 @@
             quizzesReady = false;
             document.getElementById('statusMessage').style.display = 'none';
             updateSubmitRestriction();
-            document.getElementById('autoDayCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function confirmRahuKetuAndOpenQuizzes() {
@@ -2307,6 +2513,146 @@
             container.appendChild(newGroup);
         }
 
+        // Build a complete submission report for Google Apps Script.
+        // The report contains name scores, birth details, phone totals, hidden weekday,
+        // Rahu/Ketu details, every opened unique-code quiz, its final score/percentage,
+        // and every checkbox with a visible tick for selected items.
+        function getPhoneNumberDetails() {
+            return Array.from(document.querySelectorAll('.mobileInput'))
+                .map(input => {
+                    const raw = input.value.trim();
+                    if (!raw) return null;
+                    const digits = raw.replace(/\D/g, '');
+                    const total = digits.split('').reduce((sum, d) => sum + Number(d), 0);
+                    return { number: raw, total: total, digitalRoot: getDigitalRoot(total) };
+                })
+                .filter(Boolean);
+        }
+
+        function getQuizReportData() {
+            return activeQuizRoles.map(role => {
+                const pane = document.getElementById(getQuizPaneId(role));
+                const code = activeQuizCodeMap[role];
+                const meta = activeQuizMeta[role] || { roles: [role] };
+                const checkboxes = pane ? Array.from(pane.querySelectorAll('input[type="checkbox"]')) : [];
+                const checkedCount = checkboxes.filter(cb => cb.checked).length;
+                const percentage = checkboxes.length ? Number(((checkedCount / checkboxes.length) * 100).toFixed(1)) : 0;
+                const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
+                const goalA = goalCards[0] ? {
+                    title: goalCards[0].querySelector('.quiz-goal-title')?.innerText?.trim() || '',
+                    description: goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''
+                } : { title: '', description: '' };
+                return {
+                    quiz: getQuizRoleLabel(role),
+                    roles: meta.roles || [role],
+                    code: `Code-${code}`,
+                    score: checkedCount,
+                    totalQuestions: checkboxes.length,
+                    percentage: percentage,
+                    goalA: goalA,
+                    goalSections: goalCards.map(card => ({ title: card.querySelector('.quiz-goal-title')?.innerText?.trim() || '', text: card.innerText?.trim() || '' })),
+                    questions: checkboxes.map(cb => ({
+                        checked: !!cb.checked,
+                        mark: cb.checked ? '☑' : '☐',
+                        text: cb.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || cb.value || ''
+                    }))
+                };
+            });
+        }
+
+        function buildSubmissionReport() {
+            const phoneDetails = getPhoneNumberDetails();
+            const quizData = getQuizReportData();
+            const lang = document.getElementById('displayLanguage')?.value || 'eng';
+            const firstNameScore = document.getElementById('firstNameScore')?.innerText || '';
+            const firstNameNumber = document.getElementById('firstNameNumber')?.innerText || '';
+            const totalNameScore = document.getElementById('totalNameScore')?.innerText || '';
+            const totalNameNumber = document.getElementById('totalNameNumber')?.innerText || '';
+            const dob = document.getElementById('dob')?.value || '';
+            const birthTime = document.getElementById('timeOfBirth')?.value || '';
+            const birthDay = selectedBirthDayName || document.getElementById('birthday')?.value || '';
+            const birthDayCode = selectedBirthDayCode ? `Code-${selectedBirthDayCode}` : '';
+            const driver = document.getElementById('driverNumberOut')?.innerText || '';
+            const conductor = document.getElementById('conductorNumberOut')?.innerText || '';
+            const manifestation = document.getElementById('manifestationNumberOut')?.innerText || '';
+            const reportData = {
+                language: lang,
+                submissionDate: document.getElementById('submissionDate')?.value || '',
+                fullName: document.getElementById('fullName')?.value?.trim() || '',
+                firstNameScore, firstNameNumber, totalNameScore, totalNameNumber,
+                birthTime,
+                mobileNumbers: phoneDetails,
+                dayOfBirth: birthDay, // stored for the report, never displayed in the form UI
+                dayOfBirthCode: birthDayCode,
+                dob,
+                driver,
+                conductor,
+                manifestation,
+                rahuSign: selectedRahuSign || '',
+                rahuCode: selectedRahuSign ? `Code-${signCodeMap[selectedRahuSign]}` : '',
+                rahuQuizOpened: !!rahuQuizRequired,
+                ketuSign: selectedKetuSign || '',
+                ketuCode: selectedKetuSign ? `Code-${signCodeMap[selectedKetuSign]}` : '',
+                ketuQuizOpened: !!ketuQuizRequired,
+                quizzes: quizData,
+                totalSelectedCheckboxes: quizData.reduce((sum, q) => sum + q.score, 0),
+                savedAt: new Date().toISOString()
+            };
+
+            const esc = escapeHtml;
+            let html = `<!doctype html><html><head><meta charset="UTF-8"><style>
+                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:28px;line-height:1.55}
+                h1{color:#DAA520;text-align:center;margin:0 0 6px} h2{color:#DAA520;border-bottom:1px solid #DAA520;padding-bottom:6px}
+                h3{color:#4682B4;margin-bottom:6px}.meta{background:#fffaf0;border:1px solid #DAA520;border-radius:8px;padding:14px;margin:12px 0}
+                table{width:100%;border-collapse:collapse;margin:10px 0 22px}th,td{border:1px solid #d8c58b;padding:7px;text-align:left;vertical-align:top}th{background:#fff4d6}
+                .score{font-weight:700;color:#FF8C00}.tick{font-size:18px;font-weight:700}.muted{color:#666}
+            </style></head><body>`;
+            html += `<h1>BLUEBERRY ASTROVASTU REPORT</h1><div class="meta"><b>Full Name:</b> ${esc(reportData.fullName)}<br><b>Date of Form Filling:</b> ${esc(reportData.submissionDate)}</div>`;
+            html += `<h2>Name Numerology</h2><table><tr><th>First Name Score</th><td>${esc(firstNameScore)}</td></tr><tr><th>First Name Number</th><td>${esc(firstNameNumber)}</td></tr><tr><th>Total Name Score</th><td>${esc(totalNameScore)}</td></tr><tr><th>Total Name Number</th><td>${esc(totalNameNumber)}</td></tr></table>`;
+            html += `<h2>Birth Details</h2><table><tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr><tr><th>Mobile Number(s)</th><td>${phoneDetails.length ? phoneDetails.map(x => `${esc(x.number)} — Total: ${x.total} / ${x.digitalRoot}`).join('<br>') : 'Not provided'}</td></tr><tr><th>Day of Birth</th><td>${esc(birthDay)} — ${esc(birthDayCode)}</td></tr><tr><th>Date of Birth</th><td>${esc(dob)}</td></tr><tr><th>Driver</th><td>${esc(driver)}</td></tr><tr><th>Conductor</th><td>${esc(conductor)}</td></tr><tr><th>Manifestation</th><td>${esc(manifestation)}</td></tr><tr><th>Rahu</th><td>${esc(reportData.rahuSign || 'Not selected')} ${reportData.rahuCode ? '— ' + esc(reportData.rahuCode) : ''} ${reportData.rahuQuizOpened ? '(Rahu quiz opened)' : '(Rahu quiz not opened)'}</td></tr><tr><th>Ketu</th><td>${esc(reportData.ketuSign || 'Not selected')} ${reportData.ketuCode ? '— ' + esc(reportData.ketuCode) : ''} ${reportData.ketuQuizOpened ? '(Ketu quiz opened)' : '(Ketu quiz not opened)'}</td></tr></table>`;
+            html += `<h2>Quiz Results</h2>`;
+            quizData.forEach((q, qi) => {
+                html += `<h3>${qi + 1}. ${esc(q.quiz)} — ${esc(q.code)}</h3><div class="meta"><span class="score">Final Score: ${q.score} / ${q.totalQuestions} (${q.percentage}%)</span></div>`;
+                if (q.goalA?.title || q.goalA?.description) html += `<div class="meta"><b>${esc(q.goalA.title)}</b><br>${esc(q.goalA.description)}</div>`;
+                html += `<table><tr><th style="width:55px">Tick</th><th>Checklist Item</th></tr>`;
+                q.questions.forEach(item => html += `<tr><td class="tick">${item.mark}</td><td>${esc(item.text)}</td></tr>`);
+                html += `</table>`;
+            });
+            html += `<p class="muted">Generated: ${esc(reportData.savedAt)}</p></body></html>`;
+            return { reportData, reportHtml: html };
+        }
+
+        // Reliable button bindings. The script is at the bottom of the page, so bind
+        // immediately and also keep a delegated fallback for dynamically hosted pages.
+        (function bindQuizButtons() {
+            function bind() {
+                const dobBtn = document.getElementById('confirmDobBtn');
+                const rkBtn = document.getElementById('confirmRahuKetuBtn');
+                if (dobBtn && !dobBtn.dataset.bound) {
+                    dobBtn.dataset.bound = '1';
+                    dobBtn.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        confirmDobAndStartQuizzes();
+                    });
+                }
+                if (rkBtn && !rkBtn.dataset.bound) {
+                    rkBtn.dataset.bound = '1';
+                    rkBtn.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        confirmRahuKetuAndOpenQuizzes();
+                    });
+                }
+            }
+            bind();
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind, { once: true });
+            document.addEventListener('click', function (event) {
+                const target = event.target.closest?.('#confirmDobBtn, #confirmRahuKetuBtn');
+                if (!target || target.dataset.bound) return;
+                event.preventDefault();
+                target.id === 'confirmDobBtn' ? confirmDobAndStartQuizzes() : confirmRahuKetuAndOpenQuizzes();
+            });
+        })();
+
         document.getElementById('astrovastuForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -2338,58 +2684,59 @@
             submitBtn.disabled = true;
             submitBtn.innerText = "Submitting...";
 
-            const mobileNumbers = Array.from(document.querySelectorAll('.mobileInput')).map(i => i.value.trim()).filter(v => v !== "").join(', ');
-            const checkedSymptoms = Array.from(document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked')).map(cb => cb.value);
+            const report = buildSubmissionReport();
+            const reportData = report.reportData;
+            const reportHtml = report.reportHtml;
+            const mobileDetails = reportData.mobileNumbers;
 
             const formDataLocal = {
                 id: 'SUB_' + Date.now(),
-                submissionDate: document.getElementById('submissionDate').value,
-                fullName: document.getElementById('fullName').value.trim(),
-                dob: document.getElementById('dob').value,
-                birthday: document.getElementById('birthday').value,
-                birthDayCode: selectedBirthDayCode ? `Code-${selectedBirthDayCode}` : '',
-                rahuSign: selectedRahuSign,
-                ketuSign: selectedKetuSign,
-                rahuCode: selectedRahuSign ? `Code-${signCodeMap[selectedRahuSign]}` : '',
-                ketuCode: selectedKetuSign ? `Code-${signCodeMap[selectedKetuSign]}` : '',
-                rahuQuizOpened: rahuQuizRequired,
-                ketuQuizOpened: ketuQuizRequired,
-                mobileNumbers: mobileNumbers,
-                driver: document.getElementById('driverNumberOut').innerText,
-                conductor: document.getElementById('conductorNumberOut').innerText,
-                manifestation: document.getElementById('manifestationNumberOut').innerText,
-                totalMasterScore: document.getElementById('totalMasterScore').innerText,
-                checkedSymptoms: checkedSymptoms,
-                submittedAt: new Date().toISOString()
+                submissionDate: reportData.submissionDate,
+                fullName: reportData.fullName,
+                firstNameScore: reportData.firstNameScore,
+                firstNameNumber: reportData.firstNameNumber,
+                totalNameScore: reportData.totalNameScore,
+                totalNameNumber: reportData.totalNameNumber,
+                birthTime: reportData.birthTime,
+                mobileNumbers: mobileDetails,
+                birthday: reportData.dayOfBirth, // stored only; not shown in the form
+                birthDayCode: reportData.dayOfBirthCode,
+                dob: reportData.dob,
+                rahuSign: reportData.rahuSign,
+                rahuCode: reportData.rahuCode,
+                rahuQuizOpened: reportData.rahuQuizOpened,
+                ketuSign: reportData.ketuSign,
+                ketuCode: reportData.ketuCode,
+                ketuQuizOpened: reportData.ketuQuizOpened,
+                driver: reportData.driver,
+                conductor: reportData.conductor,
+                manifestation: reportData.manifestation,
+                quizzes: reportData.quizzes,
+                totalMasterScore: reportData.totalSelectedCheckboxes,
+                reportHtml: reportHtml,
+                reportDataJson: JSON.stringify(reportData),
+                submittedAt: reportData.savedAt
             };
 
+            // Local save keeps the complete report, including every checkbox and tick.
             let existing = JSON.parse(localStorage.getItem('astrovastu_submissions')) || [];
             existing.push(formDataLocal);
             localStorage.setItem('astrovastu_submissions', JSON.stringify(existing));
 
             const postPayload = new FormData();
-            postPayload.append('submissionDate', formDataLocal.submissionDate);
-            postPayload.append('fullName', formDataLocal.fullName);
-            postPayload.append('dob', formDataLocal.dob);
-            postPayload.append('birthday', formDataLocal.birthday);
-            postPayload.append('birthDayCode', formDataLocal.birthDayCode);
-            postPayload.append('rahuSign', formDataLocal.rahuSign);
-            postPayload.append('ketuSign', formDataLocal.ketuSign);
-            postPayload.append('rahuCode', formDataLocal.rahuCode);
-            postPayload.append('ketuCode', formDataLocal.ketuCode);
-            postPayload.append('rahuQuizOpened', formDataLocal.rahuQuizOpened);
-            postPayload.append('ketuQuizOpened', formDataLocal.ketuQuizOpened);
-            postPayload.append('mobileNumber', mobileNumbers);
-            postPayload.append('driver', formDataLocal.driver);
-            postPayload.append('conductor', formDataLocal.conductor);
-            postPayload.append('manifestation', formDataLocal.manifestation);
-            postPayload.append('totalMasterScore', formDataLocal.totalMasterScore);
-            postPayload.append('checkedSymptoms', checkedSymptoms.join(' | '));
+            Object.entries(formDataLocal).forEach(([key, value]) => {
+                if (value === undefined || value === null) return;
+                postPayload.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+            });
+            // Explicit flags for the Apps Script PDF/email stage.
+            postPayload.append('pdfReportHtml', reportHtml);
+            postPayload.append('emailPdfReady', 'true');
+            postPayload.append('emailSubject', `Blueberry AstroVastu Report - ${reportData.fullName}`);
 
             fetch(form.action, { method: 'POST', body: postPayload, mode: 'no-cors' }).then(() => {
                 const statusDiv = document.getElementById('statusMessage');
                 statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Form successfully submitted!`;
+                statusDiv.innerHTML = `✓ Form successfully submitted and complete report saved. PDF/email processing is ready for Apps Script.`;
                 form.reset();
                 document.getElementById('submissionDate').valueAsDate = new Date();
                 document.addEventListener('DOMContentLoaded', () => applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng'));
