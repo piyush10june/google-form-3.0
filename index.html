@@ -901,11 +901,10 @@
 
                 <!-- Language Selection Section -->
                 <div            
-            style="background-color: rgba(255, 255, 255, 0.65); padding: 20px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4); margin-bottom: 25px;">
+            style="background-color: rgba(255, 255, 255, 0.65); padding: 3px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4); margin-bottom: 25px;">
                         <div class="field" style="margin-bottom: 0;">
                                 <label for="displayLanguage" style="color: #0B192C; font-size: 18px;"><b>Select Language
-                        / भाषा
-                                                चुनें</b> <span>*</span></label>
+                        / भाषा चुनें</b> <span>*</span></label>
                                 <select id="displayLanguage" name="displayLanguage" onchange="onLanguageChange()">
                                         <option value="eng" selected>English</option>
                                         <option value="hin">Hindi (हिंदी)</option>
@@ -915,7 +914,7 @@
 
                 <!-- Date of Form Filling Section -->
                 <div            
-            style="background-color: rgba(255, 255, 255, 0.65); padding: 20px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4);">
+            style="background-color: rgba(255, 255, 255, 0.65); padding: 3px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4);">
                         <div class="field" style="margin-bottom: 0;">
                                 <label style="color: #0B192C; font-size: 18px;"><b>Date of Form Filling</b>
                     <span>*</span></label>
@@ -956,20 +955,20 @@
 
                         <div class="field">
                                 <label>Mobile Number <small>(Optional)</small></label>
-                                <div id="phoneContainer">
-                                        <div class="phone-group">
-                                                <div class="phone-input-row">
-                                                        <input type="tel" name="mobileNumber" class="mobileInput"
-                                placeholder="Enter phone number"                                
-                                oninput="calculatePhoneNumerology(this)">
-                                                    </div>
-                                                <div class="phone-score-display" style="display: none;">
-                                                        Sum: <span class="phoneScoreVal">-</span>
-                                                    </div>
-                                            </div>
+                               
+                                    <div class="phone-group">
+                                            <div class="phone-input-row">
+                                                    <input type="tel" name="mobileNumber" class="mobileInput"
+                            placeholder="Enter phone number"                                
+                            oninput="calculatePhoneNumerology(this)">
+                                                </div>
+                                            <div class="phone-score-display" style="display: none;">
+                                                    Sum: <span class="phoneScoreVal">-</span>                        
+                    </div>
+                            <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another
+                        Number</button>           
                                     </div>
-                                <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another
-                    Number</button>
+                               
                             </div>
 
                         <!-- Day of Birth is calculated automatically from Date of Birth -->
@@ -2845,6 +2844,53 @@
             });
         });
 
+        function getFriendlyConcernLabel(role, lang = (document.getElementById('displayLanguage')?.value || 'eng')) {
+            const labels = {
+                birthday: { eng: 'General Concern', hin: 'सामान्य चिंता' },
+                driver: { eng: 'Self Concern', hin: 'स्वयं से संबंधित चिंता' },
+                conductor: { eng: 'Work Concern', hin: 'कार्य से संबंधित चिंता' },
+                manifestation: { eng: 'Result / Output Concern', hin: 'परिणाम / आउटपुट से संबंधित चिंता' }
+            };
+
+            if (labels[role]) return labels[role][lang] || labels[role].eng;
+
+            if (role === 'rahu' || role === 'ketu') {
+                const sign = role === 'rahu' ? selectedRahuSign : selectedKetuSign;
+                const signCode = sign ? signCodeMap[sign] : null;
+                const matched = [];
+                if (signCode !== null && signCode !== undefined) {
+                    if (selectedNumerology.driver === signCode) matched.push(labels.driver[lang] || labels.driver.eng);
+                    if (selectedNumerology.conductor === signCode) matched.push(labels.conductor[lang] || labels.conductor.eng);
+                    if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
+                }
+                const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
+                return matched.length ? `Dominated Concern by ${planetName} (${matched.join(' / ')})` : `Dominated Concern by ${planetName}`;
+            }
+            return role;
+        }
+
+        function getQuizRoleLabel(role) {
+            const lang = document.getElementById('displayLanguage')?.value || 'eng';
+            const meta = activeQuizMeta[role];
+            if (meta?.roles?.length > 1) {
+                return meta.roles.map(r => getFriendlyConcernLabel(r, lang)).join(' + ');
+            }
+            return getFriendlyConcernLabel(role, lang);
+        }
+
+        function cleanVisibleQuizText(text) {
+            return String(text || '')
+                .replace(/Code\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
+                .replace(/कोड\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
+                .replace(/Code\d+\s*-\s*[a-e]\s*—\s*/gi, '')
+                .replace(/\b1\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
+                .replace(/\b[2-5]\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
+                .replace(/Goal\s+[a-d]\)\s*/gi, '')
+                .replace(/\s{2,}/g, ' ')
+                .replace(/\s+([,.;:])/g, '$1')
+                .trim();
+        }
+
         function generateBlankQuizzesPdf() {
             if (!quizzesReady || !activeQuizRoles.length) {
                 alert('Please calculate your Date of Birth and select Rahu/Ketu signs to load the quizzes first.');
@@ -2853,34 +2899,21 @@
 
             const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
 
-            // Custom descriptive title mapping based on your request
-            const roleFriendlyNames = {
-                driver: 'Self Concern (Driver)',
-                conductor: 'Work Concern (Conductor)',
-                manifestation: 'Result / Output Concern (Manifestation)',
-                birthday: 'General Concern (Day of Birth)',
-                rahu: 'Dominated Concern by Rahu',
-                ketu: 'Dominated Concern by Ketu'
-            };
-
             const blankQuizData = activeQuizRoles.map(role => {
                 const pane = document.getElementById(getQuizPaneId(role));
-                const quizTitle = roleFriendlyNames[role] || getQuizRoleLabel(role);
-
+                const quizTitle = getQuizRoleLabel(role);
                 const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
 
-                // Goal A General Description
                 const goalA = goalCards[0] ? {
-                    title: goalCards[0].querySelector('.quiz-goal-title')?.innerText?.trim() || 'Goal a) General Issue',
+                    title: 'General Issue',
                     description: goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''
                 } : null;
 
-                // Extract all symptom/question items categorized by their visual blocks on the page
-                // Goal cards 1, 2, and 3 correspond to Goal b, Goal c, and Goal d blocks respectively
                 const sections = [];
                 for (let i = 1; i < goalCards.length; i++) {
                     const card = goalCards[i];
-                    const goalTitle = cleanVisibleQuizText(card.querySelector('.quiz-goal-title')?.innerText?.trim() || `Goal Section ${i}`).replace(/^(Goal\s+[a-d]).*$/i, '$1');
+                    const goalTitleText = card.querySelector('.quiz-goal-title')?.innerText?.trim() || `Goal Section ${i}`;
+                    const goalTitle = cleanVisibleQuizText(goalTitleText);
                     const items = Array.from(card.querySelectorAll('.symptom-item')).map(item => {
                         return item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
                     }).filter(Boolean);
@@ -2890,7 +2923,6 @@
                     }
                 }
 
-                // Fallback if structured cards aren't split, catch all symptom items directly from the pane
                 if (sections.length === 0 && pane) {
                     const allItems = Array.from(pane.querySelectorAll('.symptom-item')).map(item => {
                         return item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
@@ -2905,23 +2937,23 @@
 
             const esc = escapeHtml;
             let reportHtml = `<!doctype html><html><head><meta charset="UTF-8"><title>Blank Quizzes - Blueberry AstroVastu</title><style>
-                @page { size: A4; margin: 16mm; }
-                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:20px;line-height:1.55;font-size:11pt;}
-                h1{color:#DAA520;text-align:center;margin:0 0 5px;font-size:22pt;}
-                .subtitle{text-align:center;color:#4682B4;font-size:12pt;margin-bottom:20px;font-weight:bold;}
-                .quiz-page { page-break-before: always; }
-                .quiz-page:first-of-type { page-break-before: avoid; }
-                h2{color:#DAA520;border-bottom:2px solid #DAA520;padding-bottom:6px;margin-top:10px;font-size:16pt;}
-                h3{color:#4682B4;margin-top:18px;margin-bottom:8px;font-size:12pt;font-weight:bold;}
-                .meta{background:#fffaf0;border:1px solid #DAA520;border-radius:7px;padding:12px;margin:12px 0;font-size:10pt;}
-                table{width:100%;border-collapse:collapse;margin:8px 0 15px;}
-                th,td{border:1px solid #d8c58b;padding:8px;text-align:left;vertical-align:top;}
-                th{background:#fff4d6;font-size:10pt;}
-                .mark{width:40px;text-align:center;font-size:16pt;}
-                .goal-box{background:#fffdf5;border:1px solid rgba(218,165,32,0.55);border-radius:8px;padding:12px;margin:12px 0;}
-                .goal-title{color:#DAA520;font-weight:bold;margin-bottom:6px;font-size:11pt;}
-                .muted{color:#666;font-size:9pt;margin-top:30px;text-align:center;}
-            </style></head><body>`;
+                @page { size: A4; margin: 16mm; }
+                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:20px;line-height:1.55;font-size:11pt;}
+                h1{color:#DAA520;text-align:center;margin:0 0 5px;font-size:22pt;}
+                .subtitle{text-align:center;color:#4682B4;font-size:12pt;margin-bottom:20px;font-weight:bold;}
+                .quiz-page { page-break-before: always; }
+                .quiz-page:first-of-type { page-break-before: avoid; }
+                h2{color:#DAA520;border-bottom:2px solid #DAA520;padding-bottom:6px;margin-top:10px;font-size:16pt;}
+                h3{color:#4682B4;margin-top:18px;margin-bottom:8px;font-size:12pt;font-weight:bold;}
+                .meta{background:#fffaf0;border:1px solid #DAA520;border-radius:7px;padding:12px;margin:12px 0;font-size:10pt;}
+                table{width:100%;border-collapse:collapse;margin:8px 0 15px;}
+                th,td{border:1px solid #d8c58b;padding:8px;text-align:left;vertical-align:top;}
+                th{background:#fff4d6;font-size:10pt;}
+                .mark{width:40px;text-align:center;font-size:16pt;}
+                .goal-box{background:#fffdf5;border:1px solid rgba(218,165,32,0.55);border-radius:8px;padding:12px;margin:12px 0;}
+                .goal-title{color:#DAA520;font-weight:bold;margin-bottom:6px;font-size:11pt;}
+                .muted{color:#666;font-size:9pt;margin-top:30px;text-align:center;}
+            </style></head><body>`;
 
             reportHtml += `<h1>BLUEBERRY ASTROVASTU</h1>`;
             reportHtml += `<div class="subtitle">Blank Diagnostic Assessment Questionnaires</div>`;
@@ -2931,15 +2963,17 @@
                 reportHtml += `<div class="quiz-page">`;
                 reportHtml += `<h2>${idx + 1}. ${esc(q.quizTitle)}</h2>`;
 
-                if (q.goalA && (q.goalA.title || q.goalA.description)) {
-                    reportHtml += `<div class="goal-box"><div class="goal-title">${esc(cleanVisibleQuizText(q.goalA.title).replace(/^(Goal\s+[a-d]).*$/i, '$1'))}</div><div>${esc(cleanVisibleQuizText(q.goalA.description))}</div></div>`;
+                if (q.goalA && q.goalA.description) {
+                    reportHtml += `<div class="goal-box"><div class="goal-title">General Issue Checklist</div><table><tr><th class="mark">☐</th><td>${esc(cleanVisibleQuizText(q.goalA.description))}</td></tr></table></div>`;
                 }
 
                 q.sections.forEach(sec => {
                     reportHtml += `<h3>${esc(sec.title)}</h3>`;
                     reportHtml += `<table><tr><th class="mark">☐</th><th>Diagnostic Assessment Symptom / Statement</th></tr>`;
                     sec.questions.forEach(text => {
-                        reportHtml += `<tr><td class="mark">☐</td><td>${esc(cleanVisibleQuizText(text))}</td></tr>`;
+                        let cleanedText = cleanVisibleQuizText(text);
+                        cleanedText = cleanedText.replace(/^\d+\.\s*—\s*/, '').replace(/^[a-e]\s*—\s*/i, '');
+                        reportHtml += `<tr><td class="mark">☐</td><td>${esc(cleanedText)}</td></tr>`;
                     });
                     reportHtml += `</table>`;
                 });
@@ -2948,9 +2982,21 @@
 
             reportHtml += `<div class="muted">Generated by Blueberry AstroVastu System</div></body></html>`;
 
-            // Blank quiz is preview-only here. The final form submission automatically creates both Empty and Completed PDFs in Apps Script.
+            const formActionUrl = document.getElementById('astrovastuForm').action;
+            const payloadData = {
+                fullName: fullName,
+                submissionDate: document.getElementById('submissionDate')?.value || '',
+                isOnlyBlankPdf: 'true',
+                blankPdfHtml: reportHtml
+            };
 
-            // Open local window to print or save immediately
+            const payload = new FormData();
+            payload.append('reportDataJson', JSON.stringify(payloadData));
+
+            fetch(formActionUrl, { method: 'POST', body: payload, mode: 'no-cors' }).then(() => {
+                console.log('Blank PDF dispatch triggered successfully.');
+            }).catch(err => console.error(err));
+
             const printWindow = window.open('', '_blank');
             if (!printWindow) {
                 alert('Pop-up blocked! Please allow pop-ups for this website to generate the blank PDF.');
@@ -2963,6 +3009,7 @@
                 printWindow.print();
             }, 600);
         }
+        
     </script>
 </body>
 
