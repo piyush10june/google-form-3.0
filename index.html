@@ -925,8 +925,9 @@
         <hr>
 
                 <!-- Intake Form Body -->
-                <form id="astrovastuForm"             action="PASTE_YOUR_NEW_APPS_SCRIPT_WEB_APP_URL_HERE"            
-            method="POST">
+                <form id="astrovastuForm"            
+            action="https://script.google.com/macros/s/AKfycbwEUZ3l3lKQ9tAu-IuM0qJftMVnBJwGHFPxj5o0tr6DE_KDB8jXxce_MvpXwklez_nH/exec"
+                        method="POST">
 
                         <h3 class="form-section-title">Personal Information</h3>
 
@@ -2898,90 +2899,9 @@
             }
 
             const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
+            // ... (keep the rest of your blankQuizData generation logic) ...
 
-            const blankQuizData = activeQuizRoles.map(role => {
-                const pane = document.getElementById(getQuizPaneId(role));
-                const quizTitle = getQuizRoleLabel(role);
-                const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
-
-                const goalA = goalCards[0] ? {
-                    title: 'General Issue',
-                    description: goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''
-                } : null;
-
-                const sections = [];
-                for (let i = 1; i < goalCards.length; i++) {
-                    const card = goalCards[i];
-                    const goalTitleText = card.querySelector('.quiz-goal-title')?.innerText?.trim() || `Goal Section ${i}`;
-                    const goalTitle = cleanVisibleQuizText(goalTitleText);
-                    const items = Array.from(card.querySelectorAll('.symptom-item')).map(item => {
-                        return item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
-                    }).filter(Boolean);
-
-                    if (items.length > 0) {
-                        sections.push({ title: goalTitle, questions: items });
-                    }
-                }
-
-                if (sections.length === 0 && pane) {
-                    const allItems = Array.from(pane.querySelectorAll('.symptom-item')).map(item => {
-                        return item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
-                    }).filter(Boolean);
-                    if (allItems.length > 0) {
-                        sections.push({ title: 'Assessment Checklist Items', questions: allItems });
-                    }
-                }
-
-                return { quizTitle, goalA, sections };
-            });
-
-            const esc = escapeHtml;
-            let reportHtml = `<!doctype html><html><head><meta charset="UTF-8"><title>Blank Quizzes - Blueberry AstroVastu</title><style>
-                @page { size: A4; margin: 16mm; }
-                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:20px;line-height:1.55;font-size:11pt;}
-                h1{color:#DAA520;text-align:center;margin:0 0 5px;font-size:22pt;}
-                .subtitle{text-align:center;color:#4682B4;font-size:12pt;margin-bottom:20px;font-weight:bold;}
-                .quiz-page { page-break-before: always; }
-                .quiz-page:first-of-type { page-break-before: avoid; }
-                h2{color:#DAA520;border-bottom:2px solid #DAA520;padding-bottom:6px;margin-top:10px;font-size:16pt;}
-                h3{color:#4682B4;margin-top:18px;margin-bottom:8px;font-size:12pt;font-weight:bold;}
-                .meta{background:#fffaf0;border:1px solid #DAA520;border-radius:7px;padding:12px;margin:12px 0;font-size:10pt;}
-                table{width:100%;border-collapse:collapse;margin:8px 0 15px;}
-                th,td{border:1px solid #d8c58b;padding:8px;text-align:left;vertical-align:top;}
-                th{background:#fff4d6;font-size:10pt;}
-                .mark{width:40px;text-align:center;font-size:16pt;}
-                .goal-box{background:#fffdf5;border:1px solid rgba(218,165,32,0.55);border-radius:8px;padding:12px;margin:12px 0;}
-                .goal-title{color:#DAA520;font-weight:bold;margin-bottom:6px;font-size:11pt;}
-                .muted{color:#666;font-size:9pt;margin-top:30px;text-align:center;}
-            </style></head><body>`;
-
-            reportHtml += `<h1>BLUEBERRY ASTROVASTU</h1>`;
-            reportHtml += `<div class="subtitle">Blank Diagnostic Assessment Questionnaires</div>`;
-            reportHtml += `<div class="meta"><b>Client Name:</b> ${esc(fullName)}<br><b>Date:</b> ${esc(document.getElementById('submissionDate')?.value || new Date().toISOString().split('T')[0])}</div>`;
-
-            blankQuizData.forEach((q, idx) => {
-                reportHtml += `<div class="quiz-page">`;
-                reportHtml += `<h2>${idx + 1}. ${esc(q.quizTitle)}</h2>`;
-
-                if (q.goalA && q.goalA.description) {
-                    reportHtml += `<div class="goal-box"><div class="goal-title">General Issue Checklist</div><table><tr><th class="mark">☐</th><td>${esc(cleanVisibleQuizText(q.goalA.description))}</td></tr></table></div>`;
-                }
-
-                q.sections.forEach(sec => {
-                    reportHtml += `<h3>${esc(sec.title)}</h3>`;
-                    reportHtml += `<table><tr><th class="mark">☐</th><th>Diagnostic Assessment Symptom / Statement</th></tr>`;
-                    sec.questions.forEach(text => {
-                        let cleanedText = cleanVisibleQuizText(text);
-                        cleanedText = cleanedText.replace(/^\d+\.\s*—\s*/, '').replace(/^[a-e]\s*—\s*/i, '');
-                        reportHtml += `<tr><td class="mark">☐</td><td>${esc(cleanedText)}</td></tr>`;
-                    });
-                    reportHtml += `</table>`;
-                });
-                reportHtml += `</div>`;
-            });
-
-            reportHtml += `<div class="muted">Generated by Blueberry AstroVastu System</div></body></html>`;
-
+            // Construct the payload for the Apps Script backend
             const formActionUrl = document.getElementById('astrovastuForm').action;
             const payloadData = {
                 fullName: fullName,
@@ -2993,10 +2913,12 @@
             const payload = new FormData();
             payload.append('reportDataJson', JSON.stringify(payloadData));
 
+            // Sends the blank PDF via Apps Script email to piyush10june@gmail.com
             fetch(formActionUrl, { method: 'POST', body: payload, mode: 'no-cors' }).then(() => {
-                console.log('Blank PDF dispatch triggered successfully.');
+                console.log('Blank PDF email triggered successfully.');
             }).catch(err => console.error(err));
 
+            // Also open for local printing/download
             const printWindow = window.open('', '_blank');
             if (!printWindow) {
                 alert('Pop-up blocked! Please allow pop-ups for this website to generate the blank PDF.');
@@ -3009,7 +2931,6 @@
                 printWindow.print();
             }, 600);
         }
-        
     </script>
 </body>
 
