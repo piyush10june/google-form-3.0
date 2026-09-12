@@ -1310,1627 +1310,638 @@
            
     </div>
 
-        <!-- JavaScript Engine -->
-       
     <script>
-        document.getElementById('submissionDate').valueAsDate = new Date();
-        document.addEventListener('DOMContentLoaded', () => {
-            applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng');
-            populateZodiacSelects();
-        });
 
-        let currentQuizStep = 0;
-        let activeQuizRoles = [];
-        let activeQuizCodeMap = {};
-        let activeQuizMeta = {};
-        let dayQuizFinished = false;
-        let quizzesReady = false;
-        let rahuKetuReady = false;
-        let rahuQuizRequired = false;
-        let ketuQuizRequired = false;
-        let selectedNumerology = { driver: null, conductor: null, manifestation: null };
-        let selectedRahuSign = '';
-        let selectedKetuSign = '';
+        <!-- JavaScript Engine -->
 
-        const signCodeMap = {
-            Aries: 9, Scorpio: 9,
-            Taurus: 6, Libra: 6,
-            Gemini: 5, Virgo: 5,
-            Cancer: 2,
-            Leo: 1,
-            Sagittarius: 3, Pisces: 3,
-            Aquarius: 8, Capricorn: 8
-        };
-
-        const zodiacSigns = [
-            'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-            'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
-        ];
-        let selectedBirthDayCode = null;
-        let selectedBirthDayName = '';
-
-        // Source: "9 planet problem in code format final.pdf".
-        // Every selected code uses all four goals from the source, including all Code-X-a to Code-X-e sub-codes.
-        const ninePlanetCodeDatabase = {
-            "1": {
-                "title": "Goal a) General Issue Related to Code-1 / Code-1 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "The primary general problem associated with an imbalanced Code-1 is imbalanced or harsh authority. This occurs when a person attempts to impose their will upon others without any logical reasoning, demanding blind obedience solely because of their status or position (for example, saying, \"Do it because I am your father\" or \"Do it because I am the boss\"). This authoritative behavior fails to inspire true leadership and instead creates deep resentment, pain, and constant friction in relationships.",
-                    "hin": "Code-1 के असंतुलित होने पर मुख्य सामान्य समस्या असंतुलित या कठोर अधिकार जताना है। यह तब होता है जब कोई व्यक्ति बिना किसी तर्क या औचित्य के केवल अपने पद या स्थिति के कारण दूसरों से आज्ञा मनवाना चाहता है (जैसे \"मैं तुम्हारा पिता हूँ इसलिए तुम्हें मेरी बात माननी होगी\" या \"मैं बॉस हूँ इसलिए ऐसा करो\")। यह अधिकारवादी व्यवहार दूसरों को प्रेरित करने वाले स्वाभाविक नेतृत्व की जगह रिश्तों में दर्द, नाराजगी और आपसी घर्षण (friction) पैदा करता है।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Confusion, instability, and indecisiveness.",
-                        "Client complains: \"I don't understand what decision to make.\".",
-                        "Fear of making decisions and repeatedly changing opinions.",
-                        "Lack of self-confidence and a distinct lack of direction.",
-                        "Avoiding leadership roles."
-                    ],
-                    "hin": [
-                        "भ्रम, अस्थिरता, और निर्णयहीनता की स्थिति बने रहना।",
-                        "क्लाइंट द्वारा लगातार शिकायत करना: \"मुझे समझ नहीं आता क्याा निर्णय लूँ।\"।",
-                        "निर्णय लेने में डर महसूस होना और बार-बार अपनी राय बदलना।",
-                        "आत्मविश्वाास की भारी कमी होना और जीवन में दिशा का अभाव महसूस करना।",
-                        "नेतृत्व की भूमिकाओं से बचना"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Lack of love and joy in daily life.",
-                        "Client complains: \"There is no joy in life\" or \"No one understands me.\".",
-                        "Tension in relationships and a lack of attraction.",
-                        "Self-rejection and low self-worth.",
-                        "Fear, laziness, and indecisiveness.",
-                        "Client expresses a defeatist mindset: \"I won't be able to achieve anything big.\"."
-                    ],
-                    "hin": [
-                        "जीवन में प्रेम व आनंद का पूर्ण अभाव महसूस होना।",
-                        "क्लाइंट द्वारा अक्सर यह कहना: \"जीवन में खुशी नहीं है\" या \"कोई मुझे समझता नहीं\"।",
-                        "व्यक्तिगत या व्याावसायिक संबंधों में तनाव और आकर्षण की भारी कमी होना।",
-                        "आत्म-अस्वीीकृति (Self-rejection) या स्वयं को कमतर आंकना।",
-                        "डर, अत्यधिक आलस्य, और निर्णयहीनता का शिकार होना।",
-                        "क्लाइंट का अपनी क्षमताओं पर अविश्वास होना: \"मुझसे कुछ बड़ाा नहीं होगा\"।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code1-a — Lack of 'Go Getter' energy / कार्यकर्ता ऊर्जा की कमी",
-                        "eng": "An imbalance in this energy results in a complete loss of physical drive and active momentum. The client lacks the competitive enthusiasm needed to start new tasks, pursue targets, or actively execute plans.",
-                        "hin": "इस ऊर्जा के कमजोर होने से सक्रियता और आगे बढ़कर लक्ष्य हासिल करने की ऊर्जा समाप्त हो जाती है। क्लाइंट में नए कार्योंं को शुरू करने, लक्ष्य का पीछा करने या योजनाओं को सक्रियता से लागू करने के उत्साह की भारी कमी होती है।"
-                    },
-                    {
-                        "title": "2. Code1-b — Lack of 'Manager' skills / प्रबंधक क्षमता का अभाव",
-                        "eng": "This leads to a breakdown in administrative and coordinating capacity. The client struggles to manage daily business operations, fails to lead their team effectively, and cannot build useful associations.",
-                        "hin": "इसके प्रभाव से प्रशासनिक और प्रबंधकीय कौशल समाप्त हो जाता है। व्यक्ति दैनिक कार्योंं का सुचारू संचालन नहीं कर पाता, अपनी टीम का सही नेतृत्व करने में विफल रहता है और लोगों से तालमेल नहीं बिठा पाता।"
-                    },
-                    {
-                        "title": "3. Code1-c — Lack of 'Regulator' control / नियंत्रक क्षमता की कमी",
-                        "eng": "This represents the loss of central governing power. The client feels powerless to maintain administrative order, rules are easily broken, and there is a total breakdown of discipline in their business or household.",
-                        "hin": "यह केंद्रीय नियंत्रण और शासन शक्ति की विफलता को दर्शाता है। व्यक्ति अपने व्यवसाय या घर में अनुशासन बनाए रखने में अक्षम महसूस करता है, नियम आसानी से टूटते हैं और पूरी प्रशासनिक व्यवस्था बिखर जाती।"
-                    },
-                    {
-                        "title": "4. Code1-d — Lack of 'Judge' capability / न्याायाधीश/निर्णय लेने की कमी",
-                        "eng": "The capacity to deliver balanced, truthful, and logical audits is impaired. The client makes highly flawed, biased, or emotional decisions, completely failing to evaluate situations or business agreements rationally.",
-                        "hin": "यह संतुलित, न्यायसंगत और तार्किक निर्णय लेने की क्षमता को कमजोर करता है। क्लाइंट अत्यंत त्रुटिपूर्ण, पक्षपातपूर्ण या अत्यधिक भावनात्मक फैसले लेता है, और समझौतों का सही मूल्यांकन करने में विफल रहता है।"
-                    },
-                    {
-                        "title": "5. Code1-e — Lack of 'Grinder' execution / ग्रााइंडर/मंथन की कमी",
-                        "eng": "This results in an inability to execute deep mental churning and analytical processing of data or ideas. Plans are either executed half-baked without thinking, or they are never processed at all, leading to zero output.",
-                        "hin": "यह विचारों के विश्लेषण और गहरे मानसिक मंथन की क्षमता को बाधित करता है। योजनाएं या तो बिना सोचे-समझे जल्दबाजी में आधी-अधूरी लागू कर दी जाती हैं या फिर उन पर कभी क्रियान्वयन नहीं हो पाता, जिससे परिणाम शून्य मिलता है।"
-                    }
-                ]
-            },
-            "2": {
-                "title": "Goal a) General Issue Related to Code-2 / Code-2 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "An imbalanced Code-2 causes intense mood swings and emotional volatility. This manifests as becoming suddenly loud, aggressive, or erratic without realizing it, which severely damages both personal and professional relationships.",
-                    "hin": "Code-2 के असंतुलित होने पर तीव्र मूड स्विंंग्स (भावनात्मक अस्थिरता) होते हैं। इसके कारण व्यक्ति बिना महसूस किए अचानक से ज़ोोर से बोलने लगता है या अस्थिर व्यवहार करने लगता है, जिससे उसके व्यक्तिगत और व्यावसायिक रिश्ते खराब होते हैं।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Fear, anxiety, and deep insecurity.",
-                        "Client constantly complains: \"I am constantly plagued by fear and worry.\".",
-                        "Nervousness and extreme emotional instability.",
-                        "Excessive worry about the future."
-                    ],
-                    "hin": [
-                        "भय, गहरी चिंता, और असुरक्षाा की भावना रहना।",
-                        "क्लाइंट द्वारा शिकायत करना: \"मुझे हर समय डर और चिंता रहती है।\"।",
-                        "घबरावहट, मानसिक बेचैनी और भावनात्मक अस्थिरता होना।",
-                        "भविष्य की अत्यधिक चिंता में डूबे रहना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Suffocation, strict limitations, and a severe lack of opportunities in life.",
-                        "Client feels blocked and expresses: \"There is no space for me\".",
-                        "Claustrophobic thinking and facing frequent, repetitive roadblocks."
-                    ],
-                    "hin": [
-                        "जीवन में घुटन, सीमितता का अनुभव, और अवसरों का भारी अभाव होना।",
-                        "क्लाइंट द्वारा अपनी बेबसी व्यक्त करना: \"मेरे लिए जगह नहीं है\"।",
-                        "संकीर्ण (Claustrophobic) सोच का शिकार होना और कार्यों में बार-बार रुकावट आना।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code2-a — Lack of 'Controller' / नियंत्रक का अभाव",
-                        "eng": "This represents the loss of internal control over reactions and emotional outbursts. The client cannot hold back their sudden emotional spikes, causing chaos in their surroundings.",
-                        "hin": "यह भावनाओं और त्वरित प्रतिक्रियाओं पर आंतरिक नियंत्रण टूटने को दर्शाता है। व्यक्ति अपने अचानक भड़कने वाले गुस्से या आवेग को संभाल नहीं पाता, जिससे उसके आसपास का माहौल तनावपूर्ण हो जाता है।"
-                    },
-                    {
-                        "title": "2. Code2-b — Lack of 'Choker/Restrainer' / रोकने वाले की कमी",
-                        "eng": "This blocks the ability to choke or restrain self-destructive emotional patterns. The client cannot hit the pause button on toxic habits before they spiral out of hand.",
-                        "hin": "यह नुकसानदेह आदतों या गलत भावनात्मक प्रवाह को समय पर रोकने की क्षमता को कमजोर करता है। क्लाइंट अपनी गलत प्रवृत्तियों पर ब्रेक नहीं लगा पाता और समस्याएं बढ़ती जाती हैं।"
-                    },
-                    {
-                        "title": "3. Code2-c — Lack of 'Attacker' energy / आक्रमणकर्ता ऊर्जा की कमी",
-                        "eng": "The active drive to tackle challenges head-on is completely missing. The client becomes passive, shying away from resolving crucial conflicts or taking the necessary active push to clear issues.",
-                        "hin": "संकटों या चुनौतियों का सीधे मुकाबला करने के लिए आवश्यक आक्रामक ऊर्जा का पूर्ण अभाव हो जाता है। व्यक्ति समस्याओं को हल करने के बजाय उनसे भागने लगता है और सक्रिय कदम नहीं उठा पाता।"
-                    },
-                    {
-                        "title": "4. Code2-d — Impact of 'Weakner' / कमजोर करने वाली शक्ति का प्रभाव",
-                        "eng": "This exposes the client to constant draining energy. They feel physically fatigued, mentally depleted, and experience a steady decline in their overall capacity to perform.",
-                        "hin": "यह जीवन में व्यक्ति को कमजोर और ऊर्जाहीन करने वाली शक्तियों को सक्रिय करता है। क्लाइंट लगातार शारीरिक सुस्ती और मानसिक थकावट महसूस करता है, जिससे उसकी कार्यक्षमता घट जाती है।"
-                    },
-                    {
-                        "title": "5. Code2-e — Issues with 'Addiction' / लत या व्यसन",
-                        "eng": "The client becomes highly vulnerable to falling into toxic dependencies, substance abuse, or repetitive self-destructive habits that temporarily numb their emotional pain.",
-                        "hin": "इसके पीड़ित होने पर व्यक्ति स्वयं को संभालने में असमर्थ होकर किसी न किसी बुरी लत, व्यसन या बार-बार दोहराई जाने वाली नकारात्मक आदतों का शिकार हो जाता है।"
-                    }
-                ]
-            },
-            "3": {
-                "title": "Goal a) General Issue Related to Code-3 / Code-3 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "The core problem is being stuck in theory, concepts, and philosophy without taking any practical, real-world action. Such individuals possess an intellectual answer for every single question but completely lack practical application, leading to a state of \"paralysis by analysis\" where they fail to implement their vast knowledge.",
-                    "hin": "मुख्य समस्या व्याावहारिक क्रिया के बिना केवल सिद्धांांतों, दर्शन (Philosophy) और ज्ञाान में उलझे रहना है। ऐसे व्यक्तियों के पास हर चीज़ का बौद्धिक ज्ञान तो होता है, लेकिन वे उसे व्यावहारिक रूप से लागू नहीं कर पाते, जिससे वे \"पैरालिसिस-बाय-एनालिसिस\" का शिकार होकर केवल उपदेश देते रहते हैं पर स्वयं कोई वास्तविक कार्य नहीं करते।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Painful loneliness and a severe lack of support from surroundings.",
-                        "Client complains: \"No one stands by me or supports my endeavors.\".",
-                        "Growing distance in family relationships and a lack of domestic security.",
-                        "Failing to receive validation or backing from team members."
-                    ],
-                    "hin": [
-                        "अत्यधिक अकेलापन महसूस होना और किसी भी सहयोग का अभाव रहना।",
-                        "क्लाइंट का शिकायत भरा लहजा: \"कोई मेरा साथ नहीं देता या मुझे सहारा नहीं देता।\"।",
-                        "परिवार के सदस्यों से दूरियाँ बढ़ना और घरेलू सुरक्षाा की कमी होना।",
-                        "समाज या कार्यस्थल पर किसी भी प्रकार का समर्थन या बैक-अप न मिलना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Deep confusion and a complete lack of life direction.",
-                        "Client is completely lost: \"I don't know what to do next in my life.\".",
-                        "Severe confusion and fear during decision-making.",
-                        "Experiencing uncontrollable mental instability and anxiety."
-                    ],
-                    "hin": [
-                        "भ्रम की गहरी स्थिति और जीवन में सही मार्गदर्शन व दिशा का पूर्ण अभाव।",
-                        "क्लाइंट की बेबसी: \"मुझे कुछ समझ नहीं आता कि आगे क्याा करूँँ\"।",
-                        "कोई भी निर्णय लेते समय भारी असमंजस, संशय और भय का होना।",
-                        "मानसिक अस्थिरता, घबराहट और विचारों में चंचलता रहना।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code3-a — Lack of 'Nutrients' / पोषण की कमी",
-                        "eng": "This causes a deficit in proper mental, emotional, or spiritual nourishment. The client's mindset becomes dry, lacking the essential nourishment needed to generate healthy growth.",
-                        "hin": "यह व्यक्ति को मानसिक, भावनात्मक या बौद्धिक स्तर पर मिलने वाले सही पोषण को रोक देता है। व्यक्ति का जीवन नीरस हो जाता है और उसे सही विचारों का पोषण नहीं मिल पाता।"
-                    },
-                    {
-                        "title": "2. Code3-b — Lack of 'Vitamin' / विटामिन/ऊर्जा का अभाव",
-                        "eng": "This represents a severe drop in vital life-force energy. The client experiences constant lethargy, sluggish responses, and a lack of basic physical and mental vitality to execute tasks.",
-                        "hin": "यह शरीर और मन में संचरित होने वाली मुख्य जीवन-शक्ति की कमी को दर्शाता है। क्लाइंट हर समय आलस्य, सुस्ती और बुनियादी मानसिक व शारीरिक स्फूर्ति की भारी कमी महसूस करता है।"
-                    },
-                    {
-                        "title": "3. Code3-c — Lack of 'Fertilizer' energy / उर्वरकता/उत्पाादकता की कमी",
-                        "eng": "This weakens the fertilizing power that multiplies efforts into results. Despite working hard, the client experiences unproductive outcomes, barren plans, and fruitless endeavors.",
-                        "hin": "यह किए गए प्रयासों को परिणामों में बदलने वाली उत्पादक (fertilizing) ऊर्जा को कमजोर करता है। लाख मेहनत करने के बाद भी व्यक्ति की योजनाएं विफल रहती हैं और मेहनत बेकार जाती है।"
-                    },
-                    {
-                        "title": "4. Code3-d — Lack of 'Visionary, Creative Thinking' / दूरदर्शी, रचनात्मक सोच की कमी",
-                        "eng": "This leads to extreme short-sightedness. The client cannot form original concepts, lacks foresight, and fails to plan for future expansions or systemic upgrades.",
-                        "hin": "इसकी कमी से व्यक्ति की सोच अत्यंत संकीर्ण और अल्पकालिक हो जाती है। व्यक्ति भविष्य की दूरगामी योजनाएं नहीं बना पाता और उसमें मूल रचनात्मक विचारों की कमी हो जाती है।"
-                    },
-                    {
-                        "title": "5. Code3-e — Lack of 'Restrainer' / रोकने वाले/नियंत्रण का अभाव",
-                        "eng": "This results in missing boundary controls. The client is unable to restrain waste, cannot set healthy limits on expenditures, and fails to stop the drainage of time and resources.",
-                        "hin": "यह सीमाओं पर नियंत्रण और रोकने की क्षमता को समाप्त करता है। व्यक्ति अपनी फिजूलखर्ची या ऊर्जा के अनुचित बहाव पर रोक नहीं लगा पाता और संसाधनों की बर्बादी होती है।"
-                    }
-                ]
-            },
-            "4": {
-                "title": "Goal a) General Issue Related to Code-4 / Code-4 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "The primary negative trait is becoming a toxic \"control freak\" who feels an overwhelming, compulsive need to personally monitor and micromanage every single minor detail. This obsessive monitoring leaves absolutely no room for trust, faith, or autonomy, which severely damages partnerships.",
-                    "hin": "मुख्य नकारात्मक लक्षण व्यक्ति का \"कंट्रोोल फ्रीक\" (नियंत्रण का अत्यधिक शौकीन) बन जाना है, जो हर छोटी से छोटी बात की व्यक्तिगत निगरानी करना चाहता है। यह दमनकारी आदत दूसरों पर से भरोसे को पूरी तरह समाप्त कर देती है और व्यावसायिक साझेदारियों व रिश्तों को भारी नुकसान पहुँचाती है।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Being heavily stuck in the past and carrying intense mental heaviness.",
-                        "Client feels chained: \"I am completely unable to move on from the past.\".",
-                        "Carrying lingering old sorrows, regrets, and self-blaming guilt.",
-                        "Experiencing extreme difficulty and fear in making fresh, new starts."
-                    ],
-                    "hin": [
-                        "लगातार अतीत की बातों में फँसे रहना और दिमाग पर भारी बोझ महसूस करना।",
-                        "क्लाइंट की शिकायत: \"मैं चाहकर भी अपने अतीत की कड़वी यादों से बाहर नहीं निकल पा रहा",
-                        "पुराने दुखों, कड़वाहटों, और व्यर्थ के अपराधबोध (guilt) में जीते रहना।",
-                        "जीवन में कोई भी नई शुरुआत करने में अत्यधिक कठिनाई और भय का सामना करना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "High impulsiveness, erratic behavior, and passionate/emotional imbalances.",
-                        "Client lacks self-control: \"I just cannot control my impulses or actions.\".",
-                        "Displaying extreme reactions and suffering from massive energy leakages."
-                    ],
-                    "hin": [
-                        "अत्यधिक आवेग, वासनात्मक असंतुलन और भावनाओं में तीव्र उतार-चढ़ााव होना।",
-                        "क्लाइंट का कहना: \"मैं खुद को रोक नहीं पाता/पाती, भावनाओं में बह जाता हूँँ\"।",
-                        "छोटी बातों पर भी अति-प्रतिक्रिया (extreme reactions) देना और अपनी ऊर्जा को व्यर्थ नष्ट"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code4-a — Disconnect from 'Ancestors' / पूर्वजों के आशीर्वाद/बेस की कमी",
-                        "eng": "The client suffers from a missing baseline foundation. They feel disconnected from their roots, lack ancestral support, and feel structurally unstable in their life endeavors.",
-                        "hin": "यह व्यक्ति को उसके कुल की जड़ोंों और पूर्वजों के आशीर्वाद रूपी मजबूत आधार से दूर करता है। व्यक्ति जीवन में एक मजबूत बुनियादी नींव और पारिवारिक स्थिरता का अभाव महसूस करता है।"
-                    },
-                    {
-                        "title": "2. Code4-b — Lack of 'Executor' / कार्य निष्पाादक की कमी",
-                        "eng": "There is a failure to translate ideas into actual physical implementation. The client is highly incompetent at executing finalised commands or enforcing discipline on the ground.",
-                        "hin": "यह जमीनी स्तर पर योजनाओं को क्रियान्वित करने की क्षमता को समाप्त करता है। क्लाइंट केवल कागजी योजनाएं बनाता है, लेकिन उन्हें धरातल पर उतारने या व्यवस्था लागू करने में पूरी तरह असमर्थ रहता है।"
-                    },
-                    {
-                        "title": "3. Code4-c — Lack of 'Strategist' skills / रणनीतिकार क्षमता का अभाव",
-                        "eng": "The capacity for sharp, tactical, and strategic planning is lost. The client operates blindly without business strategies, making them highly vulnerable to competitor maneuvers.",
-                        "hin": "यह तीक्ष्ण रणनीतिक सूझबूझ और चतुराई से योजना बनाने की कला को कमजोर करता है। व्यक्ति बिना किसी ठोस रणनीति के कार्य करता है, जिससे वह व्यावसायिक प्रतिस्पर्धा में मात खा जाता है।"
-                    },
-                    {
-                        "title": "4. Code4-d — Lack of 'Guardian' protection / रक्षक/सुरक्षाा का अभाव",
-                        "eng": "The internal gatekeeper fails. The client is unable to filter out malicious entries, bad business deals, or toxic associations, leaving themselves fully exposed to harm.",
-                        "hin": "यह सुरक्षा और रक्षा करने वाले द्वारपाल की शक्ति को नुकसान पहुंचाता है। व्यक्ति हानिकारक लोगों, गलत व्यावसायिक समझौतों या कपटपूर्ण तत्वों को पहचानने और उन्हें रोकने में विफल रहता है।"
-                    },
-                    {
-                        "title": "5. Code4-e — Lack of 'Hunter' drive / शिकारी/खोजने की क्षमता की कमी",
-                        "eng": "The basic hunting instinct and focus needed to track targets is depleted. The client loses the drive to pursue leads, capture clients, or hunt down business opportunities.",
-                        "hin": "यह लक्ष्य का पीछा करने और शिकार करने की तीक्ष्ण एकाग्रता को कमजोर करता है। व्यक्ति में नए क्लाइंट्स को खोजने, अवसरों को ढूंढने और लक्ष्यों को पूरा करने का जोश पूरी तरह खत्म हो जाता है।"
-                    }
-                ]
-            },
-            "5": {
-                "title": "Goal a) General Issue Related to Code-5 / Code-5 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "A disturbed Code-5 leads to confusing, complicated, or unclear communication. This results in dialogues that generate more confusion rather than clarity, making it extremely difficult to close sales, finalise business deals, or get a point across effectively.",
-                    "hin": "Code-5 के खराब होने पर भ्रमित, जटिल या अस्पष्ट संचार (communication) की समस्या आती है। इसके परिणामस्वरूप बातचीत से स्पष्टता आने के बजाय और अधिक भ्रम पैदा होता है, जिससे सेल्स क्लोज करने, डील्स फाइनल करने या अपनी बात प्रभावी ढंग से समझाने में भारी कठिनाई होती है।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Complete stagnation and a severe lack of creativity.",
-                        "Client complains: \"I don't get any new ideas.\".",
-                        "Inability to spot opportunities and suffering from weak communication.",
-                        "Stagnation in career progress or business growth."
-                    ],
-                    "hin": [
-                        "जीवन में जड़ता/ठहराव आना और रचनात्मकता की भारी कमी महसूस होना।",
-                        "क्लाइंट की शिकायत: \"मेरे पास नए आइडिया नहीं आते।\"।",
-                        "सामने खड़े अवसरों को पहचान न पाना और बातचीत में गंभीर संकोच होना।",
-                        "करियर या व्याावसायिक विकास का पूरी तरह रुक जाना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Severe inability to express oneself clearly.",
-                        "Client feels neglected: \"No one listens to me or takes me seriously.\".",
-                        "Hesitation, shyness, and frequent miscommunication.",
-                        "Experiencing painful creative blocks and mental freeze."
-                    ],
-                    "hin": [
-                        "समाज या कार्यस्थल पर स्वयं को खुलकर और स्पष्ट रूप से व्यक्त न कर पाना।",
-                        "क्लाइंट का दर्द: \"कोई मेरी बात नहीं सुनता\"।",
-                        "बातचीत करते समय संकोच, हिचकिचाहट होना और गलत संचार होना।",
-                        "रचनात्मक अवरोध (Creative blocks) और मानसिक जड़ता का सामना करना।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code5-a — Lack of 'Solution' provider / समाधानकर्ता की कमी",
-                        "eng": "The client is unable to identify easy, practical solutions to standard problems. They feel trapped in basic issues, failing to find simple pathways out of structural dilemmas.",
-                        "hin": "व्यक्ति सामान्य समस्याओं के भी व्यावहारिक और आसान समाधान नहीं खोज पाता। वह छोटी-छोटी उलझनों में फंसा रहता है और आगे निकलने का कोई रास्ता नहीं देख पाता।"
-                    },
-                    {
-                        "title": "2. Code5-b — Lack of 'Care Taker' / देखभालकर्ता का अभाव",
-                        "eng": "This leads to a severe lack of emotional security and maternal protection. The client feels fully exposed and neglected, missing caregivers or protective backup.",
-                        "hin": "यह जीवन में सुरक्षा, मातृत्व और देखभाल करने वाले तत्वों की कमी पैदा करता है। क्लाइंट को महसूस होता है कि उसकी परवाह करने वाला कोई नहीं है और वह पूर्णतः उपेक्षित है।"
-                    },
-                    {
-                        "title": "3. Code5-c — Lack of 'Doctor' energy / चिकित्सक/हीलिंग की कमी",
-                        "eng": "The body's natural rejuvenative and healing mechanism is blocked. Physical recovery is slow, immunity is low, and the client feels lacking in vitality.",
-                        "hin": "यह शरीर की प्राकृतिक हीलिंंग, रोग प्रतिरोधक क्षमता और पुनर्योवन ऊर्जा को अवरुद्ध करता है। बीमारियां जल्दी ठीक नहीं होतीं और क्लाइंट शारीरिक रूप से शिथिल महसूस करता है।"
-                    },
-                    {
-                        "title": "4. Code5-d — Lack of 'Merchandiser' skills / व्याापारी गुण का अभाव",
-                        "eng": "The client's commercial instinct fails. They make highly unprofitable trading decisions, lack negotiation skills, and fail to convert potential business deals.",
-                        "hin": "व्यक्ति की व्यावसायिक और व्यापारिक सूझबूझ कमजोर हो जाती है। वह नुकसानदेह सौदे करता है, बातचीत (negotiation) में पिछड़ जाता है और लाभ कमाने के अवसरों को गँवा देता है।"
-                    },
-                    {
-                        "title": "5. Code5-e — Lack of 'Designer' skills / रूपरेखा क्षमता की कमी",
-                        "eng": "The client struggles to establish proper layout planning or structured templates. Projects are executed without fine designing, leading to unpolished and raw final outcomes.",
-                        "hin": "व्यक्ति विचारों या कार्योंं को एक सुव्यवस्थित रूपरेखा, संरचना या सुंदर डिजाइन देने में असमर्थ रहता है। योजनाएं बिना सही प्रारूप के लागू होती हैं, जिससे परिणाम अनाकर्षक बनते हैं।"
-                    }
-                ]
-            },
-            "6": {
-                "title": "Goal a) General Issue Related to Code-6 / Code-6 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "Code-6 governs discernment (parakh / विवेक), and its imbalance leads directly to poor judgment, weak decision-making, and an inability to weigh multiple options properly. Materially, this results in financial instability, poor relational decisions, and disrupted cash flow.",
-                    "hin": "Code-6 परख (विवेक की शक्ति) को नियंत्रित करता है, और इसके असंतुलन से गलत निर्णय लेना और विभिन्न विकल्पों को सही से तौलने की क्षमता में भारी कमी आती है। इसके भौतिक दुष्परिणाम के रूप में वित्तीय अस्थिरता, रिश्तों में गलत फैसले और कैश फ्लो (नकद प्रवाह) में बड़ीी बाधाएं आती हैं।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Friction and tension in relationships, along with a lack of personal influence.",
-                        "Client complains: \"People are not attracted to me or ignore me.\".",
-                        "Noticeable loss of personal charisma and charm.",
-                        "Facing constant obstacles in love, marital, or social life."
-                    ],
-                    "hin": [
-                        "रिश्तों में तनाव, खटास और दूसरों पर प्रभावहीनता की स्थिति बने रहना।",
-                        "क्लाइंट की पीड़ाा: \"लोग मेरी ओर आकर्षित नहीं होते।\"।",
-                        "व्यक्तित्व का आकर्षण (Charisma) कम होना और निस्तेज महसूस करना।",
-                        "प्रेम संबंधों, वैवाहिक या सामाजिक जीवन में लगातार बाधाएं आना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Financial insecurity and a persistent, heavy feeling of lack.",
-                        "Client is financially stuck: \"Money comes to me, but it doesn't stay.\".",
-                        "Experiencing severe financial struggles and a complete lack of gratitude."
-                    ],
-                    "hin": [
-                        "आर्थिक असुरक्षाा का डर और हर समय जीवन में अभाव (कमी) की भावना रहना।",
-                        "क्लाइंट की आम शिकायत: \"पैसा आता है पर टिकता नहीं\"।",
-                        "लगातार वित्तीीय संघर्षों से जूझना और मन में कृतज्ञता (gratitude) की भारी कमी होना।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code6-a — Lack of 'Distributor' flow / वितरक/डिस्ट्रीीब्यूशन की कमी",
-                        "eng": "The smooth dissemination and distribution flow of products, services, or wealth is blocked. Business logistics, client deliveries, or outgoing financial transactions suffer from severe friction.",
-                        "hin": "यह उत्पादों, सेवाओं या धन के सुचारू वितरण (distribution) को बाधित करता है। व्यापार की लॉजिस्टिक्स, क्लाइंट तक माल की आपूर्ति या धन का निर्बाध प्रवाह रुक जाता है।"
-                    },
-                    {
-                        "title": "2. Code6-b — Lack of 'Sponser' backing / प्राायोजक/सपोटर् का अभाव",
-                        "eng": "The client is unable to find backers, financers, or investors for their ventures. They lack supportive partnerships and have to struggle alone without external backing.",
-                        "hin": "इसके प्रभाव से व्यावसायिक योजनाओं के लिए प्रायोजक, फाइनेंसर या समर्थक नहीं मिल पाते। व्यक्ति को बिना किसी बाहरी वित्तीय सहयोग या साझेदारी के अकेले संघर्ष करना पड़ता है।"
-                    },
-                    {
-                        "title": "3. Code6-c — Lack of 'Navigator' guidance / मार्गदर्शक की कमी",
-                        "eng": "The pathfinding support is missing. The client feels directionless, makes flawed tactical choices, and lacks proper guidelines to bypass traps in their business expansion.",
-                        "hin": "यह सही रास्ता दिखाने वाले मार्गदर्शक (Navigator) तत्व को कमजोर करता है। व्यक्ति स्वयं को दिशाहीन पाता है और कठिन व्यावसायिक निर्णयों में भटक जाता है।"
-                    },
-                    {
-                        "title": "4. Code6-d — Lack of 'Uplifter' energy / उन्नाायक/उत्थाान की कमी",
-                        "eng": "The upward, elevating energy in career and social status is lost. The client experience deep business stagnation, feeling entirely unable to rise to the next bracket or scale.",
-                        "hin": "यह जीवन और स्तर को ऊपर उठाने वाली ऊर्जा को कमजोर करता है। व्यावसायिक रूप से व्यक्ति खुद को एक ही स्तर पर फंसा हुआ पाता है और ऊपर उठने की उसकी गति थम जाती है।"
-                    },
-                    {
-                        "title": "5. Code6-e — Lack of 'Expander' capability / विस्ताारक क्षमता का अभाव",
-                        "eng": "The capability to expand territory, branch out, or scale operations is highly restricted. The client remains limited to a narrow scope, failing to grow their business reach.",
-                        "hin": "यह व्यवसाय का विस्तार करने, शाखाएं बढ़ााने और बड़े पैमाने पर काम करने की क्षमता को संकुचित करता है। व्यक्ति का कार्यक्षेत्र एक छोटे दायरे में ही सिमटकर रह जाता है।"
-                    }
-                ]
-            },
-            "7": {
-                "title": "Goal a) General Issue Related to Code-7 / Code-7 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "An imbalanced Code-7 results in excessive shyness, social withdrawal, and a strong tendency to hide away from the spotlight. While such individuals are highly competent and brilliant at \"behind-the-scenes\" operations, they severely hesitate or fear taking front-facing, visible, or leadership roles even when required.",
-                    "hin": "Code-7 के असंतुलन से व्यक्ति में अत्यधिक शर्मीलापन, संकोच और सुर्खियों (spotlight) से दूर रहने की प्रवृत्ति पैदा होती है। हालाँकि ऐसे व्यक्ति परदे के पीछे रहकर (behind-the-scenes) काम करने में बहुत अधिक कुशल होते हैं, लेकिन वे ज़रूरत पड़ने पर भी जनता के सामने आने या नेतृत्व की भूमिका निभाने में अत्यधिक झिझकते या डरते हैं।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Hard efforts but not getting results, along with an unclear life purpose.",
-                        "Client is frustrated: \"I work extremely hard, but I never get results.\".",
-                        "Extreme delay in success and an inability to utilize one's real talent.",
-                        "Getting stuck or facing failure at the very final stage of a project."
-                    ],
-                    "hin": [
-                        "दिन-रात कड़ीी मेहनत करने पर भी परिणाम न मिलना और जीवन का उद्देश्य अस्पष्ट लगना।",
-                        "क्लाइंट का रोना: \"मेहनत बहुत करता हूँँ, परिणाम नहीं मिलता।\"।",
-                        "सफलता मिलने में अत्यधिक विलंब होना और अपनी वास्तविक प्रतिभा का उपयोग न कर पाना।",
-                        "किसी भी कार्य के बिल्कुल अंतिम चरण (final stage) में जाकर काम का अटक जाना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Deep disappointment, intense loneliness, and chronic dissatisfaction.",
-                        "Client is in despair: \"Nothing is left in my life, everything is void.\".",
-                        "Feeling constant sadness, bitterness towards others, and heavy pessimism."
-                    ],
-                    "hin": [
-                        "मन में गहरी निराशा, अकेलापन, और हर बात से असंतोष बना रहना।",
-                        "क्लाइंट की हताशा: \"मेरे जीवन में कुछ नहीं बचा\"।",
-                        "हर समय उदासी छाए रहना, दूसरों के प्रति स्वभाव में कड़वाहट आना, और घोर निराशावाद।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code7-a — Lack of clear 'Goal' / लक्ष्य की अस्पष्टता",
-                        "eng": "The client lacks clarity of target and purpose. They drift aimlessly without establishing concrete endpoints, resulting in wasted effort across unrelated directions.",
-                        "hin": "यह जीवन में एक निश्चित लक्ष्य और उद्देश्य को धुंधला कर देता है। व्यक्ति बिना किसी ठोस दिशा के भटकता रहता है, जिससे उसकी मेहनत अलग-अलग दिशाओं में बिखर जाती है।"
-                    },
-                    {
-                        "title": "2. Code7-b — Lack of 'System Architecture' / संरचना विशेषज्ञ की कमी",
-                        "eng": "The core systemic architecture of the business or household is fragile. Plans lack a solid structural foundation, leading to the collapse of operations under minor pressures.",
-                        "hin": "यह संगठन या योजनाओं के बुनियादी ढांचे (System Architecture) को कमजोर करता है। कार्योंं की नींव कमजोर रहती है, जिससे छोटी सी चुनौती आने पर भी व्यवस्था चरमरा जाती है।"
-                    },
-                    {
-                        "title": "3. Code7-c — Lack of 'Liasoner' coordination / समन्वयक की कमी",
-                        "eng": "The ability to form beneficial external networks, alliances, and coordinate joints is lost. The client struggles with liaison activities, leading to isolated and static ventures.",
-                        "hin": "यह दूसरों के साथ तालमेल बिठाने, मजबूत गठबंधन बनाने और समन्वय (Liaisoning) करने की क्षमता को समाप्त करता है। व्यक्ति अकेले ही काम करता रहता है और उसे किसी का समर्थन नहीं मिलता।"
-                    },
-                    {
-                        "title": "4. Code7-d — Lack of 'King' authority / राजा/अथॉिरटी का अभाव",
-                        "eng": "The client lacks the natural command and executive presence needed to govern. Subordinates flout instructions, and the client fails to command respect or assert authority.",
-                        "hin": "यह शासन करने और अपनी प्रतिष्ठा स्थापित करने के लिए आवश्यक स्वाभाविक नेतृत्व अधिकार (Authority) को कमजोर करता है। मातहत कर्मचारी आदेशों की अवहेलना करते हैं और व्यक्ति अपना सम्मान नहीं बनवा पाता।"
-                    },
-                    {
-                        "title": "5. Code7-e — Lack of 'HR' or human connection / मानव संसाधन का अभाव",
-                        "eng": "The human resource binding and employee coordination are weak. The client suffers from constant team disputes, fails to maintain employee relations, and experiences loneliness.",
-                        "hin": "यह टीम भावना, कर्मचारियों के प्रबंधन और आपसी मानवीय संबंधों की कमी को जन्म देता है। संगठन में लगातार आंतरिक विवाद रहते हैं और व्यक्ति मददगार सहयोगियों के अभाव से जूझता है।"
-                    }
-                ]
-            },
-            "8": {
-                "title": "Goal a) General Issue Related to Code-8 / Code-8 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "A disturbed Code-8 manifests as rigid discipline and a \"mind-stuck\" mindset. The person becomes so deeply obsessed with rules and protocols that they end up stifling all creative flow and progress, acting like a car with the brakes permanently engaged.",
-                    "hin": "Code-8 के असंतुलित होने पर व्यक्ति अत्यधिक कठोर अनुशासन और \"माइंड-स्टक\" (मानसिक रूप से विचारों में अटक जाना)का शिकार हो जाता है। वह नियमों और कानूनों में इतना अधिक उलझ जाता है कि वह अपनी और दूसरों की रचनात्मकता तथा प्रगति को पूरी तरह रोक देता है, जैसे किसी गाड़ीी में हमेशा कड़े ब्रेक लगे हुए हों।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Paralyzing fear and a strong urge to run away or escape from struggles.",
-                        "Client breaks down: \"I completely break down the moment difficulties arise.\".",
-                        "Complete lack of discipline and an overwhelming fear of obstacles.",
-                        "Constant negative thinking and profound mental weakness."
-                    ],
-                    "hin": [
-                        "गहरा डर रहना और मुश्किल परिस्थितियों व संघर्षों से भागने की प्रवृत्ति होना।",
-                        "क्लाइंट का टूट जाना: \"मुश्किलें आते ही मैं टूट जाता हूँँ।\"।",
-                        "अनुशासन की भारी कमी होना और बाधाओं को देखकर ही डर जाना।",
-                        "हर समय नकारात्मक सोच में घिरे रहना और मानसिक रूप से दुर्बलता महसूस करना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Deep-rooted fear and severe resistance to any change.",
-                        "Client is insecure: \"I have a fear of losing everything.\".",
-                        "High insecurity, toxic controlling tendencies, and sudden bursts of anger."
-                    ],
-                    "hin": [
-                        "अचेतन मन में बैठा गहरा भय और किसी भी नए बदलाव का कड़ाा विरोध करना।",
-                        "असुरक्षा का भाव: \"मुझे सब खोने का डर है\"।",
-                        "गहरी असुरक्षाा की भावना, दूसरों को नियंत्रित करने की सनक, और अत्यधिक क्रोोध।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code8-a — Lack of 'Chief Operator' / मुख्य संचालक की कमी",
-                        "eng": "The primary operational command system collapses. The client suffers from a breakdown in executing standard procedures, leading to operational delays and structural failures.",
-                        "hin": "यह मुख्य प्रशासनिक कमान और संचालन व्यवस्था को कमजोर करता है। इसके कारण दैनिक कार्योंं के निष्पादन में भारी रुकावटें आती हैं और बुनियादी संचालन व्यवस्था ठप हो जाती है।"
-                    },
-                    {
-                        "title": "2. Code8-b — Issues with 'Drier' / सुखाने वाले/ड्रेनेज की समस्याा",
-                        "eng": "The capability to filter out toxic mental waste, dry up excess distress, or clear bad emotional residues is blocked, causing stagnation and dampness.",
-                        "hin": "यह जीवन से संचित दुखों, तनावों या अवांछित कचरे को सुखाने और दूर करने (drainage) की क्षमता को कमजोर करता है, जिससे समस्याएं अंदर ही अंदर बढ़ती रहती हैं।"
-                    },
-                    {
-                        "title": "3. Code8-c — Lack of 'Under Cover' strategy / गुप्त कार्यकर्ता/रणनीति का अभाव",
-                        "eng": "Behind-the-scenes tactical checking is absent. The client operates without defensive planning, leaving their secrets exposed to competitor exploitation.",
-                        "hin": "यह परदे के पीछे की गुप्त योजनाओं और रणनीतिक रक्षा कवच को कमजोर करता है। व्यक्ति बिना किसी सुरक्षात्मक योजना के काम करता है, जिससे प्रतिद्वंद्वियों से हार का खतरा रहता है।"
-                    },
-                    {
-                        "title": "4. Code8-d — Lack of 'Guru' / गुरु/मार्गदर्शन की कमी",
-                        "eng": "The client suffers from procedural misalignments. They fail to find safe, learned mentors or procedures, leading to constant errors in executive implementation.",
-                        "hin": "यह सही कार्यप्रणाली और प्रक्रियाओं का मार्गदर्शन करने वाले गुरु तत्व को अवरुद्ध करता है। व्यक्ति बिना किसी योग्य सलाहकार के गलतियां करता रहता है।"
-                    },
-                    {
-                        "title": "5. Code8-e — Lack of 'Grasper' capability / पकड़ने वाले/ग्रैस्पर की कमी",
-                        "eng": "The ability to retain knowledge, grip funds, or seize hot business opportunities is severely depleted. Opportunities and cash slip away effortlessly.",
-                        "hin": "यह अवसरों, धन प्रवाह या आवश्यक ज्ञान को मजबूती से पकड़ कर रखने की क्षमता को समाप्त करता है। हाथ में आए सौदे और वित्तीय लाभ आसानी से फिसल जाते हैं।"
-                    }
-                ]
-            },
-            "9": {
-                "title": "Goal a) General Issue Related to Code-9 / Code-9 से संबंधित सामान्य समस्याा",
-                "goalA": {
-                    "eng": "The main issue is careless mistakes caused by haste (jandwaji) and impatience. It represents unchanneled, highly impulsive energy where a person rushes through tasks without focus, leading to frequent errors in execution.",
-                    "hin": "मुख्य समस्या जल्दबाजी (जल्दवाजी) और अधीरता के कारण होने वाली गलतियाँ हैं। यह बिना दिशा वाली आवेगपूर्ण ऊर्जा को दर्शाता है, जहाँ व्यक्ति बिना किसी फोकस के कार्योंं को पूरा करने की कोशिश करता है, जिससे काम में बार-बार त्रुटियाँ होती हैं।"
-                },
-                "goalB": {
-                    "eng": [
-                        "Laziness, leaving tasks incomplete, and chronic procrastination.",
-                        "Client complains: \"I start the work but cannot complete it.\".",
-                        "Severe lack of willpower and a distinct lack of consistency."
-                    ],
-                    "hin": [
-                        "अत्यधिक आलस्य, अधूरे कार्य छोड़ने की आदत, और टालमटोल करना।",
-                        "क्लाइंट की शिकायत: \"मैं काम शुरू करता हूँँ पर पूरा नहीं कर पाता।\"।",
-                        "इच्छााशक्ति की कमी और निरंतरता का पूर्ण अभाव होना।"
-                    ]
-                },
-                "goalC": {
-                    "eng": [
-                        "Need for protection from enemies, disputes, and negative speech.",
-                        "Facing high mental noise and the toxic impact of opponents.",
-                        "Client feels targeted: \"People are constantly speaking against me.\".",
-                        "Involved in persistent disputes, court cases, and speech imbalances."
-                    ],
-                    "hin": [
-                        "शत्रुओं, विवादों, और नकारात्मक वाणी से सुरक्षाा की तीव्र आवश्यकता महसूस होना।",
-                        "दिमाग में अत्यधिक मानसिक शोर रहना और विरोधियों का नकारात्मक प्रभाव झेलना।",
-                        "क्लाइंट का कहना: \"लोग मेरे खिलाफ बोलते हैं\"।",
-                        "लगातार विवादों, कोर्ट-कचहरी के मामलों, और वाणी के असंतुलन का शिकार होना।"
-                    ]
-                },
-                "goalD": [
-                    {
-                        "title": "1. Code9-a — Lack of 'Discipliner' / अनुशासक/अनुशासन की कमी",
-                        "eng": "The client has zero self-control and cannot follow structured rules. Their lifestyle is chaotic, and they consistently fail to stick to schedules or organized routines.",
-                        "hin": "यह कड़े आत्म-नियंत्रण, अनुशासन और जीवन को सुव्यवस्थित करने वाले नियमों को समाप्त करता है। व्यक्ति का जीवन पूरी तरह अस्त-व्यस्त हो जाता है और वह किसी समय- सारणी का पालन नहीं कर पाता।"
-                    },
-                    {
-                        "title": "2. Code9-b — Lack of 'Cleaner' or detox / सफाईकतार् की कमी",
-                        "eng": "The filtering mechanism fails. Toxic ideas, mental garbage, physical clutter, and bad energy accumulate without any detoxification.",
-                        "hin": "यह मन और जीवन से अनावश्यक विषैले तत्वों, नकारात्मक विचारों और भौतिक कचरे को साफ करने (detoxify) की क्षमता को कमजोर करता है, जिससे गंदगी जमा होती है।"
-                    },
-                    {
-                        "title": "3. Code9-c — Lack of 'Artist' expression / कलाकार/रचनात्मकता का अभाव",
-                        "eng": "The creative beauty and elegant presentation of ideas is lost. The client's speech and works are dry, lacking refined taste or creative aesthetics.",
-                        "hin": "यह रचनात्मक अभिव्यक्ति, सुरुचिपूर्ण शैली और कार्योंं में कलात्मक सुंदरता को कमजोर करता है। व्यक्ति की प्रस्तुति नीरस और कलाविहीन हो जाती है।"
-                    },
-                    {
-                        "title": "4. Code9-d — Lack of 'Binder' / जोड़ने वाले/बाइंडर की कमी",
-                        "eng": "The bonding energy is broken. The client is unable to keep relationships, team members, or business units bound together, leading to fragmentation.",
-                        "hin": "यह टीम, परिवार या व्यावसायिक कड़ियों को आपस में बांधकर (binding) रखने की शक्ति को नष्ट करता है। इसकी कमी से आपसी संबंध बिखरने लगते हैं।"
-                    },
-                    {
-                        "title": "5. Code9-e — Lack of 'Cruncher' / कं्र ्रचर/मूल्यांांकन क्षमता की कमी",
-                        "eng": "The client cannot audit or logically crunch down their execution errors. They repeat mistakes constantly, failing to troubleshoot the actual causes of project failures.",
-                        "hin": "यह किए गए कार्योंं के तार्किक विश्लेषण और अपनी गलतियों का सही मूल्यांकन (crunching) करने की क्षमता को समाप्त करता है। व्यक्ति अपनी गलतियों को दोहराता रहता है और समस्याओं का समाधान नहीं कर पाता।"
-                    }
-                ]
-            }
-        };
-
-        // Code-1 (Sun) Goal C is intentionally divided into two diagnostic parts.
-        // Each part keeps separate Subconscious Client Language and Observable External Symptoms.
-        const code1GoalCSplit = [
-            {
-                title: {
-                    eng: 'Goal C — Part 1: Love, Happiness & Relationships',
-                    hin: 'Goal C — भाग 1: प्रेम, खुशी और रिश्ते'
-                },
-                subconscious: {
-                    eng: [
-                        '“There is no joy or happiness in my life anymore.”',
-                        '“Nobody understands me or my feelings.”'
-                    ],
-                    hin: [
-                        '“जीवन में खुशी नहीं है।”',
-                        '“कोई मुझे नहीं समझता।”'
-                    ]
-                },
-                observable: {
-                    eng: [
-                        'Chronic tension, coldness, or friction in personal and professional relationships.',
-                        'A distinct lack of personal attraction, warmth, or charisma.',
-                        'Severe self-rejection and low self-worth.'
-                    ],
-                    hin: [
-                        'व्यक्तिगत और व्यावसायिक रिश्तों में लगातार तनाव, ठंडापन या टकराव।',
-                        'व्यक्तिगत आकर्षण, गर्मजोशी या करिश्मे की स्पष्ट कमी।',
-                        'गंभीर आत्म-अस्वीकार और कम आत्म-मूल्य।'
-                    ]
-                }
-            },
-            {
-                title: {
-                    eng: 'Goal C — Part 2: Achievement, Confidence & Responsibility',
-                    hin: 'Goal C — भाग 2: उपलब्धि, आत्मविश्वास और जिम्मेदारी'
-                },
-                subconscious: {
-                    eng: [
-                        '“I won’t be able to achieve anything big in my life.”'
-                    ],
-                    hin: [
-                        '“मुझसे कुछ बड़ा नहीं होगा।”'
-                    ]
-                },
-                observable: {
-                    eng: [
-                        'Complete depletion of core self-confidence and personal authority.',
-                        'Leaving tasks and projects half-done.',
-                        'Avoiding responsibility or running away from struggles due to low internal drive.'
-                    ],
-                    hin: [
-                        'मूल आत्मविश्वास और व्यक्तिगत अधिकार की पूरी कमी।',
-                        'कार्य और प्रोजेक्ट अधूरे छोड़ देना।',
-                        'आंतरिक प्रेरणा की कमी के कारण जिम्मेदारी से बचना या संघर्षों से भागना।'
-                    ]
-                }
-            }
-        ];
-
-        function getQuizLanguageText(eng, hin) {
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            if (lang === 'hin') return hin || eng;
-            return eng;
+        if (!quizzesReady || !activeQuizRoles.length) {
+            alert('Please calculate your Date of Birth and select Rahu/Ketu signs to load the quizzes first.');
+            return;
         }
 
-        function getCodeRecord(code) {
-            return ninePlanetCodeDatabase[String(code)] || ninePlanetCodeDatabase['1'];
+        const fullName =
+            document.getElementById('fullName')?.value?.trim() || 'Client';
+
+        const submissionDate =
+            document.getElementById('submissionDate')?.value ||
+            new Date().toISOString().split('T')[0];
+
+        const form = document.getElementById('astrovastuForm');
+
+        if (!form) {
+            alert('Form not found. Please refresh the page and try again.');
+            return;
         }
 
-        function renderCodeQuiz(contentId, labelId, code, role) {
-            const contentEl = document.getElementById(contentId);
-            const labelEl = document.getElementById(labelId);
-            const record = getCodeRecord(code);
-            if (!contentEl || !labelEl) return;
+        const formActionUrl = form.action;
 
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const roleNames = {
-                driver: { eng: 'Driver', hin: 'ड्राइवर' },
-                conductor: { eng: 'Conductor', hin: 'कंडक्टर' },
-                manifestation: { eng: 'Manifestation', hin: 'मैनिफेस्टेशन' },
-                birthday: { eng: 'Day of Birth', hin: 'जन्म वार' },
-                rahu: { eng: 'Rahu', hin: 'राहु' },
-                ketu: { eng: 'Ketu', hin: 'केतु' }
-            };
-            const roleName = roleNames[role]?.[lang] || roleNames[role]?.eng || role;
-            labelEl.innerText = `${roleName} Diagnosis — Code-${code}`;
+        const esc = escapeHtml;
 
-            const goalTitles = {
-                a: { eng: `Goal a) General Issue Related to Code-${code}`, hin: `Goal a) Code-${code} से संबंधित सामान्य समस्या` },
-                b: { eng: `Goal b) Problems Related to First for Code-${code}`, hin: `Goal b) Code-${code} के लिए First से संबंधित समस्याएं` },
-                c: { eng: `Goal c) Second Issues for Code-${code}`, hin: `Goal c) Code-${code} के लिए Second से संबंधित समस्याएं` },
-                d: { eng: `Goal d) Elaborate the Problem Related to Third for Code-${code}`, hin: `Goal d) Code-${code} के Third से संबंधित समस्याओं का विवरण` }
-            };
+        /* ---------------------------------------------------------
+           COLLECT BLANK QUIZ DATA
+        --------------------------------------------------------- */
 
-            let html = `<div class="quiz-page-heading">${escapeHtml(getQuizLanguageText(`Code-${code}`, `कोड-${code}`))}</div>`;
-            html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.a[lang] || goalTitles.a.eng)}</div>`;
-            html += `<p class="quiz-goal-description">${escapeHtml(getQuizLanguageText(record.goalA.eng, record.goalA.hin))}</p></div>`;
+        const blankQuizData = activeQuizRoles.map((role) => {
 
-            html += renderChecklistGoal('B', goalTitles.b, record.goalB, role, code);
-            html += (String(code) === '1' ? renderCode1GoalCSplit(role, code) : renderChecklistGoal('C', goalTitles.c, record.goalC, role, code));
+            const paneId = getQuizPaneId(role);
+            const pane = document.getElementById(paneId);
 
-            html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
-            html += `<div class="quiz-required-note">${lang === 'hin' ? 'नीचे दिए गए सभी Code sub-codes इस quiz में शामिल हैं।' : 'All Code sub-codes below are included in this quiz.'}</div>`;
-            record.goalD.forEach((sub, idx) => {
-                const checkboxId = `q_${role}_${code}_D_${idx}`;
-                const engText = `${sub.title}: ${sub.eng}`;
-                const hinText = `${sub.title}: ${sub.hin}`;
-                const shown = cleanVisibleQuizText(getQuizLanguageText(engText, hinText));
-                html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(engText)}" data-hin="${escapeHtml(hinText)}"><div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(engText)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div></label>`;
-            });
-            html += `</div>`;
+            const quizTitle = getQuizRoleLabel(role);
 
-            contentEl.innerHTML = html;
-            updateQuizScore(role);
-        }
-
-        function renderCode1GoalCSplit(role, code) {
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            let html = '';
-            code1GoalCSplit.forEach((part, partIndex) => {
-                html += `<div class="quiz-goal-card quiz-goal-c-split">
-                    <div class="quiz-goal-title">${escapeHtml(cleanVisibleQuizText(part.title[lang] || part.title.eng))}</div>`;
-                html += `<div class="quiz-subsection-title">${lang === 'hin' ? 'Subconscious Client Language (यदि व्यक्ति कहता है...)' : 'Subconscious Client Language (if the person says...)'}</div>`;
-                part.subconscious.eng.forEach((eng, i) => {
-                    const hin = part.subconscious.hin[i] || eng;
-                    const checkboxId = `q_${role}_${code}_C_${partIndex}_SC_${i}`;
-                    const shown = cleanVisibleQuizText(getQuizLanguageText(eng, hin));
-                    html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}">
-                        <div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div>
-                    </label>`;
-                });
-                html += `<div class="quiz-subsection-title">${lang === 'hin' ? 'Observable External Symptoms (दिखाई देने वाले लक्षण)' : 'Observable External Symptoms'}</div>`;
-                part.observable.eng.forEach((eng, i) => {
-                    const hin = part.observable.hin[i] || eng;
-                    const checkboxId = `q_${role}_${code}_C_${partIndex}_OBS_${i}`;
-                    const shown = cleanVisibleQuizText(getQuizLanguageText(eng, hin));
-                    html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}">
-                        <div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div>
-                    </label>`;
-                });
-                html += `</div>`;
-            });
-            return html;
-        }
-
-        function renderChecklistGoal(goalKey, titleObj, goalData, role, code) {
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const title = titleObj[lang] || titleObj.eng;
-            let html = `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(title)}</div>`;
-            const engItems = goalData.eng || [];
-            const hinItems = goalData.hin || [];
-            const total = Math.max(engItems.length, hinItems.length);
-            for (let i = 0; i < total; i++) {
-                const eng = engItems[i] || '';
-                const hin = hinItems[i] || eng;
-                const checkboxId = `q_${role}_${code}_${goalKey}_${i}`;
-                const shown = cleanVisibleQuizText(getQuizLanguageText(eng, hin));
-                html += `<label class="symptom-item" data-page="${role}" data-eng="${escapeHtml(eng)}" data-hin="${escapeHtml(hin)}"><div class="symptom-header"><input id="${checkboxId}" type="checkbox" name="${checkboxId}" value="${escapeHtml(eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(shown)}</span></div></label>`;
-            }
-            html += `</div>`;
-            return html;
-        }
-
-        const birthDayCodeMap = { Monday: 2, Tuesday: 9, Wednesday: 5, Thursday: 3, Friday: 6, Saturday: 8, Sunday: 1 };
-
-        function getBirthDayNameFromDate(dateValue) {
-            const d = new Date(`${dateValue}T00:00:00`);
-            return d.toLocaleDateString('en-US', { weekday: 'long' });
-        }
-
-        function prepareAutomaticBirthDayQuiz(dayName) {
-            // The weekday is calculated from DOB and stored internally.
-            // Do NOT open the quiz yet. Rahu/Ketu must be selected first.
-            selectedBirthDayName = dayName;
-            selectedBirthDayCode = birthDayCodeMap[dayName];
-            dayQuizFinished = false;
-            document.getElementById('birthday').value = dayName;
-            document.getElementById('birthdayDisplay').innerText = dayName;
-            document.getElementById('birthDayCodeOut').innerText = '';
-
-            // Keep Day of Birth hidden from the person filling the form.
-            document.getElementById('autoDayCard').style.display = 'none';
-
-            // Clear any previous quiz session until Rahu/Ketu is confirmed.
-            activeQuizRoles = [];
-            activeQuizCodeMap = {};
-            activeQuizMeta = {};
-            quizzesReady = false;
-            rahuKetuReady = false;
-            document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
-            ['birthdayQuizContent', 'driverQuizContent', 'conductorQuizContent', 'manifestationQuizContent', 'rahuQuizContent', 'ketuQuizContent']
-                .forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ''; });
-            updateSubmitRestriction();
-        }
-
-        function populateZodiacSelects() {
-            ['rahuSign', 'ketuSign'].forEach(id => {
-                const select = document.getElementById(id);
-                if (!select) return;
-                const current = select.value;
-                select.innerHTML = '<option value="">Select sign</option>' + zodiacSigns.map(sign => `<option value="${sign}">${sign}</option>`).join('');
-                if (current) select.value = current;
-            });
-        }
-
-        function getMatchingExtraQuizRoles() {
-            const matched = [];
-            const numerologyCodes = [selectedNumerology.driver, selectedNumerology.conductor, selectedNumerology.manifestation];
-            const rahuCode = signCodeMap[selectedRahuSign];
-            const ketuCode = signCodeMap[selectedKetuSign];
-            rahuQuizRequired = numerologyCodes.includes(rahuCode);
-            ketuQuizRequired = numerologyCodes.includes(ketuCode);
-            if (rahuQuizRequired) matched.push('rahu');
-            if (ketuQuizRequired) matched.push('ketu');
-            return matched;
-        }
-
-        function confirmDobAndStartQuizzes() {
-            const dobVal = document.getElementById('dob').value;
-            if (!dobVal) { alert('Please select your Date of Birth first.'); return; }
-
-            const parts = dobVal.split('-');
-            const year = parts[0], month = parts[1], day = parts[2];
-            let daySum = 0;
-            for (let i = 0; i < day.length; i++) daySum += parseInt(day[i], 10);
-            const driverNum = getDigitalRoot(daySum);
-
-            let totalDateSum = 0;
-            const fullDateStr = year + month + day;
-            for (let i = 0; i < fullDateStr.length; i++) totalDateSum += parseInt(fullDateStr[i], 10);
-            const conductorNum = getDigitalRoot(totalDateSum);
-            const manifestationNum = getDigitalRoot(driverNum + conductorNum);
-
-            selectedNumerology = { driver: driverNum, conductor: conductorNum, manifestation: manifestationNum };
-            document.getElementById('driverNumberOut').innerText = `${daySum} / ${driverNum}`;
-            document.getElementById('conductorNumberOut').innerText = `${totalDateSum} / ${conductorNum}`;
-            document.getElementById('manifestationNumberOut').innerText = `${driverNum + conductorNum} / ${manifestationNum}`;
-            document.getElementById('dobNumerologyResult').style.display = 'grid';
-
-            const dayName = getBirthDayNameFromDate(dobVal);
-            prepareAutomaticBirthDayQuiz(dayName);
-
-            selectedRahuSign = '';
-            selectedKetuSign = '';
-            populateZodiacSelects();
-            document.getElementById('rahuKetuSection').style.display = 'block';
-            document.getElementById('rahuKetuMatchResult').style.display = 'none';
-            rahuKetuReady = false;
-            quizzesReady = false;
-            document.getElementById('statusMessage').style.display = 'none';
-            updateSubmitRestriction();
-            document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function confirmRahuKetuAndOpenQuizzes() {
-            const rahuSign = document.getElementById('rahuSign').value;
-            const ketuSign = document.getElementById('ketuSign').value;
-            if (!selectedNumerology.driver || !selectedNumerology.conductor || !selectedNumerology.manifestation || !selectedBirthDayCode) {
-                alert('Please calculate your Date of Birth first.');
-                return;
-            }
-            if (!rahuSign || !ketuSign) {
-                alert('Please select both Rahu sign and Ketu sign.');
-                return;
-            }
-
-            selectedRahuSign = rahuSign;
-            selectedKetuSign = ketuSign;
-            const numerologyCodes = [selectedNumerology.driver, selectedNumerology.conductor, selectedNumerology.manifestation];
-            const rahuCode = signCodeMap[rahuSign];
-            const ketuCode = signCodeMap[ketuSign];
-            rahuQuizRequired = numerologyCodes.includes(rahuCode);
-            ketuQuizRequired = numerologyCodes.includes(ketuCode);
-
-            document.getElementById('rahuCodeOut').innerText = `Code-${rahuCode}`;
-            document.getElementById('ketuCodeOut').innerText = `Code-${ketuCode}`;
-            const extraLabels = [];
-            if (rahuQuizRequired) extraLabels.push('Rahu Code-4');
-            if (ketuQuizRequired) extraLabels.push('Ketu Code-7');
-            document.getElementById('rahuKetuQuizOut').innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
-            document.getElementById('rahuKetuMatchResult').style.display = 'grid';
-
-            // Build quiz pages by UNIQUE CODE. If two or more roles resolve to the same code,
-            // that code is rendered only once and one checkbox set satisfies that quiz.
-            const selectedBeforeRebuild = saveQuizSelections();
-            const roleSpecs = [
-                { role: 'birthday', code: selectedBirthDayCode, label: 'Day of Birth' },
-                { role: 'driver', code: selectedNumerology.driver, label: 'Driver' },
-                { role: 'conductor', code: selectedNumerology.conductor, label: 'Conductor' },
-                { role: 'manifestation', code: selectedNumerology.manifestation, label: 'Manifestation' }
-            ];
-            if (rahuQuizRequired) roleSpecs.push({ role: 'rahu', code: 4, label: 'Rahu' });
-            if (ketuQuizRequired) roleSpecs.push({ role: 'ketu', code: 7, label: 'Ketu' });
-
-            const seenCodes = new Set();
-            activeQuizRoles = [];
-            activeQuizCodeMap = {};
-            activeQuizMeta = {};
-            roleSpecs.forEach(spec => {
-                const key = String(spec.code);
-                if (seenCodes.has(key)) {
-                    const existingRole = activeQuizRoles.find(r => String(activeQuizCodeMap[r]) === key);
-                    if (existingRole) activeQuizMeta[existingRole].roles.push(spec.role);
-                    return;
-                }
-                seenCodes.add(key);
-                activeQuizRoles.push(spec.role);
-                activeQuizCodeMap[spec.role] = spec.code;
-                activeQuizMeta[spec.role] = { code: spec.code, roles: [spec.role] };
-            });
-
-            const containers = {
-                birthday: ['birthdayQuizContent', 'birthdayQuizLabel'],
-                driver: ['driverQuizContent', 'driverQuizLabel'],
-                conductor: ['conductorQuizContent', 'conductorQuizLabel'],
-                manifestation: ['manifestationQuizContent', 'manifestationQuizLabel'],
-                rahu: ['rahuQuizContent', 'rahuQuizLabel'],
-                ketu: ['ketuQuizContent', 'ketuQuizLabel']
-            };
-            Object.values(containers).forEach(([content]) => { const el = document.getElementById(content); if (el) el.innerHTML = ''; });
-            roleSpecs.forEach(spec => {
-                const isUnique = activeQuizRoles.includes(spec.role) && activeQuizCodeMap[spec.role] === spec.code;
-                if (!isUnique) return;
-                const pair = containers[spec.role];
-                renderCodeQuiz(pair[0], pair[1], spec.code, spec.role);
-            });
-            restoreQuizSelections(selectedBeforeRebuild);
-
-            // The Day of Birth quiz remains mandatory, but if its code is duplicated by another
-            // role it is already represented by the same single unique-code quiz.
-            dayQuizFinished = hasRoleSelection('birthday');
-            quizzesReady = true;
-            rahuKetuReady = true;
-            document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
-            document.getElementById('statusMessage').style.display = 'none';
-            currentQuizStep = 0;
-            updateQuizStepVisibility();
-            updateSubmitRestriction();
-            document.getElementById('dynamicQuizzesWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function saveQuizSelections() {
-            const selected = new Set();
-            document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').forEach(cb => selected.add(cb.name));
-            return selected;
-        }
-
-        function restoreQuizSelections(selected) {
-            document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]').forEach(cb => cb.checked = selected.has(cb.name));
-            updateMasterTotalScore();
-            updateSubmitRestriction();
-        }
-
-        function getQuizPaneId(role) {
-            return { birthday: 'quizStep_5', driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' }[role];
-        }
-
-        function getFriendlyConcernLabel(role, lang = (document.getElementById('displayLanguage')?.value || 'eng')) {
-            const labels = {
-                birthday: { eng: 'General Concern', hin: 'सामान्य चिंता' },
-                driver: { eng: 'Self Concern', hin: 'स्वयं से संबंधित चिंता' },
-                conductor: { eng: 'Work Concern', hin: 'कार्य से संबंधित चिंता' },
-                manifestation: { eng: 'Result / Output Concern', hin: 'परिणाम / आउटपुट से संबंधित चिंता' }
-            };
-
-            if (labels[role]) return labels[role][lang] || labels[role].eng;
-
-            if (role === 'rahu' || role === 'ketu') {
-                const sign = role === 'rahu' ? selectedRahuSign : selectedKetuSign;
-                const signCode = sign ? signCodeMap[sign] : null;
-                const matched = [];
-                if (signCode !== null && signCode !== undefined) {
-                    if (selectedNumerology.driver === signCode) matched.push(labels.driver[lang] || labels.driver.eng);
-                    if (selectedNumerology.conductor === signCode) matched.push(labels.conductor[lang] || labels.conductor.eng);
-                    if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
-                }
-                const prefix = lang === 'hin' ? 'डोमिनेटेड चिंता — ' : 'Dominated Concern by ';
-                return matched.length ? prefix + matched.join(lang === 'hin' ? ' / ' : ' / ') :
-                    (lang === 'hin' ? 'डोमिनेटेड चिंता' : 'Dominated Concern');
-            }
-            return role;
-        }
-
-        function getQuizRoleLabel(role) {
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const meta = activeQuizMeta[role];
-            if (meta?.roles?.length > 1) {
-                return meta.roles.map(r => getFriendlyConcernLabel(r, lang)).join(' + ');
-            }
-            return getFriendlyConcernLabel(role, lang);
-        }
-
-        // Numeric codes remain internal for quiz selection/merging, but are never shown to the user.
-        function cleanVisibleQuizText(text) {
-            return String(text || '')
-                .replace(/Code\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/कोड\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/\s{2,}/g, ' ')
-                .replace(/\s+([,.;:])/g, '$1')
-                .trim();
-        }
-
-        function updateQuizScore(role) {
-            const pane = document.getElementById(getQuizPaneId(role));
-            if (!pane) return;
-            const checked = pane.querySelectorAll('input[type="checkbox"]:checked').length;
-            const total = pane.querySelectorAll('input[type="checkbox"]').length;
-            const percentage = total ? ((checked / total) * 100).toFixed(1) : '0.0';
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const scoreWord = lang === 'hin' ? 'स्कोर / प्रतिशत' : 'Score / %';
-            const oldSummary = pane.querySelector('.quiz-score-summary');
-            if (oldSummary) oldSummary.remove();
-            const summary = document.createElement('div');
-            summary.className = 'quiz-score-summary';
-            summary.innerHTML = `${scoreWord}: <span>${checked} (${percentage}%)</span>`;
-            const container = pane.querySelector('.dynamic-quiz-container');
-            if (container) container.prepend(summary);
-            if (role === 'birthday') dayQuizFinished = false;
-            updateMasterTotalScore();
-            updateSubmitRestriction();
-        }
-
-        function updateMasterTotalScore() {
-            const el = document.getElementById('totalMasterScore');
-            if (el) el.innerText = document.querySelectorAll('#dynamicQuizzesWrapper input[type="checkbox"]:checked').length;
-        }
-
-        function hasRoleSelection(role) {
-            const pane = document.getElementById(getQuizPaneId(role));
-            return !!pane && pane.querySelectorAll('input[type="checkbox"]:checked').length > 0;
-        }
-
-        function getMissingQuizRole() {
-            for (const role of activeQuizRoles) if (!hasRoleSelection(role)) return role;
-            return null;
-        }
-
-        function updateSubmitRestriction() {
-            const submitBtn = document.querySelector('#astrovastuForm .submit-btn');
-            if (!submitBtn) return;
-            const missingRole = getMissingQuizRole();
-            const complete = quizzesReady && rahuKetuReady && missingRole === null;
-            submitBtn.dataset.quizComplete = complete ? 'true' : 'false';
-            submitBtn.title = complete ? 'All required quizzes are completed and saved.' : 'Complete every displayed quiz page and click Finish & Save before submitting.';
-        }
-
-        function navigateQuizStep(direction) {
-            if (!quizzesReady || !activeQuizRoles.length) return;
-            const nextStep = currentQuizStep + direction;
-            if (nextStep < 0 || nextStep >= activeQuizRoles.length) return;
-            currentQuizStep = nextStep;
-            updateQuizStepVisibility();
-        }
-
-        function updateQuizStepVisibility() {
-            document.querySelectorAll('#dynamicQuizzesWrapper .quiz-step-pane').forEach(p => p.style.display = 'none');
-            const role = activeQuizRoles[currentQuizStep];
-            const pane = role ? document.getElementById(getQuizPaneId(role)) : null;
-            if (pane) pane.style.display = 'block';
-            // Intentionally keep quiz role names and page counts hidden from the person filling the form.
-            const progressLabel = document.getElementById('quizProgressLabel');
-            if (progressLabel) progressLabel.innerText = '';
-            document.getElementById('prevQuizBtn').style.display = currentQuizStep === 0 ? 'none' : 'block';
-            const isLast = currentQuizStep === activeQuizRoles.length - 1;
-            document.getElementById('nextQuizBtn').style.display = isLast ? 'none' : 'block';
-            document.getElementById('finishQuizBtn').style.display = isLast ? 'block' : 'none';
-        }
-
-        function finishQuizzes() {
-            const missingRole = getMissingQuizRole();
-            if (missingRole) {
-                currentQuizStep = activeQuizRoles.indexOf(missingRole);
-                updateQuizStepVisibility();
-                const pane = document.getElementById(getQuizPaneId(missingRole));
-                const container = pane?.querySelector('.dynamic-quiz-container');
-                if (container) { container.classList.add('quiz-missing'); setTimeout(() => container.classList.remove('quiz-missing'), 1800); }
-                alert(`Please select at least one checkbox on the ${getQuizRoleLabel(missingRole)} before Finish & Save.`);
-                return;
-            }
-            if (hasRoleSelection('birthday')) dayQuizFinished = true;
-            document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
-            const statusDiv = document.getElementById('statusMessage');
-            statusDiv.style.display = 'block';
-            statusDiv.innerHTML = '✓ All required quizzes completed and saved. You can now submit the form.';
-            updateSubmitRestriction();
-        }
-
-        async function onLanguageChange() {
-            const selected = saveQuizSelections();
-            applyStaticLanguage(document.getElementById('displayLanguage').value);
-            if (selectedBirthDayCode && document.getElementById('birthdayQuizContent')) {
-                renderCodeQuiz('birthdayQuizContent', 'birthdayQuizLabel', selectedBirthDayCode, 'birthday');
-            }
-            if (quizzesReady) {
-                const roleTargets = { driver: ['driverQuizContent', 'driverQuizLabel'], conductor: ['conductorQuizContent', 'conductorQuizLabel'], manifestation: ['manifestationQuizContent', 'manifestationQuizLabel'], rahu: ['rahuQuizContent', 'rahuQuizLabel'], ketu: ['ketuQuizContent', 'ketuQuizLabel'] };
-                activeQuizRoles.forEach(role => {
-                    const target = roleTargets[role];
-                    if (target) renderCodeQuiz(target[0], target[1], activeQuizCodeMap[role], role);
-                });
-                restoreQuizSelections(selected);
-                updateQuizStepVisibility();
-            } else {
-                updateSubmitRestriction();
-            }
-        }
-
-        function escapeHtml(text) {
-            return String(text ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        }
-
-        // --- Translation Engine: complete fallback for every question ---
-        const translationCache = { hi: new Map() };
-        const translationPending = new Map();
-
-        function getTranslatedText(item, lang) {
-            if (lang === 'eng') return item.eng;
-            if (lang === 'hin') return (item.hin && item.hin.trim()) ? item.hin : item.eng;
-            return item.eng;
-        }
-
-        async function fetchGoogleTranslation(text, targetLang) {
-            const key = `${targetLang}|${text}`;
-            if (translationCache[targetLang].has(text)) return translationCache[targetLang].get(text);
-            if (translationPending.has(key)) return translationPending.get(key);
-
-            const promise = fetch(
-                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
-            )
-                .then(r => r.ok ? r.json() : Promise.reject(new Error('Translation request failed')))
-                .then(data => {
-                    const translated = Array.isArray(data) && Array.isArray(data[0])
-                        ? data[0].map(x => x[0] || '').join('')
-                        : text;
-                    translationCache[targetLang].set(text, translated);
-                    return translated;
-                })
-                .catch(() => text)
-                .finally(() => translationPending.delete(key));
-
-            translationPending.set(key, promise);
-            return promise;
-        }
-
-        async function getCompleteTranslation(item, lang) {
-            if (lang === 'eng') return item.eng;
-            if (lang === 'hin') {
-                if (item.hin && item.hin.trim()) return item.hin;
-                return await fetchGoogleTranslation(item.eng, 'hi');
-            }
-            return item.eng;
-        }
-
-        // Synchronous fallback retained for first paint; missing translations are filled asynchronously.
-        function autoTranslateToHindi(text) { return text; }
-
-        const staticLanguageText = {
-            eng: {
-                'Personal Information': 'Personal Information', 'Time of Birth': 'Time of Birth', 'Mobile Number': 'Mobile Number',
-                'Date of Birth': 'Date of Birth', 'Payment Details': 'Payment Details', 'Submit Information': 'Submit Information',
-                'Select Language / भाषा चुनें': 'Select Language', 'Date of Form Filling': 'Date of Form Filling',
-                'Previous': 'Previous', 'Next': 'Next', 'Finish & Save': 'Finish & Save'
-            },
-            hin: {
-                'Personal Information': 'व्यक्तिगत जानकारी', 'Time of Birth': 'जन्म का समय', 'Mobile Number': 'मोबाइल नंबर',
-                'Date of Birth': 'जन्म तिथि', 'Payment Details': 'भुगतान विवरण', 'Submit Information': 'जानकारी जमा करें',
-                'Select Language / भाषा चुनें': 'भाषा चुनें', 'Date of Form Filling': 'फॉर्म भरने की तारीख',
-                'Previous': 'पिछला', 'Next': 'अगला', 'Finish & Save': 'पूरा करें और सेव करें'
-            }
-        };
-
-        function applyStaticLanguage(lang) {
-            const map = staticLanguageText[lang] || staticLanguageText.eng;
-            document.querySelectorAll('.form-section-title').forEach(el => {
-                if (el.textContent.trim() === 'Personal Information' || el.dataset.baseText === 'Personal Information') {
-                    el.dataset.baseText = 'Personal Information'; el.textContent = map['Personal Information'];
-                }
-            });
-            const exact = {
-                'Payment Details': 'Payment Details', 'Submit Information': 'Submit Information', 'Previous': 'Previous',
-                'Next': 'Next', '✓ Finish & Save': 'Finish & Save', 'Date of Form Filling': 'Date of Form Filling'
-            };
-            document.querySelectorAll('button,label,h3,h4').forEach(el => {
-                const raw = (el.dataset.baseText || el.textContent).trim();
-                if (exact[raw] && map[exact[raw]]) { el.dataset.baseText = exact[raw]; el.textContent = map[exact[raw]]; }
-            });
-        }
-
-        async function translateRenderedQuizItems(lang) {
-            const items = Array.from(document.querySelectorAll('.symptom-item'));
-            const jobs = items.map(async item => {
-                const textSpan = item.querySelector('.symptom-text');
-                if (!textSpan) return;
-                const eng = item.getAttribute('data-eng') || '';
-                const hin = item.getAttribute('data-hin') || '';
-                const obj = { eng, hin };
-                const translated = await getCompleteTranslation(obj, lang);
-                // Do not overwrite if the user changed language again while requests were running.
-                if (document.getElementById('displayLanguage').value === lang) textSpan.innerText = translated;
-            });
-            const titleJobs = Array.from(document.querySelectorAll('.quiz-set-title')).map(async el => {
-                const eng = el.getAttribute('data-set-eng') || el.textContent.trim();
-                if (lang === 'eng') { el.innerText = eng; return; }
-                const translated = await fetchGoogleTranslation(eng, 'hi');
-                el.innerText = translated;
-            });
-            await Promise.all([...jobs, ...titleJobs]);
-        }
-
-        const chaldeanMap = {
-            'A': 1, 'I': 1, 'J': 1, 'Q': 1, 'Y': 1,
-            'B': 2, 'K': 2, 'R': 2,
-            'C': 3, 'G': 3, 'L': 3, 'S': 3,
-            'D': 4, 'M': 4, 'T': 4,
-            'E': 5, 'H': 5, 'N': 5, 'X': 5,
-            'U': 6, 'V': 6, 'W': 6,
-            'O': 7, 'Z': 7,
-            'F': 8, 'P': 8
-        };
-
-        function getWordScore(word) {
-            let sum = 0;
-            const upperWord = word.toUpperCase();
-            for (let i = 0; i < upperWord.length; i++) {
-                if (chaldeanMap[upperWord[i]] !== undefined) sum += chaldeanMap[upperWord[i]];
-            }
-            return sum;
-        }
-
-        function getDigitalRoot(num) {
-            if (num === 0) return 0;
-            let temp = num;
-            while (temp > 9) {
-                let sum = 0, str = temp.toString();
-                for (let i = 0; i < str.length; i++) sum += parseInt(str[i], 10);
-                temp = sum;
-            }
-            return temp;
-        }
-
-        function calculateNumerology() {
-            const fullNameVal = document.getElementById('fullName').value.trim();
-            const resultBox = document.getElementById('numerologyResult');
-            if (fullNameVal === "") { resultBox.style.display = "none"; return; }
-            const firstName = fullNameVal.split(/\s+/)[0] || "";
-            const firstScore = getWordScore(firstName), firstNum = getDigitalRoot(firstScore);
-            const totalScore = getWordScore(fullNameVal.replace(/\s+/g, '')), totalNum = getDigitalRoot(totalScore);
-            document.getElementById('firstNameScore').innerText = `${firstScore} / ${firstNum}`;
-            document.getElementById('firstNameNumber').innerText = firstNum;
-            document.getElementById('totalNameScore').innerText = `${totalScore} / ${totalNum}`;
-            document.getElementById('totalNameNumber').innerText = totalNum;
-            resultBox.style.display = "grid";
-        }
-
-        function calculatePhoneNumerology(inputEl) {
-            const phoneGroup = inputEl.closest('.phone-group');
-            const scoreDisplay = phoneGroup.querySelector('.phone-score-display');
-            const scoreValSpan = phoneGroup.querySelector('.phoneScoreVal');
-            const rawVal = inputEl.value.replace(/\D/g, '');
-            if (rawVal === "") { scoreDisplay.style.display = "none"; return; }
-            let sum = 0;
-            for (let i = 0; i < rawVal.length; i++) sum += parseInt(rawVal[i], 10);
-            scoreValSpan.innerText = `${sum} / ${getDigitalRoot(sum)}`;
-            scoreDisplay.style.display = "block";
-        }
-
-        function addPhoneField() {
-            const container = document.getElementById('phoneContainer');
-            const newGroup = document.createElement('div');
-            newGroup.className = 'phone-group';
-            newGroup.innerHTML = `
-                <div class="phone-input-row">
-                    <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number" oninput="calculatePhoneNumerology(this)">
-                </div>
-                <div class="phone-score-display" style="display: none;">Sum: <span class="phoneScoreVal">-</span></div>
-            `;
-            container.appendChild(newGroup);
-        }
-
-        // Build a complete submission report for Google Apps Script.
-        // The report contains name scores, birth details, phone totals, hidden weekday,
-        // Rahu/Ketu details, every opened unique-code quiz, its final score/percentage,
-        // and every checkbox with a visible tick for selected items.
-        function getPhoneNumberDetails() {
-            return Array.from(document.querySelectorAll('.mobileInput'))
-                .map(input => {
-                    const raw = input.value.trim();
-                    if (!raw) return null;
-                    const digits = raw.replace(/\D/g, '');
-                    const total = digits.split('').reduce((sum, d) => sum + Number(d), 0);
-                    return { number: raw, total: total, digitalRoot: getDigitalRoot(total) };
-                })
-                .filter(Boolean);
-        }
-
-        function getQuizReportData() {
-            return activeQuizRoles.map(role => {
-                const pane = document.getElementById(getQuizPaneId(role));
-                const code = activeQuizCodeMap[role];
-                const meta = activeQuizMeta[role] || { roles: [role] };
-                const checkboxes = pane ? Array.from(pane.querySelectorAll('input[type="checkbox"]')) : [];
-                const checkedCount = checkboxes.filter(cb => cb.checked).length;
-                const percentage = checkboxes.length ? Number(((checkedCount / checkboxes.length) * 100).toFixed(1)) : 0;
-                const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
-                const goalA = goalCards[0] ? {
-                    title: goalCards[0].querySelector('.quiz-goal-title')?.innerText?.trim() || '',
-                    description: goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''
-                } : { title: '', description: '' };
+            if (!pane) {
                 return {
-                    quiz: getQuizRoleLabel(role),
-                    roles: meta.roles || [role],
-                    code: Number(code),
-                    score: checkedCount,
-                    totalQuestions: checkboxes.length,
-                    percentage: percentage,
-                    goalA: goalA,
-                    goalSections: goalCards.map(card => ({ title: card.querySelector('.quiz-goal-title')?.innerText?.trim() || '', text: card.innerText?.trim() || '' })),
-                    questions: checkboxes.map(cb => ({
-                        checked: !!cb.checked,
-                        mark: cb.checked ? '☑' : '☐',
-                        text: cb.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || cb.value || ''
-                    }))
+                    quizTitle,
+                    goalA: null,
+                    sections: []
                 };
-            });
-        }
-
-        function buildSubmissionReport() {
-            const phoneDetails = getPhoneNumberDetails();
-            const quizData = getQuizReportData();
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const firstNameScore = document.getElementById('firstNameScore')?.innerText || '';
-            const firstNameNumber = document.getElementById('firstNameNumber')?.innerText || '';
-            const totalNameScore = document.getElementById('totalNameScore')?.innerText || '';
-            const totalNameNumber = document.getElementById('totalNameNumber')?.innerText || '';
-            const dob = document.getElementById('dob')?.value || '';
-            const birthTime = document.getElementById('timeOfBirth')?.value || '';
-            const birthDay = selectedBirthDayName || document.getElementById('birthday')?.value || '';
-            const birthDayCode = selectedBirthDayCode || '';
-            const driver = document.getElementById('driverNumberOut')?.innerText || '';
-            const conductor = document.getElementById('conductorNumberOut')?.innerText || '';
-            const manifestation = document.getElementById('manifestationNumberOut')?.innerText || '';
-            const reportData = {
-                language: lang,
-                submissionDate: document.getElementById('submissionDate')?.value || '',
-                fullName: document.getElementById('fullName')?.value?.trim() || '',
-                firstNameScore, firstNameNumber, totalNameScore, totalNameNumber,
-                birthTime,
-                mobileNumbers: phoneDetails,
-                dayOfBirth: birthDay, // stored for the report, never displayed in the form UI
-                dayOfBirthCode: birthDayCode,
-                dob,
-                driver,
-                conductor,
-                manifestation,
-                rahuSign: selectedRahuSign || '',
-                rahuCode: selectedRahuSign ? signCodeMap[selectedRahuSign] : '',
-                rahuQuizOpened: !!rahuQuizRequired,
-                ketuSign: selectedKetuSign || '',
-                ketuCode: selectedKetuSign ? signCodeMap[selectedKetuSign] : '',
-                ketuQuizOpened: !!ketuQuizRequired,
-                quizzes: quizData,
-                totalSelectedCheckboxes: quizData.reduce((sum, q) => sum + q.score, 0),
-                savedAt: new Date().toISOString()
-            };
-
-            const esc = escapeHtml;
-            let html = `<!doctype html><html><head><meta charset="UTF-8"><style>
-                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:28px;line-height:1.55}
-                h1{color:#DAA520;text-align:center;margin:0 0 6px} h2{color:#DAA520;border-bottom:1px solid #DAA520;padding-bottom:6px}
-                h3{color:#4682B4;margin-bottom:6px}.meta{background:#fffaf0;border:1px solid #DAA520;border-radius:8px;padding:14px;margin:12px 0}
-                table{width:100%;border-collapse:collapse;margin:10px 0 22px}th,td{border:1px solid #d8c58b;padding:7px;text-align:left;vertical-align:top}th{background:#fff4d6}
-                .score{font-weight:700;color:#FF8C00}.tick{font-size:18px;font-weight:700}.muted{color:#666}
-            </style></head><body>`;
-            html += `<h1>BLUEBERRY ASTROVASTU REPORT</h1><div class="meta"><b>Full Name:</b> ${esc(reportData.fullName)}<br><b>Date of Form Filling:</b> ${esc(reportData.submissionDate)}</div>`;
-            html += `<h2>Name Numerology</h2><table><tr><th>First Name Score</th><td>${esc(firstNameScore)}</td></tr><tr><th>First Name Number</th><td>${esc(firstNameNumber)}</td></tr><tr><th>Total Name Score</th><td>${esc(totalNameScore)}</td></tr><tr><th>Total Name Number</th><td>${esc(totalNameNumber)}</td></tr></table>`;
-            html += `<h2>Birth Details</h2><table><tr><th>Date of Birth</th><td>${esc(dob)}</td></tr><tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr><tr><th>Mobile Number(s)</th><td>${phoneDetails.length ? phoneDetails.map(x => `${esc(x.number)} — Total: ${x.total} / ${x.digitalRoot}`).join('<br>') : 'Not provided'}</td></tr><tr><th>Day of Birth</th><td>${esc(birthDay)}</td></tr><tr><th>Driver</th><td>${esc(driver)}</td></tr><tr><th>Conductor</th><td>${esc(conductor)}</td></tr><tr><th>Manifestation</th><td>${esc(manifestation)}</td></tr><tr><th>Rahu</th><td>${esc(reportData.rahuSign || 'Not selected')}</td></tr><tr><th>Ketu</th><td>${esc(reportData.ketuSign || 'Not selected')}</td></tr></table>`;
-            html += `<h2>Quiz Results</h2>`;
-            quizData.forEach((q, qi) => {
-                html += `<div style="page-break-before:always;"></div>`;
-                html += `<h3>${qi + 1}. ${esc(q.quiz)}</h3>`;
-                html += `<div class="meta"><span class="score">Final Score: ${q.score} / ${q.totalQuestions} (${q.percentage}%)</span></div>`;
-
-                const sections = q.goalSections || [];
-                ['a', 'b', 'c', 'd'].forEach(letter => {
-                    const section = sections.find(s => String(s.title || '').toLowerCase().indexOf(`goal ${letter}`) === 0);
-                    if (section) {
-                        html += `<div class="meta"><b>Goal ${letter})</b><br>${esc(cleanVisibleQuizText(section.text || ''))}</div>`;
-                    }
-                });
-
-                html += `<table><tr><th style="width:55px">Tick</th><th>Checklist Item</th></tr>`;
-                q.questions.forEach(item => html += `<tr><td class="tick">${item.mark}</td><td>${esc(cleanVisibleQuizText(item.text))}</td></tr>`);
-                html += `</table>`;
-            });
-            html += `<p class="muted">Generated: ${esc(reportData.savedAt)}</p></body></html>`;
-            return { reportData, reportHtml: html };
-        }
-
-        // Safety helpers for quiz controls.
-        function safeOpenQuizzes() {
-            if (typeof confirmRahuKetuAndOpenQuizzes === 'function') {
-                confirmRahuKetuAndOpenQuizzes();
             }
-        }
 
-        function safeCalculateDOB() {
-            if (typeof confirmDobAndStartQuizzes === 'function') {
-                confirmDobAndStartQuizzes();
-            }
-        }
+            const goalCards = Array.from(
+                pane.querySelectorAll('.quiz-goal-card')
+            );
 
-        // Reliable button bindings. The script is at the bottom of the page, so bind
-        // immediately and also keep a delegated fallback for dynamically hosted pages.
-        (function bindQuizButtons() {
-            function bind() {
-                const dobBtn = document.getElementById('confirmDobBtn');
-                const rkBtn = document.getElementById('confirmRahuKetuBtn');
-                if (dobBtn && !dobBtn.dataset.bound) {
-                    dobBtn.dataset.bound = '1';
-                    dobBtn.addEventListener('click', function (event) {
-                        event.preventDefault();
-                        safeCalculateDOB();
-                    });
+            /* -----------------------------------------------------
+               GENERAL ISSUE
+            ----------------------------------------------------- */
+
+            let goalA = null;
+
+            if (goalCards.length > 0) {
+
+                const description =
+                    goalCards[0]
+                        .querySelector('.quiz-goal-description')
+                        ?.innerText
+                        ?.trim() || '';
+
+                if (description) {
+                    goalA = {
+                        title: 'General Issue',
+                        description: cleanVisibleQuizText(description)
+                    };
                 }
-                if (rkBtn && !rkBtn.dataset.bound) {
-                    rkBtn.dataset.bound = '1';
-                    rkBtn.addEventListener('click', function (event) {
-                        event.preventDefault();
-                        safeOpenQuizzes();
+            }
+
+            /* -----------------------------------------------------
+               QUIZ SECTIONS
+            ----------------------------------------------------- */
+
+            const sections = [];
+
+            for (let i = 1; i < goalCards.length; i++) {
+
+                const card = goalCards[i];
+
+                const rawTitle =
+                    card.querySelector('.quiz-goal-title')
+                        ?.innerText
+                        ?.trim() ||
+                    `Goal Section ${i}`;
+
+                const sectionTitle =
+                    cleanVisibleQuizText(rawTitle);
+
+                const questions = Array.from(
+                    card.querySelectorAll('.symptom-item')
+                )
+                    .map((item) => {
+
+                        return (
+                            item.querySelector('.symptom-text')
+                                ?.innerText
+                                ?.trim() ||
+                            item.getAttribute('data-eng') ||
+                            ''
+                        );
+
+                    })
+                    .map((text) => cleanVisibleQuizText(text))
+                    .map((text) =>
+                        text
+                            .replace(/^\d+\.\s*—\s*/, '')
+                            .replace(/^[a-e]\s*—\s*/i, '')
+                            .trim()
+                    )
+                    .filter(Boolean);
+
+                if (questions.length > 0) {
+
+                    sections.push({
+                        title: sectionTitle,
+                        questions
                     });
                 }
             }
-            bind();
-            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind, { once: true });
-            document.addEventListener('click', function (event) {
-                const target = event.target.closest?.('#confirmDobBtn, #confirmRahuKetuBtn');
-                if (!target || target.dataset.bound) return;
-                event.preventDefault();
-                target.id === 'confirmDobBtn' ? safeCalculateDOB() : safeOpenQuizzes();
-            });
-        })();
 
-        document.getElementById('astrovastuForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+            /* -----------------------------------------------------
+               FALLBACK
+               If there are symptom items but no goal sections
+            ----------------------------------------------------- */
 
-            // HARD SUBMIT RESTRICTION: every quiz page that is displayed must have at least one selection.
-            const missingQuizRole = getMissingQuizRole();
-            if (!quizzesReady || !rahuKetuReady || missingQuizRole !== null) {
-                if (!quizzesReady) {
-                    alert('Please calculate your Date of Birth and complete the quiz setup first.');
-                    return;
+            if (sections.length === 0) {
+
+                const allQuestions = Array.from(
+                    pane.querySelectorAll('.symptom-item')
+                )
+                    .map((item) => {
+
+                        return (
+                            item.querySelector('.symptom-text')
+                                ?.innerText
+                                ?.trim() ||
+                            item.getAttribute('data-eng') ||
+                            ''
+                        );
+
+                    })
+                    .map((text) => cleanVisibleQuizText(text))
+                    .map((text) =>
+                        text
+                            .replace(/^\d+\.\s*—\s*/, '')
+                            .replace(/^[a-e]\s*—\s*/i, '')
+                            .trim()
+                    )
+                    .filter(Boolean);
+
+                if (allQuestions.length > 0) {
+
+                    sections.push({
+                        title: 'Assessment Checklist',
+                        questions: allQuestions
+                    });
                 }
-                if (!rahuKetuReady) {
-                    alert('Please select both Rahu and Ketu signs and confirm them first.');
-                    document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    return;
-                }
-                currentQuizStep = activeQuizRoles.indexOf(missingQuizRole);
-                updateQuizStepVisibility();
-                const missingPane = document.getElementById(getQuizPaneId(missingQuizRole));
-                const missingContainer = missingPane?.querySelector('.dynamic-quiz-container');
-                if (missingContainer) { missingContainer.classList.add('quiz-missing'); setTimeout(() => missingContainer.classList.remove('quiz-missing'), 1800); }
-                alert(`Please select at least one checkbox on the ${getQuizRoleLabel(missingQuizRole)} quiz before submitting.`);
-                document.getElementById('dynamicQuizzesWrapper').style.display = 'block';
-                document.getElementById('dynamicQuizzesWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return;
             }
 
-            const form = this;
-            const submitBtn = form.querySelector('.submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Submitting...";
-
-            const report = buildSubmissionReport();
-            const reportData = report.reportData;
-            const reportHtml = report.reportHtml;
-            const mobileDetails = reportData.mobileNumbers;
-
-            const formDataLocal = {
-                id: 'SUB_' + Date.now(),
-                submissionDate: reportData.submissionDate,
-                fullName: reportData.fullName,
-                firstNameScore: reportData.firstNameScore,
-                firstNameNumber: reportData.firstNameNumber,
-                totalNameScore: reportData.totalNameScore,
-                totalNameNumber: reportData.totalNameNumber,
-                birthTime: reportData.birthTime,
-                mobileNumbers: mobileDetails,
-                birthday: reportData.dayOfBirth, // stored only; not shown in the form
-                birthDayCode: reportData.dayOfBirthCode,
-                dob: reportData.dob,
-                rahuSign: reportData.rahuSign,
-                rahuCode: reportData.rahuCode,
-                rahuQuizOpened: reportData.rahuQuizOpened,
-                ketuSign: reportData.ketuSign,
-                ketuCode: reportData.ketuCode,
-                ketuQuizOpened: reportData.ketuQuizOpened,
-                driver: reportData.driver,
-                conductor: reportData.conductor,
-                manifestation: reportData.manifestation,
-                quizzes: reportData.quizzes,
-                totalMasterScore: reportData.totalSelectedCheckboxes,
-                reportHtml: reportHtml,
-                reportDataJson: JSON.stringify(reportData),
-                submittedAt: reportData.savedAt
+            return {
+                quizTitle,
+                goalA,
+                sections
             };
-
-            // Local save keeps the complete report, including every checkbox and tick.
-            let existing = JSON.parse(localStorage.getItem('astrovastu_submissions')) || [];
-            existing.push(formDataLocal);
-            localStorage.setItem('astrovastu_submissions', JSON.stringify(existing));
-
-            const postPayload = new FormData();
-            Object.entries(formDataLocal).forEach(([key, value]) => {
-                if (value === undefined || value === null) return;
-                postPayload.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
-            });
-            // Explicit flags for the Apps Script PDF/email stage.
-            postPayload.append('pdfReportHtml', reportHtml);
-            postPayload.append('emailPdfReady', 'true');
-            postPayload.append('emailSubject', `Blueberry AstroVastu Report - ${reportData.fullName}`);
-
-            fetch(form.action, { method: 'POST', body: postPayload, mode: 'no-cors' }).then(() => {
-                const statusDiv = document.getElementById('statusMessage');
-                statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Form submitted successfully. The two PDF reports are being created and emailed.`;
-                form.reset();
-                document.getElementById('submissionDate').valueAsDate = new Date();
-                document.addEventListener('DOMContentLoaded', () => applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng'));
-                document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
-            }).catch(() => {
-                const statusDiv = document.getElementById('statusMessage');
-                statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Saved locally!`;
-            }).finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Submit Information";
-            });
         });
 
-        function getFriendlyConcernLabel(role, lang = (document.getElementById('displayLanguage')?.value || 'eng')) {
-            const labels = {
-                birthday: { eng: 'General Concern', hin: 'सामान्य चिंता' },
-                driver: { eng: 'Self Concern', hin: 'स्वयं से संबंधित चिंता' },
-                conductor: { eng: 'Work Concern', hin: 'कार्य से संबंधित चिंता' },
-                manifestation: { eng: 'Result / Output Concern', hin: 'परिणाम / आउटपुट से संबंधित चिंता' }
-            };
 
-            if (labels[role]) return labels[role][lang] || labels[role].eng;
+        /* ---------------------------------------------------------
+           BUILD PRINT / PDF HTML
+        --------------------------------------------------------- */
 
-            if (role === 'rahu' || role === 'ketu') {
-                const sign = role === 'rahu' ? selectedRahuSign : selectedKetuSign;
-                const signCode = sign ? signCodeMap[sign] : null;
-                const matched = [];
-                if (signCode !== null && signCode !== undefined) {
-                    if (selectedNumerology.driver === signCode) matched.push(labels.driver[lang] || labels.driver.eng);
-                    if (selectedNumerology.conductor === signCode) matched.push(labels.conductor[lang] || labels.conductor.eng);
-                    if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
-                }
-                const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-                return matched.length ? `Dominated Concern by ${planetName} (${matched.join(' / ')})` : `Dominated Concern by ${planetName}`;
+        let reportHtml = `
+<!doctype html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Blank Diagnostic Assessment - Blueberry AstroVastu</title>
+
+<style>
+
+@page {
+    size: A4;
+    margin: 14mm;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #172033;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+}
+
+.document {
+    width: 100%;
+}
+
+/* -------------------------------------------------------
+   HEADER
+------------------------------------------------------- */
+
+.header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.brand {
+    margin: 0;
+    color: #b8860b;
+    font-size: 21pt;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.document-title {
+    margin: 4px 0 0;
+    color: #4682b4;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------
+   CLIENT INFORMATION
+------------------------------------------------------- */
+
+.client-info {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 20px;
+}
+
+.client-info td {
+    border: 1px solid #d9c98c;
+    padding: 7px 9px;
+    vertical-align: middle;
+}
+
+.client-info .label {
+    width: 18%;
+    background: #fff7df;
+    color: #6f5310;
+    font-weight: bold;
+}
+
+.client-info .value {
+    width: 32%;
+}
+
+/* -------------------------------------------------------
+   QUIZ PAGE
+------------------------------------------------------- */
+
+.quiz-page {
+    page-break-before: always;
+}
+
+.quiz-page:first-of-type {
+    page-break-before: auto;
+}
+
+.quiz-heading {
+    margin: 0 0 13px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #b8860b;
+    color: #b8860b;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.section-heading {
+    margin: 16px 0 7px;
+    color: #4682b4;
+    font-size: 11.5pt;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------
+   GENERAL ISSUE
+------------------------------------------------------- */
+
+.general-issue {
+    margin: 0 0 14px;
+}
+
+.general-issue-title {
+    margin-bottom: 5px;
+    color: #4682b4;
+    font-size: 11.5pt;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------
+   QUESTIONS TABLE
+------------------------------------------------------- */
+
+.questions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 12px;
+    page-break-inside: auto;
+}
+
+.questions-table tr {
+    page-break-inside: avoid;
+}
+
+.questions-table th,
+.questions-table td {
+    border: 1px solid #d8c58b;
+    padding: 6px 8px;
+    vertical-align: top;
+}
+
+.questions-table th {
+    background: #fff7df;
+    color: #604a0e;
+    font-size: 9.5pt;
+    font-weight: bold;
+}
+
+.questions-table .check-column {
+    width: 34px;
+    text-align: center;
+}
+
+.questions-table .question-column {
+    width: auto;
+}
+
+.checkbox {
+    font-size: 13pt;
+    line-height: 1;
+}
+
+/* -------------------------------------------------------
+   FOOTER
+------------------------------------------------------- */
+
+.footer {
+    margin-top: 25px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    color: #777;
+    font-size: 8.5pt;
+}
+
+/* -------------------------------------------------------
+   PRINT
+------------------------------------------------------- */
+
+@media print {
+
+    body {
+        background: #ffffff;
+    }
+
+    .quiz-page {
+        page-break-before: always;
+    }
+
+    .quiz-page:first-of-type {
+        page-break-before: auto;
+    }
+
+    .questions-table {
+        page-break-inside: auto;
+    }
+
+    .questions-table tr {
+        page-break-inside: avoid;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="document">
+
+    <div class="header">
+        <h1 class="brand">BLUEBERRY ASTROVASTU</h1>
+        <div class="document-title">
+            Blank Diagnostic Assessment Questionnaires
+        </div>
+    </div>
+
+    <table class="client-info">
+        <tr>
+            <td class="label">Client Name</td>
+            <td class="value">${esc(fullName)}</td>
+
+            <td class="label">Date</td>
+            <td class="value">${esc(submissionDate)}</td>
+        </tr>
+    </table>
+`;
+
+
+        /* ---------------------------------------------------------
+           ADD EACH QUIZ
+        --------------------------------------------------------- */
+
+        blankQuizData.forEach((quiz, index) => {
+
+            reportHtml += `
+    <section class="quiz-page">
+
+        <h2 class="quiz-heading">
+            ${index + 1}. ${esc(quiz.quizTitle)}
+        </h2>
+    `;
+
+            /* -----------------------------------------------------
+               GENERAL ISSUE
+            ----------------------------------------------------- */
+
+            if (quiz.goalA?.description) {
+
+                reportHtml += `
+        <div class="general-issue">
+
+            <div class="general-issue-title">
+                General Issue
+            </div>
+
+            <table class="questions-table">
+                <tr>
+                    <td class="check-column">
+                        <span class="checkbox">☐</span>
+                    </td>
+
+                    <td class="question-column">
+                        ${esc(quiz.goalA.description)}
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        `;
             }
-            return role;
+
+
+            /* -----------------------------------------------------
+               SECTIONS
+            ----------------------------------------------------- */
+
+            if (quiz.sections.length > 0) {
+
+                quiz.sections.forEach((section) => {
+
+                    reportHtml += `
+            <h3 class="section-heading">
+                ${esc(section.title)}
+            </h3>
+
+            <table class="questions-table">
+
+                <thead>
+                    <tr>
+                        <th class="check-column">
+                            ✓
+                        </th>
+
+                        <th class="question-column">
+                            Diagnostic Assessment Symptom / Statement
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+            `;
+
+                    section.questions.forEach((question) => {
+
+                        const cleanedQuestion =
+                            cleanVisibleQuizText(question)
+                                .replace(/^\d+\.\s*—\s*/, '')
+                                .replace(/^[a-e]\s*—\s*/i, '')
+                                .trim();
+
+                        reportHtml += `
+                    <tr>
+                        <td class="check-column">
+                            <span class="checkbox">☐</span>
+                        </td>
+
+                        <td class="question-column">
+                            ${esc(cleanedQuestion)}
+                        </td>
+                    </tr>
+                `;
+                    });
+
+                    reportHtml += `
+                </tbody>
+            </table>
+            `;
+                });
+
+            } else {
+
+                reportHtml += `
+            <p style="color:#777;">
+                No assessment questions are available for this questionnaire.
+            </p>
+        `;
+            }
+
+
+            reportHtml += `
+    </section>
+    `;
+        });
+
+
+        /* ---------------------------------------------------------
+           FOOTER
+        --------------------------------------------------------- */
+
+        reportHtml += `
+
+    <div class="footer">
+        Generated by Blueberry AstroVastu System
+    </div>
+
+</div>
+
+</body>
+</html>
+`;
+
+
+        /* ---------------------------------------------------------
+           SEND BLANK PDF DATA TO FORM / APPS SCRIPT
+        --------------------------------------------------------- */
+
+        const payloadData = {
+
+            fullName: fullName,
+
+            submissionDate: submissionDate,
+
+            isOnlyBlankPdf: 'true',
+
+            blankPdfHtml: reportHtml
+        };
+
+        const payload = new FormData();
+
+        payload.append(
+            'reportDataJson',
+            JSON.stringify(payloadData)
+        );
+
+        fetch(formActionUrl, {
+            method: 'POST',
+            body: payload,
+            mode: 'no-cors'
+        })
+            .then(() => {
+
+                console.log(
+                    'Blank PDF dispatch triggered successfully.'
+                );
+
+            })
+            .catch((error) => {
+
+                console.error(
+                    'Blank PDF dispatch failed:',
+                    error
+                );
+
+            });
+
+
+        /* ---------------------------------------------------------
+           OPEN PRINT WINDOW
+        --------------------------------------------------------- */
+
+        const printWindow = window.open(
+            '',
+            '_blank'
+        );
+
+        if (!printWindow) {
+
+            alert(
+                'Pop-up blocked! Please allow pop-ups for this website to generate the blank PDF.'
+            );
+
+            return;
         }
 
-        function getQuizRoleLabel(role) {
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const meta = activeQuizMeta[role];
-            if (meta?.roles?.length > 1) {
-                return meta.roles.map(r => getFriendlyConcernLabel(r, lang)).join(' + ');
-            }
-            return getFriendlyConcernLabel(role, lang);
-        }
 
-        function cleanVisibleQuizText(text) {
-            return String(text || '')
-                .replace(/Code\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/कोड\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/Code\d+\s*-\s*[a-e]\s*—\s*/gi, '')
-                .replace(/\b1\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
-                .replace(/\b[2-5]\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
-                .replace(/Goal\s+[a-d]\)\s*/gi, '')
-                .replace(/\s{2,}/g, ' ')
-                .replace(/\s+([,.;:])/g, '$1')
-                .trim();
-        }
+        /* ---------------------------------------------------------
+           WRITE HTML TO PRINT WINDOW
+        --------------------------------------------------------- */
 
-        function generateBlankQuizzesPdf() {
-            if (!quizzesReady || !activeQuizRoles.length) {
-                alert('Please calculate your Date of Birth and select Rahu/Ketu signs to load the quizzes first.');
-                return;
-            }
+        printWindow.document.open();
 
-            const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
-            // ... (keep the rest of your blankQuizData generation logic) ...
+        printWindow.document.write(reportHtml);
 
-            // Construct the payload for the Apps Script backend
-            const formActionUrl = document.getElementById('astrovastuForm').action;
-            const payloadData = {
-                fullName: fullName,
-                submissionDate: document.getElementById('submissionDate')?.value || '',
-                isOnlyBlankPdf: 'true',
-                blankPdfHtml: reportHtml
-            };
+        printWindow.document.close();
 
-            const payload = new FormData();
-            payload.append('reportDataJson', JSON.stringify(payloadData));
+        printWindow.focus();
 
-            // Sends the blank PDF via Apps Script email to piyush10june@gmail.com
-            fetch(formActionUrl, { method: 'POST', body: payload, mode: 'no-cors' }).then(() => {
-                console.log('Blank PDF email triggered successfully.');
-            }).catch(err => console.error(err));
 
-            // Also open for local printing/download
-            const printWindow = window.open('', '_blank');
-            if (!printWindow) {
-                alert('Pop-up blocked! Please allow pop-ups for this website to generate the blank PDF.');
-                return;
-            }
-            printWindow.document.write(reportHtml);
-            printWindow.document.close();
-            printWindow.focus();
-            setTimeout(() => {
-                printWindow.print();
-            }, 600);
-        }
+        /* ---------------------------------------------------------
+           PRINT AFTER PAGE HAS RENDERED
+        --------------------------------------------------------- */
+
+        setTimeout(() => {
+
+            printWindow.print();
+
+        }, 800);
     </script>
 </body>
 
