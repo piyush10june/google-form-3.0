@@ -979,7 +979,8 @@
                                         <span class="auto-day-label">Day of Birth</span>
                                         <strong id="birthdayDisplay">-</strong>
                                     </div>
-                                <div class="auto-day-code">Birth Day Code: <span id="birthDayCodeOut">-</span></div>
+                                <div class="auto-day-code" style="display:none;">Birth Day Code: <span
+                        id="birthDayCodeOut">-</span></div>
                                 <input type="hidden" id="birthday" name="birthday" value="">
                             </div>
 
@@ -2757,14 +2758,11 @@
             html += `<tr><th>Date of Birth</th><td>${esc(dob || 'Not provided')}</td></tr>`;
             html += `<tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr>`;
             html += `<tr><th>Day of Birth</th><td>${esc(birthDay || 'Not available')}</td></tr>`;
-            html += `<tr><th>Birth Day Code</th><td>${esc(birthDayCode || 'Not available')}</td></tr>`;
             html += `<tr><th>Driver</th><td>${esc(driver || 'Not available')}</td></tr>`;
             html += `<tr><th>Conductor</th><td>${esc(conductor || 'Not available')}</td></tr>`;
             html += `<tr><th>Manifestation</th><td>${esc(manifestation || 'Not available')}</td></tr>`;
-            html += `<tr><th>Rahu Sign</th><td><b>${esc(reportData.rahuSign || 'Not selected')}</b> — Code ${esc(reportData.rahuCode ?? 'Not available')}</td></tr>`;
-            html += `<tr><th>Ketu Sign</th><td><b>${esc(reportData.ketuSign || 'Not selected')}</b> — Code ${esc(reportData.ketuCode ?? 'Not available')}</td></tr>`;
-            html += `<tr><th>Rahu Quiz</th><td>${reportData.rahuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
-            html += `<tr><th>Ketu Quiz</th><td>${reportData.ketuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
+            html += `<tr><th>Rahu Sign</th><td><b>${esc(reportData.rahuSign || 'Not selected')}</b></td></tr>`;
+            html += `<tr><th>Ketu Sign</th><td><b>${esc(reportData.ketuSign || 'Not selected')}</b></td></tr>`;
             html += `</table>`;
 
             html += `<h2>Mobile Number(s)</h2><table><tr><th>#</th><th>Mobile Number</th><th>Total</th><th>Digital Root</th></tr>`;
@@ -2914,6 +2912,7 @@
 
             const form = this;
             const submitBtn = form.querySelector('.submit-btn');
+            if (!submitBtn) return;
             submitBtn.disabled = true;
             submitBtn.innerText = "Submitting...";
 
@@ -2994,8 +2993,12 @@
 
             if (labels[role]) return labels[role][lang] || labels[role].eng;
 
-            if (role === 'rahu' || role === 'ketu') {
-                const sign = role === 'rahu' ? selectedRahuSign : selectedKetuSign;
+            if (role === 'ketu') {
+                return 'Dominated Concern by Ketu';
+            }
+
+            if (role === 'rahu') {
+                const sign = selectedRahuSign;
                 const signCode = sign ? signCodeMap[sign] : null;
                 const matched = [];
                 if (signCode !== null && signCode !== undefined) {
@@ -3004,9 +3007,10 @@
                     if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
                 }
                 const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-                const signText = sign ? ` — ${sign} (Code ${signCode})` : '';
+                const signText = sign ? ` — ${sign}` : '';
+                const dominatedText = role === 'ketu' ? ' — Dominated Concern by Ketu' : ' — Dominated Concern by Rahu';
                 const matchedText = matched.length ? ` — ${matched.join(' + ')}` : '';
-                return `${planetName}${signText}${matchedText}`;
+                return `${planetName}${signText}${matchedText}${dominatedText}`;
             }
             return role;
         }
@@ -3014,9 +3018,6 @@
         function getQuizRoleLabel(role) {
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const meta = activeQuizMeta[role];
-            if (meta?.roles?.length > 1) {
-                return meta.roles.map(r => getFriendlyConcernLabel(r, lang)).join(' + ');
-            }
             return getFriendlyConcernLabel(role, lang);
         }
 
@@ -3369,19 +3370,17 @@
                                     <td class="meta-label">Date of Birth</td>
                                     <td class="meta-value">${esc(document.getElementById('dob')?.value || 'Not provided')}</td>
                                     <td class="meta-label">Birth Day</td>
-                                    <td class="meta-value">${esc(selectedBirthDayName || 'Not available')} (Code ${esc(selectedBirthDayCode ?? '—')})</td>
+                                    <td class="meta-value">${esc(selectedBirthDayName || 'Not available')}</td>
                                 </tr>
                                 <tr>
-                                    <td class="meta-label">Driver / Conductor</td>
-                                    <td class="meta-value">${esc(document.getElementById('driverNumberOut')?.innerText || '—')} / ${esc(document.getElementById('conductorNumberOut')?.innerText || '—')}</td>
+                                    <td class="meta-label">Driver</td>
+                                    <td class="meta-value">${esc(document.getElementById('driverNumberOut')?.innerText || '—')}</td>
+                                    <td class="meta-label">Conductor</td>
+                                    <td class="meta-value">${esc(document.getElementById('conductorNumberOut')?.innerText || '—')}</td>
+                                </tr>
+                                <tr>
                                     <td class="meta-label">Manifestation</td>
-                                    <td class="meta-value">${esc(document.getElementById('manifestationNumberOut')?.innerText || '—')}</td>
-                                </tr>
-                                <tr>
-                                    <td class="meta-label">Rahu</td>
-                                    <td class="meta-value"><b>${esc(selectedRahuSign || 'Not selected')}</b> — Code ${esc(selectedRahuSign ? signCodeMap[selectedRahuSign] : '—')}</td>
-                                    <td class="meta-label">Ketu</td>
-                                    <td class="meta-value"><b>${esc(selectedKetuSign || 'Not selected')}</b> — Code ${esc(selectedKetuSign ? signCodeMap[selectedKetuSign] : '—')}</td>
+                                    <td class="meta-value" colspan="3">${esc(document.getElementById('manifestationNumberOut')?.innerText || '—')}</td>
                                 </tr>
                             </table>
                             `;
@@ -3389,7 +3388,7 @@
             blankQuizData.forEach((q, idx) => {
                 reportHtml += `
     <section class="quiz-page">
-        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)} <span class="code-badge">Code ${esc(q.code)}</span></h2>
+        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>
 `;
 
                 if (q.goalA && q.goalA.description) {
