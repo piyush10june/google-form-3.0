@@ -1301,10 +1301,12 @@
     </div>
 
         <!-- JavaScript Engine -->
-       
     <script>
-        document.getElementById('submissionDate').valueAsDate = new Date();
+        // Initialise only after the DOM is available. This prevents the script from
+        // failing when the page is embedded or loaded asynchronously.
         document.addEventListener('DOMContentLoaded', () => {
+            const submissionDate = document.getElementById('submissionDate');
+            if (submissionDate && !submissionDate.value) submissionDate.valueAsDate = new Date();
             applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng');
             populateZodiacSelects();
         });
@@ -1994,7 +1996,7 @@
             const goalAText = getQuizLanguageText(record.goalA.eng, record.goalA.hin);
             const goalACheckboxId = `q_${role}_${code}_A_0`;
             let html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
-            html += `<div class="quiz-goal-card">`;
+            html += `<div class="quiz-goal-card" data-goal="A">`;
             html += `<div class="quiz-goal-title">${escapeHtml(lang === 'hin' ? 'सामान्य समस्या / General Issue' : 'General Issue')}</div>`;
             html += `<label class="symptom-item goal-a-item" data-page="${role}" data-eng="${escapeHtml(record.goalA.eng)}" data-hin="${escapeHtml(record.goalA.hin || record.goalA.eng)}">`;
             html += `<div class="symptom-header"><input id="${goalACheckboxId}" class="goal-a-checkbox" type="checkbox" name="${goalACheckboxId}" value="${escapeHtml(record.goalA.eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(cleanVisibleQuizText(goalAText))}</span></div>`;
@@ -2003,7 +2005,7 @@
             html += renderChecklistGoal('B', goalTitles.b, record.goalB, role, code);
             html += (String(code) === '1' ? renderCode1GoalCSplit(role, code) : renderChecklistGoal('C', goalTitles.c, record.goalC, role, code));
 
-            html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
+            html += `<div class="quiz-goal-card" data-goal="D"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
 
             record.goalD.forEach((sub, idx) => {
                 const checkboxId = `q_${role}_${code}_D_${idx}`;
@@ -2022,7 +2024,7 @@
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             let html = '';
             code1GoalCSplit.forEach((part, partIndex) => {
-                html += `<div class="quiz-goal-card quiz-goal-c-split">
+                html += `<div class="quiz-goal-card quiz-goal-c-split" data-goal="C">
                     <div class="quiz-goal-title">${escapeHtml(cleanVisibleQuizText(part.title[lang] || part.title.eng))}</div>`;
                 html += `<div class="quiz-subsection-title">${lang === 'hin' ? 'Subconscious Client Language (यदि व्यक्ति कहता है...)' : 'Subconscious Client Language (if the person says...)'}</div>`;
                 part.subconscious.eng.forEach((eng, i) => {
@@ -2050,7 +2052,7 @@
         function renderChecklistGoal(goalKey, titleObj, goalData, role, code) {
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const title = titleObj[lang] || titleObj.eng;
-            let html = `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(title)}</div>`;
+            let html = `<div class="quiz-goal-card" data-goal="${escapeHtml(goalKey)}"><div class="quiz-goal-title">${escapeHtml(title)}</div>`;
             const engItems = goalData.eng || [];
             const hinItems = goalData.hin || [];
             const total = Math.max(engItems.length, hinItems.length);
@@ -2563,47 +2565,75 @@
                     : 0;
 
                 const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
-                const goalABox = goalCards[0] || null;
+                const goalABox = goalCards.find(card => (card.dataset.goal || '').toUpperCase() === 'A') || goalCards[0] || null;
                 const goalACheckbox = goalABox?.querySelector('.goal-a-checkbox') || null;
 
                 const goalA = goalABox ? {
-                    title: 'Goal A ',
+                    title: 'Goal A',
                     description: goalABox.querySelector('.goal-a-item .symptom-text')?.innerText?.trim() || '',
                     checked: !!goalACheckbox?.checked
-                } : { title: 'Goal A ', description: '', checked: false };
+                } : { title: 'Goal A', description: '', checked: false };
 
-                const goalSections = goalCards.slice(1).map((card, index) => {
-                    const rawTitle = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
-                    const letter = ['B', 'C', 'D'][index] || String.fromCharCode(66 + index);
-                    const cleanTitle = cleanVisibleQuizText(rawTitle)
-                        .replace(/^Goal\s+[a-d]\)\s*/i, '')
-                        .replace(/\s*Related to Code-\d+/gi, '')
-                        .replace(/\s*for Code-\d+/gi, '')
-                        .replace(/\s*Code-\d+/gi, '')
-                        .trim();
+                // Group cards by their real Goal key. Code-1 has two separate visual
+                // cards for Goal C, so treating cards purely by array position would
+                // incorrectly create Goal D / Goal E headings in the PDF.
+                const groupedGoals = new Map();
+                goalCards.forEach((card, index) => {
+                    const goalKey = String(card.dataset.goal || '').toUpperCase() ||
+                        ['A', 'B', 'C', 'D'][index] || `X${index}`;
+                    if (goalKey === 'A') return;
 
-                    const items = Array.from(card.querySelectorAll('.symptom-item')).map(item => {
-                        const cb = item.querySelector('input[type="checkbox"]');
-                        const text = item.querySelector('.symptom-text')?.innerText?.trim() || cb?.value || '';
+                    if (!groupedGoals.has(goalKey)) groupedGoals.set(goalKey, []);
+                    groupedGoals.get(goalKey).push(card);
+                });
+
+                const goalSections = Array.from(groupedGoals.entries())
+                    .sort(([a], [b]) => a.localeCompare(b))
+                    .map(([goalKey, cards]) => {
+                        const questions = [];
+                        const notes = [];
+                        let titleText = '';
+
+                        cards.forEach(card => {
+                            if (!titleText) {
+                                titleText = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
+                            }
+
+                            Array.from(card.children)
+                                .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
+                                .map(el => el.innerText?.trim() || '')
+                                .filter(Boolean)
+                                .forEach(note => {
+                                    if (!notes.includes(note)) notes.push(note);
+                                });
+
+                            Array.from(card.querySelectorAll('.symptom-item')).forEach(item => {
+                                const cb = item.querySelector('input[type="checkbox"]');
+                                const text = item.querySelector('.symptom-text')?.innerText?.trim() || cb?.value || '';
+                                if (!text) return;
+                                questions.push({
+                                    checked: !!cb?.checked,
+                                    mark: cb?.checked ? '☑' : '☐',
+                                    text: cleanVisibleQuizText(text)
+                                });
+                            });
+                        });
+
+                        const cleanedTitle = cleanVisibleQuizText(titleText)
+                            .replace(/^Goal\s+[a-d]\)\s*/i, '')
+                            .replace(/^Goal\s+[A-D]\s*[—:-]?\s*/i, '')
+                            .replace(/\s*Related to Code-\d+/gi, '')
+                            .replace(/\s*for Code-\d+/gi, '')
+                            .replace(/\s*Code-\d+/gi, '')
+                            .trim();
+
                         return {
-                            checked: !!cb?.checked,
-                            mark: cb?.checked ? '☑' : '☐',
-                            text: cleanVisibleQuizText(text)
+                            letter: goalKey,
+                            title: `Goal ${goalKey}${cleanedTitle ? ' — ' + cleanedTitle : ''}`,
+                            notes,
+                            questions
                         };
                     });
-
-                    const notes = Array.from(card.children)
-                        .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
-                        .map(el => el.innerText?.trim() || '')
-                        .filter(Boolean);
-
-                    return {
-                        letter,
-                        title: `Goal ${letter}${cleanTitle ? ' — ' + cleanTitle : ''}`,
-                        notes,
-                        questions: items
-                    };
-                });
 
                 return {
                     quiz: getQuizRoleLabel(role),
@@ -2704,15 +2734,18 @@
             html += `<tr><th>Total Name Score</th><td>${esc(totalNameScore)}</td></tr>`;
             html += `<tr><th>Total Name Number</th><td>${esc(totalNameNumber)}</td></tr></table>`;
 
-            html += `<h2>Birth & Contact Details</h2><table>`;
+            html += `<h2>Birth & Astrological Details</h2><table>`;
             html += `<tr><th>Date of Birth</th><td>${esc(dob || 'Not provided')}</td></tr>`;
             html += `<tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr>`;
             html += `<tr><th>Day of Birth</th><td>${esc(birthDay || 'Not available')}</td></tr>`;
-            html += `<tr><th>Driver</th><td>${esc(driver)}</td></tr>`;
-            html += `<tr><th>Conductor</th><td>${esc(conductor)}</td></tr>`;
-            html += `<tr><th>Manifestation</th><td>${esc(manifestation)}</td></tr>`;
-            html += `<tr><th>Rahu Sign</th><td>${esc(reportData.rahuSign || 'Not selected')}</td></tr>`;
-            html += `<tr><th>Ketu Sign</th><td>${esc(reportData.ketuSign || 'Not selected')}</td></tr>`;
+            html += `<tr><th>Birth Day Code</th><td>${esc(birthDayCode || 'Not available')}</td></tr>`;
+            html += `<tr><th>Driver</th><td>${esc(driver || 'Not available')}</td></tr>`;
+            html += `<tr><th>Conductor</th><td>${esc(conductor || 'Not available')}</td></tr>`;
+            html += `<tr><th>Manifestation</th><td>${esc(manifestation || 'Not available')}</td></tr>`;
+            html += `<tr><th>Rahu Sign</th><td><b>${esc(reportData.rahuSign || 'Not selected')}</b> — Code ${esc(reportData.rahuCode ?? 'Not available')}</td></tr>`;
+            html += `<tr><th>Ketu Sign</th><td><b>${esc(reportData.ketuSign || 'Not selected')}</b> — Code ${esc(reportData.ketuCode ?? 'Not available')}</td></tr>`;
+            html += `<tr><th>Rahu Quiz</th><td>${reportData.rahuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
+            html += `<tr><th>Ketu Quiz</th><td>${reportData.ketuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
             html += `</table>`;
 
             html += `<h2>Mobile Number(s)</h2><table><tr><th>#</th><th>Mobile Number</th><th>Total</th><th>Digital Root</th></tr>`;
@@ -2833,7 +2866,8 @@
             });
         })();
 
-        document.getElementById('astrovastuForm').addEventListener('submit', function (e) {
+        const astrovastuForm = document.getElementById('astrovastuForm');
+        if (astrovastuForm) astrovastuForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             // HARD SUBMIT RESTRICTION: every quiz page that is displayed must have at least one selection.
@@ -2912,7 +2946,8 @@
                 statusDiv.style.display = 'block';
                 statusDiv.innerHTML = `✓ Report submitted successfully. Your completed PDF is open for Save/Print, and the report has been sent to the Blueberry AstroVastu email system.`;
                 form.reset();
-                document.getElementById('submissionDate').valueAsDate = new Date();
+                const resetDate = document.getElementById('submissionDate');
+                if (resetDate) resetDate.valueAsDate = new Date();
                 document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
                 activeQuizRoles = [];
                 activeQuizCodeMap = {};
@@ -2950,7 +2985,9 @@
                     if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
                 }
                 const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-                return `Dominated Concern by ${planetName}`;
+                const signText = sign ? ` — ${sign} (Code ${signCode})` : '';
+                const matchedText = matched.length ? ` — ${matched.join(' + ')}` : '';
+                return `${planetName}${signText}${matchedText}`;
             }
             return role;
         }
@@ -2966,17 +3003,14 @@
 
         function cleanVisibleQuizText(text) {
             return String(text || '')
-                .replace(/Code\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/कोड\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/Code\d+\s*-\s*[a-e]\s*—\s*/gi, '')
-                .replace(/\b1\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
-                .replace(/\b[2-5]\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
-                .replace(/Goal\s+[a-d]\)\s*/gi, '')
+                .replace(/Code\s*-?\s*\d+(?:\s*-\s*[a-e])?\s*[—:-]?\s*/gi, '')
+                .replace(/कोड\s*-?\s*\d+(?:\s*-\s*[a-e])?\s*[—:-]?\s*/gi, '')
+                .replace(/\b(?:Goal\s*)?[a-d]\)\s*/gi, '')
+                .replace(/\bGoal\s+[A-D]\s*[—:-]?\s*/gi, '')
                 .replace(/\s{2,}/g, ' ')
                 .replace(/\s+([,.;:])/g, '$1')
                 .trim();
         }
-
 
         function generateBlankQuizzesPdf() {
             if (!quizzesReady || !activeQuizRoles.length) {
@@ -3003,103 +3037,65 @@
             const blankQuizData = activeQuizRoles.map(role => {
                 const pane = document.getElementById(getQuizPaneId(role));
                 const quizTitle = getQuizRoleLabel(role);
+                const code = activeQuizCodeMap[role];
+                const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
 
-                const goalCards = pane
-                    ? Array.from(pane.querySelectorAll('.quiz-goal-card'))
-                    : [];
+                const goalABox = goalCards.find(card => (card.dataset.goal || '').toUpperCase() === 'A') || goalCards[0] || null;
+                const goalA = goalABox ? {
+                    title: 'General Issue',
+                    description: goalABox.querySelector('.goal-a-item .symptom-text')?.innerText?.trim() || '',
+                    checked: false
+                } : null;
 
-                /*
-                 * GOAL A
-                 * Previously this searched for .quiz-goal-description,
-                 * but that class does not exist in renderCodeQuiz().
-                 *
-                 * Goal A is actually stored inside .goal-a-item .symptom-text.
-                 */
-                const goalA = goalCards[0]
-                    ? {
-                        title: 'General Issue',
-                        description:
-                            goalCards[0]
-                                .querySelector('.goal-a-item .symptom-text')
-                                ?.innerText
-                                ?.trim() || '',
-                        checked: false
-                    }
-                    : null;
+                const groupedGoals = new Map();
+                goalCards.forEach((card, index) => {
+                    const goalKey = String(card.dataset.goal || '').toUpperCase() || ['A', 'B', 'C', 'D'][index] || `X${index}`;
+                    if (goalKey === 'A') return;
+                    if (!groupedGoals.has(goalKey)) groupedGoals.set(goalKey, []);
+                    groupedGoals.get(goalKey).push(card);
+                });
 
-                const sections = [];
+                const sections = Array.from(groupedGoals.entries())
+                    .sort(([a], [b]) => a.localeCompare(b))
+                    .map(([goalKey, cards]) => {
+                        let title = '';
+                        const questions = [];
+                        const notes = [];
 
-                for (let i = 1; i < goalCards.length; i++) {
-                    const card = goalCards[i];
+                        cards.forEach(card => {
+                            if (!title) title = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
+                            Array.from(card.children)
+                                .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
+                                .map(el => el.innerText?.trim() || '')
+                                .filter(Boolean)
+                                .forEach(note => { if (!notes.includes(note)) notes.push(note); });
 
-                    const goalTitleText =
-                        card.querySelector('.quiz-goal-title')
-                            ?.innerText
-                            ?.trim() || `Goal Section ${i}`;
-
-                    const goalTitle = cleanVisibleQuizText(goalTitleText);
-
-                    const items = Array.from(
-                        card.querySelectorAll('.symptom-item')
-                    )
-                        .map(item => {
-                            return (
-                                item.querySelector('.symptom-text')
-                                    ?.innerText
-                                    ?.trim() ||
-                                item.getAttribute('data-eng') ||
-                                ''
-                            );
-                        })
-                        .map(text => cleanVisibleQuizText(text))
-                        .map(text =>
-                            text
-                                .replace(/^\d+\.\s*—\s*/, '')
-                                .replace(/^[a-e]\s*—\s*/i, '')
-                                .trim()
-                        )
-                        .filter(Boolean);
-
-                    if (items.length > 0) {
-                        sections.push({
-                            title: goalTitle,
-                            questions: items
+                            Array.from(card.querySelectorAll('.symptom-item')).forEach(item => {
+                                const text = item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
+                                const cleaned = cleanVisibleQuizText(text)
+                                    .replace(/^\d+\.\s*—\s*/, '')
+                                    .replace(/^[a-e]\s*—\s*/i, '')
+                                    .trim();
+                                if (cleaned) questions.push(cleaned);
+                            });
                         });
-                    }
-                }
 
-                if (sections.length === 0 && pane) {
-                    const allItems = Array.from(
-                        pane.querySelectorAll('.symptom-item')
-                    )
-                        .map(item => {
-                            return (
-                                item.querySelector('.symptom-text')
-                                    ?.innerText
-                                    ?.trim() ||
-                                item.getAttribute('data-eng') ||
-                                ''
-                            );
-                        })
-                        .map(text => cleanVisibleQuizText(text))
-                        .map(text =>
-                            text
-                                .replace(/^\d+\.\s*—\s*/, '')
-                                .replace(/^[a-e]\s*—\s*/i, '')
-                                .trim()
-                        )
-                        .filter(Boolean);
+                        const cleanTitle = cleanVisibleQuizText(title)
+                            .replace(/^Goal\s+[a-d]\)\s*/i, '')
+                            .replace(/^Goal\s+[A-D]\s*[—:-]?\s*/i, '')
+                            .trim();
 
-                    if (allItems.length > 0) {
-                        sections.push({
-                            title: 'Assessment Checklist Items',
-                            questions: allItems
-                        });
-                    }
-                }
+                        return {
+                            letter: goalKey,
+                            title: `Goal ${goalKey}${cleanTitle ? ' — ' + cleanTitle : ''}`,
+                            notes,
+                            questions
+                        };
+                    });
 
                 return {
                     quizTitle,
+                    code: Number(code),
                     goalA,
                     sections
                 };
@@ -3121,7 +3117,7 @@
         }
 
                                 * {
-                                    box - sizing: border-box;
+                                    box-sizing: border-box;
         }
 
                                 body {
@@ -3135,7 +3131,7 @@
         }
 
                                 .report-header {
-                                    text - align: center;
+                                    text-align: center;
                                 margin-bottom: 18px;
         }
 
@@ -3178,11 +3174,11 @@
         }
 
                                 .quiz-page {
-                                    page -break-before: always;
+                                    page-break-before: always;
         }
 
                                 .quiz-page:first-of-type {
-                                    page -break-before: auto;
+                                    page-break-before: auto;
         }
 
                                 .quiz-heading {
@@ -3193,6 +3189,16 @@
                                 font-size: 16pt;
                                 font-weight: 700;
         }
+
+                                .code-badge {
+                                    float: right;
+                                    font-size: 9pt;
+                                    color: #604a0e;
+                                    background: #fff4d6;
+                                    border: 1px solid #d8c58b;
+                                    border-radius: 5px;
+                                    padding: 3px 7px;
+                                }
 
                                 .section-heading {
                                     margin: 17px 0 7px;
@@ -3220,7 +3226,7 @@
         }
 
                                 .questions-table tr {
-                                    page -break-inside: avoid;
+                                    page-break-inside: avoid;
                                 page-break-after: auto;
         }
 
@@ -3271,7 +3277,7 @@
         }
 
                                 .report-footer {
-                                    margin - top: 28px;
+                                    margin-top: 28px;
                                 padding-top: 8px;
                                 border-top: 1px solid #d8c58b;
                                 color: #666666;
@@ -3281,20 +3287,20 @@
 
                                 @media print {
                                     body {
-                                    -webkit - print - color - adjust: exact;
+                                    -webkit-print-color-adjust: exact;
                                 print-color-adjust: exact;
             }
 
                                 .quiz-page {
-                                    page -break-before: always;
+                                    page-break-before: always;
             }
 
                                 .quiz-page:first-of-type {
-                                    page -break-before: auto;
+                                    page-break-before: auto;
             }
 
                                 .questions-table tr {
-                                    page -break-inside: avoid;
+                                    page-break-inside: avoid;
             }
 
                                 /*
@@ -3337,114 +3343,70 @@
                                 <tr>
                                     <td class="meta-label">Client Name</td>
                                     <td class="meta-value">${esc(fullName)}</td>
-
-                                    <td class="meta-label">Date</td>
+                                    <td class="meta-label">Form Date</td>
                                     <td class="meta-value">${esc(submissionDate)}</td>
+                                </tr>
+                                <tr>
+                                    <td class="meta-label">Date of Birth</td>
+                                    <td class="meta-value">${esc(document.getElementById('dob')?.value || 'Not provided')}</td>
+                                    <td class="meta-label">Birth Day</td>
+                                    <td class="meta-value">${esc(selectedBirthDayName || 'Not available')} (Code ${esc(selectedBirthDayCode ?? '—')})</td>
+                                </tr>
+                                <tr>
+                                    <td class="meta-label">Driver / Conductor</td>
+                                    <td class="meta-value">${esc(document.getElementById('driverNumberOut')?.innerText || '—')} / ${esc(document.getElementById('conductorNumberOut')?.innerText || '—')}</td>
+                                    <td class="meta-label">Manifestation</td>
+                                    <td class="meta-value">${esc(document.getElementById('manifestationNumberOut')?.innerText || '—')}</td>
+                                </tr>
+                                <tr>
+                                    <td class="meta-label">Rahu</td>
+                                    <td class="meta-value"><b>${esc(selectedRahuSign || 'Not selected')}</b> — Code ${esc(selectedRahuSign ? signCodeMap[selectedRahuSign] : '—')}</td>
+                                    <td class="meta-label">Ketu</td>
+                                    <td class="meta-value"><b>${esc(selectedKetuSign || 'Not selected')}</b> — Code ${esc(selectedKetuSign ? signCodeMap[selectedKetuSign] : '—')}</td>
                                 </tr>
                             </table>
                             `;
 
             blankQuizData.forEach((q, idx) => {
-
                 reportHtml += `
     <section class="quiz-page">
-
-        <h2 class="quiz-heading">
-            ${idx + 1}. ${esc(q.quizTitle)}
-        </h2>
+        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)} <span class="code-badge">Code ${esc(q.code)}</span></h2>
 `;
 
-                /*
-                 * GOAL A
-                 * Now included correctly in the blank PDF.
-                 */
                 if (q.goalA && q.goalA.description) {
-
                     reportHtml += `
-        <h3 class="general-issue-title">
-            General Issue Checklist
-        </h3>
-
+        <h3 class="general-issue-title">General Issue Checklist</h3>
         <table class="questions-table">
-            <tbody>
-                <tr>
-                    <td class="check-column">
-                        <input
-                            type="checkbox"
-                            class="blank-checkbox"
-                            aria-label="Goal A checkbox"
-                        >
-                    </td>
-
-                    <td>
-                        ${esc(cleanVisibleQuizText(q.goalA.description))}
-                    </td>
-                </tr>
-            </tbody>
+            <tbody><tr>
+                <td class="check-column"><input type="checkbox" class="blank-checkbox" aria-label="Goal A checkbox"></td>
+                <td>${esc(cleanVisibleQuizText(q.goalA.description))}</td>
+            </tr></tbody>
         </table>
 `;
                 }
 
-                /*
-                 * Goals B, C and D
-                 */
                 if (q.sections.length > 0) {
-
                     q.sections.forEach(sec => {
-
                         reportHtml += `
-        <h3 class="section-heading">
-            ${esc(sec.title)}
-        </h3>
-
-        <table class="questions-table">
-            <tbody>
+        <h3 class="section-heading">${esc(sec.title)}</h3>
+        ${sec.notes.map(note => `<div class="goal-note">${esc(cleanVisibleQuizText(note))}</div>`).join('')}
+        <table class="questions-table"><tbody>
 `;
-
                         sec.questions.forEach(text => {
-
-                            let cleanedText = cleanVisibleQuizText(text);
-
-                            cleanedText = cleanedText
-                                .replace(/^\d+\.\s*—\s*/, '')
-                                .replace(/^[a-e]\s*—\s*/i, '')
-                                .trim();
-
                             reportHtml += `
-                <tr>
-                    <td class="check-column">
-                        <input
-                            type="checkbox"
-                            class="blank-checkbox"
-                            aria-label="Assessment checkbox"
-                        >
-                    </td>
-
-                    <td>
-                        ${esc(cleanedText)}
-                    </td>
-                </tr>
+            <tr>
+                <td class="check-column"><input type="checkbox" class="blank-checkbox" aria-label="Assessment checkbox"></td>
+                <td>${esc(cleanVisibleQuizText(text))}</td>
+            </tr>
 `;
                         });
-
-                        reportHtml += `
-            </tbody>
-        </table>
-`;
+                        reportHtml += `</tbody></table>`;
                     });
-
                 } else {
-
-                    reportHtml += `
-        <p class="no-questions">
-            No assessment questions are available for this questionnaire.
-        </p>
-`;
+                    reportHtml += `<p class="no-questions">No assessment questions are available for this questionnaire.</p>`;
                 }
 
-                reportHtml += `
-                        </section>
-                        `;
+                reportHtml += `</section>`;
             });
 
             reportHtml += `
@@ -3463,6 +3425,16 @@
                 fullName: fullName,
                 submissionDate: submissionDate,
                 isOnlyBlankPdf: 'true',
+                dob: document.getElementById('dob')?.value || '',
+                birthDay: selectedBirthDayName || '',
+                birthDayCode: selectedBirthDayCode || '',
+                driver: document.getElementById('driverNumberOut')?.innerText || '',
+                conductor: document.getElementById('conductorNumberOut')?.innerText || '',
+                manifestation: document.getElementById('manifestationNumberOut')?.innerText || '',
+                rahuSign: selectedRahuSign || '',
+                rahuCode: selectedRahuSign ? signCodeMap[selectedRahuSign] : '',
+                ketuSign: selectedKetuSign || '',
+                ketuCode: selectedKetuSign ? signCodeMap[selectedKetuSign] : '',
                 blankPdfHtml: reportHtml
             };
 
@@ -3513,7 +3485,8 @@
             }, 800);
         }
 
-    </script>
+    </script>    
+
 </body>
 
 </html>
