@@ -1995,10 +1995,10 @@
             labelEl.innerText = getFriendlyConcernLabel(role, lang);
 
             const goalTitles = {
-                a: { eng: `Goal a) General Issue Related to Code-${code}`, hin: `Goal a) Code-${code} से संबंधित सामान्य समस्या` },
-                b: { eng: `Goal b) Problems Related to First for Code-${code}`, hin: `Goal b) Code-${code} के लिए First से संबंधित समस्याएं` },
-                c: { eng: `Goal c) Second Issues for Code-${code}`, hin: `Goal c) Code-${code} के लिए Second से संबंधित समस्याएं` },
-                d: { eng: `Goal d) Elaborate the Problem Related to Third for Code-${code}`, hin: `Goal d) Code-${code} के Third से संबंधित समस्याओं का विवरण` }
+                a: { eng: `Goal a`, hin: `Goal a) ` },
+                b: { eng: `Goal b`, hin: `Goal b) ` },
+                c: { eng: `Goal c`, hin: `Goal c) ` },
+                d: { eng: `Goal d`, hin: `Goal d) ` }
             };
 
             const concernLabel = getFriendlyConcernLabel(role, lang);
@@ -2015,7 +2015,7 @@
             html += (String(code) === '1' ? renderCode1GoalCSplit(role, code) : renderChecklistGoal('C', goalTitles.c, record.goalC, role, code));
 
             html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
-            html += `<div class="quiz-required-note">${lang === 'hin' ? 'नीचे दिए गए सभी Code sub-codes इस quiz में शामिल हैं।' : 'All Code sub-codes below are included in this quiz.'}</div>`;
+            
             record.goalD.forEach((sub, idx) => {
                 const checkboxId = `q_${role}_${code}_D_${idx}`;
                 const engText = `${sub.title}: ${sub.eng}`;
@@ -3330,12 +3330,6 @@
         <h3 class="section-heading">${esc(sec.title)}</h3>
 
         <table class="questions-table">
-            <thead>
-                <tr>
-                    <th class="check-column">☐</th>
-                    <th>Diagnostic Assessment Symptom / Statement</th>
-                </tr>
-            </thead>
             <tbody>
 `;
 
