@@ -1679,312 +1679,88 @@ function generateBlankQuizzesPdf() {
     }
 
     const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
-    const submissionDate =
-        document.getElementById('submissionDate')?.value ||
-        new Date().toISOString().split('T')[0];
+    const submissionDate = document.getElementById('submissionDate')?.value || new Date().toISOString().split('T')[0];
     const dob = document.getElementById('dob')?.value || 'Not provided';
-
-    const form = document.getElementById('astrovastuForm');
-
-    if (!form) {
-        alert('Form not found. Please refresh the page and try again.');
-        return;
-    }
-
-    const formActionUrl = form.action;
 
     const blankQuizData = activeQuizRoles.map(role => {
         const pane = document.getElementById(getQuizPaneId(role));
         const quizTitle = getQuizRoleLabel(role);
-        const goalCards = pane
-            ? Array.from(pane.querySelectorAll('.quiz-goal-card'))
-            : [];
+        const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
 
-        const goalA = goalCards[0]
-            ? {
-                title: 'General Issue',
-                description:
-                    goalCards[0]
-                        .querySelector('.symptom-text')
-                        ?.innerText
-                        ?.trim() ||
-                    goalCards[0]
-                        .querySelector('.quiz-goal-description')
-                        ?.innerText
-                        ?.trim() ||
-                    goalCards[0]
-                        .querySelector('.symptom-item')
-                        ?.getAttribute('data-eng') ||
-                    ''
-            }
-            : null;
+        const goalA = goalCards[0] ? {
+            title: 'General Issue',
+            description: goalCards[0].querySelector('.symptom-text')?.innerText?.trim() ||
+                goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() ||
+                goalCards[0].querySelector('.symptom-item')?.getAttribute('data-eng') || ''
+        } : null;
 
         const sections = [];
-
         for (let i = 1; i < goalCards.length; i++) {
             const card = goalCards[i];
-
-            const goalTitleText =
-                card.querySelector('.quiz-goal-title')
-                    ?.innerText
-                    ?.trim() || `Goal Section ${i}`;
-
+            const goalTitleText = card.querySelector('.quiz-goal-title')?.innerText?.trim() || `Goal Section ${i}`;
             const goalTitle = cleanVisibleQuizText(goalTitleText);
 
-            const items = Array.from(
-                card.querySelectorAll('.symptom-item')
-            )
-                .map(item => {
-                    return (
-                        item.querySelector('.symptom-text')
-                            ?.innerText
-                            ?.trim() ||
-                        item.getAttribute('data-eng') ||
-                        ''
-                    );
-                })
+            const items = Array.from(card.querySelectorAll('.symptom-item'))
+                .map(item => item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '')
                 .map(text => cleanVisibleQuizText(text))
-                .map(text =>
-                    text
-                        .replace(/^\d+\.\s*—\s*/, '')
-                        .replace(/^[a-e]\s*—\s*/i, '')
-                        .trim()
-                )
+                .map(text => text.replace(/^\d+\.\s*—\s*/, '').replace(/^[a-e]\s*—\s*/i, '').trim())
                 .filter(Boolean);
 
             if (items.length > 0) {
-                sections.push({
-                    title: goalTitle,
-                    questions: items
-                });
+                sections.push({ title: goalTitle, questions: items });
             }
         }
 
         if (sections.length === 0 && pane) {
-            const allItems = Array.from(
-                pane.querySelectorAll('.symptom-item')
-            )
-                .map(item => {
-                    return (
-                        item.querySelector('.symptom-text')
-                            ?.innerText
-                            ?.trim() ||
-                        item.getAttribute('data-eng') ||
-                        ''
-                    );
-                })
+            const allItems = Array.from(pane.querySelectorAll('.symptom-item'))
+                .map(item => item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '')
                 .map(text => cleanVisibleQuizText(text))
-                .map(text =>
-                    text
-                        .replace(/^\d+\.\s*—\s*/, '')
-                        .replace(/^[a-e]\s*—\s*/i, '')
-                        .trim()
-                )
+                .map(text => text.replace(/^\d+\.\s*—\s*/, '').replace(/^[a-e]\s*—\s*/i, '').trim())
                 .filter(Boolean);
 
             if (allItems.length > 0) {
-                sections.push({
-                    title: 'Assessment Checklist Items',
-                    questions: allItems
-                });
+                sections.push({ title: 'Assessment Checklist Items', questions: allItems });
             }
         }
 
-        return {
-            quizTitle,
-            goalA,
-            sections
-        };
+        return { quizTitle, goalA, sections };
     });
 
     const esc = escapeHtml;
-
     let reportHtml = `<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blank Quizzes - Blueberry AstroVastu</title>
-
     <style>
-        @page {
-            size: A4;
-            margin: 14mm;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            color: #0B192C;
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 10.5pt;
-            line-height: 1.5;
-        }
-
-        .report-header {
-            text-align: center;
-            margin-bottom: 18px;
-        }
-
-        .brand {
-            margin: 0 0 4px;
-            color: #DAA520;
-            font-size: 22pt;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            margin: 0;
-            color: #4682B4;
-            font-size: 12pt;
-            font-weight: 700;
-        }
-
-        .meta-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 0 22px;
-        }
-
-        .meta-table td {
-            border: 1px solid #d8c58b;
-            padding: 7px 9px;
-            vertical-align: top;
-        }
-
-        .meta-label {
-            width: 18%;
-            background: #fff4d6;
-            color: #604a0e;
-            font-weight: 700;
-        }
-
-        .meta-value {
-            width: 32%;
-            background: #ffffff;
-        }
-
-        .quiz-page {
-            page-break-before: always;
-        }
-
-        .quiz-page:first-of-type {
-            page-break-before: auto;
-        }
-
-        .quiz-heading {
-            margin: 0 0 14px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid #DAA520;
-            color: #DAA520;
-            font-size: 16pt;
-            font-weight: 700;
-        }
-
-        .section-heading {
-            margin: 17px 0 7px;
-            color: #4682B4;
-            font-size: 12pt;
-            font-weight: 700;
-        }
-
-        .general-issue-title {
-            margin: 0 0 7px;
-            color: #4682B4;
-            font-size: 12pt;
-            font-weight: 700;
-        }
-
-        .questions-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 0 12px;
-            page-break-inside: auto;
-        }
-
-        .questions-table thead {
-            display: table-header-group;
-        }
-
-        .questions-table tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
-        }
-
-        .questions-table th,
-        .questions-table td {
-            border: 1px solid #d8c58b;
-            padding: 7px 8px;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        .questions-table th {
-            background: #fff4d6;
-            color: #604a0e;
-            font-size: 9.5pt;
-            font-weight: 700;
-        }
-
-        .check-column {
-            width: 38px;
-            text-align: center !important;
-        }
-
-        .checkbox-input {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
-        .no-questions {
-            margin: 8px 0 15px;
-            color: #666666;
-            font-size: 10pt;
-            font-style: italic;
-        }
-
-        .report-footer {
-            margin-top: 28px;
-            padding-top: 8px;
-            border-top: 1px solid #d8c58b;
-            color: #666666;
-            text-align: center;
-            font-size: 8.5pt;
-        }
-
-        @media print {
-            body {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            .quiz-page {
-                page-break-before: always;
-            }
-
-            .quiz-page:first-of-type {
-                page-break-before: auto;
-            }
-
-            .questions-table tr {
-                page-break-inside: avoid;
-            }
-        }
+        @page { size: A4; margin: 14mm; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; background: #ffffff; color: #0B192C; font-family: Georgia, 'Times New Roman', serif; font-size: 10.5pt; line-height: 1.5; }
+        .report-header { text-align: center; margin-bottom: 18px; }
+        .brand { margin: 0 0 4px; color: #DAA520; font-size: 22pt; font-weight: 700; }
+        .subtitle { margin: 0; color: #4682B4; font-size: 12pt; font-weight: 700; }
+        .meta-table { width: 100%; border-collapse: collapse; margin: 0 0 22px; }
+        .meta-table td { border: 1px solid #d8c58b; padding: 7px 9px; vertical-align: top; }
+        .meta-label { width: 18%; background: #fff4d6; color: #604a0e; font-weight: 700; }
+        .meta-value { width: 32%; background: #ffffff; }
+        .quiz-page { page-break-before: always; }
+        .quiz-page:first-of-type { page-break-before: auto; }
+        .quiz-heading { margin: 0 0 14px; padding-bottom: 6px; border-bottom: 2px solid #DAA520; color: #DAA520; font-size: 16pt; font-weight: 700; }
+        .section-heading { margin: 17px 0 7px; color: #4682B4; font-size: 12pt; font-weight: 700; }
+        .general-issue-title { margin: 0 0 7px; color: #4682B4; font-size: 12pt; font-weight: 700; }
+        .questions-table { width: 100%; border-collapse: collapse; margin: 0 0 12px; }
+        .questions-table th, .questions-table td { border: 1px solid #d8c58b; padding: 7px 8px; text-align: left; vertical-align: top; }
+        .questions-table th { background: #fff4d6; color: #604a0e; font-size: 9.5pt; font-weight: 700; }
+        .report-footer { margin-top: 28px; padding-top: 8px; border-top: 1px solid #d8c58b; color: #666666; text-align: center; font-size: 8.5pt; }
+        @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
     </style>
 </head>
-
 <body>
     <header class="report-header">
         <h1 class="brand">BLUEBERRY ASTROVASTU</h1>
         <p class="subtitle">Blank Diagnostic Assessment Questionnaires</p>
     </header>
-
     <table class="meta-table">
         <tr>
             <td class="meta-label">Client Name</td>
@@ -1996,115 +1772,42 @@ function generateBlankQuizzesPdf() {
             <td class="meta-label">Form Date</td>
             <td class="meta-value" colspan="3">${esc(submissionDate)}</td>
         </tr>
-    </table>
-`;
+    </table>`;
 
     blankQuizData.forEach((q, idx) => {
-        reportHtml += `
-    <section class="quiz-page">
-        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>
-`;
+        reportHtml += `<section class="quiz-page"><h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>`;
 
         if (q.goalA && q.goalA.description) {
-            reportHtml += `
-        <h3 class="general-issue-title">General Issue Checklist</h3>
-
-        <table class="questions-table">
-            <tbody>
-                <tr>
-                    <td class="check-column">
-                        <input type="checkbox" class="checkbox-input">
-                    </td>
-                    <td>${esc(cleanVisibleQuizText(q.goalA.description))}</td>
-                </tr>
-            </tbody>
-        </table>
-`;
+            reportHtml += `<h3 class="general-issue-title">General Issue Checklist</h3>
+            <table class="questions-table"><tbody><tr><td>${esc(cleanVisibleQuizText(q.goalA.description))}</td></tr></tbody></table>`;
         }
 
         if (q.sections.length > 0) {
             q.sections.forEach(sec => {
-                reportHtml += `
-        <h3 class="section-heading">${esc(sec.title)}</h3>
-
-        <table class="questions-table">
-            <tbody>
-`;
-
+                reportHtml += `<h3 class="section-heading">${esc(sec.title)}</h3><table class="questions-table"><tbody>`;
                 sec.questions.forEach(text => {
-                    let cleanedText = cleanVisibleQuizText(text);
-
-                    cleanedText = cleanedText
-                        .replace(/^\d+\.\s*—\s*/, '')
-                        .replace(/^[a-e]\s*—\s*/i, '')
-                        .trim();
-
-                    reportHtml += `
-                <tr>
-                    <td class="check-column">
-                        <input type="checkbox" class="checkbox-input">
-                    </td>
-                    <td>${esc(cleanedText)}</td>
-                </tr>
-`;
+                    let cleanedText = cleanVisibleQuizText(text).replace(/^\d+\.\s*—\s*/, '').replace(/^[a-e]\s*—\s*/i, '').trim();
+                    reportHtml += `<tr><td>${esc(cleanedText)}</td></tr>`;
                 });
-
-                reportHtml += `
-            </tbody>
-        </table>
-`;
+                reportHtml += `</tbody></table>`;
             });
-        } else {
-            reportHtml += `
-        <p class="no-questions">
-            No assessment questions are available for this questionnaire.
-        </p>
-`;
         }
-
-        reportHtml += `
-    </section>
-`;
+        reportHtml += `</section>`;
     });
 
-    reportHtml += `
-    <div class="report-footer">
-        Generated by Blueberry AstroVastu System
-    </div>
-</body>
-</html>`;
+    reportHtml += `<div class="report-footer">Generated by Blueberry AstroVastu System</div></body></html>`;
 
-    // 1. Dispatch blank PDF structure to Google Apps Script backend for email delivery to piyush10june@gmail.com
-    const payloadData = {
-        fullName: fullName,
-        submissionDate: submissionDate,
-        isOnlyBlankPdf: 'true',
-        blankPdfHtml: reportHtml
-    };
-
-    const payload = new FormData();
-    payload.append('reportDataJson', JSON.stringify(payloadData));
-
-    fetch(formActionUrl, {
-        method: 'POST',
-        body: payload,
-        mode: 'no-cors'
-    })
-        .then(() => {
-            console.log('Blank PDF email triggered successfully to piyush10june@gmail.com.');
-        })
-        .catch(err => {
-            console.error('Blank PDF dispatch failed:', err);
-        });
-
-    // 2. Trigger automatic browser download/save of the blank PDF/HTML file
-    const blob = new Blob([reportHtml], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = url;
-    downloadLink.download = `${sanitizeFileName(fullName)}_Blank_Quizzes.html`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-    URL.revokeObjectURL(url);
+    // Open print window directly for native Save-as-PDF dialog
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+        alert('Pop-up blocked. Please allow pop-ups for this website to open the blank PDF dialog.');
+        return;
+    }
+    printWindow.document.open();
+    printWindow.document.write(reportHtml);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+        try { printWindow.print(); } catch (err) { console.warn('Print dialog failed', err); }
+    }, 700);
 }
