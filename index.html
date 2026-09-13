@@ -885,231 +885,239 @@
                 gap: 5px;
             }
         }
+
+        
     </style>
 </head>
 
 <body>
 
-        <div class="container">
+    <div class="container blueberry-form-container">
 
-                <!-- Logo -->
-                <div class="logo-wrapper">
-                        <img src="images/logo.png" alt="Logo" class="logo">
-                    </div>
+        <!-- Logo -->
+        <div class="logo-wrapper" style="text-align: center; margin-bottom: 15px;">
+            <img src="images/logo.png" alt="Logo" class="logo">
+        </div>
+
         <hr>
 
-                <!-- Language Selection Section -->
-                <div            
-            style="background-color: rgba(255, 255, 255, 0.65); padding: 3px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4); margin-bottom: 25px;">
-                        <div class="field" style="margin-bottom: 0;">
-                                <label for="displayLanguage" style="color: #0B192C; font-size: 18px;"><b>Select Language
-                        / भाषा चुनें</b> <span>*</span></label>
-                                <select id="displayLanguage" name="displayLanguage" onchange="onLanguageChange()">
-                                        <option value="eng" selected>English</option>
-                                        <option value="hin">Hindi (हिंदी)</option>
-                                    </select>
-                            </div>
-                    </div>
+        <!-- Language Selection Section -->
+        <div class="blueberry-card">
+            <div class="field" style="margin-bottom: 0;">
+                <label for="displayLanguage" style="font-size: 17px;">
+                    <b>Select Language / भाषा चुनें</b> <span>*</span>
+                </label>
+                <select id="displayLanguage" name="displayLanguage" onchange="onLanguageChange()">
+                    <option value="eng" selected>English</option>
+                    <option value="hin">Hindi (हिंदी)</option>
+                </select>
+            </div>
+        </div>
 
-                <!-- Date of Form Filling Section -->
-                <div            
-            style="background-color: rgba(255, 255, 255, 0.65); padding: 3px; border-radius: 12px; border: 1px solid rgba(218, 165, 32, 0.4);">
-                        <div class="field" style="margin-bottom: 0;">
-                                <label style="color: #0B192C; font-size: 18px;"><b>Date of Form Filling</b>
-                    <span>*</span></label>
-                                <input type="date" id="submissionDate" name="submissionDate" required>
-                            </div>
-                    </div>
-               
+        <!-- Date of Form Filling Section -->
+        <div class="blueberry-card">
+            <div class="field" style="margin-bottom: 0;">
+                <label style="font-size: 17px;"><b>Date of Form Filling</b> <span>*</span></label>
+                <input type="date" id="submissionDate" name="submissionDate" required>
+            </div>
+        </div>
+
         <hr>
 
-                <!-- Intake Form Body -->
-                <form id="astrovastuForm"            
+        <!-- Intake Form Body -->
+        <form id="astrovastuForm"
             action="https://script.google.com/macros/s/AKfycbzmJvm6w0ZZdvSRqXZ68SUgm51AP99MvYjnhRdvWJ3an_r1uIKhNIte2UryviFfq9I_/exec"
-                        method="POST">
+            method="POST">
 
-                        <h3 class="form-section-title">Personal Information</h3>
+            <h3 class="form-section-title">Personal Information</h3>
 
-                        <div class="field">
-                                <label for="fullName">Full Name <span>*</span></label>
-                                <input type="text" id="fullName" name="fullName" required placeholder="Enter full name"
-                                        oninput="calculateNumerology()">
+            <div class="blueberry-card" style="border: none; background: transparent; padding: 0; box-shadow: none;">
+                <div class="field">
+                    <label for="fullName">Full Name <span>*</span></label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="Enter full name"
+                        oninput="calculateNumerology()">
 
-                                <!-- Chaldean Name Numerology Output Display -->
-                                <div class="numerology-box" id="numerologyResult" style="display: none;">
-                                        <div class="numerology-item">First Name Score: <span
-                            id="firstNameScore">-</span></div>
-                                        <div class="numerology-item">First Name Number: <span
-                            id="firstNameNumber">-</span></div>
-                                        <div class="numerology-item">Total Name Score: <span
-                            id="totalNameScore">-</span></div>
-                                        <div class="numerology-item">Total Name Number: <span
-                            id="totalNameNumber">-</span></div>
-                                    </div>
-                            </div>
-
-                        <div class="field">
-                                <label for="timeOfBirth">Time of Birth <small>(Optional)</small></label>
-                                <input type="time" id="timeOfBirth" name="timeOfBirth">
-                            </div>
-
-                        <div class="field">
-                <label>Mobile Number <small>(Optional)</small></label>
-
-                <div id="phoneContainer">
-                    <div class="phone-group">
-                        <div class="phone-input-row">
-                            <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number"
-                                oninput="calculatePhoneNumerology(this)">
-                        </div>
-                        <div class="phone-score-display" style="display: none;">
-                            Sum: <span class="phoneScoreVal">-</span>
-                        </div>
+                    <!-- Chaldean Name Numerology Output Display -->
+                    <div class="numerology-box" id="numerologyResult" style="display: none;">
+                        <div class="numerology-item">First Name Score: <span id="firstNameScore">-</span></div>
+                        <div class="numerology-item">First Name Number: <span id="firstNameNumber">-</span></div>
+                        <div class="numerology-item">Total Name Score: <span id="totalNameScore">-</span></div>
+                        <div class="numerology-item">Total Name Number: <span id="totalNameNumber">-</span></div>
                     </div>
                 </div>
-
-                <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
             </div>
 
-                        <!-- Day of Birth is calculated automatically from Date of Birth -->
-                        <div class="auto-day-card" id="autoDayCard" style="display:none !important;">
-                                <div class="auto-day-main">
-                                        <span class="auto-day-label">Day of Birth</span>
-                                        <strong id="birthdayDisplay">-</strong>
-                                    </div>
-                                <div class="auto-day-code">Birth Day Code: <span id="birthDayCodeOut">-</span></div>
-                                <input type="hidden" id="birthday" name="birthday" value="">
-                            </div>
+            <div class="blueberry-card" style="border: none; background: transparent; padding: 0; box-shadow: none;">
+                <div class="field">
+                    <label for="timeOfBirth">Time of Birth <small
+                            style="color: #64748b; font-weight: normal;">(Optional)</small></label>
+                    <input type="time" id="timeOfBirth" name="timeOfBirth">
+                </div>
+            </div>
 
-                        <div class="field">
-                                <label for="dob">Date of Birth <span>*</span></label>
-                                <div class="dob-action-row">
-                                        <input type="date" id="dob" name="dob" required>
-                                        <button type="button" class="nav-btn" id="confirmDobBtn"                        
-                        style="padding: 10px 20px; white-space: nowrap;">Calculate DOB & Continue</button>
-                                    </div>
+            <div class="blueberry-card" style="border: none; background: transparent; padding: 0; box-shadow: none;">
+                <div class="field">
+                    <label>Mobile Number <small style="color: #64748b; font-weight: normal;">(Optional)</small></label>
 
-                                <!-- DOB Numerology Clean Output Display -->
-                                <div class="numerology-box" id="dobNumerologyResult" style="display: none;">
-                                        <div class="numerology-item">Driver: <span id="driverNumberOut">-</span></div>
-                                        <div class="numerology-item">Conductor: <span id="conductorNumberOut">-</span>
+                    <div id="phoneContainer">
+                        <div class="phone-group" style="margin-bottom: 12px;">
+                            <div class="phone-input-row">
+                                <input type="tel" name="mobileNumber" class="mobileInput"
+                                    placeholder="Enter phone number" oninput="calculatePhoneNumerology(this)">
+                            </div>
+                            <div class="phone-score-display numerology-box" style="display: none; margin-top: 6px;">
+                                Sum: <span class="phoneScoreVal">-</span>
+                            </div>
+                        </div>
                     </div>
-                                        <div class="numerology-item">Manifestation: <span
-                            id="manifestationNumberOut">-</span></div>
-                                    </div>
-                            </div>
 
-                        <!-- Rahu / Ketu Sign Selection: shown after DOB is calculated -->
-                        <div id="rahuKetuSection" style="display:none; margin-bottom:22px;">
-                                <div class="numerology-box quiz-overview-box">
-                                        <div class="numerology-item"><strong>Rahu & Ketu Sign Details</strong></div>
-                                        <div class="numerology-item">Select both signs to continue</div>
-                                    </div>
+                    <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
+                </div>
+            </div>
 
-                                <div class="field">
-                                        <label for="rahuSign">Rahu in which sign? <span>*</span></label>
-                                        <select id="rahuSign" name="rahuSign">
-                                                <option value="">Select Rahu sign</option>
-                                            </select>
-                                    </div>
+            <!-- Day of Birth is calculated automatically from Date of Birth -->
+            <div class="auto-day-card numerology-box" id="autoDayCard" style="display:none !important;">
+                <div class="auto-day-main">
+                    <span class="auto-day-label">Day of Birth</span>
+                    <strong id="birthdayDisplay">-</strong>
+                </div>
+                <div class="auto-day-code">Birth Day Code: <span id="birthDayCodeOut">-</span></div>
+                <input type="hidden" id="birthday" name="birthday" value="">
+            </div>
 
-                                <div class="field">
-                                        <label for="ketuSign">Ketu in which sign? <span>*</span></label>
-                                        <select id="ketuSign" name="ketuSign">
-                                                <option value="">Select Ketu sign</option>
-                                            </select>
-                                    </div>
+            <div class="blueberry-card" style="border: none; background: transparent; padding: 0; box-shadow: none;">
+                <div class="field">
+                    <label for="dob">Date of Birth <span>*</span></label>
+                    <div class="dob-action-row" style="display: flex; gap: 10px; align-items: center;">
+                        <input type="date" id="dob" name="dob" required>
+                        <button type="button" class="nav-btn" id="confirmDobBtn"
+                            style="padding: 12px 20px; white-space: nowrap;">Calculate DOB & Continue</button>
+                    </div>
 
-                                <button type="button" class="nav-btn" id="confirmRahuKetuBtn" style="width:100%;">
-                                        Confirm Rahu & Ketu and Open Quizzes
-                                    </button>
+                    <!-- DOB Numerology Clean Output Display -->
+                    <div class="numerology-box" id="dobNumerologyResult" style="display: none;">
+                        <div class="numerology-item">Driver: <span id="driverNumberOut">-</span></div>
+                        <div class="numerology-item">Conductor: <span id="conductorNumberOut">-</span></div>
+                        <div class="numerology-item">Manifestation: <span id="manifestationNumberOut">-</span></div>
+                    </div>
+                </div>
+            </div>
 
-                                <div class="numerology-box" id="rahuKetuMatchResult" style="display:none !important;">
-                                        <div class="numerology-item">Rahu Sign: <span id="rahuSignOut">-</span></div>
+            <!-- Rahu / Ketu Sign Selection: shown after DOB is calculated -->
+            <div id="rahuKetuSection" style="display:none; margin-bottom:22px;">
+                <div class="numerology-box quiz-overview-box" style="margin-bottom: 15px;">
+                    <div class="numerology-item"><strong>Rahu & Ketu Sign Details</strong></div>
+                    <div class="numerology-item">Select both signs to continue</div>
+                </div>
+
+                <div class="blueberry-card"
+                    style="border: none; background: transparent; padding: 0; box-shadow: none;">
+                    <div class="field" style="margin-bottom: 15px;">
+                        <label for="rahuSign">Rahu in which sign? <span>*</span></label>
+                        <select id="rahuSign" name="rahuSign">
+                            <option value="">Select Rahu sign</option>
+                        </select>
+                    </div>
+
+                    <div class="field" style="margin-bottom: 15px;">
+                        <label for="ketuSign">Ketu in which sign? <span>*</span></label>
+                        <select id="ketuSign" name="ketuSign">
+                            <option value="">Select Ketu sign</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" class="nav-btn" id="confirmRahuKetuBtn" style="width:100%;">
+                    Confirm Rahu & Ketu and Open Quizzes
+                </button>
+
+                <div class="numerology-box" id="rahuKetuMatchResult" style="display:none !important;">
+                    <div class="numerology-item">Rahu Sign: <span id="rahuSignOut">-</span></div>
                     <div class="numerology-item">Ketu Sign: <span id="ketuSignOut">-</span></div>
                     <div class="numerology-item">Additional Concern: <span id="rahuKetuQuizOut">None</span></div>
-                                   
                 </div>
-                            </div>
+            </div>
 
-                        <!-- Dynamic Step-by-Step Diagnostic Checklists -->
-                        <div id="dynamicQuizzesWrapper" style="display:none;">
-                                <div class="numerology-box quiz-overview-box">
-                                        <div class="numerology-item" id="quizProgressItem" style="display:none;"><span  
-                                                      id="quizProgressLabel"></span></div>
-                                        <div class="numerology-item">Total Selected Checkbox Score: <span
-                            id="totalMasterScore"                             style="color:#FF8C00;">0</span></div>
-                                    </div>
+            <!-- Dynamic Step-by-Step Diagnostic Checklists -->
+            <div id="dynamicQuizzesWrapper" style="display:none;">
+                <div class="numerology-box quiz-overview-box" style="margin-bottom: 15px;">
+                    <div class="numerology-item" id="quizProgressItem" style="display:none;">
+                        <span id="quizProgressLabel"></span>
+                    </div>
+                    <div class="numerology-item">Total Selected Checkbox Score: <span id="totalMasterScore"
+                            style="color:#FF8C00; font-weight: bold;">0</span></div>
+                </div>
 
-                                <!-- Maximum six quiz types. Duplicate codes are automatically merged into one quiz. -->
-                                <div class="quiz-step-pane" id="quizStep_0" style="display:none;">
-                                        <div class="field"><label id="driverQuizLabel">Quiz</label>
-                                                <div class="dynamic-quiz-container" id="driverQuizContent"></div>
-                                            </div>
-                                    </div>
-                                <div class="quiz-step-pane" id="quizStep_1" style="display:none;">
-                                        <div class="field"><label id="conductorQuizLabel">Quiz</label>
-                                                <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
-                                            </div>
-                                    </div>
-                                <div class="quiz-step-pane" id="quizStep_2" style="display:none;">
-                                        <div class="field"><label id="manifestationQuizLabel">Quiz</label>
-                                                <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
-                                            </div>
-                                    </div>
-                                <div class="quiz-step-pane" id="quizStep_3" style="display:none;">
-                                        <div class="field"><label id="rahuQuizLabel">Rahu Quiz</label>
-                                                <div class="dynamic-quiz-container" id="rahuQuizContent"></div>
-                                            </div>
-                                    </div>
-                                <div class="quiz-step-pane" id="quizStep_4" style="display:none;">
-                                        <div class="field"><label id="ketuQuizLabel">Ketu Quiz</label>
-                                                <div class="dynamic-quiz-container" id="ketuQuizContent"></div>
-                                            </div>
-                                    </div>
-                                <div class="quiz-step-pane" id="quizStep_5" style="display:none;">
-                                        <div class="field"><label id="birthdayQuizLabel">Day of Birth Quiz</label>
-                                                <div class="dynamic-quiz-container" id="birthdayQuizContent"></div>
-                                            </div>
-                                    </div>
+                <!-- Maximum six quiz types. Duplicate codes are automatically merged into one quiz. -->
+                <div class="quiz-step-pane" id="quizStep_0" style="display:none;">
+                    <div class="blueberry-card"><label id="driverQuizLabel">Quiz</label>
+                        <div class="dynamic-quiz-container" id="driverQuizContent"></div>
+                    </div>
+                </div>
+                <div class="quiz-step-pane" id="quizStep_1" style="display:none;">
+                    <div class="blueberry-card"><label id="conductorQuizLabel">Quiz</label>
+                        <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
+                    </div>
+                </div>
+                <div class="quiz-step-pane" id="quizStep_2" style="display:none;">
+                    <div class="blueberry-card"><label id="manifestationQuizLabel">Quiz</label>
+                        <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
+                    </div>
+                </div>
+                <div class="quiz-step-pane" id="quizStep_3" style="display:none;">
+                    <div class="blueberry-card"><label id="rahuQuizLabel">Rahu Quiz</label>
+                        <div class="dynamic-quiz-container" id="rahuQuizContent"></div>
+                    </div>
+                </div>
+                <div class="quiz-step-pane" id="quizStep_4" style="display:none;">
+                    <div class="blueberry-card"><label id="ketuQuizLabel">Ketu Quiz</label>
+                        <div class="dynamic-quiz-container" id="ketuQuizContent"></div>
+                    </div>
+                </div>
+                <div class="quiz-step-pane" id="quizStep_5" style="display:none;">
+                    <div class="blueberry-card"><label id="birthdayQuizLabel">Day of Birth Quiz</label>
+                        <div class="dynamic-quiz-container" id="birthdayQuizContent"></div>
+                    </div>
+                </div>
 
-                                <div class="quiz-nav-buttons">
-                                        <button type="button" class="nav-btn" id="prevQuizBtn"
-                        onclick="navigateQuizStep(-1)"                         style="display:none;">← Previous</button>
+                <div class="quiz-nav-buttons"
+                    style="display: flex; gap: 10px; justify-content: space-between; margin-top: 15px;">
+                    <button type="button" class="nav-btn" id="prevQuizBtn" onclick="navigateQuizStep(-1)"
+                        style="display:none;">← Previous</button>
 
-                                        <!-- New Blank Quizzes PDF Generator Button -->
-                                        <button type="button" class="nav-btn" id="generateBlankPdfBtn"
-                        onclick="generateBlankQuizzesPdf()"                        
+                    <!-- New Blank Quizzes PDF Generator Button -->
+                    <button type="button" class="nav-btn" id="generateBlankPdfBtn" onclick="generateBlankQuizzesPdf()"
                         style="background: #4682B4; color: #ffffff; border-color: #DAA520;">📥 Generate Blank Quizzes
-                                                PDF</button>
+                        PDF</button>
 
-                                        <button type="button" class="nav-btn" id="nextQuizBtn"
-                        onclick="navigateQuizStep(1)">Next →</button>
-                                        <button type="button" class="nav-btn" id="finishQuizBtn"
-                        onclick="finishQuizzes()"                        
+                    <button type="button" class="nav-btn" id="nextQuizBtn" onclick="navigateQuizStep(1)">Next →</button>
+                    <button type="button" class="nav-btn" id="finishQuizBtn" onclick="finishQuizzes()"
                         style="display:none; background:#DAA520; color:#0B192C;">✓ Finish & Save</button>
-                                    </div>
-                            </div>
+                </div>
+            </div>
 
-                        <button type="submit" class="submit-btn">Submit Information</button>
-                        <div id="statusMessage" class="status-msg"></div>
+            <button type="submit" class="submit-btn">Submit Information</button>
+            <div id="statusMessage" class="status-msg" style="margin-top: 10px; text-align: center; font-weight: 500;">
+            </div>
 
-                    </form>
+        </form>
 
-                <!-- Payment Details Block -->
-                <div class="payment-card-refined">
-                        <div class="payment-left payment-details">
-                                <h3>Payment Details</h3>
-                                <p><b>Google Pay:</b> 9693701283</p>
-                                <p><b>PhonePe:</b> 9693701283</p>
-                                <p><b>UPI ID:</b> piyush10junepriyanka@okicici</p>
-                            </div>
-                        <div class="payment-right">
-                                <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'"
-                    height="130px"                     width="auto">
-                            </div>
-                    </div>
-        <footer class="blueberry-footer" style="
+        <!-- Payment Details Block -->
+        <div class="payment-card-refined">
+            <div class="payment-left payment-details">
+                <h3>Payment Details</h3>
+                <p><b>Google Pay:</b> 9693701283</p>
+                <p><b>PhonePe:</b> 9693701283</p>
+                <p><b>UPI ID:</b> piyush10junepriyanka@okicici</p>
+            </div>
+            <div class="payment-right">
+                <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'" height="130px"
+                    width="auto">
+            </div>
+        </div>
+
+    </div>
+    <footer class="blueberry-footer" style="
     background: linear-gradient(135deg, #fffdf7 0%, #ffffff 55%, #fff8e6 100%);
     color: #3b321f;
     padding: 60px 25px 25px;
@@ -1117,33 +1125,33 @@
     font-family: Georgia, 'Times New Roman', serif;
 ">
 
-            <!-- BLUEBERRY METHODOLOGY -->
-            <div style="
+        <!-- BLUEBERRY METHODOLOGY -->
+        <div style="
         max-width: 1150px;
         margin: 0 auto 55px;
         text-align: center;
     ">
 
-                <div style="
+            <div style="
             width: 80px;
             height: 3px;
             background: linear-gradient(90deg, #c99819, #f4d477, #c99819);
             margin: 0 auto 20px;
         "></div>
 
-                <h2 style="
+            <h2 style="
             color: #9a7415;
             font-size: 30px;
             margin: 0 0 25px;
             letter-spacing: 0.5px;
         ">
-                    While Building New, Renovating, or Resolving Issues
-                    in Your House, Factory or Office
-                </h2>
+                While Building New, Renovating, or Resolving Issues
+                in Your House, Factory or Office
+            </h2>
 
 
-                <!-- PROCESS -->
-                <div style="
+            <!-- PROCESS -->
+            <div style="
             display: flex;
             justify-content: center;
             align-items: center;
@@ -1153,10 +1161,10 @@
             font-family: Arial, sans-serif;
         ">
 
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="image3.png" alt="Structure Layout"
-                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
-                        <span style="
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="image3.png" alt="Structure Layout"
+                        style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                    <span style="
                 background: #ffffff;
                 border: 1px solid #d4af37;
                 color: #80600f;
@@ -1165,63 +1173,63 @@
                 font-weight: bold;
                 box-shadow: 0 4px 12px rgba(180,140,30,0.12);
             ">
-                            Structure Layout
-                        </span>
-                    </div>
-
-                    <span style="color: #c99819; font-size: 24px; font-weight: bold;">→</span>
-
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="image2.png" alt="Furniture Layout"
-                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
-                        <span style="
-                background: #ffffff;
-                border: 1px solid #d4af37;
-                color: #80600f;
-                padding: 12px 20px;
-                border-radius: 30px;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(180,140,30,0.12);
-            ">
-                            Furniture Layout
-                        </span>
-                    </div>
-
-                    <span style="color: #c99819; font-size: 24px; font-weight: bold;">→</span>
-
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="image1.png" alt="Interior Layout"
-                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
-                        <span style="
-                background: #ffffff;
-                border: 1px solid #d4af37;
-                color: #80600f;
-                padding: 12px 20px;
-                border-radius: 30px;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(180,140,30,0.12);
-            ">
-                            Interior Layout
-                        </span>
-                    </div>
-
+                        Structure Layout
+                    </span>
                 </div>
 
+                <span style="color: #c99819; font-size: 24px; font-weight: bold;">→</span>
 
-                <p style="
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="image2.png" alt="Furniture Layout"
+                        style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                    <span style="
+                background: #ffffff;
+                border: 1px solid #d4af37;
+                color: #80600f;
+                padding: 12px 20px;
+                border-radius: 30px;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(180,140,30,0.12);
+            ">
+                        Furniture Layout
+                    </span>
+                </div>
+
+                <span style="color: #c99819; font-size: 24px; font-weight: bold;">→</span>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="image1.png" alt="Interior Layout"
+                        style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                    <span style="
+                background: #ffffff;
+                border: 1px solid #d4af37;
+                color: #80600f;
+                padding: 12px 20px;
+                border-radius: 30px;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(180,140,30,0.12);
+            ">
+                        Interior Layout
+                    </span>
+                </div>
+
+            </div>
+
+
+            <p style="
             max-width: 950px;
             margin: 0 auto 45px;
             font-size: 17px;
             line-height: 1.8;
             color: #514936;
         ">
-                    Once the interior layout is in place, you can build or renovate
-                    your <strong>home, office, or factory</strong> accordingly.
-                </p>
+                Once the interior layout is in place, you can build or renovate
+                your <strong>home, office, or factory</strong> accordingly.
+            </p>
 
 
-                <!-- HOW BLUEBERRY WORKS -->
-                <div style="
+            <!-- HOW BLUEBERRY WORKS -->
+            <div style="
             max-width: 1050px;
             margin: 0 auto;
             padding: 35px 35px;
@@ -1232,56 +1240,56 @@
             text-align: left;
         ">
 
-                    <h3 style="
+                <h3 style="
                 text-align: center;
                 color: #9a7415;
                 font-size: 27px;
                 margin: 0 0 25px;
             ">
-                        How Blueberry Works
-                    </h3>
+                    How Blueberry Works
+                </h3>
 
-                    <p style="
+                <p style="
                 font-size: 17px;
                 line-height: 1.9;
                 margin: 0;
                 color: #403a2d;
             ">
-                        <strong style="color:#8b6815;">
-                            Blueberry synchronizes the Architectural Drawings,
-                            integrates the Vastu principles and advice provided by
-                            your Vastu Consultant, and aligns the Luxury Interior
-                            Design created by your Interior Designer with AstroVastu,
-                            Numerology, Palmistry and Energy
-                        </strong>
-                        — creating a personalized environment for the individual
-                        to enhance their
-                        <strong style="color:#9a7415;">
-                            Aura (Personality), Profession, and Manifestation.
-                        </strong>
-                    </p>
+                    <strong style="color:#8b6815;">
+                        Blueberry synchronizes the Architectural Drawings,
+                        integrates the Vastu principles and advice provided by
+                        your Vastu Consultant, and aligns the Luxury Interior
+                        Design created by your Interior Designer with AstroVastu,
+                        Numerology, Palmistry and Energy
+                    </strong>
+                    — creating a personalized environment for the individual
+                    to enhance their
+                    <strong style="color:#9a7415;">
+                        Aura (Personality), Profession, and Manifestation.
+                    </strong>
+                </p>
 
 
-                    <p style="
+                <p style="
                 font-size: 17px;
                 line-height: 1.9;
                 margin: 25px 0 0;
                 color: #403a2d;
             ">
-                        Blueberry brings these elements together to create a
-                        <strong style="color:#9a7415;">
-                            synchronized environment where your space works in
-                            harmony with your personality
-                        </strong>,
-                        helping you unlock your potential, strengthen your presence,
-                        and create greater visibility and impact in the market.
-                    </p>
+                    Blueberry brings these elements together to create a
+                    <strong style="color:#9a7415;">
+                        synchronized environment where your space works in
+                        harmony with your personality
+                    </strong>,
+                    helping you unlock your potential, strengthen your presence,
+                    and create greater visibility and impact in the market.
+                </p>
 
-                </div>
+            </div>
 
 
-                <!-- MAGICAL SYSTEM -->
-                <div style="
+            <!-- MAGICAL SYSTEM -->
+            <div style="
             max-width: 1000px;
             margin: 35px auto;
             padding: 25px 30px;
@@ -1296,7 +1304,7 @@
             text-align: center;
         ">
 
-                    <p style="
+                <p style="
                 margin: 0;
                 font-size: 20px;
                 line-height: 1.7;
@@ -1304,76 +1312,76 @@
                 font-weight: bold;
                 font-style: italic;
             ">
-                        “A Step-by-Step, Balanced & Magical System to Fulfill Your
-                        Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
-                        Home, Office, or Factory.”
-                    </p>
+                    “A Step-by-Step, Balanced & Magical System to Fulfill Your
+                    Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
+                    Home, Office, or Factory.”
+                </p>
 
-                </div>
+            </div>
 
 
-                <!-- STRATEGIC ADVICE -->
-                <div style="
+            <!-- STRATEGIC ADVICE -->
+            <div style="
             max-width: 1050px;
             margin: 0 auto;
             text-align: left;
         ">
 
-                    <p style="
+                <p style="
                 font-size: 17px;
                 line-height: 1.9;
                 color: #403a2d;
                 margin-bottom: 25px;
             ">
-                        This
-                        <strong style="color:#9a7415;">
-                            strategic advice
-                        </strong>
-                        is designed to
-                        <strong>
-                            structure and support your Subconscious mind
-                        </strong>,
-                        which is essential for building a strong brand, creating
-                        substantial wealth, overcoming weaknesses and losses,
-                        and transforming challenges and losses into opportunities
-                        and investments.
-                    </p>
+                    This
+                    <strong style="color:#9a7415;">
+                        strategic advice
+                    </strong>
+                    is designed to
+                    <strong>
+                        structure and support your Subconscious mind
+                    </strong>,
+                    which is essential for building a strong brand, creating
+                    substantial wealth, overcoming weaknesses and losses,
+                    and transforming challenges and losses into opportunities
+                    and investments.
+                </p>
 
 
-                    <p style="
+                <p style="
                 font-size: 18px;
                 line-height: 1.9;
                 color: #403a2d;
                 text-align: center;
                 margin: 0;
             ">
-                        Ultimately, this strategic approach is designed to help you
-                        become an
-                        <strong style="color:#9a7415;">
-                            Influencer
-                        </strong>,
-                        harness
-                        <strong style="color:#9a7415;">
-                            Media Power
-                        </strong>,
-                        and create a
-                        <strong style="color:#9a7415;">
-                            Viral Presence
-                        </strong>,
-                        enabling you to
-                        <strong style="color:#80600f;">
-                            excel, achieve sustained growth, increase your visibility,
-                            and move towards a top position in the market.
-                        </strong>
-                    </p>
-
-                </div>
+                    Ultimately, this strategic approach is designed to help you
+                    become an
+                    <strong style="color:#9a7415;">
+                        Influencer
+                    </strong>,
+                    harness
+                    <strong style="color:#9a7415;">
+                        Media Power
+                    </strong>,
+                    and create a
+                    <strong style="color:#9a7415;">
+                        Viral Presence
+                    </strong>,
+                    enabling you to
+                    <strong style="color:#80600f;">
+                        excel, achieve sustained growth, increase your visibility,
+                        and move towards a top position in the market.
+                    </strong>
+                </p>
 
             </div>
 
+        </div>
 
-            <!-- GOLD DIVIDER -->
-            <div style="
+
+        <!-- GOLD DIVIDER -->
+        <div style="
         max-width: 1150px;
         height: 1px;
         background: linear-gradient(
@@ -1386,8 +1394,8 @@
     "></div>
 
 
-            <!-- EXISTING CONTACT FOOTER -->
-            <div class="footer-grid" style="
+        <!-- EXISTING CONTACT FOOTER -->
+        <div class="footer-grid" style="
         max-width: 1150px;
         margin: 0 auto;
         display: grid;
@@ -1395,101 +1403,101 @@
         gap: 25px;
     ">
 
-                <div class="footer-item" style="
+            <div class="footer-item" style="
             display: flex;
             gap: 15px;
             align-items: flex-start;
         ">
-                    <div class="footer-icon" style="
+                <div class="footer-icon" style="
                 color: #b58918;
                 font-size: 25px;
             ">✉</div>
 
-                    <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">
-                            Email
-                        </h4>
+                <div>
+                    <h4 style="color:#8f6b12; margin:0 0 8px;">
+                        Email
+                    </h4>
 
-                        <p style="margin:0;">
-                            <a href="mailto:infoblueberryvaastu@gmail.com" style="color:#4b4333; text-decoration:none;">
-                                Infoblueberryvaastu@gmail.com
-                            </a>
-                        </p>
-                    </div>
+                    <p style="margin:0;">
+                        <a href="mailto:infoblueberryvaastu@gmail.com" style="color:#4b4333; text-decoration:none;">
+                            Infoblueberryvaastu@gmail.com
+                        </a>
+                    </p>
                 </div>
+            </div>
 
 
-                <div class="footer-item" style="
+            <div class="footer-item" style="
             display: flex;
             gap: 15px;
             align-items: flex-start;
         ">
-                    <div class="footer-icon" style="
+                <div class="footer-icon" style="
                 color: #b58918;
                 font-size: 25px;
                 font-weight:bold;
             ">in</div>
 
-                    <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">
-                            LinkedIn
-                        </h4>
+                <div>
+                    <h4 style="color:#8f6b12; margin:0 0 8px;">
+                        LinkedIn
+                    </h4>
 
-                        <p style="margin:0; color:#4b4333;">
-                            Blueberry Luxury Interior Design inbuilt with Astrovastu
-                        </p>
-                    </div>
+                    <p style="margin:0; color:#4b4333;">
+                        Blueberry Luxury Interior Design inbuilt with Astrovastu
+                    </p>
                 </div>
+            </div>
 
 
-                <div class="footer-item" style="
+            <div class="footer-item" style="
             display: flex;
             gap: 15px;
             align-items: flex-start;
         ">
-                    <div class="footer-icon" style="
+                <div class="footer-icon" style="
                 color: #b58918;
                 font-size: 25px;
             ">📷</div>
 
-                    <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">
-                            Instagram
-                        </h4>
+                <div>
+                    <h4 style="color:#8f6b12; margin:0 0 8px;">
+                        Instagram
+                    </h4>
 
-                        <p style="margin:0; color:#4b4333;">
-                            blueberry_230326
-                        </p>
-                    </div>
+                    <p style="margin:0; color:#4b4333;">
+                        blueberry_230326
+                    </p>
                 </div>
+            </div>
 
 
-                <div class="footer-item" style="
+            <div class="footer-item" style="
             display: flex;
             gap: 15px;
             align-items: flex-start;
         ">
-                    <div class="footer-icon" style="
+                <div class="footer-icon" style="
                 color: #b58918;
                 font-size: 25px;
             ">🌐</div>
 
-                    <div>
-                        <h4 style="color:#8f6b12; margin:0 0 8px;">
-                            Website
-                        </h4>
+                <div>
+                    <h4 style="color:#8f6b12; margin:0 0 8px;">
+                        Website
+                    </h4>
 
-                        <p style="margin:0; color:#4b4333;">
-                            blueberries.in
-                        </p>
-                    </div>
+                    <p style="margin:0; color:#4b4333;">
+                        blueberries.in
+                    </p>
                 </div>
-
             </div>
 
+        </div>
 
-            <!-- FOOTER BOTTOM -->
-            <div class="footer-bottom" style="
+
+        <!-- FOOTER BOTTOM -->
+        <div class="footer-bottom" style="
         max-width: 1150px;
         margin: 40px auto 0;
         padding-top: 22px;
@@ -1499,14 +1507,14 @@
         font-size: 14px;
     ">
 
-                <p style="margin:0; color:#9a7415;text-align:center">
-                    Thank you for choosing
-                    <b style="color:#9a7415;">
-                        BLUEBERRY
-                    </b>
-                </p>
+            <p style="margin:0; color:#9a7415;text-align:center">
+                Thank you for choosing
+                <b style="color:#9a7415;">
+                    BLUEBERRY
+                </b>
+            </p>
 
-        </footer>
+    </footer>
     </div>
        
     <script src="script.js"></script>
