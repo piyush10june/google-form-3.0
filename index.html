@@ -927,7 +927,7 @@
 
                 <!-- Intake Form Body -->
                 <form id="astrovastuForm"            
-            action="https://script.google.com/macros/s/AKfycbx_50uRpssimGixP0i1hKCGUI3mHALgQhcbMnmzuDcEH0T9-JMdGg-tel6OB2SViEeo/exec"
+            action="https://script.google.com/macros/s/AKfycbyfqJsezRrH0dYYEVQfHvyD1bxXQUAWXnq4iBheknbFkCKibM7mF17jE6EItuG6vutC/exec"
                         method="POST">
 
                         <h3 class="form-section-title">Personal Information</h3>
@@ -1026,7 +1026,7 @@
                                         Confirm Rahu & Ketu and Open Quizzes
                                     </button>
 
-                                <div class="numerology-box" id="rahuKetuMatchResult" style="display:none;">
+                                <div class="numerology-box" id="rahuKetuMatchResult" style="display:none !important;">
                                         <div class="numerology-item">Rahu Sign: <span id="rahuSignOut">-</span></div>
                     <div class="numerology-item">Ketu Sign: <span id="ketuSignOut">-</span></div>
                     <div class="numerology-item">Additional Concern: <span id="rahuKetuQuizOut">None</span></div>
@@ -2004,7 +2004,7 @@
             const concernLabel = getFriendlyConcernLabel(role, lang);
             const goalAText = getQuizLanguageText(record.goalA.eng, record.goalA.hin);
             const goalACheckboxId = `q_${role}_${code}_A_0`;
-            html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
+            let html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
             html += `<div class="quiz-goal-card">`;
             html += `<div class="quiz-goal-title">${escapeHtml(lang === 'hin' ? 'सामान्य समस्या / General Issue' : 'General Issue')}</div>`;
             html += `<label class="symptom-item goal-a-item" data-page="${role}" data-eng="${escapeHtml(record.goalA.eng)}" data-hin="${escapeHtml(record.goalA.hin || record.goalA.eng)}">`;
@@ -2569,30 +2569,69 @@
                 const meta = activeQuizMeta[role] || { roles: [role] };
                 const checkboxes = pane ? Array.from(pane.querySelectorAll('input[type="checkbox"]')) : [];
                 const checkedCount = checkboxes.filter(cb => cb.checked).length;
-                const percentage = checkboxes.length ? Number(((checkedCount / checkboxes.length) * 100).toFixed(1)) : 0;
+                const percentage = checkboxes.length
+                    ? Number(((checkedCount / checkboxes.length) * 100).toFixed(1))
+                    : 0;
+
                 const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
-                const goalACheckbox = pane ? pane.querySelector('.goal-a-checkbox') : null;
-                const goalA = goalCards[0] ? {
-                    title: goalCards[0].querySelector('.quiz-goal-title')?.innerText?.trim() || '',
-                    description: goalACheckbox
-                        ? (goalACheckbox.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || '')
-                        : (goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''),
+                const goalABox = goalCards[0] || null;
+                const goalACheckbox = goalABox?.querySelector('.goal-a-checkbox') || null;
+
+                const goalA = goalABox ? {
+                    title: 'Goal A — General Issue',
+                    description: goalABox.querySelector('.goal-a-item .symptom-text')?.innerText?.trim() || '',
                     checked: !!goalACheckbox?.checked
-                } : { title: '', description: '', checked: false };
+                } : { title: 'Goal A — General Issue', description: '', checked: false };
+
+                const goalSections = goalCards.slice(1).map((card, index) => {
+                    const rawTitle = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
+                    const letter = ['B', 'C', 'D'][index] || String.fromCharCode(66 + index);
+                    const cleanTitle = cleanVisibleQuizText(rawTitle)
+                        .replace(/^Goal\s+[a-d]\)\s*/i, '')
+                        .replace(/\s*Related to Code-\d+/gi, '')
+                        .replace(/\s*for Code-\d+/gi, '')
+                        .replace(/\s*Code-\d+/gi, '')
+                        .trim();
+
+                    const items = Array.from(card.querySelectorAll('.symptom-item')).map(item => {
+                        const cb = item.querySelector('input[type="checkbox"]');
+                        const text = item.querySelector('.symptom-text')?.innerText?.trim() || cb?.value || '';
+                        return {
+                            checked: !!cb?.checked,
+                            mark: cb?.checked ? '☑' : '☐',
+                            text: cleanVisibleQuizText(text)
+                        };
+                    });
+
+                    const notes = Array.from(card.children)
+                        .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
+                        .map(el => el.innerText?.trim() || '')
+                        .filter(Boolean);
+
+                    return {
+                        letter,
+                        title: `Goal ${letter}${cleanTitle ? ' — ' + cleanTitle : ''}`,
+                        notes,
+                        questions: items
+                    };
+                });
+
                 return {
                     quiz: getQuizRoleLabel(role),
                     roles: meta.roles || [role],
                     code: Number(code),
                     score: checkedCount,
                     totalQuestions: checkboxes.length,
-                    percentage: percentage,
-                    goalA: goalA,
-                    goalSections: goalCards.map(card => ({ title: card.querySelector('.quiz-goal-title')?.innerText?.trim() || '', text: card.innerText?.trim() || '' })),
+                    percentage,
+                    goalA,
+                    goalSections,
                     questions: checkboxes.map(cb => ({
                         checked: !!cb.checked,
                         mark: cb.checked ? '☑' : '☐',
                         isGoalA: cb.classList.contains('goal-a-checkbox'),
-                        text: cb.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || cb.value || ''
+                        text: cleanVisibleQuizText(
+                            cb.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || cb.value || ''
+                        )
                     }))
                 };
             });
@@ -2601,7 +2640,6 @@
         function buildSubmissionReport() {
             const phoneDetails = getPhoneNumberDetails();
             const quizData = getQuizReportData();
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const firstNameScore = document.getElementById('firstNameScore')?.innerText || '';
             const firstNameNumber = document.getElementById('firstNameNumber')?.innerText || '';
             const totalNameScore = document.getElementById('totalNameScore')?.innerText || '';
@@ -2613,19 +2651,24 @@
             const driver = document.getElementById('driverNumberOut')?.innerText || '';
             const conductor = document.getElementById('conductorNumberOut')?.innerText || '';
             const manifestation = document.getElementById('manifestationNumberOut')?.innerText || '';
+
             const reportData = {
-                language: lang,
+                language: document.getElementById('displayLanguage')?.value || 'eng',
                 submissionDate: document.getElementById('submissionDate')?.value || '',
                 fullName: document.getElementById('fullName')?.value?.trim() || '',
-                firstNameScore, firstNameNumber, totalNameScore, totalNameNumber,
+                firstNameScore,
+                firstNameNumber,
+                totalNameScore,
+                totalNameNumber,
                 birthTime,
                 mobileNumbers: phoneDetails,
-                dayOfBirth: birthDay, // stored for the report, never displayed in the form UI
+                dayOfBirth: birthDay,
                 dayOfBirthCode: birthDayCode,
                 dob,
                 driver,
                 conductor,
                 manifestation,
+                // These are retained in the report/data payload but never shown in the website result UI.
                 rahuSign: selectedRahuSign || '',
                 rahuCode: selectedRahuSign ? signCodeMap[selectedRahuSign] : '',
                 rahuQuizOpened: !!rahuQuizRequired,
@@ -2638,40 +2681,106 @@
             };
 
             const esc = escapeHtml;
-            let html = `<!doctype html><html><head><meta charset="UTF-8"><style>
-                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;padding:28px;line-height:1.55}
-                h1{color:#DAA520;text-align:center;margin:0 0 6px} h2{color:#DAA520;border-bottom:1px solid #DAA520;padding-bottom:6px}
-                h3{color:#4682B4;margin-bottom:6px}.meta{background:#fffaf0;border:1px solid #DAA520;border-radius:8px;padding:14px;margin:12px 0}
-                table{width:100%;border-collapse:collapse;margin:10px 0 22px}th,td{border:1px solid #d8c58b;padding:7px;text-align:left;vertical-align:top}th{background:#fff4d6}
-                .score{font-weight:700;color:#FF8C00}.tick{font-size:18px;font-weight:700}.muted{color:#666}
-            </style></head><body>`;
-            html += `<h1>BLUEBERRY ASTROVASTU REPORT</h1><div class="meta"><b>Full Name:</b> ${esc(reportData.fullName)}<br><b>Date of Form Filling:</b> ${esc(reportData.submissionDate)}</div>`;
-            html += `<h2>Name Numerology</h2><table><tr><th>First Name Score</th><td>${esc(firstNameScore)}</td></tr><tr><th>First Name Number</th><td>${esc(firstNameNumber)}</td></tr><tr><th>Total Name Score</th><td>${esc(totalNameScore)}</td></tr><tr><th>Total Name Number</th><td>${esc(totalNameNumber)}</td></tr></table>`;
-            html += `<h2>Birth Details</h2><table><tr><th>Date of Birth</th><td>${esc(dob)}</td></tr><tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr><tr><th>Mobile Number(s)</th><td>${phoneDetails.length ? phoneDetails.map(x => `${esc(x.number)} — Total: ${x.total} / ${x.digitalRoot}`).join('<br>') : 'Not provided'}</td></tr><tr><th>Day of Birth</th><td>${esc(birthDay)}</td></tr><tr><th>Driver</th><td>${esc(driver)}</td></tr><tr><th>Conductor</th><td>${esc(conductor)}</td></tr><tr><th>Manifestation</th><td>${esc(manifestation)}</td></tr><tr><th>Rahu</th><td>${esc(reportData.rahuSign || 'Not selected')}</td></tr><tr><th>Ketu</th><td>${esc(reportData.ketuSign || 'Not selected')}</td></tr></table>`;
+            const clean = cleanVisibleQuizText;
+
+            let html = `<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blueberry AstroVastu Report</title><style>
+                @page{size:A4;margin:14mm}
+                *{box-sizing:border-box}
+                body{font-family:Georgia,'Times New Roman',serif;color:#0B192C;background:#fff;padding:0;line-height:1.5;font-size:10.5pt}
+                h1{color:#DAA520;text-align:center;margin:0 0 4px;font-size:22pt}
+                h2{color:#DAA520;border-bottom:2px solid #DAA520;padding-bottom:5px;margin:18px 0 10px;font-size:15pt}
+                h3{color:#4682B4;margin:0 0 7px;font-size:13pt}
+                .subtitle{text-align:center;color:#4682B4;font-weight:700;margin-bottom:16px}
+                .info-box{background:#fffaf0;border:1px solid #DAA520;border-radius:8px;padding:11px;margin:9px 0 13px}
+                table{width:100%;border-collapse:collapse;margin:8px 0 16px}
+                th,td{border:1px solid #d8c58b;padding:7px;text-align:left;vertical-align:top}
+                th{background:#fff4d6}
+                .score{color:#FF8C00;font-weight:700}
+                .tick{width:50px;text-align:center;font-size:15pt;font-weight:700}
+                .quiz-page{page-break-before:always}
+                .goal-box{background:#fffdf5;border:1px solid #DAA520;border-radius:8px;padding:10px;margin:10px 0}
+                .goal-title{color:#DAA520;font-size:13pt;font-weight:700;margin-bottom:7px}
+                .goal-note{margin:5px 0 8px;color:#0B192C}
+                .subcode-title{font-weight:700;color:#4682B4}
+                tr{page-break-inside:avoid}
+                .muted{color:#666;font-size:8.5pt;text-align:center;margin-top:22px}
+            </style></head><body>`;
+
+            html += `<h1>BLUEBERRY ASTROVASTU</h1><div class="subtitle">Completed Assessment Report</div>`;
+            html += `<h2>Customer Information</h2><div class="info-box"><b>Full Name:</b> ${esc(reportData.fullName || 'Not provided')}<br><b>Date of Form Filling:</b> ${esc(reportData.submissionDate || 'Not provided')}</div>`;
+
+            html += `<h2>Name Numerology</h2><table>`;
+            html += `<tr><th>First Name Score</th><td>${esc(firstNameScore)}</td></tr>`;
+            html += `<tr><th>First Name Number</th><td>${esc(firstNameNumber)}</td></tr>`;
+            html += `<tr><th>Total Name Score</th><td>${esc(totalNameScore)}</td></tr>`;
+            html += `<tr><th>Total Name Number</th><td>${esc(totalNameNumber)}</td></tr></table>`;
+
+            html += `<h2>Birth & Contact Details</h2><table>`;
+            html += `<tr><th>Date of Birth</th><td>${esc(dob || 'Not provided')}</td></tr>`;
+            html += `<tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr>`;
+            html += `<tr><th>Day of Birth</th><td>${esc(birthDay || 'Not available')}</td></tr>`;
+            html += `<tr><th>Driver</th><td>${esc(driver)}</td></tr>`;
+            html += `<tr><th>Conductor</th><td>${esc(conductor)}</td></tr>`;
+            html += `<tr><th>Manifestation</th><td>${esc(manifestation)}</td></tr>`;
+            html += `<tr><th>Rahu Sign</th><td>${esc(reportData.rahuSign || 'Not selected')}</td></tr>`;
+            html += `<tr><th>Ketu Sign</th><td>${esc(reportData.ketuSign || 'Not selected')}</td></tr>`;
+            html += `</table>`;
+
+            html += `<h2>Mobile Number(s)</h2><table><tr><th>#</th><th>Mobile Number</th><th>Total</th><th>Digital Root</th></tr>`;
+            if (phoneDetails.length) {
+                phoneDetails.forEach((phone, index) => {
+                    html += `<tr><td>${index + 1}</td><td>${esc(phone.number)}</td><td>${esc(phone.total)}</td><td>${esc(phone.digitalRoot)}</td></tr>`;
+                });
+            } else {
+                html += `<tr><td colspan="4">Not provided</td></tr>`;
+            }
+            html += `</table>`;
+            html += `<div class="info-box"><b>Total Selected Checkbox Score:</b> <span class="score">${esc(reportData.totalSelectedCheckboxes)}</span></div>`;
+
             html += `<h2>Quiz Results</h2>`;
             quizData.forEach((q, qi) => {
-                html += `<div style="page-break-before:always;"></div>`;
+                html += `<section class="quiz-page">`;
                 html += `<h3>${qi + 1}. ${esc(q.quiz)}</h3>`;
-                html += `<div class="meta"><span class="score">Final Score: ${q.score} / ${q.totalQuestions} (${q.percentage}%)</span></div>`;
+                html += `<div class="info-box"><span class="score">Final Score: ${esc(q.score)} / ${esc(q.totalQuestions)} (${esc(q.percentage)}%)</span></div>`;
 
-                const sections = q.goalSections || [];
-                ['a', 'b', 'c', 'd'].forEach(letter => {
-                    const section = sections.find(s => String(s.title || '').toLowerCase().indexOf(`goal ${letter}`) === 0);
-                    if (section) {
-                        html += `<div class="meta"><b>Goal ${letter})</b><br>${esc(cleanVisibleQuizText(section.text || ''))}</div>`;
+                // Goal A is the selectable general issue. It appears once, with its actual tick state.
+                if (q.goalA && q.goalA.description) {
+                    html += `<div class="goal-box"><div class="goal-title">Goal A — General Issue</div>`;
+                    html += `<table><tr><td class="tick">${q.goalA.checked ? '☑' : '☐'}</td><td>${esc(clean(q.goalA.description))}</td></tr></table></div>`;
+                }
+
+                // Goals B, C and D are kept as separate sections. Their complete source text and every
+                // checkbox are shown underneath the corresponding goal, so the PDF does not flatten them.
+                (q.goalSections || []).forEach(section => {
+                    html += `<div class="goal-box">`;
+                    html += `<div class="goal-title">${esc(section.title)}</div>`;
+                    (section.notes || []).forEach(note => {
+                        html += `<div class="goal-note">${esc(clean(note))}</div>`;
+                    });
+                    if (section.questions && section.questions.length) {
+                        html += `<table><tr><th class="tick">Tick</th><th>Assessment Item</th></tr>`;
+                        section.questions.forEach(item => {
+                            html += `<tr><td class="tick">${item.mark}</td><td>${esc(clean(item.text))}</td></tr>`;
+                        });
+                        html += `</table>`;
                     }
+                    html += `</div>`;
                 });
 
-                html += `<table><tr><th style="width:55px">Tick</th><th>Checklist Item</th></tr>`;
-                if (q.goalA && q.goalA.description) {
-                    html += `<tr><td class="tick">${q.goalA.checked ? '☑' : '☐'}</td><td>${esc(cleanVisibleQuizText(q.goalA.description))}</td></tr>`;
+                // Fallback for any question not captured inside Goal A-D.
+                const nestedTexts = new Set((q.goalSections || []).flatMap(s => (s.questions || []).map(x => x.text)));
+                const extraQuestions = (q.questions || []).filter(item => !item.isGoalA && !nestedTexts.has(item.text));
+                if (extraQuestions.length) {
+                    html += `<div class="goal-box"><div class="goal-title">Additional Assessment Items</div><table><tr><th class="tick">Tick</th><th>Assessment Item</th></tr>`;
+                    extraQuestions.forEach(item => {
+                        html += `<tr><td class="tick">${item.mark}</td><td>${esc(clean(item.text))}</td></tr>`;
+                    });
+                    html += `</table></div>`;
                 }
-                q.questions
-                    .filter(item => !item.isGoalA)
-                    .forEach(item => html += `<tr><td class="tick">${item.mark}</td><td>${esc(cleanVisibleQuizText(item.text))}</td></tr>`);
-                html += `</table>`;
+                html += `</section>`;
             });
-            html += `<p class="muted">Generated: ${esc(reportData.savedAt)}</p></body></html>`;
+
+            html += `<p class="muted">Generated by Blueberry AstroVastu System</p></body></html>`;
             return { reportData, reportHtml: html };
         }
 
