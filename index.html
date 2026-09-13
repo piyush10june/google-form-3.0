@@ -958,7 +958,7 @@
                         <div class="field">
                                 <label>Mobile Number <small>(Optional)</small></label>
                                
-                                    <div class="phone-group">
+                                    <div class="phone-group" id="phoneContainer">
                                             <div class="phone-input-row">
                                                     <input type="tel" name="mobileNumber" class="mobileInput"
                             placeholder="Enter phone number"                                
@@ -1025,6 +1025,20 @@
                                 <button type="button" class="nav-btn" id="confirmRahuKetuBtn" style="width:100%;">
                                         Confirm Rahu & Ketu and Open Quizzes
                                     </button>
+
+                <!-- Confirmed Rahu / Ketu summary -->
+                <div id="rahuKetuMatchResult" class="numerology-box quiz-overview-box"
+                    style="display:none; margin-top:18px;">
+                    <div class="numerology-item">
+                        Rahu Sign: <span id="rahuSignOut">-</span>
+                    </div>
+                    <div class="numerology-item">
+                        Ketu Sign: <span id="ketuSignOut">-</span>
+                    </div>
+                    <div class="numerology-item">
+                        Extra Quizzes: <span id="rahuKetuQuizOut">None</span>
+                    </div>
+                </div>
             </div>
                        
     </div>
@@ -2150,10 +2164,10 @@
             selectedKetuSign = '';
             populateZodiacSelects();
             document.getElementById('rahuKetuSection').style.display = 'block';
-            document.getElementById('rahuKetuMatchResult').style.display = 'none';
+            document.getElementById('rahuKetuMatchResult')?.style && (document.getElementById('rahuKetuMatchResult').style.display = 'none');
             rahuKetuReady = false;
             quizzesReady = false;
-            document.getElementById('statusMessage').style.display = 'none';
+            document.getElementById('statusMessage')?.style && (document.getElementById('statusMessage').style.display = 'none');
             updateSubmitRestriction();
             document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -2178,13 +2192,17 @@
             rahuQuizRequired = numerologyCodes.includes(rahuCode);
             ketuQuizRequired = numerologyCodes.includes(ketuCode);
 
-            document.getElementById('rahuSignOut').innerText = rahuSign;
-            document.getElementById('ketuSignOut').innerText = ketuSign;
+            const rahuSignOut = document.getElementById('rahuSignOut');
+            const ketuSignOut = document.getElementById('ketuSignOut');
+            if (rahuSignOut) rahuSignOut.innerText = rahuSign;
+            if (ketuSignOut) ketuSignOut.innerText = ketuSign;
             const extraLabels = [];
             if (rahuQuizRequired) extraLabels.push('Rahu Code-4');
             if (ketuQuizRequired) extraLabels.push('Ketu Code-7');
-            document.getElementById('rahuKetuQuizOut').innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
-            document.getElementById('rahuKetuMatchResult').style.display = 'grid';
+            const rahuKetuQuizOut = document.getElementById('rahuKetuQuizOut');
+            if (rahuKetuQuizOut) rahuKetuQuizOut.innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
+            const rahuKetuMatchResult = document.getElementById('rahuKetuMatchResult');
+            if (rahuKetuMatchResult) rahuKetuMatchResult.style.display = 'grid';
 
             // Build quiz pages by UNIQUE CODE. If two or more roles resolve to the same code,
             // that code is rendered only once and one checkbox set satisfies that quiz.
@@ -2526,6 +2544,7 @@
 
         function addPhoneField() {
             const container = document.getElementById('phoneContainer');
+            if (!container) return;
             const newGroup = document.createElement('div');
             newGroup.className = 'phone-group';
             newGroup.innerHTML = `
