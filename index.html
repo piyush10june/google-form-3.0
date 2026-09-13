@@ -2977,13 +2977,16 @@
                 .trim();
         }
 
+
         function generateBlankQuizzesPdf() {
             if (!quizzesReady || !activeQuizRoles.length) {
                 alert('Please calculate your Date of Birth and select Rahu/Ketu signs to load the quizzes first.');
                 return;
             }
 
-            const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
+            const fullName =
+                document.getElementById('fullName')?.value?.trim() || 'Client';
+
             const submissionDate =
                 document.getElementById('submissionDate')?.value ||
                 new Date().toISOString().split('T')[0];
@@ -3000,18 +3003,27 @@
             const blankQuizData = activeQuizRoles.map(role => {
                 const pane = document.getElementById(getQuizPaneId(role));
                 const quizTitle = getQuizRoleLabel(role);
+
                 const goalCards = pane
                     ? Array.from(pane.querySelectorAll('.quiz-goal-card'))
                     : [];
 
+                /*
+                 * GOAL A
+                 * Previously this searched for .quiz-goal-description,
+                 * but that class does not exist in renderCodeQuiz().
+                 *
+                 * Goal A is actually stored inside .goal-a-item .symptom-text.
+                 */
                 const goalA = goalCards[0]
                     ? {
                         title: 'General Issue',
                         description:
                             goalCards[0]
-                                .querySelector('.quiz-goal-description')
+                                .querySelector('.goal-a-item .symptom-text')
                                 ?.innerText
-                                ?.trim() || ''
+                                ?.trim() || '',
+                        checked: false
                     }
                     : null;
 
@@ -3096,233 +3108,301 @@
             const esc = escapeHtml;
 
             let reportHtml = `<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blank Quizzes - Blueberry AstroVastu</title>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Blank Quizzes - Blueberry AstroVastu</title>
 
-    <style>
-        @page {
-            size: A4;
-            margin: 14mm;
+                            <style>
+                                @page {
+                                    size: A4;
+                                margin: 14mm;
         }
 
-        * {
-            box-sizing: border-box;
+                                * {
+                                    box - sizing: border-box;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            color: #0B192C;
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 10.5pt;
-            line-height: 1.5;
+                                body {
+                                    margin: 0;
+                                padding: 0;
+                                background: #ffffff;
+                                color: #0B192C;
+                                font-family: Georgia, 'Times New Roman', serif;
+                                font-size: 10.5pt;
+                                line-height: 1.5;
         }
 
-        .report-header {
-            text-align: center;
-            margin-bottom: 18px;
+                                .report-header {
+                                    text - align: center;
+                                margin-bottom: 18px;
         }
 
-        .brand {
-            margin: 0 0 4px;
-            color: #DAA520;
-            font-size: 22pt;
-            font-weight: 700;
+                                .brand {
+                                    margin: 0 0 4px;
+                                color: #DAA520;
+                                font-size: 22pt;
+                                font-weight: 700;
         }
 
-        .subtitle {
-            margin: 0;
-            color: #4682B4;
-            font-size: 12pt;
-            font-weight: 700;
+                                .subtitle {
+                                    margin: 0;
+                                color: #4682B4;
+                                font-size: 12pt;
+                                font-weight: 700;
         }
 
-        .meta-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 0 22px;
+                                .meta-table {
+                                    width: 100%;
+                                border-collapse: collapse;
+                                margin: 0 0 22px;
         }
 
-        .meta-table td {
-            border: 1px solid #d8c58b;
-            padding: 7px 9px;
-            vertical-align: top;
+                                .meta-table td {
+                                    border: 1px solid #d8c58b;
+                                padding: 7px 9px;
+                                vertical-align: top;
         }
 
-        .meta-label {
-            width: 18%;
-            background: #fff4d6;
-            color: #604a0e;
-            font-weight: 700;
+                                .meta-label {
+                                    width: 18%;
+                                background: #fff4d6;
+                                color: #604a0e;
+                                font-weight: 700;
         }
 
-        .meta-value {
-            width: 32%;
-            background: #ffffff;
+                                .meta-value {
+                                    width: 32%;
+                                background: #ffffff;
         }
 
-        .quiz-page {
-            page-break-before: always;
+                                .quiz-page {
+                                    page -break-before: always;
         }
 
-        .quiz-page:first-of-type {
-            page-break-before: auto;
+                                .quiz-page:first-of-type {
+                                    page -break-before: auto;
         }
 
-        .quiz-heading {
-            margin: 0 0 14px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid #DAA520;
-            color: #DAA520;
-            font-size: 16pt;
-            font-weight: 700;
+                                .quiz-heading {
+                                    margin: 0 0 14px;
+                                padding-bottom: 6px;
+                                border-bottom: 2px solid #DAA520;
+                                color: #DAA520;
+                                font-size: 16pt;
+                                font-weight: 700;
         }
 
-        .section-heading {
-            margin: 17px 0 7px;
-            color: #4682B4;
-            font-size: 12pt;
-            font-weight: 700;
+                                .section-heading {
+                                    margin: 17px 0 7px;
+                                color: #4682B4;
+                                font-size: 12pt;
+                                font-weight: 700;
         }
 
-        .general-issue-title {
-            margin: 0 0 7px;
-            color: #4682B4;
-            font-size: 12pt;
-            font-weight: 700;
+                                .general-issue-title {
+                                    margin: 0 0 7px;
+                                color: #4682B4;
+                                font-size: 12pt;
+                                font-weight: 700;
         }
 
-        .questions-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 0 12px;
-            page-break-inside: auto;
+                                .questions-table {
+                                    width: 100%;
+                                border-collapse: collapse;
+                                margin: 0 0 12px;
+                                page-break-inside: auto;
         }
 
-        .questions-table thead {
-            display: table-header-group;
+                                .questions-table thead {
+                                    display: table-header-group;
         }
 
-        .questions-table tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
+                                .questions-table tr {
+                                    page -break-inside: avoid;
+                                page-break-after: auto;
         }
 
-        .questions-table th,
-        .questions-table td {
-            border: 1px solid #d8c58b;
-            padding: 7px 8px;
-            text-align: left;
-            vertical-align: top;
+                                .questions-table th,
+                                .questions-table td {
+                                    border: 1px solid #d8c58b;
+                                padding: 7px 8px;
+                                text-align: left;
+                                vertical-align: top;
         }
 
-        .questions-table th {
-            background: #fff4d6;
-            color: #604a0e;
-            font-size: 9.5pt;
-            font-weight: 700;
+                                .questions-table th {
+                                    background: #fff4d6;
+                                color: #604a0e;
+                                font-size: 9.5pt;
+                                font-weight: 700;
         }
 
-        .check-column {
-            width: 38px;
-            text-align: center !important;
+                                .check-column {
+                                    width: 42px;
+                                text-align: center !important;
+                                vertical-align: middle !important;
         }
 
-        .checkbox {
-            font-size: 14pt;
-            line-height: 1;
+                                /*
+                                 * Actual HTML checkbox for the blank questionnaire.
+                                 * It is selectable in the browser before printing/saving.
+                                 */
+                                .blank-checkbox {
+                                    width: 18px;
+                                height: 18px;
+                                cursor: pointer;
+                                accent-color: #4682B4;
+                                vertical-align: middle;
         }
 
-        .no-questions {
-            margin: 8px 0 15px;
-            color: #666666;
-            font-size: 10pt;
-            font-style: italic;
+                                .checkbox-print {
+                                    display: none;
+                                font-size: 15pt;
+                                line-height: 1;
         }
 
-        .report-footer {
-            margin-top: 28px;
-            padding-top: 8px;
-            border-top: 1px solid #d8c58b;
-            color: #666666;
-            text-align: center;
-            font-size: 8.5pt;
+                                .no-questions {
+                                    margin: 8px 0 15px;
+                                color: #666666;
+                                font-size: 10pt;
+                                font-style: italic;
         }
 
-        @media print {
-            body {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                                .report-footer {
+                                    margin - top: 28px;
+                                padding-top: 8px;
+                                border-top: 1px solid #d8c58b;
+                                color: #666666;
+                                text-align: center;
+                                font-size: 8.5pt;
+        }
+
+                                @media print {
+                                    body {
+                                    -webkit - print - color - adjust: exact;
+                                print-color-adjust: exact;
             }
 
-            .quiz-page {
-                page-break-before: always;
+                                .quiz-page {
+                                    page -break-before: always;
             }
 
-            .quiz-page:first-of-type {
-                page-break-before: auto;
+                                .quiz-page:first-of-type {
+                                    page -break-before: auto;
             }
 
-            .questions-table tr {
-                page-break-inside: avoid;
+                                .questions-table tr {
+                                    page -break-inside: avoid;
+            }
+
+                                /*
+                                 * Keep the checkbox visible when printing/saving as PDF.
+                                 */
+                                .blank-checkbox {
+                                    appearance: none;
+                                -webkit-appearance: none;
+                                width: 16px;
+                                height: 16px;
+                                border: 1.5px solid #0B192C;
+                                border-radius: 2px;
+                                background: #ffffff;
+                                display: inline-block;
+                                position: relative;
+                                margin: 0;
+            }
+
+                                .blank-checkbox:checked::after {
+                                    content: "✓";
+                                position: absolute;
+                                left: 1px;
+                                top: -5px;
+                                font-size: 16px;
+                                font-weight: 700;
+                                color: #0B192C;
             }
         }
-    </style>
-</head>
+                            </style>
+                        </head>
 
-<body>
-    <header class="report-header">
-        <h1 class="brand">BLUEBERRY ASTROVASTU</h1>
-        <p class="subtitle">Blank Diagnostic Assessment Questionnaires</p>
-    </header>
+                        <body>
 
-    <table class="meta-table">
-        <tr>
-            <td class="meta-label">Client Name</td>
-            <td class="meta-value">${esc(fullName)}</td>
-            <td class="meta-label">Date</td>
-            <td class="meta-value">${esc(submissionDate)}</td>
-        </tr>
-    </table>
-`;
+                            <header class="report-header">
+                                <h1 class="brand">BLUEBERRY ASTROVASTU</h1>
+                                <p class="subtitle">Blank Diagnostic Assessment Questionnaires</p>
+                            </header>
+
+                            <table class="meta-table">
+                                <tr>
+                                    <td class="meta-label">Client Name</td>
+                                    <td class="meta-value">${esc(fullName)}</td>
+
+                                    <td class="meta-label">Date</td>
+                                    <td class="meta-value">${esc(submissionDate)}</td>
+                                </tr>
+                            </table>
+                            `;
 
             blankQuizData.forEach((q, idx) => {
+
                 reportHtml += `
     <section class="quiz-page">
-        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>
+
+        <h2 class="quiz-heading">
+            ${idx + 1}. ${esc(q.quizTitle)}
+        </h2>
 `;
 
+                /*
+                 * GOAL A
+                 * Now included correctly in the blank PDF.
+                 */
                 if (q.goalA && q.goalA.description) {
+
                     reportHtml += `
-        <h3 class="general-issue-title">General Issue Checklist</h3>
+        <h3 class="general-issue-title">
+            General Issue Checklist
+        </h3>
 
         <table class="questions-table">
             <tbody>
                 <tr>
                     <td class="check-column">
-                        <span class="checkbox">☐</span>
+                        <input
+                            type="checkbox"
+                            class="blank-checkbox"
+                            aria-label="Goal A checkbox"
+                        >
                     </td>
-                    <td>${esc(cleanVisibleQuizText(q.goalA.description))}</td>
+
+                    <td>
+                        ${esc(cleanVisibleQuizText(q.goalA.description))}
+                    </td>
                 </tr>
             </tbody>
         </table>
 `;
                 }
 
+                /*
+                 * Goals B, C and D
+                 */
                 if (q.sections.length > 0) {
+
                     q.sections.forEach(sec => {
+
                         reportHtml += `
-        <h3 class="section-heading">${esc(sec.title)}</h3>
+        <h3 class="section-heading">
+            ${esc(sec.title)}
+        </h3>
 
         <table class="questions-table">
             <tbody>
 `;
 
                         sec.questions.forEach(text => {
+
                             let cleanedText = cleanVisibleQuizText(text);
 
                             cleanedText = cleanedText
@@ -3333,9 +3413,16 @@
                             reportHtml += `
                 <tr>
                     <td class="check-column">
-                        <span class="checkbox">☐</span>
+                        <input
+                            type="checkbox"
+                            class="blank-checkbox"
+                            aria-label="Assessment checkbox"
+                        >
                     </td>
-                    <td>${esc(cleanedText)}</td>
+
+                    <td>
+                        ${esc(cleanedText)}
+                    </td>
                 </tr>
 `;
                         });
@@ -3345,7 +3432,9 @@
         </table>
 `;
                     });
+
                 } else {
+
                     reportHtml += `
         <p class="no-questions">
             No assessment questions are available for this questionnaire.
@@ -3354,17 +3443,22 @@
                 }
 
                 reportHtml += `
-    </section>
-`;
+                        </section>
+                        `;
             });
 
             reportHtml += `
-    <div class="report-footer">
-        Generated by Blueberry AstroVastu System
-    </div>
-</body>
-</html>`;
+                        <div class="report-footer">
+                            Generated by Blueberry AstroVastu System
+                        </div>
 
+                    </body>
+            </html>`;
+
+            /*
+             * Send the same blank questionnaire HTML to Apps Script.
+             * Apps Script itself does not need any modification.
+             */
             const payloadData = {
                 fullName: fullName,
                 submissionDate: submissionDate,
@@ -3373,6 +3467,7 @@
             };
 
             const payload = new FormData();
+
             payload.append(
                 'reportDataJson',
                 JSON.stringify(payloadData)
@@ -3395,6 +3490,10 @@
                     );
                 });
 
+            /*
+             * Open the questionnaire in a browser window.
+             * The checkboxes are selectable here before printing/saving.
+             */
             const printWindow = window.open('', '_blank');
 
             if (!printWindow) {
