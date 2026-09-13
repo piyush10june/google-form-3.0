@@ -14,6 +14,7 @@
         rel="stylesheet">
        
     <link rel="icon" type="image/png" href="images/favicon.png">
+
         <style>
         :root {
             --foggy-blue: #4682B4;
@@ -926,7 +927,7 @@
 
                 <!-- Intake Form Body -->
                 <form id="astrovastuForm"            
-            action="https://script.google.com/macros/s/AKfycbwEUZ3l3lKQ9tAu-IuM0qJftMVnBJwGHFPxj5o0tr6DE_KDB8jXxce_MvpXwklez_nH/exec"
+            action="https://script.google.com/macros/s/AKfycbx_50uRpssimGixP0i1hKCGUI3mHALgQhcbMnmzuDcEH0T9-JMdGg-tel6OB2SViEeo/exec"
                         method="POST">
 
                         <h3 class="form-section-title">Personal Information</h3>
@@ -1026,11 +1027,11 @@
                                     </button>
 
                                 <div class="numerology-box" id="rahuKetuMatchResult" style="display:none;">
-                                        <div class="numerology-item">Rahu: <span id="rahuCodeOut">-</span></div>
-                                        <div class="numerology-item">Ketu: <span id="ketuCodeOut">-</span></div>
-                                        <div class="numerology-item">Additional Concern: <span
-                            id="rahuKetuQuizOut">None</span></div>
-                                    </div>
+                                        <div class="numerology-item">Rahu Sign: <span id="rahuSignOut">-</span></div>
+                    <div class="numerology-item">Ketu Sign: <span id="ketuSignOut">-</span></div>
+                    <div class="numerology-item">Additional Concern: <span id="rahuKetuQuizOut">None</span></div>
+                                   
+                </div>
                             </div>
 
                         <!-- Dynamic Step-by-Step Diagnostic Checklists -->
@@ -1991,7 +1992,7 @@
                 ketu: { eng: 'Ketu', hin: 'केतु' }
             };
             const roleName = roleNames[role]?.[lang] || roleNames[role]?.eng || role;
-            labelEl.innerText = `${roleName} Diagnosis — Code-${code}`;
+            labelEl.innerText = getFriendlyConcernLabel(role, lang);
 
             const goalTitles = {
                 a: { eng: `Goal a) General Issue Related to Code-${code}`, hin: `Goal a) Code-${code} से संबंधित सामान्य समस्या` },
@@ -2000,9 +2001,15 @@
                 d: { eng: `Goal d) Elaborate the Problem Related to Third for Code-${code}`, hin: `Goal d) Code-${code} के Third से संबंधित समस्याओं का विवरण` }
             };
 
-            let html = `<div class="quiz-page-heading">${escapeHtml(getQuizLanguageText(`Code-${code}`, `कोड-${code}`))}</div>`;
-            html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.a[lang] || goalTitles.a.eng)}</div>`;
-            html += `<p class="quiz-goal-description">${escapeHtml(getQuizLanguageText(record.goalA.eng, record.goalA.hin))}</p></div>`;
+            const concernLabel = getFriendlyConcernLabel(role, lang);
+            const goalAText = getQuizLanguageText(record.goalA.eng, record.goalA.hin);
+            const goalACheckboxId = `q_${role}_${code}_A_0`;
+            html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
+            html += `<div class="quiz-goal-card">`;
+            html += `<div class="quiz-goal-title">${escapeHtml(lang === 'hin' ? 'सामान्य समस्या / General Issue' : 'General Issue')}</div>`;
+            html += `<label class="symptom-item goal-a-item" data-page="${role}" data-eng="${escapeHtml(record.goalA.eng)}" data-hin="${escapeHtml(record.goalA.hin || record.goalA.eng)}">`;
+            html += `<div class="symptom-header"><input id="${goalACheckboxId}" class="goal-a-checkbox" type="checkbox" name="${goalACheckboxId}" value="${escapeHtml(record.goalA.eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(cleanVisibleQuizText(goalAText))}</span></div>`;
+            html += `</label></div>`;
 
             html += renderChecklistGoal('B', goalTitles.b, record.goalB, role, code);
             html += (String(code) === '1' ? renderCode1GoalCSplit(role, code) : renderChecklistGoal('C', goalTitles.c, record.goalC, role, code));
@@ -2180,8 +2187,8 @@
             rahuQuizRequired = numerologyCodes.includes(rahuCode);
             ketuQuizRequired = numerologyCodes.includes(ketuCode);
 
-            document.getElementById('rahuCodeOut').innerText = `Code-${rahuCode}`;
-            document.getElementById('ketuCodeOut').innerText = `Code-${ketuCode}`;
+            document.getElementById('rahuSignOut').innerText = rahuSign;
+            document.getElementById('ketuSignOut').innerText = ketuSign;
             const extraLabels = [];
             if (rahuQuizRequired) extraLabels.push('Rahu Code-4');
             if (ketuQuizRequired) extraLabels.push('Ketu Code-7');
@@ -2261,51 +2268,6 @@
 
         function getQuizPaneId(role) {
             return { birthday: 'quizStep_5', driver: 'quizStep_0', conductor: 'quizStep_1', manifestation: 'quizStep_2', rahu: 'quizStep_3', ketu: 'quizStep_4' }[role];
-        }
-
-        function getFriendlyConcernLabel(role, lang = (document.getElementById('displayLanguage')?.value || 'eng')) {
-            const labels = {
-                birthday: { eng: 'General Concern', hin: 'सामान्य चिंता' },
-                driver: { eng: 'Self Concern', hin: 'स्वयं से संबंधित चिंता' },
-                conductor: { eng: 'Work Concern', hin: 'कार्य से संबंधित चिंता' },
-                manifestation: { eng: 'Result / Output Concern', hin: 'परिणाम / आउटपुट से संबंधित चिंता' }
-            };
-
-            if (labels[role]) return labels[role][lang] || labels[role].eng;
-
-            if (role === 'rahu' || role === 'ketu') {
-                const sign = role === 'rahu' ? selectedRahuSign : selectedKetuSign;
-                const signCode = sign ? signCodeMap[sign] : null;
-                const matched = [];
-                if (signCode !== null && signCode !== undefined) {
-                    if (selectedNumerology.driver === signCode) matched.push(labels.driver[lang] || labels.driver.eng);
-                    if (selectedNumerology.conductor === signCode) matched.push(labels.conductor[lang] || labels.conductor.eng);
-                    if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
-                }
-                const prefix = lang === 'hin' ? 'डोमिनेटेड चिंता — ' : 'Dominated Concern by ';
-                return matched.length ? prefix + matched.join(lang === 'hin' ? ' / ' : ' / ') :
-                    (lang === 'hin' ? 'डोमिनेटेड चिंता' : 'Dominated Concern');
-            }
-            return role;
-        }
-
-        function getQuizRoleLabel(role) {
-            const lang = document.getElementById('displayLanguage')?.value || 'eng';
-            const meta = activeQuizMeta[role];
-            if (meta?.roles?.length > 1) {
-                return meta.roles.map(r => getFriendlyConcernLabel(r, lang)).join(' + ');
-            }
-            return getFriendlyConcernLabel(role, lang);
-        }
-
-        // Numeric codes remain internal for quiz selection/merging, but are never shown to the user.
-        function cleanVisibleQuizText(text) {
-            return String(text || '')
-                .replace(/Code\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/कोड\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
-                .replace(/\s{2,}/g, ' ')
-                .replace(/\s+([,.;:])/g, '$1')
-                .trim();
         }
 
         function updateQuizScore(role) {
@@ -2609,10 +2571,14 @@
                 const checkedCount = checkboxes.filter(cb => cb.checked).length;
                 const percentage = checkboxes.length ? Number(((checkedCount / checkboxes.length) * 100).toFixed(1)) : 0;
                 const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
+                const goalACheckbox = pane ? pane.querySelector('.goal-a-checkbox') : null;
                 const goalA = goalCards[0] ? {
                     title: goalCards[0].querySelector('.quiz-goal-title')?.innerText?.trim() || '',
-                    description: goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''
-                } : { title: '', description: '' };
+                    description: goalACheckbox
+                        ? (goalACheckbox.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || '')
+                        : (goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() || ''),
+                    checked: !!goalACheckbox?.checked
+                } : { title: '', description: '', checked: false };
                 return {
                     quiz: getQuizRoleLabel(role),
                     roles: meta.roles || [role],
@@ -2625,6 +2591,7 @@
                     questions: checkboxes.map(cb => ({
                         checked: !!cb.checked,
                         mark: cb.checked ? '☑' : '☐',
+                        isGoalA: cb.classList.contains('goal-a-checkbox'),
                         text: cb.closest('.symptom-item')?.querySelector('.symptom-text')?.innerText?.trim() || cb.value || ''
                     }))
                 };
@@ -2696,11 +2663,32 @@
                 });
 
                 html += `<table><tr><th style="width:55px">Tick</th><th>Checklist Item</th></tr>`;
-                q.questions.forEach(item => html += `<tr><td class="tick">${item.mark}</td><td>${esc(cleanVisibleQuizText(item.text))}</td></tr>`);
+                if (q.goalA && q.goalA.description) {
+                    html += `<tr><td class="tick">${q.goalA.checked ? '☑' : '☐'}</td><td>${esc(cleanVisibleQuizText(q.goalA.description))}</td></tr>`;
+                }
+                q.questions
+                    .filter(item => !item.isGoalA)
+                    .forEach(item => html += `<tr><td class="tick">${item.mark}</td><td>${esc(cleanVisibleQuizText(item.text))}</td></tr>`);
                 html += `</table>`;
             });
             html += `<p class="muted">Generated: ${esc(reportData.savedAt)}</p></body></html>`;
             return { reportData, reportHtml: html };
+        }
+
+        function openCompletedReportPdf(reportHtml) {
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                alert('Pop-up blocked. Please allow pop-ups for this website so your completed PDF can be opened.');
+                return;
+            }
+            printWindow.document.open();
+            printWindow.document.write(reportHtml);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                try { printWindow.print(); }
+                catch (err) { console.warn('Automatic print dialog could not be opened.', err); }
+            }, 700);
         }
 
         // Safety helpers for quiz controls.
@@ -2812,21 +2800,32 @@
             existing.push(formDataLocal);
             localStorage.setItem('astrovastu_submissions', JSON.stringify(existing));
 
-            // Send lightweight JSON payload to Apps Script backend to avoid payload truncation errors
+            // Open the completed report immediately from the user's Submit click.
+            // The user can print/save this window as a PDF.
+            openCompletedReportPdf(report.reportHtml);
+
+            // Send the same completed report to Google Apps Script.
             const postPayload = new FormData();
             postPayload.append('reportDataJson', JSON.stringify(formDataLocal));
+            postPayload.append('pdfReportHtml', report.reportHtml);
 
             fetch(form.action, { method: 'POST', body: postPayload, mode: 'no-cors' }).then(() => {
                 const statusDiv = document.getElementById('statusMessage');
                 statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Form submitted successfully. The PDF report is being created and emailed to piyush10june@gmail.com.`;
+                statusDiv.innerHTML = `✓ Report submitted successfully. Your completed PDF is open for Save/Print, and the report has been sent to the Blueberry AstroVastu email system.`;
                 form.reset();
                 document.getElementById('submissionDate').valueAsDate = new Date();
                 document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
+                activeQuizRoles = [];
+                activeQuizCodeMap = {};
+                activeQuizMeta = {};
+                quizzesReady = false;
+                rahuKetuReady = false;
+                updateSubmitRestriction();
             }).catch(() => {
                 const statusDiv = document.getElementById('statusMessage');
                 statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Saved locally!`;
+                statusDiv.innerHTML = `✓ Your completed report was opened for PDF saving. Local copy saved.`;
             }).finally(() => {
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Submit Information";
@@ -2838,7 +2837,7 @@
                 birthday: { eng: 'General Concern', hin: 'सामान्य चिंता' },
                 driver: { eng: 'Self Concern', hin: 'स्वयं से संबंधित चिंता' },
                 conductor: { eng: 'Work Concern', hin: 'कार्य से संबंधित चिंता' },
-                manifestation: { eng: 'Result / Output Concern', hin: 'परिणाम / आउटपुट से संबंधित चिंता' }
+                manifestation: { eng: 'Result Concern', hin: 'परिणाम से संबंधित चिंता' }
             };
 
             if (labels[role]) return labels[role][lang] || labels[role].eng;
@@ -2853,7 +2852,7 @@
                     if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
                 }
                 const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-                return matched.length ? `Dominated Concern by ${planetName} (${matched.join(' / ')})` : `Dominated Concern by ${planetName}`;
+                return `Dominated Concern by ${planetName}`;
             }
             return role;
         }
