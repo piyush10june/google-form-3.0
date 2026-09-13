@@ -1222,11 +1222,11 @@ function addPhoneField() {
     const newGroup = document.createElement('div');
     newGroup.className = 'phone-group';
     newGroup.innerHTML = `
-                <div class="phone-input-row">
-                    <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number" oninput="calculatePhoneNumerology(this)">
-                </div>
-                <div class="phone-score-display" style="display: none;">Sum: <span class="phoneScoreVal">-</span></div>
-            `;
+        <div class="phone-input-row">
+            <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number" oninput="calculatePhoneNumerology(this)">
+        </div>
+        <div class="phone-score-display" style="display: none;">Sum: <span class="phoneScoreVal">-</span></div>
+    `;
     container.appendChild(newGroup);
 }
 

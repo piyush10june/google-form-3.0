@@ -956,22 +956,22 @@
                             </div>
 
                         <div class="field">
-                                <label>Mobile Number <small>(Optional)</small></label>
-                               
-                                    <div class="phone-group">
-                                            <div class="phone-input-row">
-                                                    <input type="tel" name="mobileNumber" class="mobileInput"
-                            placeholder="Enter phone number"                                
-                            oninput="calculatePhoneNumerology(this)">
-                                                </div>
-                                            <div class="phone-score-display" style="display: none;">
-                                                    Sum: <span class="phoneScoreVal">-</span>                        
+                <label>Mobile Number <small>(Optional)</small></label>
+
+                <div id="phoneContainer">
+                    <div class="phone-group">
+                        <div class="phone-input-row">
+                            <input type="tel" name="mobileNumber" class="mobileInput" placeholder="Enter phone number"
+                                oninput="calculatePhoneNumerology(this)">
+                        </div>
+                        <div class="phone-score-display" style="display: none;">
+                            Sum: <span class="phoneScoreVal">-</span>
+                        </div>
                     </div>
-                            <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another
-                        Number</button>           
-                                    </div>
-                               
-                            </div>
+                </div>
+
+                <button type="button" class="add-btn" onclick="addPhoneField()">+ Add Another Number</button>
+            </div>
 
                         <!-- Day of Birth is calculated automatically from Date of Birth -->
                         <div class="auto-day-card" id="autoDayCard" style="display:none !important;">
