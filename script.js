@@ -679,10 +679,10 @@ function renderCodeQuiz(contentId, labelId, code, role) {
     labelEl.innerText = getFriendlyConcernLabel(role, lang);
 
     const goalTitles = {
-        a: { eng: `Goal a`, hin: `Goal a) ` },
-        b: { eng: `Goal b`, hin: `Goal b) ` },
-        c: { eng: `Goal c`, hin: `Goal c) ` },
-        d: { eng: `Goal d`, hin: `Goal d) ` }
+        a: { eng: `Symptoms a`, hin: `Symptoms a) ` },
+        b: { eng: `Symptoms b`, hin: `Symptoms b) ` },
+        c: { eng: `Symptoms c`, hin: `Symptoms c) ` },
+        d: { eng: `Symptoms d`, hin: `Symptoms d) ` }
     };
 
     const concernLabel = getFriendlyConcernLabel(role, lang);
@@ -1779,7 +1779,7 @@ function generateBlankQuizzesPdf() {
         reportHtml += `<section class="quiz-page"><h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>`;
 
         if (q.goalA && q.goalA.description) {
-            reportHtml += `<h3 class="general-issue-title">General Issue Checklist</h3>
+            reportHtml += `<h3 class="general-issue-title">Symptoms a </h3>
             <table class="questions-table"><tbody><tr><td class="check-column">☐</td><td>${esc(cleanVisibleQuizText(q.goalA.description))}</td></tr></tbody></table>`;
         }
 
