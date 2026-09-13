@@ -958,7 +958,7 @@
                         <div class="field">
                                 <label>Mobile Number <small>(Optional)</small></label>
                                
-                                    <div class="phone-group" id="phoneContainer">
+                                    <div class="phone-group">
                                             <div class="phone-input-row">
                                                     <input type="tel" name="mobileNumber" class="mobileInput"
                             placeholder="Enter phone number"                                
@@ -979,8 +979,7 @@
                                         <span class="auto-day-label">Day of Birth</span>
                                         <strong id="birthdayDisplay">-</strong>
                                     </div>
-                                <div class="auto-day-code" style="display:none;">Birth Day Code: <span
-                        id="birthDayCodeOut">-</span></div>
+                                <div class="auto-day-code">Birth Day Code: <span id="birthDayCodeOut">-</span></div>
                                 <input type="hidden" id="birthday" name="birthday" value="">
                             </div>
 
@@ -1026,20 +1025,6 @@
                                 <button type="button" class="nav-btn" id="confirmRahuKetuBtn" style="width:100%;">
                                         Confirm Rahu & Ketu and Open Quizzes
                                     </button>
-
-                <!-- Confirmed Rahu / Ketu summary -->
-                <div id="rahuKetuMatchResult" class="numerology-box quiz-overview-box"
-                    style="display:none; margin-top:18px;">
-                    <div class="numerology-item">
-                        Rahu Sign: <span id="rahuSignOut">-</span>
-                    </div>
-                    <div class="numerology-item">
-                        Ketu Sign: <span id="ketuSignOut">-</span>
-                    </div>
-                    <div class="numerology-item">
-                        Extra Quizzes: <span id="rahuKetuQuizOut">None</span>
-                    </div>
-                </div>
             </div>
                        
     </div>
@@ -2007,7 +1992,7 @@
                 d: { eng: `Goal d`, hin: `Goal d) ` }
             };
 
-            const concernLabel = getFriendlyConcernLabel(role, lang);
+            const concernLabel = getQuizRoleLabel(role);
             const goalAText = getQuizLanguageText(record.goalA.eng, record.goalA.hin);
             const goalACheckboxId = `q_${role}_${code}_A_0`;
             let html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
@@ -2165,10 +2150,10 @@
             selectedKetuSign = '';
             populateZodiacSelects();
             document.getElementById('rahuKetuSection').style.display = 'block';
-            document.getElementById('rahuKetuMatchResult')?.style && (document.getElementById('rahuKetuMatchResult').style.display = 'none');
+            document.getElementById('rahuKetuMatchResult').style.display = 'none';
             rahuKetuReady = false;
             quizzesReady = false;
-            document.getElementById('statusMessage')?.style && (document.getElementById('statusMessage').style.display = 'none');
+            document.getElementById('statusMessage').style.display = 'none';
             updateSubmitRestriction();
             document.getElementById('rahuKetuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -2193,17 +2178,13 @@
             rahuQuizRequired = numerologyCodes.includes(rahuCode);
             ketuQuizRequired = numerologyCodes.includes(ketuCode);
 
-            const rahuSignOut = document.getElementById('rahuSignOut');
-            const ketuSignOut = document.getElementById('ketuSignOut');
-            if (rahuSignOut) rahuSignOut.innerText = rahuSign;
-            if (ketuSignOut) ketuSignOut.innerText = ketuSign;
+            document.getElementById('rahuSignOut').innerText = rahuSign;
+            document.getElementById('ketuSignOut').innerText = ketuSign;
             const extraLabels = [];
             if (rahuQuizRequired) extraLabels.push('Rahu Code-4');
             if (ketuQuizRequired) extraLabels.push('Ketu Code-7');
-            const rahuKetuQuizOut = document.getElementById('rahuKetuQuizOut');
-            if (rahuKetuQuizOut) rahuKetuQuizOut.innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
-            const rahuKetuMatchResult = document.getElementById('rahuKetuMatchResult');
-            if (rahuKetuMatchResult) rahuKetuMatchResult.style.display = 'grid';
+            document.getElementById('rahuKetuQuizOut').innerText = extraLabels.length ? extraLabels.join(' + ') : 'None';
+            document.getElementById('rahuKetuMatchResult').style.display = 'grid';
 
             // Build quiz pages by UNIQUE CODE. If two or more roles resolve to the same code,
             // that code is rendered only once and one checkbox set satisfies that quiz.
@@ -2545,7 +2526,6 @@
 
         function addPhoneField() {
             const container = document.getElementById('phoneContainer');
-            if (!container) return;
             const newGroup = document.createElement('div');
             newGroup.className = 'phone-group';
             newGroup.innerHTML = `
@@ -2758,11 +2738,14 @@
             html += `<tr><th>Date of Birth</th><td>${esc(dob || 'Not provided')}</td></tr>`;
             html += `<tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr>`;
             html += `<tr><th>Day of Birth</th><td>${esc(birthDay || 'Not available')}</td></tr>`;
+            html += `<tr><th>Birth Day Code</th><td>${esc(birthDayCode || 'Not available')}</td></tr>`;
             html += `<tr><th>Driver</th><td>${esc(driver || 'Not available')}</td></tr>`;
             html += `<tr><th>Conductor</th><td>${esc(conductor || 'Not available')}</td></tr>`;
             html += `<tr><th>Manifestation</th><td>${esc(manifestation || 'Not available')}</td></tr>`;
-            html += `<tr><th>Rahu Sign</th><td><b>${esc(reportData.rahuSign || 'Not selected')}</b></td></tr>`;
-            html += `<tr><th>Ketu Sign</th><td><b>${esc(reportData.ketuSign || 'Not selected')}</b></td></tr>`;
+            html += `<tr><th>Rahu Sign</th><td><b>${esc(reportData.rahuSign || 'Not selected')}</b> — Code ${esc(reportData.rahuCode ?? 'Not available')}</td></tr>`;
+            html += `<tr><th>Ketu Sign</th><td><b>${esc(reportData.ketuSign || 'Not selected')}</b> — Code ${esc(reportData.ketuCode ?? 'Not available')}</td></tr>`;
+            html += `<tr><th>Rahu Quiz</th><td>${reportData.rahuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
+            html += `<tr><th>Ketu Quiz</th><td>${reportData.ketuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
             html += `</table>`;
 
             html += `<h2>Mobile Number(s)</h2><table><tr><th>#</th><th>Mobile Number</th><th>Total</th><th>Digital Root</th></tr>`;
@@ -2912,7 +2895,6 @@
 
             const form = this;
             const submitBtn = form.querySelector('.submit-btn');
-            if (!submitBtn) return;
             submitBtn.disabled = true;
             submitBtn.innerText = "Submitting...";
 
@@ -2954,33 +2936,54 @@
             // The user can print/save this window as a PDF.
             openCompletedReportPdf(report.reportHtml);
 
-            // Send the same completed report to Google Apps Script.
-            const postPayload = new FormData();
-            postPayload.append('reportDataJson', JSON.stringify(formDataLocal));
-            postPayload.append('pdfReportHtml', report.reportHtml);
+            // Send the same completed report to Google Apps Script using a real HTML POST.
+            // This avoids browser CORS/fetch restrictions and matches Apps Script e.parameter.
+            const postForm = document.createElement('form');
+            postForm.method = 'POST';
+            postForm.action = form.action;
+            postForm.target = 'astrovastuSubmitFrame';
+            postForm.style.display = 'none';
 
-            fetch(form.action, { method: 'POST', body: postPayload, mode: 'no-cors' }).then(() => {
-                const statusDiv = document.getElementById('statusMessage');
-                statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Report submitted successfully. Your completed PDF is open for Save/Print, and the report has been sent to the Blueberry AstroVastu email system.`;
-                form.reset();
-                const resetDate = document.getElementById('submissionDate');
-                if (resetDate) resetDate.valueAsDate = new Date();
-                document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
-                activeQuizRoles = [];
-                activeQuizCodeMap = {};
-                activeQuizMeta = {};
-                quizzesReady = false;
-                rahuKetuReady = false;
-                updateSubmitRestriction();
-            }).catch(() => {
-                const statusDiv = document.getElementById('statusMessage');
-                statusDiv.style.display = 'block';
-                statusDiv.innerHTML = `✓ Your completed report was opened for PDF saving. Local copy saved.`;
-            }).finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Submit Information";
-            });
+            const reportInput = document.createElement('input');
+            reportInput.type = 'hidden';
+            reportInput.name = 'reportDataJson';
+            reportInput.value = JSON.stringify(formDataLocal);
+            postForm.appendChild(reportInput);
+
+            const htmlInput = document.createElement('input');
+            htmlInput.type = 'hidden';
+            htmlInput.name = 'pdfReportHtml';
+            htmlInput.value = report.reportHtml;
+            postForm.appendChild(htmlInput);
+
+            let submitFrame = document.getElementById('astrovastuSubmitFrame');
+            if (!submitFrame) {
+                submitFrame = document.createElement('iframe');
+                submitFrame.name = 'astrovastuSubmitFrame';
+                submitFrame.id = 'astrovastuSubmitFrame';
+                submitFrame.style.display = 'none';
+                document.body.appendChild(submitFrame);
+            }
+
+            document.body.appendChild(postForm);
+            postForm.submit();
+
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = `✓ Report submitted successfully. Your completed PDF is open for Save/Print, and the report has been sent to the Blueberry AstroVastu email system.`;
+            form.reset();
+            const resetDate = document.getElementById('submissionDate');
+            if (resetDate) resetDate.valueAsDate = new Date();
+            document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
+            activeQuizRoles = [];
+            activeQuizCodeMap = {};
+            activeQuizMeta = {};
+            quizzesReady = false;
+            rahuKetuReady = false;
+            updateSubmitRestriction();
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Submit Information";
+            postForm.remove();
         });
 
         function getFriendlyConcernLabel(role, lang = (document.getElementById('displayLanguage')?.value || 'eng')) {
@@ -2993,12 +2996,8 @@
 
             if (labels[role]) return labels[role][lang] || labels[role].eng;
 
-            if (role === 'ketu') {
-                return 'Dominated Concern by Ketu';
-            }
-
-            if (role === 'rahu') {
-                const sign = selectedRahuSign;
+            if (role === 'rahu' || role === 'ketu') {
+                const sign = role === 'rahu' ? selectedRahuSign : selectedKetuSign;
                 const signCode = sign ? signCodeMap[sign] : null;
                 const matched = [];
                 if (signCode !== null && signCode !== undefined) {
@@ -3007,10 +3006,9 @@
                     if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
                 }
                 const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-                const signText = sign ? ` — ${sign}` : '';
-                const dominatedText = role === 'ketu' ? ' — Dominated Concern by Ketu' : ' — Dominated Concern by Rahu';
+                const signText = sign ? ` — ${sign} (Code ${signCode})` : '';
                 const matchedText = matched.length ? ` — ${matched.join(' + ')}` : '';
-                return `${planetName}${signText}${matchedText}${dominatedText}`;
+                return `${planetName}${signText}${matchedText}`;
             }
             return role;
         }
@@ -3018,6 +3016,9 @@
         function getQuizRoleLabel(role) {
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const meta = activeQuizMeta[role];
+            if (meta?.roles?.length > 1) {
+                return meta.roles.map(r => getFriendlyConcernLabel(r, lang)).join(' + ');
+            }
             return getFriendlyConcernLabel(role, lang);
         }
 
@@ -3370,17 +3371,19 @@
                                     <td class="meta-label">Date of Birth</td>
                                     <td class="meta-value">${esc(document.getElementById('dob')?.value || 'Not provided')}</td>
                                     <td class="meta-label">Birth Day</td>
-                                    <td class="meta-value">${esc(selectedBirthDayName || 'Not available')}</td>
+                                    <td class="meta-value">${esc(selectedBirthDayName || 'Not available')} (Code ${esc(selectedBirthDayCode ?? '—')})</td>
                                 </tr>
                                 <tr>
-                                    <td class="meta-label">Driver</td>
-                                    <td class="meta-value">${esc(document.getElementById('driverNumberOut')?.innerText || '—')}</td>
-                                    <td class="meta-label">Conductor</td>
-                                    <td class="meta-value">${esc(document.getElementById('conductorNumberOut')?.innerText || '—')}</td>
-                                </tr>
-                                <tr>
+                                    <td class="meta-label">Driver / Conductor</td>
+                                    <td class="meta-value">${esc(document.getElementById('driverNumberOut')?.innerText || '—')} / ${esc(document.getElementById('conductorNumberOut')?.innerText || '—')}</td>
                                     <td class="meta-label">Manifestation</td>
-                                    <td class="meta-value" colspan="3">${esc(document.getElementById('manifestationNumberOut')?.innerText || '—')}</td>
+                                    <td class="meta-value">${esc(document.getElementById('manifestationNumberOut')?.innerText || '—')}</td>
+                                </tr>
+                                <tr>
+                                    <td class="meta-label">Rahu</td>
+                                    <td class="meta-value"><b>${esc(selectedRahuSign || 'Not selected')}</b> — Code ${esc(selectedRahuSign ? signCodeMap[selectedRahuSign] : '—')}</td>
+                                    <td class="meta-label">Ketu</td>
+                                    <td class="meta-value"><b>${esc(selectedKetuSign || 'Not selected')}</b> — Code ${esc(selectedKetuSign ? signCodeMap[selectedKetuSign] : '—')}</td>
                                 </tr>
                             </table>
                             `;
@@ -3388,7 +3391,7 @@
             blankQuizData.forEach((q, idx) => {
                 reportHtml += `
     <section class="quiz-page">
-        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>
+        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)} <span class="code-badge">Code ${esc(q.code)}</span></h2>
 `;
 
                 if (q.goalA && q.goalA.description) {
