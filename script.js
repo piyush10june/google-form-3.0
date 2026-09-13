@@ -804,11 +804,18 @@ function populateZodiacSelects() {
 
 function getMatchingExtraQuizRoles() {
     const matched = [];
-    const numerologyCodes = [selectedNumerology.driver, selectedNumerology.conductor, selectedNumerology.manifestation];
+    const numerologyCodes = [
+        selectedNumerology.driver,
+        selectedNumerology.conductor,
+        selectedNumerology.manifestation,
+        selectedBirthDayCode
+    ];
     const rahuCode = signCodeMap[selectedRahuSign];
     const ketuCode = signCodeMap[selectedKetuSign];
+
     rahuQuizRequired = numerologyCodes.includes(rahuCode);
     ketuQuizRequired = numerologyCodes.includes(ketuCode);
+
     if (rahuQuizRequired) matched.push('rahu');
     if (ketuQuizRequired) matched.push('ketu');
     return matched;
@@ -865,7 +872,14 @@ function confirmRahuKetuAndOpenQuizzes() {
 
     selectedRahuSign = rahuSign;
     selectedKetuSign = ketuSign;
-    const numerologyCodes = [selectedNumerology.driver, selectedNumerology.conductor, selectedNumerology.manifestation];
+
+    // Include selectedBirthDayCode alongside Driver, Conductor, and Manifestation for matching
+    const numerologyCodes = [
+        selectedNumerology.driver,
+        selectedNumerology.conductor,
+        selectedNumerology.manifestation,
+        selectedBirthDayCode
+    ];
     const rahuCode = signCodeMap[rahuSign];
     const ketuCode = signCodeMap[ketuSign];
     rahuQuizRequired = numerologyCodes.includes(rahuCode);
