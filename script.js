@@ -1657,9 +1657,10 @@ function getFriendlyConcernLabel(role, lang = (document.getElementById('displayL
             if (selectedNumerology.driver === signCode) matched.push(labels.driver[lang] || labels.driver.eng);
             if (selectedNumerology.conductor === signCode) matched.push(labels.conductor[lang] || labels.conductor.eng);
             if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
+            if (selectedBirthDayCode === signCode) matched.push(labels.birthday[lang] || labels.birthday.eng);
         }
-        const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-        return `Dominated Concern by ${planetName}`;
+        const combinedConcerns = matched.length > 0 ? matched.join(' / ') : 'General Concern';
+        return lang === 'hin' ? `${combinedConcerns} के dominated symptoms` : `Dominated symptoms of ${combinedConcerns}`;
     }
     return role;
 }
