@@ -38,7 +38,7 @@ let selectedBirthDayName = '';
 // Every selected code uses all four goals from the source, including all Code-X-a to Code-X-e sub-codes.
 const ninePlanetCodeDatabase = {
     "1": {
-        "title": "Goal a) General Issue Related to Code-1 / Code-1 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) Symptoms a Related to Code-1 / Code-1 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "The primary general problem associated with an imbalanced Code-1 is imbalanced or harsh authority. This occurs when a person attempts to impose their will upon others without any logical reasoning, demanding blind obedience solely because of their status or position (for example, saying, \"Do it because I am your father\" or \"Do it because I am the boss\"). This authoritative behavior fails to inspire true leadership and instead creates deep resentment, pain, and constant friction in relationships.",
             "hin": "Code-1 के असंतुलित होने पर मुख्य सामान्य समस्या असंतुलित या कठोर अधिकार जताना है। यह तब होता है जब कोई व्यक्ति बिना किसी तर्क या औचित्य के केवल अपने पद या स्थिति के कारण दूसरों से आज्ञा मनवाना चाहता है (जैसे \"मैं तुम्हारा पिता हूँ इसलिए तुम्हें मेरी बात माननी होगी\" या \"मैं बॉस हूँ इसलिए ऐसा करो\")। यह अधिकारवादी व्यवहार दूसरों को प्रेरित करने वाले स्वाभाविक नेतृत्व की जगह रिश्तों में दर्द, नाराजगी और आपसी घर्षण (friction) पैदा करता है।"
@@ -106,7 +106,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "2": {
-        "title": "Goal a) General Issue Related to Code-2 / Code-2 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) Symptoms a Related to Code-2 / Code-2 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "An imbalanced Code-2 causes intense mood swings and emotional volatility. This manifests as becoming suddenly loud, aggressive, or erratic without realizing it, which severely damages both personal and professional relationships.",
             "hin": "Code-2 के असंतुलित होने पर तीव्र मूड स्विंंग्स (भावनात्मक अस्थिरता) होते हैं। इसके कारण व्यक्ति बिना महसूस किए अचानक से ज़ोोर से बोलने लगता है या अस्थिर व्यवहार करने लगता है, जिससे उसके व्यक्तिगत और व्यावसायिक रिश्ते खराब होते हैं।"
@@ -166,7 +166,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "3": {
-        "title": "Goal a) General Issue Related to Code-3 / Code-3 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) Symptoms a Related to Code-3 / Code-3 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "The core problem is being stuck in theory, concepts, and philosophy without taking any practical, real-world action. Such individuals possess an intellectual answer for every single question but completely lack practical application, leading to a state of \"paralysis by analysis\" where they fail to implement their vast knowledge.",
             "hin": "मुख्य समस्या व्याावहारिक क्रिया के बिना केवल सिद्धांांतों, दर्शन (Philosophy) और ज्ञाान में उलझे रहना है। ऐसे व्यक्तियों के पास हर चीज़ का बौद्धिक ज्ञान तो होता है, लेकिन वे उसे व्यावहारिक रूप से लागू नहीं कर पाते, जिससे वे \"पैरालिसिस-बाय-एनालिसिस\" का शिकार होकर केवल उपदेश देते रहते हैं पर स्वयं कोई वास्तविक कार्य नहीं करते।"
@@ -228,7 +228,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "4": {
-        "title": "Goal a) General Issue Related to Code-4 / Code-4 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) Symptoms a Related to Code-4 / Code-4 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "The primary negative trait is becoming a toxic \"control freak\" who feels an overwhelming, compulsive need to personally monitor and micromanage every single minor detail. This obsessive monitoring leaves absolutely no room for trust, faith, or autonomy, which severely damages partnerships.",
             "hin": "मुख्य नकारात्मक लक्षण व्यक्ति का \"कंट्रोोल फ्रीक\" (नियंत्रण का अत्यधिक शौकीन) बन जाना है, जो हर छोटी से छोटी बात की व्यक्तिगत निगरानी करना चाहता है। यह दमनकारी आदत दूसरों पर से भरोसे को पूरी तरह समाप्त कर देती है और व्यावसायिक साझेदारियों व रिश्तों को भारी नुकसान पहुँचाती है।"
@@ -288,7 +288,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "5": {
-        "title": "Goal a) General Issue Related to Code-5 / Code-5 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) symptoms a Related to Code-5 / Code-5 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "A disturbed Code-5 leads to confusing, complicated, or unclear communication. This results in dialogues that generate more confusion rather than clarity, making it extremely difficult to close sales, finalise business deals, or get a point across effectively.",
             "hin": "Code-5 के खराब होने पर भ्रमित, जटिल या अस्पष्ट संचार (communication) की समस्या आती है। इसके परिणामस्वरूप बातचीत से स्पष्टता आने के बजाय और अधिक भ्रम पैदा होता है, जिससे सेल्स क्लोज करने, डील्स फाइनल करने या अपनी बात प्रभावी ढंग से समझाने में भारी कठिनाई होती है।"
@@ -350,7 +350,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "6": {
-        "title": "Goal a) General Issue Related to Code-6 / Code-6 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) symptoms a Related to Code-6 / Code-6 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "Code-6 governs discernment (parakh / विवेक), and its imbalance leads directly to poor judgment, weak decision-making, and an inability to weigh multiple options properly. Materially, this results in financial instability, poor relational decisions, and disrupted cash flow.",
             "hin": "Code-6 परख (विवेक की शक्ति) को नियंत्रित करता है, और इसके असंतुलन से गलत निर्णय लेना और विभिन्न विकल्पों को सही से तौलने की क्षमता में भारी कमी आती है। इसके भौतिक दुष्परिणाम के रूप में वित्तीय अस्थिरता, रिश्तों में गलत फैसले और कैश फ्लो (नकद प्रवाह) में बड़ीी बाधाएं आती हैं।"
@@ -410,7 +410,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "7": {
-        "title": "Goal a) General Issue Related to Code-7 / Code-7 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) symptoms a Related to Code-7 / Code-7 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "An imbalanced Code-7 results in excessive shyness, social withdrawal, and a strong tendency to hide away from the spotlight. While such individuals are highly competent and brilliant at \"behind-the-scenes\" operations, they severely hesitate or fear taking front-facing, visible, or leadership roles even when required.",
             "hin": "Code-7 के असंतुलन से व्यक्ति में अत्यधिक शर्मीलापन, संकोच और सुर्खियों (spotlight) से दूर रहने की प्रवृत्ति पैदा होती है। हालाँकि ऐसे व्यक्ति परदे के पीछे रहकर (behind-the-scenes) काम करने में बहुत अधिक कुशल होते हैं, लेकिन वे ज़रूरत पड़ने पर भी जनता के सामने आने या नेतृत्व की भूमिका निभाने में अत्यधिक झिझकते या डरते हैं।"
@@ -470,7 +470,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "8": {
-        "title": "Goal a) General Issue Related to Code-8 / Code-8 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) symptoms a Related to Code-8 / Code-8 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "A disturbed Code-8 manifests as rigid discipline and a \"mind-stuck\" mindset. The person becomes so deeply obsessed with rules and protocols that they end up stifling all creative flow and progress, acting like a car with the brakes permanently engaged.",
             "hin": "Code-8 के असंतुलित होने पर व्यक्ति अत्यधिक कठोर अनुशासन और \"माइंड-स्टक\" (मानसिक रूप से विचारों में अटक जाना)का शिकार हो जाता है। वह नियमों और कानूनों में इतना अधिक उलझ जाता है कि वह अपनी और दूसरों की रचनात्मकता तथा प्रगति को पूरी तरह रोक देता है, जैसे किसी गाड़ीी में हमेशा कड़े ब्रेक लगे हुए हों।"
@@ -530,7 +530,7 @@ const ninePlanetCodeDatabase = {
         ]
     },
     "9": {
-        "title": "Goal a) General Issue Related to Code-9 / Code-9 से संबंधित सामान्य समस्याा",
+        "title": "Goal a) symptoms a Related to Code-9 / Code-9 से संबंधित सामान्य समस्याा",
         "goalA": {
             "eng": "The main issue is careless mistakes caused by haste (jandwaji) and impatience. It represents unchanneled, highly impulsive energy where a person rushes through tasks without focus, leading to frequent errors in execution.",
             "hin": "मुख्य समस्या जल्दबाजी (जल्दवाजी) और अधीरता के कारण होने वाली गलतियाँ हैं। यह बिना दिशा वाली आवेगपूर्ण ऊर्जा को दर्शाता है, जहाँ व्यक्ति बिना किसी फोकस के कार्योंं को पूरा करने की कोशिश करता है, जिससे काम में बार-बार त्रुटियाँ होती हैं।"
@@ -690,7 +690,7 @@ function renderCodeQuiz(contentId, labelId, code, role) {
     const goalACheckboxId = `q_${role}_${code}_A_0`;
     let html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
     html += `<div class="quiz-goal-card">`;
-    html += `<div class="quiz-goal-title">${escapeHtml(lang === 'hin' ? 'सामान्य समस्या / General Issue' : 'General Issue')}</div>`;
+    html += `<div class="quiz-goal-title">${escapeHtml(lang === 'hin' ? 'सामान्य समस्या / symptoms a' : 'symptoms a')}</div>`;
     html += `<label class="symptom-item goal-a-item" data-page="${role}" data-eng="${escapeHtml(record.goalA.eng)}" data-hin="${escapeHtml(record.goalA.hin || record.goalA.eng)}">`;
     html += `<div class="symptom-header"><input id="${goalACheckboxId}" class="goal-a-checkbox" type="checkbox" name="${goalACheckboxId}" value="${escapeHtml(record.goalA.eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(cleanVisibleQuizText(goalAText))}</span></div>`;
     html += `</label></div>`;
@@ -1262,10 +1262,10 @@ function getQuizReportData() {
         const goalACheckbox = goalABox?.querySelector('.goal-a-checkbox') || null;
 
         const goalA = goalABox ? {
-            title: 'Goal A — General Issue',
+            title: 'Goal A — symptoms a',
             description: goalABox.querySelector('.goal-a-item .symptom-text')?.innerText?.trim() || '',
             checked: !!goalACheckbox?.checked
-        } : { title: 'Goal A — General Issue', description: '', checked: false };
+        } : { title: 'Goal A — symptoms a', description: '', checked: false };
 
         const goalSections = goalCards.slice(1).map((card, index) => {
             const rawTitle = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
@@ -1427,9 +1427,9 @@ function buildSubmissionReport() {
         html += `<h3>${qi + 1}. ${esc(q.quiz)}</h3>`;
         html += `<div class="info-box"><span class="score">Final Score: ${esc(q.score)} / ${esc(q.totalQuestions)} (${esc(q.percentage)}%)</span></div>`;
 
-        // Goal A is the selectable general issue. It appears once, with its actual tick state.
+        // Goal A is the selectable symptoms a. It appears once, with its actual tick state.
         if (q.goalA && q.goalA.description) {
-            html += `<div class="goal-box"><div class="goal-title">Goal A — General Issue</div>`;
+            html += `<div class="goal-box"><div class="goal-title">Goal A — symptoms a</div>`;
             html += `<table><tr><td class="tick">${q.goalA.checked ? '☑' : '☐'}</td><td>${esc(clean(q.goalA.description))}</td></tr></table></div>`;
         }
 
@@ -1688,7 +1688,7 @@ function generateBlankQuizzesPdf() {
         const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
 
         const goalA = goalCards[0] ? {
-            title: 'General Issue',
+            title: 'symptoms a',
             description: goalCards[0].querySelector('.symptom-text')?.innerText?.trim() ||
                 goalCards[0].querySelector('.quiz-goal-description')?.innerText?.trim() ||
                 goalCards[0].querySelector('.symptom-item')?.getAttribute('data-eng') || ''
