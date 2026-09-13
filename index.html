@@ -927,7 +927,7 @@
 
                 <!-- Intake Form Body -->
                 <form id="astrovastuForm"            
-            action="https://script.google.com/macros/s/AKfycbyfqJsezRrH0dYYEVQfHvyD1bxXQUAWXnq4iBheknbFkCKibM7mF17jE6EItuG6vutC/exec"
+            action="https://script.google.com/macros/s/AKfycbzmJvm6w0ZZdvSRqXZ68SUgm51AP99MvYjnhRdvWJ3an_r1uIKhNIte2UryviFfq9I_/exec"
                         method="POST">
 
                         <h3 class="form-section-title">Personal Information</h3>
@@ -1025,288 +1025,297 @@
                                 <button type="button" class="nav-btn" id="confirmRahuKetuBtn" style="width:100%;">
                                         Confirm Rahu & Ketu and Open Quizzes
                                     </button>
-            </div>
-                       
-    </div>
 
-                <!-- Dynamic Step-by-Step Diagnostic Checklists -->
-                <div id="dynamicQuizzesWrapper" style="display:none;">
-                        <div class="numerology-box quiz-overview-box">
-                                <div class="numerology-item" id="quizProgressItem" style="display:none;"><span          
-                                      id="quizProgressLabel"></span></div>
-                                <div class="numerology-item">Total Selected Checkbox Score: <span id="totalMasterScore"
-                                                style="color:#FF8C00;">0</span></div>
-                            </div>
+                                <div class="numerology-box" id="rahuKetuMatchResult" style="display:none !important;">
+                                        <div class="numerology-item">Rahu Sign: <span id="rahuSignOut">-</span></div>
+                    <div class="numerology-item">Ketu Sign: <span id="ketuSignOut">-</span></div>
+                    <div class="numerology-item">Additional Concern: <span id="rahuKetuQuizOut">None</span></div>
+                                   
+                </div>
+                            </div>
 
-                        <!-- Maximum six quiz types. Duplicate codes are automatically merged into one quiz. -->
-                        <div class="quiz-step-pane" id="quizStep_0" style="display:none;">
-                                <div class="field"><label id="driverQuizLabel">Quiz</label>
-                                        <div class="dynamic-quiz-container" id="driverQuizContent"></div>
-                                    </div>
-                            </div>
-                        <div class="quiz-step-pane" id="quizStep_1" style="display:none;">
-                                <div class="field"><label id="conductorQuizLabel">Quiz</label>
-                                        <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
-                                    </div>
-                            </div>
-                        <div class="quiz-step-pane" id="quizStep_2" style="display:none;">
-                                <div class="field"><label id="manifestationQuizLabel">Quiz</label>
-                                        <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
-                                    </div>
-                            </div>
-                        <div class="quiz-step-pane" id="quizStep_3" style="display:none;">
-                                <div class="field"><label id="rahuQuizLabel">Rahu Quiz</label>
-                                        <div class="dynamic-quiz-container" id="rahuQuizContent"></div>
-                                    </div>
-                            </div>
-                        <div class="quiz-step-pane" id="quizStep_4" style="display:none;">
-                                <div class="field"><label id="ketuQuizLabel">Ketu Quiz</label>
-                                        <div class="dynamic-quiz-container" id="ketuQuizContent"></div>
-                                    </div>
-                            </div>
-                        <div class="quiz-step-pane" id="quizStep_5" style="display:none;">
-                                <div class="field"><label id="birthdayQuizLabel">Day of Birth Quiz</label>
-                                        <div class="dynamic-quiz-container" id="birthdayQuizContent"></div>
-                                    </div>
-                            </div>
+                        <!-- Dynamic Step-by-Step Diagnostic Checklists -->
+                        <div id="dynamicQuizzesWrapper" style="display:none;">
+                                <div class="numerology-box quiz-overview-box">
+                                        <div class="numerology-item" id="quizProgressItem" style="display:none;"><span  
+                                                      id="quizProgressLabel"></span></div>
+                                        <div class="numerology-item">Total Selected Checkbox Score: <span
+                            id="totalMasterScore"                             style="color:#FF8C00;">0</span></div>
+                                    </div>
 
-                        <div class="quiz-nav-buttons">
-                                <button type="button" class="nav-btn" id="prevQuizBtn" onclick="navigateQuizStep(-1)"  
-                                      style="display:none;">← Previous</button>
+                                <!-- Maximum six quiz types. Duplicate codes are automatically merged into one quiz. -->
+                                <div class="quiz-step-pane" id="quizStep_0" style="display:none;">
+                                        <div class="field"><label id="driverQuizLabel">Quiz</label>
+                                                <div class="dynamic-quiz-container" id="driverQuizContent"></div>
+                                            </div>
+                                    </div>
+                                <div class="quiz-step-pane" id="quizStep_1" style="display:none;">
+                                        <div class="field"><label id="conductorQuizLabel">Quiz</label>
+                                                <div class="dynamic-quiz-container" id="conductorQuizContent"></div>
+                                            </div>
+                                    </div>
+                                <div class="quiz-step-pane" id="quizStep_2" style="display:none;">
+                                        <div class="field"><label id="manifestationQuizLabel">Quiz</label>
+                                                <div class="dynamic-quiz-container" id="manifestationQuizContent"></div>
+                                            </div>
+                                    </div>
+                                <div class="quiz-step-pane" id="quizStep_3" style="display:none;">
+                                        <div class="field"><label id="rahuQuizLabel">Rahu Quiz</label>
+                                                <div class="dynamic-quiz-container" id="rahuQuizContent"></div>
+                                            </div>
+                                    </div>
+                                <div class="quiz-step-pane" id="quizStep_4" style="display:none;">
+                                        <div class="field"><label id="ketuQuizLabel">Ketu Quiz</label>
+                                                <div class="dynamic-quiz-container" id="ketuQuizContent"></div>
+                                            </div>
+                                    </div>
+                                <div class="quiz-step-pane" id="quizStep_5" style="display:none;">
+                                        <div class="field"><label id="birthdayQuizLabel">Day of Birth Quiz</label>
+                                                <div class="dynamic-quiz-container" id="birthdayQuizContent"></div>
+                                            </div>
+                                    </div>
 
-                                <!-- New Blank Quizzes PDF Generator Button -->
-                                <button type="button" class="nav-btn" id="generateBlankPdfBtn"
-                onclick="generateBlankQuizzesPdf()"                        
-                style="background: #4682B4; color: #ffffff; border-color: #DAA520;">📥 Generate Blank Quizzes
-                                        PDF</button>
+                                <div class="quiz-nav-buttons">
+                                        <button type="button" class="nav-btn" id="prevQuizBtn"
+                        onclick="navigateQuizStep(-1)"                         style="display:none;">← Previous</button>
 
-                                <button type="button" class="nav-btn" id="nextQuizBtn"
-                onclick="navigateQuizStep(1)">Next →</button>
-                                <button type="button" class="nav-btn" id="finishQuizBtn" onclick="finishQuizzes()"      
-                                  style="display:none; background:#DAA520; color:#0B192C;">✓ Finish & Save</button>
-                            </div>
-                    </div>
+                                        <!-- New Blank Quizzes PDF Generator Button -->
+                                        <button type="button" class="nav-btn" id="generateBlankPdfBtn"
+                        onclick="generateBlankQuizzesPdf()"                        
+                        style="background: #4682B4; color: #ffffff; border-color: #DAA520;">📥 Generate Blank Quizzes
+                                                PDF</button>
 
-                <button type="submit" class="submit-btn">Submit Information</button>
-                <div id="statusMessage" class="status-msg"></div>
+                                        <button type="button" class="nav-btn" id="nextQuizBtn"
+                        onclick="navigateQuizStep(1)">Next →</button>
+                                        <button type="button" class="nav-btn" id="finishQuizBtn"
+                        onclick="finishQuizzes()"                        
+                        style="display:none; background:#DAA520; color:#0B192C;">✓ Finish & Save</button>
+                                    </div>
+                            </div>
 
-            </form>
+                        <button type="submit" class="submit-btn">Submit Information</button>
+                        <div id="statusMessage" class="status-msg"></div>
 
-            <!-- Payment Details Block -->
-            <div class="payment-card-refined">
-                    <div class="payment-left payment-details">
-                            <h3>Payment Details</h3>
-                            <p><b>Google Pay:</b> 9693701283</p>
-                            <p><b>PhonePe:</b> 9693701283</p>
-                            <p><b>UPI ID:</b> piyush10junepriyanka@okicici</p>
-                        </div>
-                    <div class="payment-right">
-                            <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'"
-                height="130px"                     width="auto">
-                        </div>
-                </div>
+                    </form>
 
-            <!-- FOOTER -->
-            <footer class="blueberry-footer">
+                <!-- Payment Details Block -->
+                <div class="payment-card-refined">
+                        <div class="payment-left payment-details">
+                                <h3>Payment Details</h3>
+                                <p><b>Google Pay:</b> 9693701283</p>
+                                <p><b>PhonePe:</b> 9693701283</p>
+                                <p><b>UPI ID:</b> piyush10junepriyanka@okicici</p>
+                            </div>
+                        <div class="payment-right">
+                                <img src="images/qr.png" alt="Payment QR" class="qr" onerror="this.style.display='none'"
+                    height="130px"                     width="auto">
+                            </div>
+                    </div>
 
-                    <div style="max-width: 1150px; margin: 0 auto 55px; text-align: center;">
+                <!-- FOOTER -->
+                <footer class="blueberry-footer">
 
-                            <div                    
-                style="width: 80px; height: 3px; background: linear-gradient(90deg, #FF8C00, #DAA520, #FFD700); margin: 0 auto 20px;">
-                                </div>
+                        <div style="max-width: 1150px; margin: 0 auto 55px; text-align: center;">
 
-                            <h2 style="color: #0B192C; font-size: 30px; margin: 0 0 25px; letter-spacing: 0.5px;">
-                                    While Building New, Renovating, or Resolving Issues
-                                    in Your House, Factory or Office
-                                </h2>
+                                <div                    
+                    style="width: 80px; height: 3px; background: linear-gradient(90deg, #FF8C00, #DAA520, #FFD700); margin: 0 auto 20px;">
+                                    </div>
 
-                            <div                    
-                style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; margin: 25px auto 30px; font-family: Arial, sans-serif;">
+                                <h2 style="color: #0B192C; font-size: 30px; margin: 0 0 25px; letter-spacing: 0.5px;">
+                                        While Building New, Renovating, or Resolving Issues
+                                        in Your House, Factory or Office
+                                    </h2>
 
-                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                            <img src="image3.png" alt="Structure Layout"                            
-                        style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
-                                            <span                            
-                        style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
-                                                    Structure Layout
-                                                </span>
-                                        </div>
+                                <div                    
+                    style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; margin: 25px auto 30px; font-family: Arial, sans-serif;">
 
-                                    <span
-                    style="color: #FF8C00; font-size: 25px; font-weight: bold; align-self: center;">→</span>
+                                        <div
+                        style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                                <img src="image3.png" alt="Structure Layout"                            
+                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                                                <span                            
+                            style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
+                                                        Structure Layout
+                                                    </span>
+                                            </div>
 
-                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                            <img src="image2.png" alt="Furniture Layout"                            
-                        style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
-                                            <span                            
-                        style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
-                                                    Furniture Layout
-                                                </span>
-                                        </div>
+                                        <span
+                        style="color: #FF8C00; font-size: 25px; font-weight: bold; align-self: center;">→</span>
 
-                                    <span
-                    style="color: #FF8C00; font-size: 25px; font-weight: bold; align-self: center;">→</span>
+                                        <div
+                        style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                                <img src="image2.png" alt="Furniture Layout"                            
+                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                                                <span                            
+                            style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
+                                                        Furniture Layout
+                                                    </span>
+                                            </div>
 
-                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                            <img src="image1.png" alt="Interior Layout"                            
-                        style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
-                                            <span                            
-                        style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
-                                                    Interior Layout
-                                                </span>
-                                        </div>
+                                        <span
+                        style="color: #FF8C00; font-size: 25px; font-weight: bold; align-self: center;">→</span>
 
-                                </div>
+                                        <div
+                        style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                                <img src="image1.png" alt="Interior Layout"                            
+                            style="width: 100px; height: auto; object-fit: contain; border: 1px solid #DAA520; border-radius: 8px; background: #fff; padding: 4px;">
+                                                <span                            
+                            style="background: #ffffff; border: 1px solid #DAA520; color: #0B192C; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(218,165,32,0.15);">
+                                                        Interior Layout
+                                                    </span>
+                                            </div>
 
-                            <p                    
-                style="max-width: 950px; margin: 0 auto 45px; font-size: 17px; line-height: 1.8; color: #0B192C; text-align: center;">
-                                    Once the interior layout is in place, you can build or renovate
-                                    your <strong>home, office, or factory</strong> accordingly.
-                                </p>
+                                    </div>
 
-                            <div                    
-                style="max-width: 1050px; margin: 0 auto; padding: 35px 35px; background: rgba(255,255,255,0.9); border: 1px solid #DAA520; border-radius: 18px; box-shadow: 0 8px 30px rgba(11,25,44,0.10); text-align: left;">
-                                    <h3 style="text-align: center; color: #DAA520; font-size: 27px; margin: 0 0 25px;">
-                                            How Blueberry Works
-                                        </h3>
-                                    <p style="font-size: 17px; line-height: 1.9; margin: 0; color: #0B192C;">
-                                            <strong style="color:#FF8C00;">
-                                                    Blueberry synchronizes the Architectural Drawings,
-                                                    integrates the Vastu principles and advice provided by
-                                                    your Vastu Consultant, and aligns the Luxury Interior
-                                                    Design created by your Interior Designer with AstroVastu,
-                                                    Numerology, Palmistry and Energy
-                                                </strong>
-                                            — creating a personalized environment for the individual
-                                            to enhance their
-                                            <strong style="color:#DAA520;">
-                                                    Aura (Personality), Profession, and Manifestation.
-                                                </strong>
-                                        </p>
-                                    <p style="font-size: 17px; line-height: 1.9; margin: 25px 0 0; color: #0B192C;">
-                                            Blueberry brings these elements together to create a
-                                            <strong style="color:#DAA520;">
-                                                    synchronized environment where your space works in
-                                                    harmony with your personality
-                                                </strong>,
-                                            helping you unlock your potential, strengthen your presence,
-                                            and create greater visibility and impact in the market.
-                                        </p>
-                                </div>
+                                <p                    
+                    style="max-width: 950px; margin: 0 auto 45px; font-size: 17px; line-height: 1.8; color: #0B192C; text-align: center;">
+                                        Once the interior layout is in place, you can build or renovate
+                                        your <strong>home, office, or factory</strong> accordingly.
+                                    </p>
 
-                            <div                    
-                style="max-width: 1000px; margin: 35px auto; padding: 25px 30px; background: linear-gradient(135deg, #fffdf5, #ffffff, #fff8df); border-top: 1px solid #DAA520; border-bottom: 1px solid #DAA520; text-align: center;">
-                                    <p                        
-                    style="margin: 0; font-size: 20px; line-height: 1.7; color: #DAA520; font-weight: bold; font-style: italic; text-align: center;">
-                                            “A Step-by-Step, Balanced & Magical System to Fulfill Your
-                                            Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
-                                            Home, Office, or Factory.”
-                                        </p>
-                                </div>
+                                <div                    
+                    style="max-width: 1050px; margin: 0 auto; padding: 35px 35px; background: rgba(255,255,255,0.9); border: 1px solid #DAA520; border-radius: 18px; box-shadow: 0 8px 30px rgba(11,25,44,0.10); text-align: left;">
+                                        <h3
+                        style="text-align: center; color: #DAA520; font-size: 27px; margin: 0 0 25px;">
+                                                How Blueberry Works
+                                            </h3>
+                                        <p style="font-size: 17px; line-height: 1.9; margin: 0; color: #0B192C;">
+                                                <strong style="color:#FF8C00;">
+                                                        Blueberry synchronizes the Architectural Drawings,
+                                                        integrates the Vastu principles and advice provided by
+                                                        your Vastu Consultant, and aligns the Luxury Interior
+                                                        Design created by your Interior Designer with AstroVastu,
+                                                        Numerology, Palmistry and Energy
+                                                    </strong>
+                                                — creating a personalized environment for the individual
+                                                to enhance their
+                                                <strong style="color:#DAA520;">
+                                                        Aura (Personality), Profession, and Manifestation.
+                                                    </strong>
+                                            </p>
+                                        <p style="font-size: 17px; line-height: 1.9; margin: 25px 0 0; color: #0B192C;">
+                                                Blueberry brings these elements together to create a
+                                                <strong style="color:#DAA520;">
+                                                        synchronized environment where your space works in
+                                                        harmony with your personality
+                                                    </strong>,
+                                                helping you unlock your potential, strengthen your presence,
+                                                and create greater visibility and impact in the market.
+                                            </p>
+                                    </div>
 
-                            <div style="max-width: 1050px; margin: 0 auto; text-align: left;">
-                                    <p style="font-size: 17px; line-height: 1.9; color: #0B192C; margin-bottom: 25px;">
-                                            This
-                                            <strong style="color:#DAA520;">
-                                                    strategic advice
-                                                </strong>
-                                            is designed to
-                                            <strong>
-                                                    structure and support your Subconscious mind
-                                                </strong>,
-                                            which is essential for building a strong brand, creating
-                                            substantial wealth, overcoming weaknesses and losses,
-                                            and transforming challenges and losses into opportunities
-                                            and investments.
-                                        </p>
-                                    <p
-                    style="font-size: 18px; line-height: 1.9; color: #0B192C; text-align: center; margin: 0;">
-                                            Ultimately, this strategic approach is designed to help you
-                                            become an
-                                            <strong style="color:#DAA520;">
-                                                    Influencer
-                                                </strong>,
-                                            harness
-                                            <strong style="color:#DAA520;">
-                                                    Media Power
-                                                </strong>,
-                                            and create a
-                                            <strong style="color:#DAA520;">
-                                                    Viral Presence
-                                                </strong>,
-                                            enabling you to
-                                            <strong style="color:#FF8C00;">
-                                                    excel, achieve sustained growth, increase your visibility,
-                                                    and move towards a top position in the market.
-                                                </strong>
-                                        </p>
-                                </div>
+                                <div                    
+                    style="max-width: 1000px; margin: 35px auto; padding: 25px 30px; background: linear-gradient(135deg, #fffdf5, #ffffff, #fff8df); border-top: 1px solid #DAA520; border-bottom: 1px solid #DAA520; text-align: center;">
+                                        <p                        
+                        style="margin: 0; font-size: 20px; line-height: 1.7; color: #DAA520; font-weight: bold; font-style: italic; text-align: center;">
+                                                “A Step-by-Step, Balanced & Magical System to Fulfill Your
+                                                Wishes — Without Breaking (Zero Tod-Fod) Anything at Your
+                                                Home, Office, or Factory.”
+                                            </p>
+                                    </div>
 
-                        </div>
+                                <div style="max-width: 1050px; margin: 0 auto; text-align: left;">
+                                        <p
+                        style="font-size: 17px; line-height: 1.9; color: #0B192C; margin-bottom: 25px;">
+                                                This
+                                                <strong style="color:#DAA520;">
+                                                        strategic advice
+                                                    </strong>
+                                                is designed to
+                                                <strong>
+                                                        structure and support your Subconscious mind
+                                                    </strong>,
+                                                which is essential for building a strong brand, creating
+                                                substantial wealth, overcoming weaknesses and losses,
+                                                and transforming challenges and losses into opportunities
+                                                and investments.
+                                            </p>
+                                        <p
+                        style="font-size: 18px; line-height: 1.9; color: #0B192C; text-align: center; margin: 0;">
+                                                Ultimately, this strategic approach is designed to help you
+                                                become an
+                                                <strong style="color:#DAA520;">
+                                                        Influencer
+                                                    </strong>,
+                                                harness
+                                                <strong style="color:#DAA520;">
+                                                        Media Power
+                                                    </strong>,
+                                                and create a
+                                                <strong style="color:#DAA520;">
+                                                        Viral Presence
+                                                    </strong>,
+                                                enabling you to
+                                                <strong style="color:#FF8C00;">
+                                                        excel, achieve sustained growth, increase your visibility,
+                                                        and move towards a top position in the market.
+                                                    </strong>
+                                            </p>
+                                    </div>
 
-                    <div                
-            style="max-width: 1150px; height: 1px; background: linear-gradient(90deg, transparent, #DAA520, transparent); margin: 0 auto 40px;">
-                        </div>
+                            </div>
 
-                    <div class="footer-grid"                
-            style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
-                            <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                                    <div class="footer-icon" style="color: #DAA520; font-size: 25px;">✉</div>
-                                    <div>
-                                            <h4 style="color:#0B192C; margin:0 0 8px;">Email</h4>
-                                            <p style="margin:0;"><a href="mailto:infoblueberryvaastu@gmail.com"        
-                                                   
-                            style="color:#4682B4; text-decoration:none;">Infoblueberryvaastu@gmail.com</a></p>
-                                        </div>
-                                </div>
+                        <div                
+                style="max-width: 1150px; height: 1px; background: linear-gradient(90deg, transparent, #DAA520, transparent); margin: 0 auto 40px;">
+                            </div>
 
-                            <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                                    <div class="footer-icon" style="color: #DAA520; font-size: 25px; font-weight:bold;">
-                    in</div>
-                                    <div>
-                                            <h4 style="color:#0B192C; margin:0 0 8px;">LinkedIn</h4>
-                                            <p style="margin:0; color:#4682B4;">Blueberry Luxury Interior Design
-                        inbuilt with Astrovastu</p>
-                                        </div>
-                                </div>
+                        <div class="footer-grid"                
+                style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+                                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                                        <div class="footer-icon" style="color: #DAA520; font-size: 25px;">✉</div>
+                                        <div>
+                                                <h4 style="color:#0B192C; margin:0 0 8px;">Email</h4>
+                                                <p style="margin:0;"><a href="mailto:infoblueberryvaastu@gmail.com"    
+                                                           
+                                style="color:#4682B4; text-decoration:none;">Infoblueberryvaastu@gmail.com</a></p>
+                                            </div>
+                                    </div>
 
-                            <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                                    <div class="footer-icon" style="color: #DAA520; font-size: 25px;">📷</div>
-                                    <div>
-                                            <h4 style="color:#0B192C; margin:0 0 8px;">Instagram</h4>
-                                            <p style="margin:0; color:#4682B4;">blueberry_230326</p>
-                                        </div>
-                                </div>
+                                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                                        <div class="footer-icon"
+                        style="color: #DAA520; font-size: 25px; font-weight:bold;">in</div>
+                                        <div>
+                                                <h4 style="color:#0B192C; margin:0 0 8px;">LinkedIn</h4>
+                                                <p style="margin:0; color:#4682B4;">Blueberry Luxury Interior Design
+                            inbuilt with Astrovastu</p>
+                                            </div>
+                                    </div>
 
-                            <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
-                                    <div class="footer-icon" style="color: #DAA520; font-size: 25px;">🌐</div>
-                                    <div>
-                                            <h4 style="color:#0B192C; margin:0 0 8px;">Website</h4>
-                                            <p style="margin:0; color:#4682B4;">blueberries.in</p>
-                                        </div>
-                                </div>
-                        </div>
+                                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                                        <div class="footer-icon" style="color: #DAA520; font-size: 25px;">📷</div>
+                                        <div>
+                                                <h4 style="color:#0B192C; margin:0 0 8px;">Instagram</h4>
+                                                <p style="margin:0; color:#4682B4;">blueberry_230326</p>
+                                            </div>
+                                    </div>
 
-                    <div class="footer-bottom"                
-            style="max-width: 1150px; margin: 40px auto 0; padding-top: 22px; border-top: 1px solid #DAA520; text-align: center; color: #0B192C; font-size: 14px;">
-                            <p style="margin:0; color:#DAA520; text-align: center;">
-                                    Thank you for choosing
-                                    <b style="color:#FF8C00;">BLUEBERRY</b>
-                                </p>
-                        </div>
+                                <div class="footer-item" style="display: flex; gap: 15px; align-items: flex-start;">
+                                        <div class="footer-icon" style="color: #DAA520; font-size: 25px;">🌐</div>
+                                        <div>
+                                                <h4 style="color:#0B192C; margin:0 0 8px;">Website</h4>
+                                                <p style="margin:0; color:#4682B4;">blueberries.in</p>
+                                            </div>
+                                    </div>
+                            </div>
 
-                </footer>
+                        <div class="footer-bottom"                
+                style="max-width: 1150px; margin: 40px auto 0; padding-top: 22px; border-top: 1px solid #DAA520; text-align: center; color: #0B192C; font-size: 14px;">
+                                <p style="margin:0; color:#DAA520; text-align: center;">
+                                        Thank you for choosing
+                                        <b style="color:#FF8C00;">BLUEBERRY</b>
+                                    </p>
+                            </div>
 
-       
+                    </footer>
+
+           
     </div>
 
         <!-- JavaScript Engine -->
+       
     <script>
-        // Initialise only after the DOM is available. This prevents the script from
-        // failing when the page is embedded or loaded asynchronously.
+        document.getElementById('submissionDate').valueAsDate = new Date();
         document.addEventListener('DOMContentLoaded', () => {
-            const submissionDate = document.getElementById('submissionDate');
-            if (submissionDate && !submissionDate.value) submissionDate.valueAsDate = new Date();
             applyStaticLanguage(document.getElementById('displayLanguage')?.value || 'eng');
             populateZodiacSelects();
         });
@@ -1992,11 +2001,11 @@
                 d: { eng: `Goal d`, hin: `Goal d) ` }
             };
 
-            const concernLabel = getQuizRoleLabel(role);
+            const concernLabel = getFriendlyConcernLabel(role, lang);
             const goalAText = getQuizLanguageText(record.goalA.eng, record.goalA.hin);
             const goalACheckboxId = `q_${role}_${code}_A_0`;
             let html = `<div class="quiz-page-heading">${escapeHtml(concernLabel)}</div>`;
-            html += `<div class="quiz-goal-card" data-goal="A">`;
+            html += `<div class="quiz-goal-card">`;
             html += `<div class="quiz-goal-title">${escapeHtml(lang === 'hin' ? 'सामान्य समस्या / General Issue' : 'General Issue')}</div>`;
             html += `<label class="symptom-item goal-a-item" data-page="${role}" data-eng="${escapeHtml(record.goalA.eng)}" data-hin="${escapeHtml(record.goalA.hin || record.goalA.eng)}">`;
             html += `<div class="symptom-header"><input id="${goalACheckboxId}" class="goal-a-checkbox" type="checkbox" name="${goalACheckboxId}" value="${escapeHtml(record.goalA.eng)}" onchange="updateQuizScore('${role}')"><span class="symptom-text">${escapeHtml(cleanVisibleQuizText(goalAText))}</span></div>`;
@@ -2005,7 +2014,7 @@
             html += renderChecklistGoal('B', goalTitles.b, record.goalB, role, code);
             html += (String(code) === '1' ? renderCode1GoalCSplit(role, code) : renderChecklistGoal('C', goalTitles.c, record.goalC, role, code));
 
-            html += `<div class="quiz-goal-card" data-goal="D"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
+            html += `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(goalTitles.d[lang] || goalTitles.d.eng)}</div>`;
 
             record.goalD.forEach((sub, idx) => {
                 const checkboxId = `q_${role}_${code}_D_${idx}`;
@@ -2024,7 +2033,7 @@
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             let html = '';
             code1GoalCSplit.forEach((part, partIndex) => {
-                html += `<div class="quiz-goal-card quiz-goal-c-split" data-goal="C">
+                html += `<div class="quiz-goal-card quiz-goal-c-split">
                     <div class="quiz-goal-title">${escapeHtml(cleanVisibleQuizText(part.title[lang] || part.title.eng))}</div>`;
                 html += `<div class="quiz-subsection-title">${lang === 'hin' ? 'Subconscious Client Language (यदि व्यक्ति कहता है...)' : 'Subconscious Client Language (if the person says...)'}</div>`;
                 part.subconscious.eng.forEach((eng, i) => {
@@ -2052,7 +2061,7 @@
         function renderChecklistGoal(goalKey, titleObj, goalData, role, code) {
             const lang = document.getElementById('displayLanguage')?.value || 'eng';
             const title = titleObj[lang] || titleObj.eng;
-            let html = `<div class="quiz-goal-card" data-goal="${escapeHtml(goalKey)}"><div class="quiz-goal-title">${escapeHtml(title)}</div>`;
+            let html = `<div class="quiz-goal-card"><div class="quiz-goal-title">${escapeHtml(title)}</div>`;
             const engItems = goalData.eng || [];
             const hinItems = goalData.hin || [];
             const total = Math.max(engItems.length, hinItems.length);
@@ -2565,75 +2574,47 @@
                     : 0;
 
                 const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
-                const goalABox = goalCards.find(card => (card.dataset.goal || '').toUpperCase() === 'A') || goalCards[0] || null;
+                const goalABox = goalCards[0] || null;
                 const goalACheckbox = goalABox?.querySelector('.goal-a-checkbox') || null;
 
                 const goalA = goalABox ? {
-                    title: 'Goal A',
+                    title: 'Goal A — General Issue',
                     description: goalABox.querySelector('.goal-a-item .symptom-text')?.innerText?.trim() || '',
                     checked: !!goalACheckbox?.checked
-                } : { title: 'Goal A', description: '', checked: false };
+                } : { title: 'Goal A — General Issue', description: '', checked: false };
 
-                // Group cards by their real Goal key. Code-1 has two separate visual
-                // cards for Goal C, so treating cards purely by array position would
-                // incorrectly create Goal D / Goal E headings in the PDF.
-                const groupedGoals = new Map();
-                goalCards.forEach((card, index) => {
-                    const goalKey = String(card.dataset.goal || '').toUpperCase() ||
-                        ['A', 'B', 'C', 'D'][index] || `X${index}`;
-                    if (goalKey === 'A') return;
+                const goalSections = goalCards.slice(1).map((card, index) => {
+                    const rawTitle = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
+                    const letter = ['B', 'C', 'D'][index] || String.fromCharCode(66 + index);
+                    const cleanTitle = cleanVisibleQuizText(rawTitle)
+                        .replace(/^Goal\s+[a-d]\)\s*/i, '')
+                        .replace(/\s*Related to Code-\d+/gi, '')
+                        .replace(/\s*for Code-\d+/gi, '')
+                        .replace(/\s*Code-\d+/gi, '')
+                        .trim();
 
-                    if (!groupedGoals.has(goalKey)) groupedGoals.set(goalKey, []);
-                    groupedGoals.get(goalKey).push(card);
-                });
-
-                const goalSections = Array.from(groupedGoals.entries())
-                    .sort(([a], [b]) => a.localeCompare(b))
-                    .map(([goalKey, cards]) => {
-                        const questions = [];
-                        const notes = [];
-                        let titleText = '';
-
-                        cards.forEach(card => {
-                            if (!titleText) {
-                                titleText = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
-                            }
-
-                            Array.from(card.children)
-                                .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
-                                .map(el => el.innerText?.trim() || '')
-                                .filter(Boolean)
-                                .forEach(note => {
-                                    if (!notes.includes(note)) notes.push(note);
-                                });
-
-                            Array.from(card.querySelectorAll('.symptom-item')).forEach(item => {
-                                const cb = item.querySelector('input[type="checkbox"]');
-                                const text = item.querySelector('.symptom-text')?.innerText?.trim() || cb?.value || '';
-                                if (!text) return;
-                                questions.push({
-                                    checked: !!cb?.checked,
-                                    mark: cb?.checked ? '☑' : '☐',
-                                    text: cleanVisibleQuizText(text)
-                                });
-                            });
-                        });
-
-                        const cleanedTitle = cleanVisibleQuizText(titleText)
-                            .replace(/^Goal\s+[a-d]\)\s*/i, '')
-                            .replace(/^Goal\s+[A-D]\s*[—:-]?\s*/i, '')
-                            .replace(/\s*Related to Code-\d+/gi, '')
-                            .replace(/\s*for Code-\d+/gi, '')
-                            .replace(/\s*Code-\d+/gi, '')
-                            .trim();
-
+                    const items = Array.from(card.querySelectorAll('.symptom-item')).map(item => {
+                        const cb = item.querySelector('input[type="checkbox"]');
+                        const text = item.querySelector('.symptom-text')?.innerText?.trim() || cb?.value || '';
                         return {
-                            letter: goalKey,
-                            title: `Goal ${goalKey}${cleanedTitle ? ' — ' + cleanedTitle : ''}`,
-                            notes,
-                            questions
+                            checked: !!cb?.checked,
+                            mark: cb?.checked ? '☑' : '☐',
+                            text: cleanVisibleQuizText(text)
                         };
                     });
+
+                    const notes = Array.from(card.children)
+                        .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
+                        .map(el => el.innerText?.trim() || '')
+                        .filter(Boolean);
+
+                    return {
+                        letter,
+                        title: `Goal ${letter}${cleanTitle ? ' — ' + cleanTitle : ''}`,
+                        notes,
+                        questions: items
+                    };
+                });
 
                 return {
                     quiz: getQuizRoleLabel(role),
@@ -2734,18 +2715,15 @@
             html += `<tr><th>Total Name Score</th><td>${esc(totalNameScore)}</td></tr>`;
             html += `<tr><th>Total Name Number</th><td>${esc(totalNameNumber)}</td></tr></table>`;
 
-            html += `<h2>Birth & Astrological Details</h2><table>`;
+            html += `<h2>Birth & Contact Details</h2><table>`;
             html += `<tr><th>Date of Birth</th><td>${esc(dob || 'Not provided')}</td></tr>`;
             html += `<tr><th>Time of Birth</th><td>${esc(birthTime || 'Not provided')}</td></tr>`;
             html += `<tr><th>Day of Birth</th><td>${esc(birthDay || 'Not available')}</td></tr>`;
-            html += `<tr><th>Birth Day Code</th><td>${esc(birthDayCode || 'Not available')}</td></tr>`;
-            html += `<tr><th>Driver</th><td>${esc(driver || 'Not available')}</td></tr>`;
-            html += `<tr><th>Conductor</th><td>${esc(conductor || 'Not available')}</td></tr>`;
-            html += `<tr><th>Manifestation</th><td>${esc(manifestation || 'Not available')}</td></tr>`;
-            html += `<tr><th>Rahu Sign</th><td><b>${esc(reportData.rahuSign || 'Not selected')}</b> — Code ${esc(reportData.rahuCode ?? 'Not available')}</td></tr>`;
-            html += `<tr><th>Ketu Sign</th><td><b>${esc(reportData.ketuSign || 'Not selected')}</b> — Code ${esc(reportData.ketuCode ?? 'Not available')}</td></tr>`;
-            html += `<tr><th>Rahu Quiz</th><td>${reportData.rahuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
-            html += `<tr><th>Ketu Quiz</th><td>${reportData.ketuQuizOpened ? 'Opened' : 'Not opened'}</td></tr>`;
+            html += `<tr><th>Driver</th><td>${esc(driver)}</td></tr>`;
+            html += `<tr><th>Conductor</th><td>${esc(conductor)}</td></tr>`;
+            html += `<tr><th>Manifestation</th><td>${esc(manifestation)}</td></tr>`;
+            html += `<tr><th>Rahu Sign</th><td>${esc(reportData.rahuSign || 'Not selected')}</td></tr>`;
+            html += `<tr><th>Ketu Sign</th><td>${esc(reportData.ketuSign || 'Not selected')}</td></tr>`;
             html += `</table>`;
 
             html += `<h2>Mobile Number(s)</h2><table><tr><th>#</th><th>Mobile Number</th><th>Total</th><th>Digital Root</th></tr>`;
@@ -2866,8 +2844,7 @@
             });
         })();
 
-        const astrovastuForm = document.getElementById('astrovastuForm');
-        if (astrovastuForm) astrovastuForm.addEventListener('submit', function (e) {
+        document.getElementById('astrovastuForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             // HARD SUBMIT RESTRICTION: every quiz page that is displayed must have at least one selection.
@@ -2936,54 +2913,32 @@
             // The user can print/save this window as a PDF.
             openCompletedReportPdf(report.reportHtml);
 
-            // Send the same completed report to Google Apps Script using a real HTML POST.
-            // This avoids browser CORS/fetch restrictions and matches Apps Script e.parameter.
-            const postForm = document.createElement('form');
-            postForm.method = 'POST';
-            postForm.action = form.action;
-            postForm.target = 'astrovastuSubmitFrame';
-            postForm.style.display = 'none';
+            // Send the same completed report to Google Apps Script.
+            const postPayload = new FormData();
+            postPayload.append('reportDataJson', JSON.stringify(formDataLocal));
+            postPayload.append('pdfReportHtml', report.reportHtml);
 
-            const reportInput = document.createElement('input');
-            reportInput.type = 'hidden';
-            reportInput.name = 'reportDataJson';
-            reportInput.value = JSON.stringify(formDataLocal);
-            postForm.appendChild(reportInput);
-
-            const htmlInput = document.createElement('input');
-            htmlInput.type = 'hidden';
-            htmlInput.name = 'pdfReportHtml';
-            htmlInput.value = report.reportHtml;
-            postForm.appendChild(htmlInput);
-
-            let submitFrame = document.getElementById('astrovastuSubmitFrame');
-            if (!submitFrame) {
-                submitFrame = document.createElement('iframe');
-                submitFrame.name = 'astrovastuSubmitFrame';
-                submitFrame.id = 'astrovastuSubmitFrame';
-                submitFrame.style.display = 'none';
-                document.body.appendChild(submitFrame);
-            }
-
-            document.body.appendChild(postForm);
-            postForm.submit();
-
-            const statusDiv = document.getElementById('statusMessage');
-            statusDiv.style.display = 'block';
-            statusDiv.innerHTML = `✓ Report submitted successfully. Your completed PDF is open for Save/Print, and the report has been sent to the Blueberry AstroVastu email system.`;
-            form.reset();
-            const resetDate = document.getElementById('submissionDate');
-            if (resetDate) resetDate.valueAsDate = new Date();
-            document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
-            activeQuizRoles = [];
-            activeQuizCodeMap = {};
-            activeQuizMeta = {};
-            quizzesReady = false;
-            rahuKetuReady = false;
-            updateSubmitRestriction();
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Submit Information";
-            postForm.remove();
+            fetch(form.action, { method: 'POST', body: postPayload, mode: 'no-cors' }).then(() => {
+                const statusDiv = document.getElementById('statusMessage');
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = `✓ Report submitted successfully. Your completed PDF is open for Save/Print, and the report has been sent to the Blueberry AstroVastu email system.`;
+                form.reset();
+                document.getElementById('submissionDate').valueAsDate = new Date();
+                document.getElementById('dynamicQuizzesWrapper').style.display = 'none';
+                activeQuizRoles = [];
+                activeQuizCodeMap = {};
+                activeQuizMeta = {};
+                quizzesReady = false;
+                rahuKetuReady = false;
+                updateSubmitRestriction();
+            }).catch(() => {
+                const statusDiv = document.getElementById('statusMessage');
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = `✓ Your completed report was opened for PDF saving. Local copy saved.`;
+            }).finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Information";
+            });
         });
 
         function getFriendlyConcernLabel(role, lang = (document.getElementById('displayLanguage')?.value || 'eng')) {
@@ -3006,9 +2961,7 @@
                     if (selectedNumerology.manifestation === signCode) matched.push(labels.manifestation[lang] || labels.manifestation.eng);
                 }
                 const planetName = role === 'rahu' ? 'Rahu' : 'Ketu';
-                const signText = sign ? ` — ${sign} (Code ${signCode})` : '';
-                const matchedText = matched.length ? ` — ${matched.join(' + ')}` : '';
-                return `${planetName}${signText}${matchedText}`;
+                return `Dominated Concern by ${planetName}`;
             }
             return role;
         }
@@ -3024,10 +2977,12 @@
 
         function cleanVisibleQuizText(text) {
             return String(text || '')
-                .replace(/Code\s*-?\s*\d+(?:\s*-\s*[a-e])?\s*[—:-]?\s*/gi, '')
-                .replace(/कोड\s*-?\s*\d+(?:\s*-\s*[a-e])?\s*[—:-]?\s*/gi, '')
-                .replace(/\b(?:Goal\s*)?[a-d]\)\s*/gi, '')
-                .replace(/\bGoal\s+[A-D]\s*[—:-]?\s*/gi, '')
+                .replace(/Code\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
+                .replace(/कोड\s*-\s*\d+(?:\s*-\s*[a-z])?/gi, '')
+                .replace(/Code\d+\s*-\s*[a-e]\s*—\s*/gi, '')
+                .replace(/\b1\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
+                .replace(/\b[2-5]\.\s*Code\d+-[a-e]\s*—\s*/gi, '')
+                .replace(/Goal\s+[a-d]\)\s*/gi, '')
                 .replace(/\s{2,}/g, ' ')
                 .replace(/\s+([,.;:])/g, '$1')
                 .trim();
@@ -3039,12 +2994,11 @@
                 return;
             }
 
-            const fullName =
-                document.getElementById('fullName')?.value?.trim() || 'Client';
-
+            const fullName = document.getElementById('fullName')?.value?.trim() || 'Client';
             const submissionDate =
                 document.getElementById('submissionDate')?.value ||
                 new Date().toISOString().split('T')[0];
+            const dob = document.getElementById('dob')?.value || 'Not provided';
 
             const form = document.getElementById('astrovastuForm');
 
@@ -3058,65 +3012,102 @@
             const blankQuizData = activeQuizRoles.map(role => {
                 const pane = document.getElementById(getQuizPaneId(role));
                 const quizTitle = getQuizRoleLabel(role);
-                const code = activeQuizCodeMap[role];
-                const goalCards = pane ? Array.from(pane.querySelectorAll('.quiz-goal-card')) : [];
+                const goalCards = pane
+                    ? Array.from(pane.querySelectorAll('.quiz-goal-card'))
+                    : [];
 
-                const goalABox = goalCards.find(card => (card.dataset.goal || '').toUpperCase() === 'A') || goalCards[0] || null;
-                const goalA = goalABox ? {
-                    title: 'General Issue',
-                    description: goalABox.querySelector('.goal-a-item .symptom-text')?.innerText?.trim() || '',
-                    checked: false
-                } : null;
+                const goalA = goalCards[0]
+                    ? {
+                        title: 'General Issue',
+                        description:
+                            goalCards[0]
+                                .querySelector('.symptom-text')
+                                ?.innerText
+                                ?.trim() ||
+                            goalCards[0]
+                                .querySelector('.quiz-goal-description')
+                                ?.innerText
+                                ?.trim() ||
+                            goalCards[0]
+                                .querySelector('.symptom-item')
+                                ?.getAttribute('data-eng') ||
+                            ''
+                    }
+                    : null;
 
-                const groupedGoals = new Map();
-                goalCards.forEach((card, index) => {
-                    const goalKey = String(card.dataset.goal || '').toUpperCase() || ['A', 'B', 'C', 'D'][index] || `X${index}`;
-                    if (goalKey === 'A') return;
-                    if (!groupedGoals.has(goalKey)) groupedGoals.set(goalKey, []);
-                    groupedGoals.get(goalKey).push(card);
-                });
+                const sections = [];
 
-                const sections = Array.from(groupedGoals.entries())
-                    .sort(([a], [b]) => a.localeCompare(b))
-                    .map(([goalKey, cards]) => {
-                        let title = '';
-                        const questions = [];
-                        const notes = [];
+                for (let i = 1; i < goalCards.length; i++) {
+                    const card = goalCards[i];
 
-                        cards.forEach(card => {
-                            if (!title) title = card.querySelector('.quiz-goal-title')?.innerText?.trim() || '';
-                            Array.from(card.children)
-                                .filter(el => !el.classList.contains('quiz-goal-title') && !el.classList.contains('symptom-item'))
-                                .map(el => el.innerText?.trim() || '')
-                                .filter(Boolean)
-                                .forEach(note => { if (!notes.includes(note)) notes.push(note); });
+                    const goalTitleText =
+                        card.querySelector('.quiz-goal-title')
+                            ?.innerText
+                            ?.trim() || `Goal Section ${i}`;
 
-                            Array.from(card.querySelectorAll('.symptom-item')).forEach(item => {
-                                const text = item.querySelector('.symptom-text')?.innerText?.trim() || item.getAttribute('data-eng') || '';
-                                const cleaned = cleanVisibleQuizText(text)
-                                    .replace(/^\d+\.\s*—\s*/, '')
-                                    .replace(/^[a-e]\s*—\s*/i, '')
-                                    .trim();
-                                if (cleaned) questions.push(cleaned);
-                            });
+                    const goalTitle = cleanVisibleQuizText(goalTitleText);
+
+                    const items = Array.from(
+                        card.querySelectorAll('.symptom-item')
+                    )
+                        .map(item => {
+                            return (
+                                item.querySelector('.symptom-text')
+                                    ?.innerText
+                                    ?.trim() ||
+                                item.getAttribute('data-eng') ||
+                                ''
+                            );
+                        })
+                        .map(text => cleanVisibleQuizText(text))
+                        .map(text =>
+                            text
+                                .replace(/^\d+\.\s*—\s*/, '')
+                                .replace(/^[a-e]\s*—\s*/i, '')
+                                .trim()
+                        )
+                        .filter(Boolean);
+
+                    if (items.length > 0) {
+                        sections.push({
+                            title: goalTitle,
+                            questions: items
                         });
+                    }
+                }
 
-                        const cleanTitle = cleanVisibleQuizText(title)
-                            .replace(/^Goal\s+[a-d]\)\s*/i, '')
-                            .replace(/^Goal\s+[A-D]\s*[—:-]?\s*/i, '')
-                            .trim();
+                if (sections.length === 0 && pane) {
+                    const allItems = Array.from(
+                        pane.querySelectorAll('.symptom-item')
+                    )
+                        .map(item => {
+                            return (
+                                item.querySelector('.symptom-text')
+                                    ?.innerText
+                                    ?.trim() ||
+                                item.getAttribute('data-eng') ||
+                                ''
+                            );
+                        })
+                        .map(text => cleanVisibleQuizText(text))
+                        .map(text =>
+                            text
+                                .replace(/^\d+\.\s*—\s*/, '')
+                                .replace(/^[a-e]\s*—\s*/i, '')
+                                .trim()
+                        )
+                        .filter(Boolean);
 
-                        return {
-                            letter: goalKey,
-                            title: `Goal ${goalKey}${cleanTitle ? ' — ' + cleanTitle : ''}`,
-                            notes,
-                            questions
-                        };
-                    });
+                    if (allItems.length > 0) {
+                        sections.push({
+                            title: 'Assessment Checklist Items',
+                            questions: allItems
+                        });
+                    }
+                }
 
                 return {
                     quizTitle,
-                    code: Number(code),
                     goalA,
                     sections
                 };
@@ -3125,283 +3116,224 @@
             const esc = escapeHtml;
 
             let reportHtml = `<!doctype html>
-            <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Blank Quizzes - Blueberry AstroVastu</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blank Quizzes - Blueberry AstroVastu</title>
 
-                            <style>
-                                @page {
-                                    size: A4;
-                                margin: 14mm;
+    <style>
+        @page {
+            size: A4;
+            margin: 14mm;
         }
 
-                                * {
-                                    box-sizing: border-box;
+        * {
+            box-sizing: border-box;
         }
 
-                                body {
-                                    margin: 0;
-                                padding: 0;
-                                background: #ffffff;
-                                color: #0B192C;
-                                font-family: Georgia, 'Times New Roman', serif;
-                                font-size: 10.5pt;
-                                line-height: 1.5;
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #0B192C;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.5;
         }
 
-                                .report-header {
-                                    text-align: center;
-                                margin-bottom: 18px;
+        .report-header {
+            text-align: center;
+            margin-bottom: 18px;
         }
 
-                                .brand {
-                                    margin: 0 0 4px;
-                                color: #DAA520;
-                                font-size: 22pt;
-                                font-weight: 700;
+        .brand {
+            margin: 0 0 4px;
+            color: #DAA520;
+            font-size: 22pt;
+            font-weight: 700;
         }
 
-                                .subtitle {
-                                    margin: 0;
-                                color: #4682B4;
-                                font-size: 12pt;
-                                font-weight: 700;
+        .subtitle {
+            margin: 0;
+            color: #4682B4;
+            font-size: 12pt;
+            font-weight: 700;
         }
 
-                                .meta-table {
-                                    width: 100%;
-                                border-collapse: collapse;
-                                margin: 0 0 22px;
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 0 22px;
         }
 
-                                .meta-table td {
-                                    border: 1px solid #d8c58b;
-                                padding: 7px 9px;
-                                vertical-align: top;
+        .meta-table td {
+            border: 1px solid #d8c58b;
+            padding: 7px 9px;
+            vertical-align: top;
         }
 
-                                .meta-label {
-                                    width: 18%;
-                                background: #fff4d6;
-                                color: #604a0e;
-                                font-weight: 700;
+        .meta-label {
+            width: 18%;
+            background: #fff4d6;
+            color: #604a0e;
+            font-weight: 700;
         }
 
-                                .meta-value {
-                                    width: 32%;
-                                background: #ffffff;
+        .meta-value {
+            width: 32%;
+            background: #ffffff;
         }
 
-                                .quiz-page {
-                                    page-break-before: always;
+        .quiz-page {
+            page-break-before: always;
         }
 
-                                .quiz-page:first-of-type {
-                                    page-break-before: auto;
+        .quiz-page:first-of-type {
+            page-break-before: auto;
         }
 
-                                .quiz-heading {
-                                    margin: 0 0 14px;
-                                padding-bottom: 6px;
-                                border-bottom: 2px solid #DAA520;
-                                color: #DAA520;
-                                font-size: 16pt;
-                                font-weight: 700;
+        .quiz-heading {
+            margin: 0 0 14px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #DAA520;
+            color: #DAA520;
+            font-size: 16pt;
+            font-weight: 700;
         }
 
-                                .code-badge {
-                                    float: right;
-                                    font-size: 9pt;
-                                    color: #604a0e;
-                                    background: #fff4d6;
-                                    border: 1px solid #d8c58b;
-                                    border-radius: 5px;
-                                    padding: 3px 7px;
-                                }
-
-                                .section-heading {
-                                    margin: 17px 0 7px;
-                                color: #4682B4;
-                                font-size: 12pt;
-                                font-weight: 700;
+        .section-heading {
+            margin: 17px 0 7px;
+            color: #4682B4;
+            font-size: 12pt;
+            font-weight: 700;
         }
 
-                                .general-issue-title {
-                                    margin: 0 0 7px;
-                                color: #4682B4;
-                                font-size: 12pt;
-                                font-weight: 700;
+        .general-issue-title {
+            margin: 0 0 7px;
+            color: #4682B4;
+            font-size: 12pt;
+            font-weight: 700;
         }
 
-                                .questions-table {
-                                    width: 100%;
-                                border-collapse: collapse;
-                                margin: 0 0 12px;
-                                page-break-inside: auto;
+        .questions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 0 12px;
+            page-break-inside: auto;
         }
 
-                                .questions-table thead {
-                                    display: table-header-group;
+        .questions-table thead {
+            display: table-header-group;
         }
 
-                                .questions-table tr {
-                                    page-break-inside: avoid;
-                                page-break-after: auto;
+        .questions-table tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
         }
 
-                                .questions-table th,
-                                .questions-table td {
-                                    border: 1px solid #d8c58b;
-                                padding: 7px 8px;
-                                text-align: left;
-                                vertical-align: top;
+        .questions-table th,
+        .questions-table td {
+            border: 1px solid #d8c58b;
+            padding: 7px 8px;
+            text-align: left;
+            vertical-align: top;
         }
 
-                                .questions-table th {
-                                    background: #fff4d6;
-                                color: #604a0e;
-                                font-size: 9.5pt;
-                                font-weight: 700;
+        .questions-table th {
+            background: #fff4d6;
+            color: #604a0e;
+            font-size: 9.5pt;
+            font-weight: 700;
         }
 
-                                .check-column {
-                                    width: 42px;
-                                text-align: center !important;
-                                vertical-align: middle !important;
+        .check-column {
+            width: 38px;
+            text-align: center !important;
         }
 
-                                /*
-                                 * Actual HTML checkbox for the blank questionnaire.
-                                 * It is selectable in the browser before printing/saving.
-                                 */
-                                .blank-checkbox {
-                                    width: 18px;
-                                height: 18px;
-                                cursor: pointer;
-                                accent-color: #4682B4;
-                                vertical-align: middle;
+        .checkbox-input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
         }
 
-                                .checkbox-print {
-                                    display: none;
-                                font-size: 15pt;
-                                line-height: 1;
+        .no-questions {
+            margin: 8px 0 15px;
+            color: #666666;
+            font-size: 10pt;
+            font-style: italic;
         }
 
-                                .no-questions {
-                                    margin: 8px 0 15px;
-                                color: #666666;
-                                font-size: 10pt;
-                                font-style: italic;
+        .report-footer {
+            margin-top: 28px;
+            padding-top: 8px;
+            border-top: 1px solid #d8c58b;
+            color: #666666;
+            text-align: center;
+            font-size: 8.5pt;
         }
 
-                                .report-footer {
-                                    margin-top: 28px;
-                                padding-top: 8px;
-                                border-top: 1px solid #d8c58b;
-                                color: #666666;
-                                text-align: center;
-                                font-size: 8.5pt;
-        }
-
-                                @media print {
-                                    body {
-                                    -webkit-print-color-adjust: exact;
-                                print-color-adjust: exact;
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
-                                .quiz-page {
-                                    page-break-before: always;
+            .quiz-page {
+                page-break-before: always;
             }
 
-                                .quiz-page:first-of-type {
-                                    page-break-before: auto;
+            .quiz-page:first-of-type {
+                page-break-before: auto;
             }
 
-                                .questions-table tr {
-                                    page-break-inside: avoid;
-            }
-
-                                /*
-                                 * Keep the checkbox visible when printing/saving as PDF.
-                                 */
-                                .blank-checkbox {
-                                    appearance: none;
-                                -webkit-appearance: none;
-                                width: 16px;
-                                height: 16px;
-                                border: 1.5px solid #0B192C;
-                                border-radius: 2px;
-                                background: #ffffff;
-                                display: inline-block;
-                                position: relative;
-                                margin: 0;
-            }
-
-                                .blank-checkbox:checked::after {
-                                    content: "✓";
-                                position: absolute;
-                                left: 1px;
-                                top: -5px;
-                                font-size: 16px;
-                                font-weight: 700;
-                                color: #0B192C;
+            .questions-table tr {
+                page-break-inside: avoid;
             }
         }
-                            </style>
-                        </head>
+    </style>
+</head>
 
-                        <body>
+<body>
+    <header class="report-header">
+        <h1 class="brand">BLUEBERRY ASTROVASTU</h1>
+        <p class="subtitle">Blank Diagnostic Assessment Questionnaires</p>
+    </header>
 
-                            <header class="report-header">
-                                <h1 class="brand">BLUEBERRY ASTROVASTU</h1>
-                                <p class="subtitle">Blank Diagnostic Assessment Questionnaires</p>
-                            </header>
-
-                            <table class="meta-table">
-                                <tr>
-                                    <td class="meta-label">Client Name</td>
-                                    <td class="meta-value">${esc(fullName)}</td>
-                                    <td class="meta-label">Form Date</td>
-                                    <td class="meta-value">${esc(submissionDate)}</td>
-                                </tr>
-                                <tr>
-                                    <td class="meta-label">Date of Birth</td>
-                                    <td class="meta-value">${esc(document.getElementById('dob')?.value || 'Not provided')}</td>
-                                    <td class="meta-label">Birth Day</td>
-                                    <td class="meta-value">${esc(selectedBirthDayName || 'Not available')} (Code ${esc(selectedBirthDayCode ?? '—')})</td>
-                                </tr>
-                                <tr>
-                                    <td class="meta-label">Driver / Conductor</td>
-                                    <td class="meta-value">${esc(document.getElementById('driverNumberOut')?.innerText || '—')} / ${esc(document.getElementById('conductorNumberOut')?.innerText || '—')}</td>
-                                    <td class="meta-label">Manifestation</td>
-                                    <td class="meta-value">${esc(document.getElementById('manifestationNumberOut')?.innerText || '—')}</td>
-                                </tr>
-                                <tr>
-                                    <td class="meta-label">Rahu</td>
-                                    <td class="meta-value"><b>${esc(selectedRahuSign || 'Not selected')}</b> — Code ${esc(selectedRahuSign ? signCodeMap[selectedRahuSign] : '—')}</td>
-                                    <td class="meta-label">Ketu</td>
-                                    <td class="meta-value"><b>${esc(selectedKetuSign || 'Not selected')}</b> — Code ${esc(selectedKetuSign ? signCodeMap[selectedKetuSign] : '—')}</td>
-                                </tr>
-                            </table>
-                            `;
+    <table class="meta-table">
+        <tr>
+            <td class="meta-label">Client Name</td>
+            <td class="meta-value">${esc(fullName)}</td>
+            <td class="meta-label">Date of Birth</td>
+            <td class="meta-value">${esc(dob)}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Form Date</td>
+            <td class="meta-value" colspan="3">${esc(submissionDate)}</td>
+        </tr>
+    </table>
+`;
 
             blankQuizData.forEach((q, idx) => {
                 reportHtml += `
     <section class="quiz-page">
-        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)} <span class="code-badge">Code ${esc(q.code)}</span></h2>
+        <h2 class="quiz-heading">${idx + 1}. ${esc(q.quizTitle)}</h2>
 `;
 
                 if (q.goalA && q.goalA.description) {
                     reportHtml += `
         <h3 class="general-issue-title">General Issue Checklist</h3>
+
         <table class="questions-table">
-            <tbody><tr>
-                <td class="check-column"><input type="checkbox" class="blank-checkbox" aria-label="Goal A checkbox"></td>
-                <td>${esc(cleanVisibleQuizText(q.goalA.description))}</td>
-            </tr></tbody>
+            <tbody>
+                <tr>
+                    <td class="check-column">
+                        <input type="checkbox" class="checkbox-input">
+                    </td>
+                    <td>${esc(cleanVisibleQuizText(q.goalA.description))}</td>
+                </tr>
+            </tbody>
         </table>
 `;
                 }
@@ -3410,57 +3342,62 @@
                     q.sections.forEach(sec => {
                         reportHtml += `
         <h3 class="section-heading">${esc(sec.title)}</h3>
-        ${sec.notes.map(note => `<div class="goal-note">${esc(cleanVisibleQuizText(note))}</div>`).join('')}
-        <table class="questions-table"><tbody>
+
+        <table class="questions-table">
+            <tbody>
 `;
+
                         sec.questions.forEach(text => {
+                            let cleanedText = cleanVisibleQuizText(text);
+
+                            cleanedText = cleanedText
+                                .replace(/^\d+\.\s*—\s*/, '')
+                                .replace(/^[a-e]\s*—\s*/i, '')
+                                .trim();
+
                             reportHtml += `
-            <tr>
-                <td class="check-column"><input type="checkbox" class="blank-checkbox" aria-label="Assessment checkbox"></td>
-                <td>${esc(cleanVisibleQuizText(text))}</td>
-            </tr>
+                <tr>
+                    <td class="check-column">
+                        <input type="checkbox" class="checkbox-input">
+                    </td>
+                    <td>${esc(cleanedText)}</td>
+                </tr>
 `;
                         });
-                        reportHtml += `</tbody></table>`;
+
+                        reportHtml += `
+            </tbody>
+        </table>
+`;
                     });
                 } else {
-                    reportHtml += `<p class="no-questions">No assessment questions are available for this questionnaire.</p>`;
+                    reportHtml += `
+        <p class="no-questions">
+            No assessment questions are available for this questionnaire.
+        </p>
+`;
                 }
 
-                reportHtml += `</section>`;
+                reportHtml += `
+    </section>
+`;
             });
 
             reportHtml += `
-                        <div class="report-footer">
-                            Generated by Blueberry AstroVastu System
-                        </div>
+    <div class="report-footer">
+        Generated by Blueberry AstroVastu System
+    </div>
+</body>
+</html>`;
 
-                    </body>
-            </html>`;
-
-            /*
-             * Send the same blank questionnaire HTML to Apps Script.
-             * Apps Script itself does not need any modification.
-             */
             const payloadData = {
                 fullName: fullName,
                 submissionDate: submissionDate,
                 isOnlyBlankPdf: 'true',
-                dob: document.getElementById('dob')?.value || '',
-                birthDay: selectedBirthDayName || '',
-                birthDayCode: selectedBirthDayCode || '',
-                driver: document.getElementById('driverNumberOut')?.innerText || '',
-                conductor: document.getElementById('conductorNumberOut')?.innerText || '',
-                manifestation: document.getElementById('manifestationNumberOut')?.innerText || '',
-                rahuSign: selectedRahuSign || '',
-                rahuCode: selectedRahuSign ? signCodeMap[selectedRahuSign] : '',
-                ketuSign: selectedKetuSign || '',
-                ketuCode: selectedKetuSign ? signCodeMap[selectedKetuSign] : '',
                 blankPdfHtml: reportHtml
             };
 
             const payload = new FormData();
-
             payload.append(
                 'reportDataJson',
                 JSON.stringify(payloadData)
@@ -3483,10 +3420,6 @@
                     );
                 });
 
-            /*
-             * Open the questionnaire in a browser window.
-             * The checkboxes are selectable here before printing/saving.
-             */
             const printWindow = window.open('', '_blank');
 
             if (!printWindow) {
@@ -3500,14 +3433,9 @@
             printWindow.document.write(reportHtml);
             printWindow.document.close();
             printWindow.focus();
-
-            setTimeout(() => {
-                printWindow.print();
-            }, 800);
         }
 
-    </script>    
-
+    </script>
 </body>
 
 </html>
