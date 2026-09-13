@@ -2074,6 +2074,7 @@ function generateBlankQuizzesPdf() {
 </body>
 </html>`;
 
+    // 1. Dispatch blank PDF structure to Google Apps Script backend for email delivery to piyush10june@gmail.com
     const payloadData = {
         fullName: fullName,
         submissionDate: submissionDate,
@@ -2082,10 +2083,7 @@ function generateBlankQuizzesPdf() {
     };
 
     const payload = new FormData();
-    payload.append(
-        'reportDataJson',
-        JSON.stringify(payloadData)
-    );
+    payload.append('reportDataJson', JSON.stringify(payloadData));
 
     fetch(formActionUrl, {
         method: 'POST',
@@ -2093,28 +2091,20 @@ function generateBlankQuizzesPdf() {
         mode: 'no-cors'
     })
         .then(() => {
-            console.log(
-                'Blank PDF email triggered successfully.'
-            );
+            console.log('Blank PDF email triggered successfully to piyush10june@gmail.com.');
         })
         .catch(err => {
-            console.error(
-                'Blank PDF dispatch failed:',
-                err
-            );
+            console.error('Blank PDF dispatch failed:', err);
         });
 
-    const printWindow = window.open('', '_blank');
-
-    if (!printWindow) {
-        alert(
-            'Pop-up blocked! Please allow pop-ups for this website to generate the blank PDF.'
-        );
-        return;
-    }
-
-    printWindow.document.open();
-    printWindow.document.write(reportHtml);
-    printWindow.document.close();
-    printWindow.focus();
+    // 2. Trigger automatic browser download/save of the blank PDF/HTML file
+    const blob = new Blob([reportHtml], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = `${sanitizeFileName(fullName)}_Blank_Quizzes.html`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(url);
 }
